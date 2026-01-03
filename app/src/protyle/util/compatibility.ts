@@ -389,7 +389,7 @@ export const getLocalStorage = (cb: () => void) => {
             row: "",
             layout: 0,
         };
-        Constants.SIYUAN_ASSETS_SEARCH.forEach(type => {
+        Constants.SHEHAB_ASSETS_SEARCH.forEach(type => {
             defaultStorage[Constants.LOCAL_SEARCHASSET].types[type] = true;
         });
         defaultStorage[Constants.LOCAL_SEARCHKEYS] = {
@@ -485,7 +485,7 @@ export const getLocalStorage = (cb: () => void) => {
                 embedBlock: window.shehab.config.search.embedBlock,
                 databaseBlock: window.shehab.config.search.databaseBlock,
             },
-            replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+            replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
         };
         defaultStorage[Constants.LOCAL_ZOOM] = 1;
         defaultStorage[Constants.LOCAL_MOVE_PATH] = {keys: [], k: ""};
@@ -517,7 +517,7 @@ export const getLocalStorage = (cb: () => void) => {
         // 搜索数据添加 replaceTypes 兼容
         if (!window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes ||
             Object.keys(window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes).length === 0) {
-            window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes = Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES);
+            window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes = Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES);
         }
         cb();
     });
@@ -528,7 +528,7 @@ export const setStorageVal = (key: string, val: any, cb?: () => void) => {
         return;
     }
     fetchPost("/api/storage/setLocalStorageVal", {
-        app: Constants.SIYUAN_APPID,
+        app: Constants.SHEHAB_APPID,
         key,
         val,
     }, () => {

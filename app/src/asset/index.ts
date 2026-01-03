@@ -87,11 +87,11 @@ export class Asset extends Model {
 
     private render() {
         const type = this.path.substr(this.path.lastIndexOf(".")).toLowerCase().split("?")[0];
-        if (Constants.SIYUAN_ASSETS_IMAGE.includes(type)) {
+        if (Constants.SHEHAB_ASSETS_IMAGE.includes(type)) {
             this.element.innerHTML = `<div class="asset"><img src="${this.path.startsWith("file") ? this.path : document.getElementById("baseURL").getAttribute("href") + "/" + this.path}"></div>`;
-        } else if (Constants.SIYUAN_ASSETS_AUDIO.includes(type)) {
+        } else if (Constants.SHEHAB_ASSETS_AUDIO.includes(type)) {
             this.element.innerHTML = `<div class="asset"><audio controls="controls" src="${this.path.startsWith("file") ? this.path : document.getElementById("baseURL").getAttribute("href") + "/" + this.path}"></audio></div>`;
-        } else if (Constants.SIYUAN_ASSETS_VIDEO.includes(type)) {
+        } else if (Constants.SHEHAB_ASSETS_VIDEO.includes(type)) {
             this.element.innerHTML = `<div class="asset"><video controls="controls" src="${this.path.startsWith("file") ? this.path : document.getElementById("baseURL").getAttribute("href") + "/" + this.path}"></video></div>`;
         } else if (type === ".pdf") {
             /// #if !MOBILE

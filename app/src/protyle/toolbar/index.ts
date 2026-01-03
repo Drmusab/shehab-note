@@ -1818,7 +1818,7 @@ ${item.name}
             });
         }
 
-        if (!Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(currentLang)) {
+        if (!Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(currentLang)) {
             window.shehab.storage[Constants.LOCAL_CODELANG] = currentLang;
             setStorageVal(Constants.LOCAL_CODELANG, window.shehab.storage[Constants.LOCAL_CODELANG]);
         }
@@ -1835,7 +1835,7 @@ ${item.name}
                 });
                 item.textContent = selectedLang === window.shehab.languages.clear ? "" : selectedLang;
                 const editElement = getContenteditableElement(nodeElement);
-                if (Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(currentLang)) {
+                if (Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(currentLang)) {
                     nodeElement.dataset.content = editElement.textContent.trim();
                     nodeElement.dataset.subtype = currentLang;
                     nodeElement.className = "render-node";

@@ -13,7 +13,7 @@ import {App} from "../index";
 export const fetchNewDailyNote = (app: App, notebook: string) => {
     fetchPost("/api/filetree/createDailyNote", {
         notebook,
-        app: Constants.SIYUAN_APPID,
+        app: Constants.SHEHAB_APPID,
     }, (response) => {
         /// #if MOBILE
         openMobileFileById(app, response.data.id, [Constants.CB_GET_SCROLL, Constants.CB_GET_FOCUS]);
@@ -97,7 +97,7 @@ export const mountHelp = () => {
     fetchPost("/api/notebook/removeNotebook", {notebook: notebookId, callback: Constants.CB_MOUNT_REMOVE}, () => {
         fetchPost("/api/notebook/openNotebook", {
             notebook: notebookId,
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
         });
     });
 };

@@ -74,11 +74,11 @@ export const enter = (blockElement: HTMLElement, range: Range, protyle: IProtyle
             if (languageElement) {
                 if (window.shehab.storage[Constants.LOCAL_CODELANG] && languageElement.textContent === "") {
                     languageElement.textContent = window.shehab.storage[Constants.LOCAL_CODELANG];
-                } else if (!Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(languageElement.textContent)) {
+                } else if (!Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(languageElement.textContent)) {
                     window.shehab.storage[Constants.LOCAL_CODELANG] = languageElement.textContent;
                     setStorageVal(Constants.LOCAL_CODELANG, window.shehab.storage[Constants.LOCAL_CODELANG]);
                 }
-                if (Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(languageElement.textContent)) {
+                if (Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(languageElement.textContent)) {
                     blockElement.dataset.content = "";
                     blockElement.dataset.subtype = languageElement.textContent;
                     blockElement.className = "render-node";

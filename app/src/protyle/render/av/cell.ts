@@ -216,7 +216,7 @@ const transformCellValue = (colType: TAVCol, value: IAVCellValue): IAVCellValue 
     } else if (colType === "mAsset") {
         const content = getCellValueContent(value).toString();
         newValue.mAsset = [{
-            type: Constants.SIYUAN_ASSETS_IMAGE.includes(pathPosix().extname(content).toLowerCase()) ? "image" : "file",
+            type: Constants.SHEHAB_ASSETS_IMAGE.includes(pathPosix().extname(content).toLowerCase()) ? "image" : "file",
             content,
             name: "",
         }];
@@ -324,7 +324,7 @@ export const genCellValue = (colType: TAVCol, value: string | any) => {
             cellValue = {
                 type: colType,
                 mAsset: [{
-                    type: Constants.SIYUAN_ASSETS_IMAGE.includes(type) ? "image" : "file",
+                    type: Constants.SHEHAB_ASSETS_IMAGE.includes(type) ? "image" : "file",
                     content: value,
                     name: "",
                 }]

@@ -35,7 +35,7 @@ export class Menus {
             }
             if (target.classList.contains("b3-text-field") || (target.tagName === "INPUT" && (target as HTMLInputElement).type === "text")) {
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CONTEXT_MENU, {
+                ipcRenderer.send(Constants.SHEHAB_CONTEXT_MENU, {
                     undo: window.shehab.languages.undo,
                     redo: window.shehab.languages.redo,
                     copy: window.shehab.languages.copy,

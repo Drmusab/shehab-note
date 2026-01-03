@@ -65,7 +65,7 @@ export const initWindowEvent = (app: App) => {
             scrollTarget = fileElement;
         }
         if (hasClosestByClassName(event.target, "layout-tab-container__drag") ||
-            event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
+            event.dataTransfer.types.includes(Constants.SHEHAB_DROP_TAB)) {
             stopScrollAnimation();
             return;
         }
@@ -76,7 +76,7 @@ export const initWindowEvent = (app: App) => {
             scrollElement = scrollTarget.querySelector(".protyle-content");
         }
         if (scrollTarget && scrollElement) {
-            if ((event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE) &&
+            if ((event.dataTransfer.types.includes(Constants.SHEHAB_DROP_FILE) &&
                     hasClosestByClassName(event.target, "layout-tab-bar")) ||
                 (event.dataTransfer.types.includes("Files") && scrollTarget.classList.contains("sy__file"))) {
                 stopScrollAnimation();

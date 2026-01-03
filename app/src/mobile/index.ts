@@ -36,9 +36,9 @@ class App {
     public appId: string;
 
     constructor() {
-        registerServiceWorker(`${Constants.SERVICE_WORKER_PATH}?v=${Constants.SIYUAN_VERSION}`);
+        registerServiceWorker(`${Constants.SERVICE_WORKER_PATH}?v=${Constants.SHEHAB_VERSION}`);
         addBaseURL();
-        this.appId = Constants.SIYUAN_APPID;
+        this.appId = Constants.SHEHAB_APPID;
         window.shehab = {
             zIndex: 10,
             notebooks: [],
@@ -94,15 +94,15 @@ class App {
             updateCardHV();
         });
         fetchPost("/api/system/getConf", {}, async (confResponse) => {
-            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}`, "protyleLuteScript");
-            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}`, "protyleWcHtmlScript");
+            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SHEHAB_VERSION}`, "protyleLuteScript");
+            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SHEHAB_VERSION}`, "protyleWcHtmlScript");
             window.shehab.config = confResponse.data.conf;
             updateControlAlt();
             window.shehab.isPublish = confResponse.data.isPublish;
             correctHotkey(siyuanApp);
             await loadPlugins(this);
             getLocalStorage(() => {
-                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SIYUAN_VERSION}`, (lauguages: IObject) => {
+                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SHEHAB_VERSION}`, (lauguages: IObject) => {
                     window.shehab.languages = lauguages;
                     window.shehab.menus = new Menus(this);
                     document.title = window.shehab.languages.siyuanNote;

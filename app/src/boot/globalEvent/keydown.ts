@@ -1753,7 +1753,7 @@ export const sendGlobalShortcut = (app: App) => {
             }
         });
     });
-    ipcRenderer.send(Constants.SIYUAN_HOTKEY, {
+    ipcRenderer.send(Constants.SHEHAB_HOTKEY, {
         languages: window.shehab.languages["_trayMenu"],
         hotkeys
     });
@@ -1763,14 +1763,14 @@ export const sendGlobalShortcut = (app: App) => {
 
 export const sendUnregisterGlobalShortcut = (app: App) => {
     /// #if !BROWSER
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd: "unregisterGlobalShortcut",
         accelerator: window.shehab.config.keymap.general.toggleWin.custom
     });
     app.plugins.forEach(plugin => {
         plugin.commands.forEach(command => {
             if (command.globalCallback) {
-                ipcRenderer.send(Constants.SIYUAN_CMD, {
+                ipcRenderer.send(Constants.SHEHAB_CMD, {
                     cmd: "unregisterGlobalShortcut",
                     accelerator: command.customHotkey
                 });

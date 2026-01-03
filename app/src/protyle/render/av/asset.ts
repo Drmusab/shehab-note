@@ -42,7 +42,7 @@ export const bindAssetEvent = (options: {
                 value.push({
                     name: key,
                     content: resData.data.succMap[key],
-                    type: Constants.SIYUAN_ASSETS_IMAGE.includes(pathPosix().extname(resData.data.succMap[key]).toLowerCase()) ? "image" : "file"
+                    type: Constants.SHEHAB_ASSETS_IMAGE.includes(pathPosix().extname(resData.data.succMap[key]).toLowerCase()) ? "image" : "file"
                 });
             });
             updateAssetCell({
@@ -434,7 +434,7 @@ export const dragUpload = (files: string[], protyle: IProtyle, cellElement: HTML
             Object.keys(response.data.succMap).forEach(key => {
                 const type = pathPosix().extname(key).toLowerCase();
                 const name = key.substring(0, key.length - type.length);
-                if (Constants.SIYUAN_ASSETS_IMAGE.includes(type)) {
+                if (Constants.SHEHAB_ASSETS_IMAGE.includes(type)) {
                     addValue.push({
                         type: "image",
                         name,

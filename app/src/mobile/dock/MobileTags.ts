@@ -136,7 +136,7 @@ export class MobileTags {
         this.element.lastElementChild.classList.remove("fn__none");
         fetchPost("/api/tag/getTag", {
             sort: window.shehab.config.tag.sort,
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
             ignoreMaxListHint,
         }, response => {
             if (this.openNodes) {

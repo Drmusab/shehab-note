@@ -416,7 +416,7 @@ const initSearchEvent = (app: App, element: Element, config: Config.IUILayoutTab
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config);
                 }
                 if (target.parentElement.parentElement.childElementCount === 1) {
@@ -562,7 +562,7 @@ const initSearchEvent = (app: App, element: Element, config: Config.IUILayoutTab
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config);
                     element.querySelector("#criteria .b3-chip--current")?.classList.remove("b3-chip--current");
                 });

@@ -59,7 +59,7 @@ export class Protyle {
      * @param options Protyle 参数
      */
     constructor(app: App, id: HTMLElement, options?: IProtyleOptions) {
-        this.version = Constants.SIYUAN_VERSION;
+        this.version = Constants.SHEHAB_VERSION;
         let pluginsOptions: IProtyleOptions = options;
         app.plugins.forEach(item => {
             if (item.protyleOptions) {

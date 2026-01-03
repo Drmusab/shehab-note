@@ -177,7 +177,7 @@ export class Gutter {
             });
             buttonElement.style.opacity = "0.38";
             window.shehab.dragElement = avElement as HTMLElement || protyle.wysiwyg.element;
-            event.dataTransfer.setData(`${Constants.SIYUAN_DROP_GUTTER}${buttonElement.getAttribute("data-type")}${Constants.ZWSP}${buttonElement.getAttribute("data-subtype")}${Constants.ZWSP}${selectIds}${Constants.ZWSP}${window.shehab.config.system.workspaceDir}`,
+            event.dataTransfer.setData(`${Constants.SHEHAB_DROP_GUTTER}${buttonElement.getAttribute("data-type")}${Constants.ZWSP}${buttonElement.getAttribute("data-subtype")}${Constants.ZWSP}${selectIds}${Constants.ZWSP}${window.shehab.config.system.workspaceDir}`,
                 protyle.wysiwyg.element.innerHTML);
         });
         this.element.addEventListener("dragend", () => {

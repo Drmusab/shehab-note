@@ -607,7 +607,7 @@ export class MobileFiles extends Model {
                 const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                     notebook: data.box,
                     path: item.path,
-                    app: Constants.SIYUAN_APPID,
+                    app: Constants.SHEHAB_APPID,
                 });
                 newLiElement = await this.selectItem(response.data.box, filePath, response.data, setStorage, isSetCurrent);
             }
@@ -644,7 +644,7 @@ export class MobileFiles extends Model {
         fetchPost("/api/filetree/listDocsByPath", {
             notebook: notebookId,
             path: liElement.getAttribute("data-path"),
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
         }, response => {
             if (response.data.path === "/" && response.data.files.length === 0) {
                 newFile({
@@ -701,7 +701,7 @@ export class MobileFiles extends Model {
             const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                 notebook: notebookId,
                 path: currentPath,
-                app: Constants.SIYUAN_APPID,
+                app: Constants.SHEHAB_APPID,
             });
             liElement = await this.onLsSelect(response.data, filePath, setStorage, isSetCurrent);
         }

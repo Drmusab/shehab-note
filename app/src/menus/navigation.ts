@@ -741,7 +741,7 @@ export const genImportMenu = (notebookId: string, pathString: string) => {
                 if (isDoc) {
                     filters = [{name: "Markdown", extensions: ["md", "markdown"]}];
                 }
-                const localPath = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+                const localPath = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                     cmd: "showOpenDialog",
                     defaultPath: window.shehab.config.system.homeDir,
                     filters,

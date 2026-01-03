@@ -88,7 +88,7 @@ export const appearance = {
             <div class="fn__flex-center fn__flex-1 ft__on-surface">${window.shehab.languages.appearance2}</div>
             <span class="fn__space"></span>
             <select id="codeBlockThemeLight" class="b3-select fn__size200">
-                ${genOptions(Constants.SIYUAN_CONFIG_APPEARANCE_LIGHT_CODE, window.shehab.config.appearance.codeBlockThemeLight)}
+                ${genOptions(Constants.SHEHAB_CONFIG_APPEARANCE_LIGHT_CODE, window.shehab.config.appearance.codeBlockThemeLight)}
             </select>
         </div>
         <div class="fn__hr"></div>
@@ -96,7 +96,7 @@ export const appearance = {
             <div class="fn__flex-center fn__flex-1 ft__on-surface">${window.shehab.languages.appearance3}</div>
             <span class="fn__space"></span>
             <select id="codeBlockThemeDark" class="b3-select fn__size200">
-                ${genOptions(Constants.SIYUAN_CONFIG_APPEARANCE_DARK_CODE, window.shehab.config.appearance.codeBlockThemeDark)}
+                ${genOptions(Constants.SHEHAB_CONFIG_APPEARANCE_DARK_CODE, window.shehab.config.appearance.codeBlockThemeDark)}
             </select>
         </div>
     </div>

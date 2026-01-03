@@ -212,8 +212,8 @@ export const globalCommand = (command: string, app: App) => {
             return true;
         case "toggleWin":
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_CMD, "hide");
-            ipcRenderer.send(Constants.SIYUAN_CMD, "minimize");
+            ipcRenderer.send(Constants.SHEHAB_CMD, "hide");
+            ipcRenderer.send(Constants.SHEHAB_CMD, "minimize");
             /// #endif
             return true;
     }

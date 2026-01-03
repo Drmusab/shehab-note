@@ -35,20 +35,20 @@ import {getAllEditor} from "../layout/getAll";
 export const onGetConfig = (isStart: boolean, app: App) => {
     correctHotkey(app);
     /// #if !BROWSER
-    ipcRenderer.invoke(Constants.SIYUAN_INIT, {
+    ipcRenderer.invoke(Constants.SHEHAB_INIT, {
         languages: window.shehab.languages["_trayMenu"],
         workspaceDir: window.shehab.config.system.workspaceDir,
         port: location.port
     });
     webFrame.setZoomFactor(window.shehab.storage[Constants.LOCAL_ZOOM]);
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd: "setTrafficLightPosition",
         zoom: window.shehab.storage[Constants.LOCAL_ZOOM],
         position: Constants.SIZE_ZOOM.find((item) => item.zoom === window.shehab.storage[Constants.LOCAL_ZOOM]).position
     });
     /// #endif
     if (!window.shehab.config.uiLayout || (window.shehab.config.uiLayout && !window.shehab.config.uiLayout.left)) {
-        window.shehab.config.uiLayout = Constants.SIYUAN_EMPTY_LAYOUT;
+        window.shehab.config.uiLayout = Constants.SHEHAB_EMPTY_LAYOUT;
     }
     initWindowEvent(app);
     fetchPost("/api/system/getEmojiConf", {}, response => {
@@ -105,10 +105,10 @@ const winOnMaxRestore = async () => {
     /// #if !BROWSER
     const maxBtnElement = document.getElementById("maxWindow");
     const restoreBtnElement = document.getElementById("restoreWindow");
-    const isFullScreen = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+    const isFullScreen = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
         cmd: "isFullScreen",
     });
-    const isMaximized = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+    const isMaximized = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
         cmd: "isMaximized",
     });
     if (isMaximized || isFullScreen) {
@@ -123,7 +123,7 @@ const winOnMaxRestore = async () => {
 
 export const initWindow = async (app: App) => {
     /// #if !BROWSER
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd: "setSpellCheckerLanguages",
         languages: window.shehab.config.editor.spellcheckLanguages
     });
@@ -133,11 +133,11 @@ export const initWindow = async (app: App) => {
                 if (window.shehab.config.appearance.closeButtonBehavior === 1 && !close) {
                     // 最小化
                     if ("windows" === window.shehab.config.system.os) {
-                        ipcRenderer.send(Constants.SIYUAN_CONFIG_TRAY, {
+                        ipcRenderer.send(Constants.SHEHAB_CONFIG_TRAY, {
                             languages: window.shehab.languages["_trayMenu"],
                         });
                     } else {
-                        ipcRenderer.send(Constants.SIYUAN_CMD, "closeButtonBehavior");
+                        ipcRenderer.send(Constants.SHEHAB_CMD, "closeButtonBehavior");
                     }
                 } else {
                     exitSiYuan();
@@ -147,8 +147,8 @@ export const initWindow = async (app: App) => {
         });
     };
 
-    ipcRenderer.send(Constants.SIYUAN_EVENT);
-    ipcRenderer.on(Constants.SIYUAN_EVENT, (event, cmd) => {
+    ipcRenderer.send(Constants.SHEHAB_EVENT);
+    ipcRenderer.on(Constants.SHEHAB_EVENT, (event, cmd) => {
         if (cmd === "focus") {
             // 由于 https://github.com/siyuan-note/siyuan/issues/10060 和新版 electron 应用切出再切进会保持光标，故移除 focus
             window.shehab.altIsPressed = false;
@@ -184,27 +184,27 @@ export const initWindow = async (app: App) => {
         }
     });
     if (!isWindow()) {
-        ipcRenderer.on(Constants.SIYUAN_OPEN_URL, (event, url) => {
+        ipcRenderer.on(Constants.SHEHAB_OPEN_URL, (event, url) => {
             processSYLink(app, url);
         });
     }
-    ipcRenderer.on(Constants.SIYUAN_OPEN_FILE, (event, data) => {
+    ipcRenderer.on(Constants.SHEHAB_OPEN_FILE, (event, data) => {
         if (!data.app) {
             data.app = app;
         }
         openFile(data);
     });
-    ipcRenderer.on(Constants.SIYUAN_SAVE_CLOSE, (event, close) => {
+    ipcRenderer.on(Constants.SHEHAB_SAVE_CLOSE, (event, close) => {
         if (isWindow()) {
             closeWindow(app);
         } else {
             winOnClose(close);
         }
     });
-    ipcRenderer.on(Constants.SIYUAN_SEND_WINDOWS, (e, ipcData: IWebSocketData) => {
+    ipcRenderer.on(Constants.SHEHAB_SEND_WINDOWS, (e, ipcData: IWebSocketData) => {
         onWindowsMsg(ipcData);
     });
-    ipcRenderer.on(Constants.SIYUAN_HOTKEY, (e, data) => {
+    ipcRenderer.on(Constants.SHEHAB_HOTKEY, (e, data) => {
         let matchCommand = false;
         app.plugins.find(item => {
             item.commands.find(command => {
@@ -219,7 +219,7 @@ export const initWindow = async (app: App) => {
             }
         });
     });
-    ipcRenderer.on(Constants.SIYUAN_EXPORT_PDF, async (e, ipcData) => {
+    ipcRenderer.on(Constants.SHEHAB_EXPORT_PDF, async (e, ipcData) => {
         const msgId = showMessage(window.shehab.languages.exporting, -1);
         window.shehab.storage[Constants.LOCAL_EXPORTPDF] = {
             removeAssets: ipcData.removeAssets,
@@ -246,7 +246,7 @@ export const initWindow = async (app: App) => {
 ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%page", "<span class=pageNumber></span>")}
 </div>`;
             }
-            const pdfData = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+            const pdfData = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "printToPDF",
                 pdfOptions: ipcData.pdfOptions,
                 webContentsId: ipcData.webContentsId
@@ -263,7 +263,7 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
                 savePath,
             }, () => {
                 fs.writeFileSync(pdfFilePath, pdfData);
-                ipcRenderer.send(Constants.SIYUAN_CMD, {cmd: "destroy", webContentsId: ipcData.webContentsId});
+                ipcRenderer.send(Constants.SHEHAB_CMD, {cmd: "destroy", webContentsId: ipcData.webContentsId});
                 fetchPost("/api/export/processPDF", {
                     id: ipcData.rootId,
                     merge: ipcData.mergeSubdocs,
@@ -305,9 +305,9 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
         } catch (e) {
             console.error(e);
             showMessage(window.shehab.languages.exportPDFLowMemory, 0, "error", msgId);
-            ipcRenderer.send(Constants.SIYUAN_CMD, {cmd: "destroy", webContentsId: ipcData.webContentsId});
+            ipcRenderer.send(Constants.SHEHAB_CMD, {cmd: "destroy", webContentsId: ipcData.webContentsId});
         }
-        ipcRenderer.send(Constants.SIYUAN_CMD, {cmd: "hide", webContentsId: ipcData.webContentsId});
+        ipcRenderer.send(Constants.SHEHAB_CMD, {cmd: "hide", webContentsId: ipcData.webContentsId});
     });
 
     if (isWindow()) {
@@ -322,11 +322,11 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
             if (pinElement.getAttribute("aria-label") === window.shehab.languages.pin) {
                 pinElement.querySelector("use").setAttribute("xlink:href", "#iconUnpin");
                 pinElement.setAttribute("aria-label", window.shehab.languages.unpin);
-                ipcRenderer.send(Constants.SIYUAN_CMD, "setAlwaysOnTopTrue");
+                ipcRenderer.send(Constants.SHEHAB_CMD, "setAlwaysOnTopTrue");
             } else {
                 pinElement.querySelector("use").setAttribute("xlink:href", "#iconPin");
                 pinElement.setAttribute("aria-label", window.shehab.languages.pin);
-                ipcRenderer.send(Constants.SIYUAN_CMD, "setAlwaysOnTopFalse");
+                ipcRenderer.send(Constants.SHEHAB_CMD, "setAlwaysOnTopFalse");
             }
         });
     }
@@ -363,10 +363,10 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
         const restoreBtnElement = document.getElementById("restoreWindow");
 
         restoreBtnElement.addEventListener("click", () => {
-            ipcRenderer.send(Constants.SIYUAN_CMD, "restore");
+            ipcRenderer.send(Constants.SHEHAB_CMD, "restore");
         });
         maxBtnElement.addEventListener("click", () => {
-            ipcRenderer.send(Constants.SIYUAN_CMD, "maximize");
+            ipcRenderer.send(Constants.SHEHAB_CMD, "maximize");
         });
 
         winOnMaxRestore();
@@ -376,7 +376,7 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
             if (minBtnElement.classList.contains("window-controls__item--disabled")) {
                 return;
             }
-            ipcRenderer.send(Constants.SIYUAN_CMD, "minimize");
+            ipcRenderer.send(Constants.SHEHAB_CMD, "minimize");
         });
         closeBtnElement.addEventListener("click", () => {
             if (isWindow()) {
@@ -387,7 +387,7 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
         });
     } else {
         const toolbarElement = document.getElementById("toolbar");
-        const isFullScreen = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+        const isFullScreen = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
             cmd: "isFullScreen",
         });
         if (isFullScreen && !isWindow()) {

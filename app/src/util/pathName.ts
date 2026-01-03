@@ -17,7 +17,7 @@ import {hasClosestByClassName} from "../protyle/util/hasClosest";
 
 export const useShell = (cmd: "showItemInFolder" | "openPath", filePath: string) => {
     /// #if !BROWSER
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd,
         filePath: filePath
     });
@@ -617,7 +617,7 @@ const getLeaf = (liElement: HTMLElement, flashcard: boolean) => {
         notebook: notebookId,
         path: liElement.getAttribute("data-path"),
         flashcard,
-        app: Constants.SIYUAN_APPID,
+        app: Constants.SHEHAB_APPID,
     }, response => {
         liElement.removeAttribute("data-loading");
         if (response.data.files.length === 0) {

@@ -186,7 +186,7 @@ export class Tag extends Model {
         element.classList.add("fn__rotate");
         fetchPost("/api/tag/getTag", {
             sort: window.shehab.config.tag.sort,
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
             ignoreMaxListHint
         }, response => {
             if (this.openNodes) {

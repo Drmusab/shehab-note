@@ -205,7 +205,7 @@ export const filterMenu = (config: Config.IUILayoutTabSearchConfig, cb: () => vo
 
 export const replaceFilterMenu = (config: Config.IUILayoutTabSearchConfig) => {
     let html = "";
-    Object.keys(Constants.SIYUAN_DEFAULT_REPLACETYPES).forEach((key: keyof Config.IUILayoutTabSearchConfigReplaceTypes) => {
+    Object.keys(Constants.SHEHAB_DEFAULT_REPLACETYPES).forEach((key: keyof Config.IUILayoutTabSearchConfigReplaceTypes) => {
         html += `<label class="fn__flex b3-label">
     <span class="fn__space"></span>
     <div class="fn__flex-1 fn__flex-center">

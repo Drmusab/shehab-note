@@ -98,7 +98,7 @@ ${genSVGBG()}
             if (window.shehab.user.userSiYuanProExpireTime === -1) {
                 // 终身会员
                 activeSubscriptionHTML = "";
-                subscriptionHTML = `<div class="b3-chip b3-chip--secondary">${Constants.SIYUAN_IMAGE_VIP}${window.shehab.languages.account12}</div>`;
+                subscriptionHTML = `<div class="b3-chip b3-chip--secondary">${Constants.SHEHAB_IMAGE_VIP}${window.shehab.languages.account12}</div>`;
             } else if (window.shehab.user.userSiYuanProExpireTime > 0) {
                 // 订阅中
                 const renewHTML = `<div class="fn__hr--b"></div>
@@ -484,7 +484,7 @@ ${renewHTML}<div class="fn__hr--b"></div>`;
         if (window.shehab.config.account.displayVIP) {
             if (window.shehab.user) {
                 if (window.shehab.user.userSiYuanProExpireTime === -1) { // 终身会员
-                    html = `<div class="toolbar__item ariaLabel" aria-label="${window.shehab.languages.account12}">${Constants.SIYUAN_IMAGE_VIP}</div>`;
+                    html = `<div class="toolbar__item ariaLabel" aria-label="${window.shehab.languages.account12}">${Constants.SHEHAB_IMAGE_VIP}</div>`;
                 } else if (window.shehab.user.userSiYuanProExpireTime > 0) { // 订阅中
                     if (window.shehab.user.userSiYuanSubscriptionPlan === 2) { // 试用订阅
                         html = `<div class="toolbar__item ariaLabel" aria-label="${window.shehab.languages.account3}"><svg><use xlink:href="#iconVIP"></use></svg></div>`;

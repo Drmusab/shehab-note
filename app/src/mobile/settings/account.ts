@@ -56,7 +56,7 @@ export const showAccountInfo = () => {
     let subscriptionHTML = "";
     if (window.shehab.user.userSiYuanProExpireTime === -1) {
         // 终身会员
-        subscriptionHTML = `<div class="b3-chip b3-chip--secondary">${Constants.SIYUAN_IMAGE_VIP}${window.shehab.languages.account12}</div>`;
+        subscriptionHTML = `<div class="b3-chip b3-chip--secondary">${Constants.SHEHAB_IMAGE_VIP}${window.shehab.languages.account12}</div>`;
     } else if (window.shehab.user.userSiYuanProExpireTime > 0) {
         // 订阅中
         const renewHTML = `<div class="fn__hr--b"></div>

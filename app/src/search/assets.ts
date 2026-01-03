@@ -302,7 +302,7 @@ export const assetMethodMenu = (target: HTMLElement, cb: () => void) => {
 
 const filterTypesHTML = (types: IObject) => {
     let html = "";
-    Constants.SIYUAN_ASSETS_SEARCH.sort((a: string, b: string) => {
+    Constants.SHEHAB_ASSETS_SEARCH.sort((a: string, b: string) => {
         return a.localeCompare(b);
     }).forEach((type: string) => {
         html += `<label class="fn__flex b3-label">

@@ -211,7 +211,7 @@ export const keymap = {
 </div>`;
     },
     _setkeymap(app: App) {
-        const data: Config.IKeymap = JSON.parse(JSON.stringify(Constants.SIYUAN_KEYMAP));
+        const data: Config.IKeymap = JSON.parse(JSON.stringify(Constants.SHEHAB_KEYMAP));
         const oldToggleWin = window.shehab.config.keymap.general.toggleWin.custom;
         keymap.element.querySelectorAll("label.b3-list-item input").forEach((item) => {
             const keys = item.getAttribute("data-key").split(Constants.ZWSP);
@@ -225,7 +225,7 @@ export const keymap = {
                             if (command.langKey === keys[2]) {
                                 /// #if !BROWSER
                                 if (command.globalCallback && command.customHotkey && command.customHotkey !== newHotkey) {
-                                    ipcRenderer.send(Constants.SIYUAN_CMD, {
+                                    ipcRenderer.send(Constants.SHEHAB_CMD, {
                                         cmd: "unregisterGlobalShortcut",
                                         accelerator: command.customHotkey
                                     });
@@ -247,12 +247,12 @@ export const keymap = {
             data
         }, () => {
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_CMD, {
+            ipcRenderer.send(Constants.SHEHAB_CMD, {
                 cmd: "writeLog",
                 msg: "user update keymap:" + JSON.stringify(window.shehab.config.keymap)
             });
             if (oldToggleWin !== window.shehab.config.keymap.general.toggleWin.custom) {
-                ipcRenderer.send(Constants.SIYUAN_CMD, {
+                ipcRenderer.send(Constants.SHEHAB_CMD, {
                     cmd: "unregisterGlobalShortcut",
                     accelerator: oldToggleWin
                 });
@@ -375,15 +375,15 @@ export const keymap = {
         keymap.element.querySelector("#keymapResetBtn").addEventListener("click", () => {
             confirmDialog("⚠️ " + window.shehab.languages.reset, window.shehab.languages.confirmReset, () => {
                 fetchPost("/api/setting/setKeymap", {
-                    data: Constants.SIYUAN_KEYMAP,
+                    data: Constants.SHEHAB_KEYMAP,
                 }, () => {
                     /// #if !BROWSER
-                    ipcRenderer.send(Constants.SIYUAN_CMD, {
+                    ipcRenderer.send(Constants.SHEHAB_CMD, {
                         cmd: "writeLog",
                         msg: "user reset keymap"
                     });
                     if (window.shehab.config.keymap.general.toggleWin.default !== window.shehab.config.keymap.general.toggleWin.custom) {
-                        ipcRenderer.send(Constants.SIYUAN_CMD, {
+                        ipcRenderer.send(Constants.SHEHAB_CMD, {
                             cmd: "unregisterGlobalShortcut",
                             accelerator: window.shehab.config.keymap.general.toggleWin.custom
                         });

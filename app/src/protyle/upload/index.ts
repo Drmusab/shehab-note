@@ -135,14 +135,14 @@ const genUploadedLabel = (responseText: string, protyle: IProtyle) => {
         const type = pathPosix().extname(key).toLowerCase();
         const filename = protyle.options.upload.filename(key);
         const name = filename.substring(0, filename.length - type.length);
-        hasImage = Constants.SIYUAN_ASSETS_IMAGE.includes(type);
+        hasImage = Constants.SHEHAB_ASSETS_IMAGE.includes(type);
         avAssets.push({
-            type: Constants.SIYUAN_ASSETS_IMAGE.includes(type) ? "image" : "file",
+            type: Constants.SHEHAB_ASSETS_IMAGE.includes(type) ? "image" : "file",
             content: path,
             name: name
         });
         successFileText += genAssetHTML(type, path, name, filename);
-        if (!Constants.SIYUAN_ASSETS_AUDIO.includes(type) && !Constants.SIYUAN_ASSETS_VIDEO.includes(type) &&
+        if (!Constants.SHEHAB_ASSETS_AUDIO.includes(type) && !Constants.SHEHAB_ASSETS_VIDEO.includes(type) &&
             keys.length - 1 !== index) {
             if (nodeElement && nodeElement.classList.contains("table")) {
                 successFileText += "<br>";

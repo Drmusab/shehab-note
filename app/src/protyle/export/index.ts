@@ -26,8 +26,8 @@ const getPluginStyle = async () => {
 
 const getIconScript = (servePath: string) => {
     const isBuiltInIcon = ["ant", "material"].includes(window.shehab.config.appearance.icon);
-    const html = isBuiltInIcon ? "" : `<script src="${servePath}appearance/icons/material/icon.js?v=${Constants.SIYUAN_VERSION}"></script>`;
-    return html + `<script src="${servePath}appearance/icons/${window.shehab.config.appearance.icon}/icon.js?v=${Constants.SIYUAN_VERSION}"></script>`;
+    const html = isBuiltInIcon ? "" : `<script src="${servePath}appearance/icons/material/icon.js?v=${Constants.SHEHAB_VERSION}"></script>`;
+    return html + `<script src="${servePath}appearance/icons/${window.shehab.config.appearance.icon}/icon.js?v=${Constants.SHEHAB_VERSION}"></script>`;
 };
 
 export const saveExport = (option: IExportOptions) => {
@@ -145,9 +145,9 @@ const renderPDF = async (id: string) => {
     const isDefault = (window.shehab.config.appearance.mode === 1 && window.shehab.config.appearance.themeDark === "midnight") || (window.shehab.config.appearance.mode === 0 && window.shehab.config.appearance.themeLight === "daylight");
     let themeStyle = "";
     if (!isDefault) {
-        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${window.shehab.config.appearance.themeLight}/theme.css?${Constants.SIYUAN_VERSION}"/>`;
+        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${window.shehab.config.appearance.themeLight}/theme.css?${Constants.SHEHAB_VERSION}"/>`;
     }
-    const currentWindowId = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+    const currentWindowId = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
         cmd: "getContentsId",
     });
     // data-theme-mode="light" https://github.com/siyuan-note/siyuan/issues/7379
@@ -160,9 +160,9 @@ const renderPDF = async (id: string) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" id="baseStyle" href="${servePath}stage/build/export/base.css?v=${Constants.SIYUAN_VERSION}"/>
-    <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="${servePath}appearance/themes/daylight/theme.css?v=${Constants.SIYUAN_VERSION}"/>
-    <script src="${servePath}stage/protyle/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}"></script>
+    <link rel="stylesheet" type="text/css" id="baseStyle" href="${servePath}stage/build/export/base.css?v=${Constants.SHEHAB_VERSION}"/>
+    <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="${servePath}appearance/themes/daylight/theme.css?v=${Constants.SHEHAB_VERSION}"/>
+    <script src="${servePath}stage/protyle/js/protyle-html.js?v=${Constants.SHEHAB_VERSION}"></script>
     ${themeStyle}
     <title>${window.shehab.languages.export} PDF</title>
     <style>
@@ -356,8 +356,8 @@ const renderPDF = async (id: string) => {
     <div class="fn__loading" style="left:0;height:100vh"><img width="48px" src="${servePath}stage/loading-pure.svg"></div>
 </div>
 ${getIconScript(servePath)}
-<script src="${servePath}stage/build/export/protyle-method.js?${Constants.SIYUAN_VERSION}"></script>
-<script src="${servePath}stage/protyle/js/lute/lute.min.js?${Constants.SIYUAN_VERSION}"></script>    
+<script src="${servePath}stage/build/export/protyle-method.js?${Constants.SHEHAB_VERSION}"></script>
+<script src="${servePath}stage/protyle/js/lute/lute.min.js?${Constants.SHEHAB_VERSION}"></script>    
 <script>
     const previewElement = document.getElementById('preview');
     const fixBlockWidth = () => {
@@ -600,7 +600,7 @@ ${getIconScript(servePath)}
         });
         actionElement.querySelector('.b3-button--cancel').addEventListener('click', () => {
             const {ipcRenderer}  = require("electron");
-            ipcRenderer.send("${Constants.SIYUAN_CMD}", "destroy")
+            ipcRenderer.send("${Constants.SHEHAB_CMD}", "destroy")
         });
         const buildExportConfig = (unPagedPageSize) => {
             const pageSize = actionElement.querySelector("#pageSize").value;
@@ -649,7 +649,7 @@ ${getIconScript(servePath)}
                     return pageSizes[actionElement.querySelector("#pageSize").value];
                 };
                 const previewHeight = previewElement.scrollHeight / 96 - (parseFloat(document.querySelector("#marginsTop").value) || 0) - (parseFloat(document.querySelector("#marginsBottom").value) || 0);
-                ipcRenderer.send("${Constants.SIYUAN_EXPORT_PDF}", buildExportConfig(actionElement.querySelector("#landscape").checked ? {
+                ipcRenderer.send("${Constants.SHEHAB_EXPORT_PDF}", buildExportConfig(actionElement.querySelector("#landscape").checked ? {
                     height: getPageSizeDimensions().height,
                     width: previewHeight,
                 } : {
@@ -657,7 +657,7 @@ ${getIconScript(servePath)}
                     height: previewHeight,
                 }));
             } else {
-                ipcRenderer.send("${Constants.SIYUAN_EXPORT_PDF}", buildExportConfig());
+                ipcRenderer.send("${Constants.SHEHAB_EXPORT_PDF}", buildExportConfig());
             }
             previewElement.classList.add("exporting");
             previewElement.style.zoom = "";
@@ -671,7 +671,7 @@ ${getIconScript(servePath)}
         window.addEventListener("keydown", (event) => {
             if (event.key === "Escape") {
                 const {ipcRenderer}  = require("electron");
-                ipcRenderer.send("${Constants.SIYUAN_CMD}", "destroy")
+                ipcRenderer.send("${Constants.SHEHAB_CMD}", "destroy")
                 event.preventDefault();
             }
         })
@@ -680,7 +680,7 @@ ${getIconScript(servePath)}
 ${getSnippetJS()}
 </body></html>`;
     fetchPost("/api/export/exportTempContent", {content: html}, (response) => {
-        ipcRenderer.send(Constants.SIYUAN_EXPORT_NEWWINDOW, response.data.url);
+        ipcRenderer.send(Constants.SHEHAB_EXPORT_NEWWINDOW, response.data.url);
     });
 };
 
@@ -705,7 +705,7 @@ const getExportPath = (option: IExportOptions, removeAssets?: boolean, mergeSubd
                 break;
         }
 
-        const result = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+        const result = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
             cmd: "showOpenDialog",
             title: window.shehab.languages.export + " " + exportType,
             properties: ["createDirectory", "openDirectory"],
@@ -756,7 +756,7 @@ export const onExport = async (data: IWebSocketData, filePath: string, servePath
     const isDefault = (window.shehab.config.appearance.mode === 1 && window.shehab.config.appearance.themeDark === "midnight") || (window.shehab.config.appearance.mode === 0 && window.shehab.config.appearance.themeLight === "daylight");
     let themeStyle = "";
     if (!isDefault) {
-        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${themeName}/theme.css?${Constants.SIYUAN_VERSION}"/>`;
+        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${themeName}/theme.css?${Constants.SHEHAB_VERSION}"/>`;
     }
     const screenWidth = getScreenWidth();
     const isInMobile = isInAndroid() || isInHarmony() || isInIOS();
@@ -774,12 +774,12 @@ export const onExport = async (data: IWebSocketData, filePath: string, servePath
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" id="baseStyle" href="${servePath}stage/build/export/base.css?v=${Constants.SIYUAN_VERSION}"/>
-    <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="${servePath}appearance/themes/${themeName}/theme.css?v=${Constants.SIYUAN_VERSION}"/>
-    <script src="${servePath}stage/protyle/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}"></script>
+    <link rel="stylesheet" type="text/css" id="baseStyle" href="${servePath}stage/build/export/base.css?v=${Constants.SHEHAB_VERSION}"/>
+    <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="${servePath}appearance/themes/${themeName}/theme.css?v=${Constants.SHEHAB_VERSION}"/>
+    <script src="${servePath}stage/protyle/js/protyle-html.js?v=${Constants.SHEHAB_VERSION}"></script>
     ${themeStyle}
     <title>${data.data.name}</title>
-    <!-- Exported by SiYuan v${Constants.SIYUAN_VERSION} -->
+    <!-- Exported by SiYuan v${Constants.SHEHAB_VERSION} -->
     <style>
         body {font-family: var(--b3-font-family);background-color: var(--b3-theme-background);color: var(--b3-theme-on-background)}
         ${await setInlineStyle(false, servePath)}
@@ -792,8 +792,8 @@ export const onExport = async (data: IWebSocketData, filePath: string, servePath
 <div class="${["htmlmd", "word"].includes(exportOption.type) ? "b3-typography" : "protyle-wysiwyg" + (window.shehab.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : "")}" 
 style="max-width: 800px;margin: 0 auto;" id="preview">${data.data.content}</div>
 ${getIconScript(servePath)}
-<script src="${servePath}stage/build/export/protyle-method.js?v=${Constants.SIYUAN_VERSION}"></script>
-<script src="${servePath}stage/protyle/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}"></script>  
+<script src="${servePath}stage/build/export/protyle-method.js?v=${Constants.SHEHAB_VERSION}"></script>
+<script src="${servePath}stage/protyle/js/lute/lute.min.js?v=${Constants.SHEHAB_VERSION}"></script>  
 <script>
     ${mobileHtml.js}
     window.shehab = {

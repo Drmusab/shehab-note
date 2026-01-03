@@ -269,7 +269,7 @@ export const exportConfig = {
                 openByMobile(response.data.zip);
             });
             /// #else
-            const result = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+            const result = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "showOpenDialog",
                 title: window.shehab.languages.export + " " + "Data",
                 properties: ["createDirectory", "openDirectory"],
@@ -298,7 +298,7 @@ export const exportConfig = {
         });
         const pandocBinElement = exportConfig.element.querySelector("#pandocBin") as HTMLInputElement;
         pandocBinElement.addEventListener("click", async () => {
-            const localPath = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+            const localPath = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "showOpenDialog",
                 defaultPath: window.shehab.config.system.homeDir,
                 properties: ["openFile", "showHiddenFiles"],

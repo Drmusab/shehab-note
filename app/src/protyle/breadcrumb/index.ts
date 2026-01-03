@@ -293,12 +293,12 @@ ${padHTML}
                         click: async () => {
                             /// #if !BROWSER
                             if (window.shehab.config.system.os === "darwin") {
-                                const status = await ipcRenderer.invoke(Constants.SIYUAN_GET, {cmd: "getMicrophone"});
+                                const status = await ipcRenderer.invoke(Constants.SHEHAB_GET, {cmd: "getMicrophone"});
                                 if (["denied", "restricted", "unknown"].includes(status)) {
                                     showMessage(window.shehab.languages.microphoneDenied);
                                     return;
                                 } else if (status === "not-determined") {
-                                    const isAccess = await ipcRenderer.invoke(Constants.SIYUAN_GET, {cmd: "askMicrophone"});
+                                    const isAccess = await ipcRenderer.invoke(Constants.SHEHAB_GET, {cmd: "askMicrophone"});
                                     if (!isAccess) {
                                         showMessage(window.shehab.languages.microphoneNotAccess);
                                         return;

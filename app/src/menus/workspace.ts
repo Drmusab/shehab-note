@@ -189,7 +189,7 @@ export const workspaceMenu = (app: App, rect: DOMRect) => {
                 label: `${window.shehab.languages.new} / ${window.shehab.languages.openBy}`,
                 iconHTML: "",
                 click: async () => {
-                    const localPath = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+                    const localPath = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                         cmd: "showOpenDialog",
                         defaultPath: window.shehab.config.system.homeDir,
                         properties: ["openDirectory", "createDirectory"],
@@ -554,7 +554,7 @@ export const workspaceMenu = (app: App, rect: DOMRect) => {
             label: window.shehab.languages.debug,
             icon: "iconBug",
             click: () => {
-                ipcRenderer.send(Constants.SIYUAN_CMD, "openDevTools");
+                ipcRenderer.send(Constants.SHEHAB_CMD, "openDevTools");
             }
         }).element);
         /// #endif
@@ -585,7 +585,7 @@ const openWorkspace = (workspace: string) => {
     fetchPost("/api/system/setWorkspaceDir", {
         path: workspace
     }, () => {
-        ipcRenderer.send(Constants.SIYUAN_OPEN_WORKSPACE, {
+        ipcRenderer.send(Constants.SHEHAB_OPEN_WORKSPACE, {
             workspace,
             lang: window.shehab.config.appearance.lang
         });

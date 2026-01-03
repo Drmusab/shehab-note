@@ -36,7 +36,7 @@ class App {
 
     constructor() {
         addBaseURL();
-        this.appId = Constants.SIYUAN_APPID;
+        this.appId = Constants.SHEHAB_APPID;
         window.shehab = {
             zIndex: 10,
             transactions: [],
@@ -164,14 +164,14 @@ class App {
             }),
         };
         fetchPost("/api/system/getConf", {}, async (response) => {
-            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}`, "protyleLuteScript");
-            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}`, "protyleWcHtmlScript");
+            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SHEHAB_VERSION}`, "protyleLuteScript");
+            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SHEHAB_VERSION}`, "protyleWcHtmlScript");
             window.shehab.config = response.data.conf;
             updateControlAlt();
             window.shehab.isPublish = response.data.isPublish;
             await loadPlugins(this);
             getLocalStorage(() => {
-                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SIYUAN_VERSION}`, (lauguages: IObject) => {
+                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SHEHAB_VERSION}`, (lauguages: IObject) => {
                     window.shehab.languages = lauguages;
                     window.shehab.menus = new Menus(this);
                     fetchPost("/api/setting/getCloudUser", {}, userResponse => {

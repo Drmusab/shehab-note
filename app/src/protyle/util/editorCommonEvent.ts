@@ -555,7 +555,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                 window.shehab.dragElement = target;
                 target.style.width = target.clientWidth + "px";
                 target.style.opacity = ".36";
-                event.dataTransfer.setData(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}${[target.previousElementSibling?.getAttribute("data-id")]}`,
+                event.dataTransfer.setData(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}${[target.previousElementSibling?.getAttribute("data-id")]}`,
                     target.outerHTML);
                 return;
             } else if (target.classList.contains("protyle-action")) {
@@ -571,12 +571,12 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                 });
 
                 window.shehab.dragElement = protyle.wysiwyg.element;
-                event.dataTransfer.setData(`${Constants.SIYUAN_DROP_GUTTER}NodeListItem${Constants.ZWSP}${target.parentElement.getAttribute("data-subtype")}${Constants.ZWSP}${[target.parentElement.getAttribute("data-node-id")]}`,
+                event.dataTransfer.setData(`${Constants.SHEHAB_DROP_GUTTER}NodeListItem${Constants.ZWSP}${target.parentElement.getAttribute("data-subtype")}${Constants.ZWSP}${[target.parentElement.getAttribute("data-node-id")]}`,
                     protyle.wysiwyg.element.innerHTML);
                 return;
             } else if (target.classList.contains("av__cell--header")) {
                 window.shehab.dragElement = target;
-                event.dataTransfer.setData(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}Col${Constants.ZWSP}${[target.getAttribute("data-col-id")]}`,
+                event.dataTransfer.setData(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}Col${Constants.ZWSP}${[target.getAttribute("data-col-id")]}`,
                     target.outerHTML);
                 return;
             } else if (target.classList.contains("av__gallery-item")) {
@@ -646,21 +646,21 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                         const groupId = bodyElement.getAttribute("data-group-id");
                         selectIds.push(item.getAttribute("data-id") + (groupId ? `@${groupId}` : ""));
                     });
-                    event.dataTransfer.setData(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}GalleryItem${Constants.ZWSP}${selectIds}`,
+                    event.dataTransfer.setData(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}GalleryItem${Constants.ZWSP}${selectIds}`,
                         ghostElement.outerHTML);
                 }
                 return;
             }
         }
         // 选中编辑器中的文字进行拖拽
-        event.dataTransfer.setData(Constants.SIYUAN_DROP_EDITOR, Constants.SIYUAN_DROP_EDITOR);
+        event.dataTransfer.setData(Constants.SHEHAB_DROP_EDITOR, Constants.SHEHAB_DROP_EDITOR);
         protyle.element.style.userSelect = "auto";
         document.onmousemove = null;
         document.onmouseup = null;
     });
     editorElement.addEventListener("drop", async (event: DragEvent & { target: HTMLElement }) => {
         counter = 0;
-        if (protyle.disabled || event.dataTransfer.getData(Constants.SIYUAN_DROP_EDITOR)) {
+        if (protyle.disabled || event.dataTransfer.getData(Constants.SHEHAB_DROP_EDITOR)) {
             // 只读模式/编辑器内选中文字拖拽
             event.preventDefault();
             event.stopPropagation();
@@ -668,11 +668,11 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
         }
         let gutterType = "";
         for (const item of event.dataTransfer.items) {
-            if (item.type.startsWith(Constants.SIYUAN_DROP_GUTTER)) {
+            if (item.type.startsWith(Constants.SHEHAB_DROP_GUTTER)) {
                 gutterType = item.type;
             }
         }
-        if (gutterType.startsWith(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}`.toLowerCase())) {
+        if (gutterType.startsWith(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}`.toLowerCase())) {
             const blockElement = hasClosestBlock(window.shehab.dragElement);
             if (blockElement) {
                 const avID = blockElement.getAttribute("data-av-id");
@@ -704,7 +704,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
         if (gutterType) {
             // gutter 或反链面板拖拽
             const sourceElements: Element[] = [];
-            const gutterTypes = gutterType.replace(Constants.SIYUAN_DROP_GUTTER, "").split(Constants.ZWSP);
+            const gutterTypes = gutterType.replace(Constants.SHEHAB_DROP_GUTTER, "").split(Constants.ZWSP);
             const selectedIds = gutterTypes[2].split(",");
             if (event.altKey || event.shiftKey) {
                 if (event.y > protyle.wysiwyg.element.lastElementChild.getBoundingClientRect().bottom) {
@@ -1010,9 +1010,9 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                 }
                 dragoverElement = undefined;
             }
-        } else if (event.dataTransfer.getData(Constants.SIYUAN_DROP_FILE)?.split("-").length > 1) {
+        } else if (event.dataTransfer.getData(Constants.SHEHAB_DROP_FILE)?.split("-").length > 1) {
             // 文件树拖拽
-            const ids = event.dataTransfer.getData(Constants.SIYUAN_DROP_FILE).split(",");
+            const ids = event.dataTransfer.getData(Constants.SHEHAB_DROP_FILE).split(",");
             if (!event.altKey && (!targetElement || (
                 !targetElement.classList.contains("av__row") && !targetElement.classList.contains("av__gallery-item") &&
                 !targetElement.classList.contains("av__gallery-add")
@@ -1180,7 +1180,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
     let dragoverElement: Element;
     let disabledPosition: string;
     editorElement.addEventListener("dragover", (event: DragEvent & { target: HTMLElement }) => {
-        if (protyle.disabled || event.dataTransfer.types.includes(Constants.SIYUAN_DROP_EDITOR)) {
+        if (protyle.disabled || event.dataTransfer.types.includes(Constants.SHEHAB_DROP_EDITOR)) {
             event.preventDefault();
             event.stopPropagation();
             event.dataTransfer.dropEffect = "none";
@@ -1188,11 +1188,11 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
         }
         let gutterType = "";
         for (const item of event.dataTransfer.items) {
-            if (item.type.startsWith(Constants.SIYUAN_DROP_GUTTER)) {
+            if (item.type.startsWith(Constants.SHEHAB_DROP_GUTTER)) {
                 gutterType = item.type;
             }
         }
-        if (gutterType.startsWith(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}`.toLowerCase())) {
+        if (gutterType.startsWith(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}ViewTab${Constants.ZWSP}`.toLowerCase())) {
             dragoverTab(event);
             event.preventDefault();
             return;
@@ -1226,8 +1226,8 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
             event.preventDefault();
             return;
         }
-        const gutterTypes = gutterType ? gutterType.replace(Constants.SIYUAN_DROP_GUTTER, "").split(Constants.ZWSP) : [];
-        const fileTreeIds = (event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE) && window.shehab.dragElement) ? window.shehab.dragElement.innerText : "";
+        const gutterTypes = gutterType ? gutterType.replace(Constants.SHEHAB_DROP_GUTTER, "").split(Constants.ZWSP) : [];
+        const fileTreeIds = (event.dataTransfer.types.includes(Constants.SHEHAB_DROP_FILE) && window.shehab.dragElement) ? window.shehab.dragElement.innerText : "";
         if (event.shiftKey || (event.altKey && fileTreeIds.indexOf("-") === -1)) {
             const targetAssetElement = hasClosestBlock(event.target);
             if (targetAssetElement) {
@@ -1304,7 +1304,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                 targetElement = hasClosestByClassName(document.elementFromPoint(event.clientX, event.clientY - 6), "li");
             }
         }
-        if (gutterType && gutterType.startsWith(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}Col${Constants.ZWSP}`.toLowerCase())) {
+        if (gutterType && gutterType.startsWith(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}Col${Constants.ZWSP}`.toLowerCase())) {
             // 表头只能拖拽到当前 av 的表头中
             targetElement = hasClosestByClassName(event.target, "av__cell");
             if (targetElement) {
@@ -1316,7 +1316,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                     targetElement = false;
                 }
             }
-        } else if (targetElement && gutterType && gutterType.startsWith(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeViewRowMenu${Constants.ZWSP}`.toLowerCase())) {
+        } else if (targetElement && gutterType && gutterType.startsWith(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeViewRowMenu${Constants.ZWSP}`.toLowerCase())) {
             if ((!targetElement.classList.contains("av__row") && !targetElement.classList.contains("av__row--util")) ||
                 (window.shehab.dragElement && !window.shehab.dragElement.contains(targetElement))) {
                 // 行只能拖拽当前 av 中
@@ -1343,7 +1343,7 @@ export const dropEvent = (protyle: IProtyle, editorElement: HTMLElement) => {
                     });
                 }
             }
-        } else if (targetElement && gutterType && gutterType.startsWith(`${Constants.SIYUAN_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}GalleryItem${Constants.ZWSP}`.toLowerCase())) {
+        } else if (targetElement && gutterType && gutterType.startsWith(`${Constants.SHEHAB_DROP_GUTTER}NodeAttributeView${Constants.ZWSP}GalleryItem${Constants.ZWSP}`.toLowerCase())) {
             const containerElement = hasClosestByClassName(event.target, "av__container");
             if (targetElement.classList.contains("av") || !containerElement ||
                 !containerElement.contains(window.shehab.dragElement) || targetElement === window.shehab.dragElement) {

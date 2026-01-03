@@ -37,7 +37,7 @@ export class Model {
         msgCallback?: (data: IWebSocketData) => void
     }) {
         const websocketURL = `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`;
-        const ws = new WebSocket(`${websocketURL}?app=${Constants.SIYUAN_APPID}&id=${options.id}${options.type ? "&type=" + options.type : ""}`);
+        const ws = new WebSocket(`${websocketURL}?app=${Constants.SHEHAB_APPID}&id=${options.id}${options.type ? "&type=" + options.type : ""}`);
         ws.onopen = () => {
             if (options.callback) {
                 options.callback.call(this);

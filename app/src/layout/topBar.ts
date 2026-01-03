@@ -283,7 +283,7 @@ export const setZoom = (type: "zoomIn" | "zoomOut" | "restore") => {
     }
 
     webFrame.setZoomFactor(zoom);
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd: "setTrafficLightPosition",
         zoom,
         position: Constants.SIZE_ZOOM.find((item) => item.zoom === zoom).position

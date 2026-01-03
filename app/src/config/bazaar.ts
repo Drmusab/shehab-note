@@ -709,7 +709,7 @@ type="checkbox">
                                             packageName: dataObj.name,
                                             enabled: true,
                                             frontend: getFrontend(),
-                                            app: Constants.SIYUAN_APPID,
+                                            app: Constants.SHEHAB_APPID,
                                         }, (response) => {
                                             loadPlugin(app, response.data);
                                             bazaar._genMyHTML(bazaarType, app, false);
@@ -893,7 +893,7 @@ type="checkbox">
                             packageName: dataObj.name,
                             enabled,
                             frontend: getFrontend(),
-                            app: Constants.SIYUAN_APPID,
+                            app: Constants.SHEHAB_APPID,
                         }, (response) => {
                             target.removeAttribute("disabled");
                             if (enabled) {

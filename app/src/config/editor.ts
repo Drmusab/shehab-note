@@ -380,7 +380,7 @@ export const editor = {
     },
     bindEvent: async () => {
         /// #if !BROWSER
-        const languages: string[] = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+        const languages: string[] = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
             cmd: "availableSpellCheckerLanguages",
         });
         let spellcheckLanguagesHTML = "";
@@ -393,7 +393,7 @@ export const editor = {
             const target = event.target as Element;
             if (target.classList.contains("b3-chip")) {
                 target.classList.toggle("b3-chip--current");
-                ipcRenderer.send(Constants.SIYUAN_CMD, {
+                ipcRenderer.send(Constants.SHEHAB_CMD, {
                     cmd: "setSpellCheckerLanguages",
                     languages: Array.from(spellcheckLanguagesElement.querySelectorAll(".b3-chip--current")).map(item => item.textContent)
                 });

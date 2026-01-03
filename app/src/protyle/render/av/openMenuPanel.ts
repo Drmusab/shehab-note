@@ -1329,7 +1329,7 @@ export const openMenuPanel = (options: {
                         h: rect.height
                     }, (url, name) => {
                         let value: IAVCellAssetValue;
-                        if (Constants.SIYUAN_ASSETS_IMAGE.includes(pathPosix().extname(url).toLowerCase())) {
+                        if (Constants.SHEHAB_ASSETS_IMAGE.includes(pathPosix().extname(url).toLowerCase())) {
                             value = {
                                 type: "image",
                                 content: url,
@@ -1358,19 +1358,19 @@ export const openMenuPanel = (options: {
                     const suffix = pathPosix().extname(assetLink);
                     /// #if !MOBILE
                     if (isLocalPath(assetLink) && (
-                        [".pdf"].concat(Constants.SIYUAN_ASSETS_AUDIO).concat(Constants.SIYUAN_ASSETS_VIDEO).includes(suffix) && (
+                        [".pdf"].concat(Constants.SHEHAB_ASSETS_AUDIO).concat(Constants.SHEHAB_ASSETS_VIDEO).includes(suffix) && (
                             suffix !== ".pdf" || (suffix === ".pdf" && !assetLink.startsWith("file://"))
                         )
                     )) {
                         openAsset(options.protyle.app, assetLink.trim(), parseInt(getSearch("page", assetLink)), "right");
-                    } else if (Constants.SIYUAN_ASSETS_IMAGE.includes(suffix)) {
+                    } else if (Constants.SHEHAB_ASSETS_IMAGE.includes(suffix)) {
                         previewAttrViewImages(assetLink, avID, options.blockElement.getAttribute(Constants.CUSTOM_SY_AV_VIEW),
                             (options.blockElement.querySelector('[data-type="av-search"]') as HTMLInputElement)?.value.trim() || "");
                     } else {
                         window.open(assetLink);
                     }
                     /// #else
-                    if (Constants.SIYUAN_ASSETS_IMAGE.includes(suffix)) {
+                    if (Constants.SHEHAB_ASSETS_IMAGE.includes(suffix)) {
                         previewAttrViewImages(assetLink, avID, options.blockElement.getAttribute(Constants.CUSTOM_SY_AV_VIEW),
                             (options.blockElement.querySelector('[data-type="av-search"]') as HTMLInputElement)?.value.trim() || "");
                     } else {

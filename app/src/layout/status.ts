@@ -88,7 +88,7 @@ export const initStatus = (isWindow = false) => {
                     label: window.shehab.languages.debug,
                     icon: "iconBug",
                     click: () => {
-                        ipcRenderer.send(Constants.SIYUAN_CMD, "openDevTools");
+                        ipcRenderer.send(Constants.SHEHAB_CMD, "openDevTools");
                     }
                 }).element);
                 /// #endif

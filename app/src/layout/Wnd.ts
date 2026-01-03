@@ -179,13 +179,13 @@ export class Wnd {
                     window.shehab.currentDragOverTabHeadersElement = it;
                 }
             }
-            if (event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE)) {
+            if (event.dataTransfer.types.includes(Constants.SHEHAB_DROP_FILE)) {
                 event.preventDefault();
                 it.classList.add("layout-tab-bars--drag");
                 return;
             }
             // 不能使用 !window.shehab.dragElement，因为移动页签到新窗口后，再把主窗口页签拖拽新窗口页签上时，该值为空
-            if (!event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
+            if (!event.dataTransfer.types.includes(Constants.SHEHAB_DROP_TAB)) {
                 return;
             }
             event.preventDefault();
@@ -239,10 +239,10 @@ export class Wnd {
                 item.classList.remove("layout-tab-bars--drag");
             });
             const it = this as HTMLElement;
-            if (event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE)) {
+            if (event.dataTransfer.types.includes(Constants.SHEHAB_DROP_FILE)) {
                 // 文档树拖拽
                 setPanelFocus(it.parentElement);
-                event.dataTransfer.getData(Constants.SIYUAN_DROP_FILE).split(",").forEach(item => {
+                event.dataTransfer.getData(Constants.SHEHAB_DROP_FILE).split(",").forEach(item => {
                     if (item) {
                         openFileById({
                             app,
@@ -254,7 +254,7 @@ export class Wnd {
                 window.shehab.dragElement = undefined;
                 return;
             }
-            const tabData = JSON.parse(event.dataTransfer.getData(Constants.SIYUAN_DROP_TAB));
+            const tabData = JSON.parse(event.dataTransfer.getData(Constants.SHEHAB_DROP_TAB));
             let oldTab = getInstanceById(tabData.id) as Tab;
             const wnd = getInstanceById(it.parentElement.getAttribute("data-id")) as Wnd;
             /// #if !BROWSER
@@ -262,10 +262,10 @@ export class Wnd {
                 if (wnd instanceof Wnd) {
                     JSONToCenter(app, tabData, wnd);
                     oldTab = wnd.children[wnd.children.length - 1];
-                    ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "closetab", data: tabData.id});
+                    ipcRenderer.send(Constants.SHEHAB_SEND_WINDOWS, {cmd: "closetab", data: tabData.id});
                     it.querySelector("li[data-clone='true']").remove();
                     wnd.switchTab(oldTab.headElement);
-                    ipcRenderer.send(Constants.SIYUAN_CMD, "focus");
+                    ipcRenderer.send(Constants.SHEHAB_CMD, "focus");
                 }
             }
             /// #endif
@@ -317,7 +317,7 @@ export class Wnd {
         let elementDragCounter = 0;
         this.element.addEventListener("dragenter", (event: DragEvent & { target: HTMLElement }) => {
             elementDragCounter++;
-            if (event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
+            if (event.dataTransfer.types.includes(Constants.SHEHAB_DROP_TAB)) {
                 const tabHeadersElement = hasClosestByClassName(event.target, "layout-tab-bar");
                 if (tabHeadersElement) {
                     return;
@@ -357,7 +357,7 @@ export class Wnd {
             dragElement.classList.add("fn__none");
             const targetWndElement = event.target.parentElement.parentElement;
             const targetWnd = getInstanceById(targetWndElement.getAttribute("data-id")) as Wnd;
-            const tabData = JSON.parse(event.dataTransfer.getData(Constants.SIYUAN_DROP_TAB));
+            const tabData = JSON.parse(event.dataTransfer.getData(Constants.SHEHAB_DROP_TAB));
             let oldTab = getInstanceById(tabData.id) as Tab;
             /// #if !BROWSER
             if (!oldTab) { // 从主窗口拖拽到页签新窗口
@@ -368,8 +368,8 @@ export class Wnd {
                         return true;
                     }
                 });
-                ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "closetab", data: tabData.id});
-                ipcRenderer.send(Constants.SIYUAN_CMD, "focus");
+                ipcRenderer.send(Constants.SHEHAB_SEND_WINDOWS, {cmd: "closetab", data: tabData.id});
+                ipcRenderer.send(Constants.SHEHAB_CMD, "focus");
             }
             /// #endif
             if (!oldTab) {
@@ -884,7 +884,7 @@ export class Wnd {
         }
         /// #if !BROWSER
         webFrame.clearCache();
-        ipcRenderer.send(Constants.SIYUAN_CMD, "clearCache");
+        ipcRenderer.send(Constants.SHEHAB_CMD, "clearCache");
         setTabPosition();
         setModelsHash();
         /// #endif

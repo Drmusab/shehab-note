@@ -81,7 +81,7 @@ const renderCompare = (app: App, element: HTMLElement) => {
         const textElement = leftElement.querySelector("textarea");
         const type = pathPosix().extname(response.data.content).toLowerCase();
         const titleElement = leftElement.querySelector(".protyle-title__input");
-        if (Constants.SIYUAN_ASSETS_IMAGE.concat(Constants.SIYUAN_ASSETS_AUDIO).concat(Constants.SIYUAN_ASSETS_VIDEO).includes(type)) {
+        if (Constants.SHEHAB_ASSETS_IMAGE.concat(Constants.SHEHAB_ASSETS_AUDIO).concat(Constants.SHEHAB_ASSETS_VIDEO).includes(type)) {
             textElement.previousElementSibling.innerHTML = renderAssetsPreview(response.data.content);
             textElement.previousElementSibling.classList.remove("fn__none");
             textElement.classList.add("fn__none");
@@ -112,7 +112,7 @@ const renderCompare = (app: App, element: HTMLElement) => {
             const textElement = rightElement.querySelector("textarea");
             const type = pathPosix().extname(response.data.content).toLowerCase();
             const titleElement = rightElement.querySelector(".protyle-title__input");
-            if (Constants.SIYUAN_ASSETS_IMAGE.concat(Constants.SIYUAN_ASSETS_AUDIO).concat(Constants.SIYUAN_ASSETS_VIDEO).includes(type)) {
+            if (Constants.SHEHAB_ASSETS_IMAGE.concat(Constants.SHEHAB_ASSETS_AUDIO).concat(Constants.SHEHAB_ASSETS_VIDEO).includes(type)) {
                 textElement.previousElementSibling.innerHTML = renderAssetsPreview(response.data.content);
                 textElement.previousElementSibling.classList.remove("fn__none");
                 textElement.classList.add("fn__none");

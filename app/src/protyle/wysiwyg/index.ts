@@ -2458,7 +2458,7 @@ export class WYSIWYG {
             }
             if (event.inputType === "historyUndo") {
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CMD, "redo");
+                ipcRenderer.send(Constants.SHEHAB_CMD, "redo");
                 /// #endif
                 window.shehab.menus.menu.remove();
                 return;

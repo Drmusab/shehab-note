@@ -21,7 +21,7 @@ export const exportAsset = (src: string) => {
             /// #if BROWSER
             exportByMobile(src);
             /// #else
-            const result = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+            const result = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "showSaveDialog",
                 defaultPath: getAssetName(src) + pathPosix().extname(src),
                 properties: ["showOverwriteConfirmation"],

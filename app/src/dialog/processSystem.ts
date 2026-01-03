@@ -245,7 +245,7 @@ export const lockScreen = (app: App) => {
         redirectToCheckAuth();
     });
     /// #else
-    ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "lockscreen"});
+    ipcRenderer.send(Constants.SHEHAB_SEND_WINDOWS, {cmd: "lockscreen"});
     /// #endif
 };
 
@@ -253,10 +253,10 @@ export const kernelError = () => {
     if (document.querySelector("#errorLog")) {
         return;
     }
-    let title = `💔 ${window.shehab.languages.kernelFault0} <small>v${Constants.SIYUAN_VERSION}</small>`;
+    let title = `💔 ${window.shehab.languages.kernelFault0} <small>v${Constants.SHEHAB_VERSION}</small>`;
     let body = `<div>${window.shehab.languages.kernelFault1}</div><div class="fn__hr"></div><div>${window.shehab.languages.kernelFault2}</div>`;
     if (isInIOS()) {
-        title = `🍵 ${window.shehab.languages.pleaseWait} <small>v${Constants.SIYUAN_VERSION}</small>`;
+        title = `🍵 ${window.shehab.languages.pleaseWait} <small>v${Constants.SHEHAB_VERSION}</small>`;
         body = `<div>${window.shehab.languages.reconnectPrompt}</div><div class="fn__hr"></div><div class="fn__flex"><div class="fn__flex-1"></div><button class="b3-button">${window.shehab.languages.retry}</button></div>`;
     }
     const dialog = new Dialog({
@@ -295,7 +295,7 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                 buttonElement.addEventListener("click", () => {
                     fetchPost("/api/system/exit", {force: true, setCurrentWorkspace}, () => {
                         /// #if !BROWSER
-                        ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                        ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                         /// #else
                         if (isInAndroid()) {
                             window.JSAndroid.exit();
@@ -318,7 +318,7 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
             hideMessage();
 
             if ("std" === window.shehab.config.system.container) {
-                ipcRenderer.send(Constants.SIYUAN_SHOW_WINDOW);
+                ipcRenderer.send(Constants.SHEHAB_SHOW_WINDOW);
             }
 
             confirmDialog(window.shehab.languages.tip, response.msg, () => {
@@ -331,11 +331,11 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                     // 桌面端退出拉起更新安装时有时需要重启两次 https://github.com/siyuan-note/siyuan/issues/6544
                     // 这里先将主界面隐藏
                     setTimeout(() => {
-                        ipcRenderer.send(Constants.SIYUAN_CMD, "hide");
+                        ipcRenderer.send(Constants.SHEHAB_CMD, "hide");
                     }, 2000);
                     // 然后等待一段时间后再退出，避免界面主进程退出以后内核子进程被杀死
                     setTimeout(() => {
-                        ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                        ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                     }, 4000);
                     /// #endif
                 });
@@ -346,13 +346,13 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                     execInstallPkg: 1 //  0：默认检查新版本，1：不执行新版本安装，2：执行新版本安装
                 }, () => {
                     /// #if !BROWSER
-                    ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                    ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                     /// #endif
                 });
             });
         } else { // 正常退出
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+            ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
             /// #else
             if (isInAndroid()) {
                 window.JSAndroid.exit();
@@ -378,7 +378,7 @@ export const transactionError = () => {
     }
     const dialog = new Dialog({
         disableClose: true,
-        title: `${window.shehab.languages.stateExcepted} v${Constants.SIYUAN_VERSION}`,
+        title: `${window.shehab.languages.stateExcepted} v${Constants.SHEHAB_VERSION}`,
         content: `<div class="b3-dialog__content" id="transactionError">${window.shehab.languages.rebuildIndexTip}</div>
 <div class="b3-dialog__action">
     <button class="b3-button b3-button--text">${window.shehab.languages._kernel[97]}</button>
@@ -513,7 +513,7 @@ export const setTitle = (title: string) => {
     const dragElement = document.getElementById("drag");
     const workspaceName = getWorkspaceName();
     if (title === window.shehab.languages.siyuanNote) {
-        const versionTitle = `${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SIYUAN_VERSION}`;
+        const versionTitle = `${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SHEHAB_VERSION}`;
         document.title = versionTitle;
         if (dragElement) {
             dragElement.textContent = versionTitle;
@@ -521,7 +521,7 @@ export const setTitle = (title: string) => {
         }
     } else {
         title = title || window.shehab.languages.untitled;
-        document.title = `${title} - ${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SIYUAN_VERSION}`;
+        document.title = `${title} - ${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SHEHAB_VERSION}`;
         if (!dragElement) {
             return;
         }

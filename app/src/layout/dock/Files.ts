@@ -455,7 +455,7 @@ export class Files extends Model {
                 ghostElement.setAttribute("class", "b3-list b3-list--background");
                 document.body.append(ghostElement);
                 event.dataTransfer.setDragImage(ghostElement, 16, 16);
-                event.dataTransfer.setData(Constants.SIYUAN_DROP_FILE, ids);
+                event.dataTransfer.setData(Constants.SHEHAB_DROP_FILE, ids);
                 event.dataTransfer.dropEffect = "move";
                 window.shehab.dragElement = document.createElement("div");
                 window.shehab.dragElement.innerText = ids;
@@ -478,7 +478,7 @@ export class Files extends Model {
             });
             window.shehab.dragElement = undefined;
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "resetTabsStyle", data: "rmDragStyle"});
+            ipcRenderer.send(Constants.SHEHAB_SEND_WINDOWS, {cmd: "resetTabsStyle", data: "rmDragStyle"});
             /// #else
             document.querySelectorAll(".layout-tab-bars--drag").forEach(item => {
                 item.classList.remove("layout-tab-bars--drag");
@@ -486,7 +486,7 @@ export class Files extends Model {
             /// #endif
         });
         this.element.addEventListener("dragover", (event: DragEvent & { target: HTMLElement }) => {
-            if (window.shehab.config.readonly || event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
+            if (window.shehab.config.readonly || event.dataTransfer.types.includes(Constants.SHEHAB_DROP_TAB)) {
                 return;
             }
             let liElement = hasClosestByTag(event.target, "LI");
@@ -502,13 +502,13 @@ export class Files extends Model {
             });
             let gutterType = "";
             for (const item of event.dataTransfer.items) {
-                if (item.type.startsWith(Constants.SIYUAN_DROP_GUTTER)) {
+                if (item.type.startsWith(Constants.SHEHAB_DROP_GUTTER)) {
                     gutterType = item.type;
                 }
             }
             if (gutterType) {
                 // 块标拖拽
-                const gutterTypes = gutterType.replace(Constants.SIYUAN_DROP_GUTTER, "").split(Constants.ZWSP);
+                const gutterTypes = gutterType.replace(Constants.SHEHAB_DROP_GUTTER, "").split(Constants.ZWSP);
                 if (!["nodelistitem", "nodeheading"].includes(gutterTypes[0])) {
                     event.preventDefault();
                     return;
@@ -589,13 +589,13 @@ export class Files extends Model {
             const toPath = newElement.getAttribute("data-path");
             let gutterType = "";
             for (const item of event.dataTransfer.items) {
-                if (item.type.startsWith(Constants.SIYUAN_DROP_GUTTER)) {
+                if (item.type.startsWith(Constants.SHEHAB_DROP_GUTTER)) {
                     gutterType = item.type;
                 }
             }
             // 块标拖拽
             if (gutterType) {
-                const gutterTypes = gutterType.replace(Constants.SIYUAN_DROP_GUTTER, "").split(Constants.ZWSP);
+                const gutterTypes = gutterType.replace(Constants.SHEHAB_DROP_GUTTER, "").split(Constants.ZWSP);
                 if (["nodelistitem", "nodeheading"].includes(gutterTypes[0])) {
                     const toDocOptions: {
                         targetNoteBook: string;
@@ -632,7 +632,7 @@ export class Files extends Model {
                 return;
             }
             window.shehab.dragElement = undefined;
-            if (!event.dataTransfer.getData(Constants.SIYUAN_DROP_FILE)) {
+            if (!event.dataTransfer.getData(Constants.SHEHAB_DROP_FILE)) {
                 newElement.classList.remove("dragover", "dragover__bottom", "dragover__top");
                 return;
             }
@@ -744,7 +744,7 @@ export class Files extends Model {
                             fetchPost("/api/filetree/listDocsByPath", {
                                 notebook: toURL,
                                 path: toDir === "/" ? "/" : toDir + ".sy",
-                                app: Constants.SIYUAN_APPID,
+                                app: Constants.SHEHAB_APPID,
                             }, response => {
                                 if (response.data.path === "/" && response.data.files.length === 0) {
                                     showMessage(window.shehab.languages.emptyContent);
@@ -1124,7 +1124,7 @@ data-type="navigation-root" data-path="/">
                 const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                     notebook: data.box,
                     path: item.path,
-                    app: Constants.SIYUAN_APPID,
+                    app: Constants.SHEHAB_APPID,
                 });
                 newLiElement = await this.selectItem(response.data.box, filePath, response.data, setStorage, isSetCurrent);
             }
@@ -1161,7 +1161,7 @@ data-type="navigation-root" data-path="/">
         fetchPost("/api/filetree/listDocsByPath", {
             notebook: notebookId,
             path: liElement.getAttribute("data-path"),
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
         }, response => {
             if (response.data.path === "/" && response.data.files.length === 0) {
                 newFile({
@@ -1218,7 +1218,7 @@ data-type="navigation-root" data-path="/">
             const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                 notebook: notebookId,
                 path: currentPath,
-                app: Constants.SIYUAN_APPID,
+                app: Constants.SHEHAB_APPID,
             });
             liElement = await this.onLsSelect(response.data, filePath, setStorage, isSetCurrent);
         }

@@ -19,13 +19,13 @@ export const about = {
     genHTML: () => {
         const checkUpdateHTML = window.shehab.config.system.isMicrosoftStore ? `<div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.shehab.languages.currentVer} v${Constants.SIYUAN_VERSION}
+        ${window.shehab.languages.currentVer} v${Constants.SHEHAB_VERSION}
         <span id="isInsider"></span>
         <div class="b3-label__text">${window.shehab.languages.isMsStoreVerTip}</div>
     </div>
 </div>` : `<div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.shehab.languages.currentVer} v${Constants.SIYUAN_VERSION}
+        ${window.shehab.languages.currentVer} v${Constants.SHEHAB_VERSION}
         <span id="isInsider"></span>
         <div class="b3-label__text">${window.shehab.languages.downloadLatestVer}</div>
     </div>
@@ -232,7 +232,7 @@ ${checkUpdateHTML}
         <span class="fn__space"></span>
         <span class="ft__on-surface">${window.shehab.languages.slogan}</span>
         <span class="fn__space"></span>
-        <span style="color:var(--b3-theme-background);font-family: cursive;">会泽百家&nbsp;至公天下</span>
+        <span style="color:var(--b3-theme-background);font-family: cursive;">Local-first knowledge management</span>
     </div>
     <div class='fn__hr'></div>
     ${window.shehab.languages.about1} ${"harmony" === window.shehab.config.system.container ? " • " + window.shehab.languages.feedback + " 845765@qq.com" : ""} 
@@ -394,7 +394,7 @@ ${checkUpdateHTML}
             const autoLaunchMode = parseInt(autoLaunchElement.value);
             fetchPost("/api/system/setAutoLaunch", {autoLaunch: autoLaunchMode}, () => {
                 window.shehab.config.system.autoLaunch2 = autoLaunchMode;
-                ipcRenderer.send(Constants.SIYUAN_AUTO_LAUNCH, {
+                ipcRenderer.send(Constants.SHEHAB_AUTO_LAUNCH, {
                     openAtLogin: 0 !== autoLaunchMode,
                     openAsHidden: 2 === autoLaunchMode
                 });
@@ -410,7 +410,7 @@ ${checkUpdateHTML}
                 window.shehab.config.system.networkProxy.host = host;
                 window.shehab.config.system.networkProxy.port = port;
                 /// #if !BROWSER
-                ipcRenderer.invoke(Constants.SIYUAN_GET, {
+                ipcRenderer.invoke(Constants.SHEHAB_GET, {
                     cmd: "setProxy",
                     proxyURL: `${window.shehab.config.system.networkProxy.scheme}://${window.shehab.config.system.networkProxy.host}:${window.shehab.config.system.networkProxy.port}`,
                 }).then(() => {

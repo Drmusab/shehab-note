@@ -17,7 +17,7 @@ import {getAllEditor} from "../layout/getAll";
 
 export const init = (app: App) => {
     webFrame.setZoomFactor(window.shehab.storage[Constants.LOCAL_ZOOM]);
-    ipcRenderer.send(Constants.SIYUAN_CMD, {
+    ipcRenderer.send(Constants.SHEHAB_CMD, {
         cmd: "setTrafficLightPosition",
         zoom: window.shehab.storage[Constants.LOCAL_ZOOM],
         position: Constants.SIZE_ZOOM.find((item) => item.zoom === window.shehab.storage[Constants.LOCAL_ZOOM]).position

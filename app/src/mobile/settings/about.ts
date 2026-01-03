@@ -193,12 +193,12 @@ export const initAbout = () => {
         <div>
             <span>${window.shehab.languages.siyuanNote}</span>
             <span class="fn__space"></span>
-            <span class="ft__on-surface">v${Constants.SIYUAN_VERSION}</span>
+            <span class="ft__on-surface">v${Constants.SHEHAB_VERSION}</span>
             <br>
             <span class="ft__on-surface">${window.shehab.languages.slogan}</span>
         </div>
     </div>
-    <div style="color:var(--b3-theme-surface);font-family: cursive;">会泽百家&nbsp;至公天下</div>
+    <div style="color:var(--b3-theme-surface);font-family: cursive;">Local-first knowledge management</div>
     ${window.shehab.languages.about1} ${"harmony" === window.shehab.config.system.container? " • " + window.shehab.languages.feedback + " 845765@qq.com" : ""}
 </div>
 </div>`,
@@ -343,7 +343,7 @@ export const initAbout = () => {
 </div>`,
                                 width: "92vw",
                             });
-                            openWorkspaceDialog.element.setAttribute("data-key", Constants.SIYUAN_OPEN_WORKSPACE);
+                            openWorkspaceDialog.element.setAttribute("data-key", Constants.SHEHAB_OPEN_WORKSPACE);
                             const btnsElement = openWorkspaceDialog.element.querySelectorAll(".b3-button");
                             btnsElement[0].addEventListener("click", () => {
                                 openWorkspaceDialog.destroy();

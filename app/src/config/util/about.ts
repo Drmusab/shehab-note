@@ -40,6 +40,6 @@ export const getCloudURL = (key: string) => {
 };
 
 export const getIndexURL = (key: string) => {
-    const lang = "zh_CN" === window.shehab.config.lang ? "" : "/en";
-    return "https://b3log.org/siyuan" + `${lang}/${key}`;
+    // Shehab fork - documentation available at GitHub
+    return "https://github.com/Drmusab/shehab-note" + `/${key}`;
 };

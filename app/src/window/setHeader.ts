@@ -24,7 +24,7 @@ export const setTabPosition = () => {
         }
         const headersLastElement = headerElement.lastElementChild as HTMLElement;
         if ("darwin" === window.shehab.config.system.os) {
-            const isFullScreen = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+            const isFullScreen = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "isFullScreen",
             });
             if (rect.top <= 0 && rect.left <= 0 && !isFullScreen) {

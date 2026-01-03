@@ -12,7 +12,7 @@ const matchKeymap = (keymap: Config.IKeys, key1: "general" | "editor", key2?: "g
     if (key1 === "general") {
         if (!window.shehab.config.keymap[key1]) {
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_CMD, {
+            ipcRenderer.send(Constants.SHEHAB_CMD, {
                 cmd: "writeLog",
                 msg: "window.shehab.config.keymap.general is not found"
             });
@@ -23,17 +23,17 @@ const matchKeymap = (keymap: Config.IKeys, key1: "general" | "editor", key2?: "g
     } else {
         if (!window.shehab.config.keymap[key1]) {
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_CMD, {
+            ipcRenderer.send(Constants.SHEHAB_CMD, {
                 cmd: "writeLog",
                 msg: "window.shehab.config.keymap.editor is not found"
             });
             /// #endif
-            window.shehab.config.keymap[key1] = JSON.parse(JSON.stringify(Constants.SIYUAN_KEYMAP.editor));
+            window.shehab.config.keymap[key1] = JSON.parse(JSON.stringify(Constants.SHEHAB_KEYMAP.editor));
             return false;
         }
         if (!window.shehab.config.keymap[key1][key2]) {
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_CMD, {
+            ipcRenderer.send(Constants.SHEHAB_CMD, {
                 cmd: "writeLog",
                 msg: `window.shehab.config.keymap.editor.${key2} is not found`
             });
@@ -47,7 +47,7 @@ const matchKeymap = (keymap: Config.IKeys, key1: "general" | "editor", key2?: "g
         if (key1 === "general") {
             if (!window.shehab.config.keymap[key1][key] || window.shehab.config.keymap[key1][key].default !== keymap[key].default) {
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CMD, {
+                ipcRenderer.send(Constants.SHEHAB_CMD, {
                     cmd: "writeLog",
                     msg: `window.shehab.config.keymap.${key1}.${key} is not found or match: ${window.shehab.config.keymap[key1][key]?.default}`
                 });
@@ -58,7 +58,7 @@ const matchKeymap = (keymap: Config.IKeys, key1: "general" | "editor", key2?: "g
         } else {
             if (!window.shehab.config.keymap[key1][key2][key] || window.shehab.config.keymap[key1][key2][key].default !== keymap[key].default) {
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CMD, {
+                ipcRenderer.send(Constants.SHEHAB_CMD, {
                     cmd: "writeLog",
                     msg: `window.shehab.config.keymap.${key1}.${key2}.${key} is not found or match: ${window.shehab.config.keymap[key1][key2][key]?.default}`
                 });
@@ -74,18 +74,18 @@ const matchKeymap = (keymap: Config.IKeys, key1: "general" | "editor", key2?: "g
 const hasKeymap = (keymap: Record<string, IKeymapItem>, key1: "general" | "editor", key2?: "general" | "insert" | "heading" | "list" | "table") => {
     let match = true;
     if (key1 === "editor") {
-        if (Object.keys(window.shehab.config.keymap[key1][key2]).length !== Object.keys(Constants.SIYUAN_KEYMAP[key1][key2]).length) {
+        if (Object.keys(window.shehab.config.keymap[key1][key2]).length !== Object.keys(Constants.SHEHAB_KEYMAP[key1][key2]).length) {
             Object.keys(window.shehab.config.keymap[key1][key2]).forEach(item => {
-                if (!Constants.SIYUAN_KEYMAP[key1][key2][item]) {
+                if (!Constants.SHEHAB_KEYMAP[key1][key2][item]) {
                     match = false;
                     delete window.shehab.config.keymap[key1][key2][item];
                 }
             });
         }
     } else {
-        if (Object.keys(window.shehab.config.keymap[key1]).length !== Object.keys(Constants.SIYUAN_KEYMAP[key1]).length) {
+        if (Object.keys(window.shehab.config.keymap[key1]).length !== Object.keys(Constants.SHEHAB_KEYMAP[key1]).length) {
             Object.keys(window.shehab.config.keymap[key1]).forEach(item => {
-                if (!Constants.SIYUAN_KEYMAP[key1][item]) {
+                if (!Constants.SHEHAB_KEYMAP[key1][item]) {
                     match = false;
                     delete window.shehab.config.keymap[key1][item];
                 }
@@ -96,24 +96,24 @@ const hasKeymap = (keymap: Record<string, IKeymapItem>, key1: "general" | "edito
 };
 
 export const correctHotkey = (app: App) => {
-    const matchKeymap1 = matchKeymap(Constants.SIYUAN_KEYMAP.general, "general");
-    const matchKeymap2 = matchKeymap(Constants.SIYUAN_KEYMAP.editor.general, "editor", "general");
-    const matchKeymap3 = matchKeymap(Constants.SIYUAN_KEYMAP.editor.insert, "editor", "insert");
-    const matchKeymap4 = matchKeymap(Constants.SIYUAN_KEYMAP.editor.heading, "editor", "heading");
-    const matchKeymap5 = matchKeymap(Constants.SIYUAN_KEYMAP.editor.list, "editor", "list");
-    const matchKeymap6 = matchKeymap(Constants.SIYUAN_KEYMAP.editor.table, "editor", "table");
+    const matchKeymap1 = matchKeymap(Constants.SHEHAB_KEYMAP.general, "general");
+    const matchKeymap2 = matchKeymap(Constants.SHEHAB_KEYMAP.editor.general, "editor", "general");
+    const matchKeymap3 = matchKeymap(Constants.SHEHAB_KEYMAP.editor.insert, "editor", "insert");
+    const matchKeymap4 = matchKeymap(Constants.SHEHAB_KEYMAP.editor.heading, "editor", "heading");
+    const matchKeymap5 = matchKeymap(Constants.SHEHAB_KEYMAP.editor.list, "editor", "list");
+    const matchKeymap6 = matchKeymap(Constants.SHEHAB_KEYMAP.editor.table, "editor", "table");
 
-    const hasKeymap1 = hasKeymap(Constants.SIYUAN_KEYMAP.general, "general");
-    const hasKeymap2 = hasKeymap(Constants.SIYUAN_KEYMAP.editor.general, "editor", "general");
-    const hasKeymap3 = hasKeymap(Constants.SIYUAN_KEYMAP.editor.insert, "editor", "insert");
-    const hasKeymap4 = hasKeymap(Constants.SIYUAN_KEYMAP.editor.heading, "editor", "heading");
-    const hasKeymap5 = hasKeymap(Constants.SIYUAN_KEYMAP.editor.list, "editor", "list");
-    const hasKeymap6 = hasKeymap(Constants.SIYUAN_KEYMAP.editor.table, "editor", "table");
+    const hasKeymap1 = hasKeymap(Constants.SHEHAB_KEYMAP.general, "general");
+    const hasKeymap2 = hasKeymap(Constants.SHEHAB_KEYMAP.editor.general, "editor", "general");
+    const hasKeymap3 = hasKeymap(Constants.SHEHAB_KEYMAP.editor.insert, "editor", "insert");
+    const hasKeymap4 = hasKeymap(Constants.SHEHAB_KEYMAP.editor.heading, "editor", "heading");
+    const hasKeymap5 = hasKeymap(Constants.SHEHAB_KEYMAP.editor.list, "editor", "list");
+    const hasKeymap6 = hasKeymap(Constants.SHEHAB_KEYMAP.editor.table, "editor", "table");
     if (!window.shehab.config.readonly &&
         (!matchKeymap1 || !matchKeymap2 || !matchKeymap3 || !matchKeymap4 || !matchKeymap5 || !matchKeymap6 ||
             !hasKeymap1 || !hasKeymap2 || !hasKeymap3 || !hasKeymap4 || !hasKeymap5 || !hasKeymap6)) {
         /// #if !BROWSER
-        ipcRenderer.send(Constants.SIYUAN_CMD, {
+        ipcRenderer.send(Constants.SHEHAB_CMD, {
             cmd: "writeLog",
             msg: "update keymap"
         });

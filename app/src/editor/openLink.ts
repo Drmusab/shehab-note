@@ -78,7 +78,7 @@ export const processSYLink = (app: App, url: string) => {
                     /// #endif
                 });
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CMD, "show");
+                ipcRenderer.send(Constants.SHEHAB_CMD, "show");
                 /// #endif
             }
             app.plugins.forEach(plugin => {
@@ -112,7 +112,7 @@ export const openLink = (protyle: IProtyle, aLink: string, event?: MouseEvent, c
     openByMobile(linkAddress);
     /// #else
     if (isLocalPath(linkAddress)) {
-        if (Constants.SIYUAN_ASSETS_EXTS.includes(pathPosix().extname(linkAddress)) &&
+        if (Constants.SHEHAB_ASSETS_EXTS.includes(pathPosix().extname(linkAddress)) &&
             (
                 !linkAddress.endsWith(".pdf") ||
                 // 本地 pdf 仅 assets/ 开头的才使用 siyuan 打开

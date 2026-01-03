@@ -357,7 +357,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                     r: "",
                     page: 1,
                     types: getDefaultType(),
-                    replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                    replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                 }, config, edit, true);
                 element.querySelector(".b3-chip--current")?.classList.remove("b3-chip--current");
                 event.stopPropagation();
@@ -423,7 +423,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config, edit, true);
                 }
                 target.parentElement.remove();
@@ -623,7 +623,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config, edit, true);
                     element.querySelector("#criteria .b3-chip--current")?.classList.remove("b3-chip--current");
                 }, () => {

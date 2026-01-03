@@ -79,7 +79,7 @@ export const openFileById = async (options: {
 
 export const openAsset = (app: App, assetPath: string, page: number | string, position?: string) => {
     const suffix = pathPosix().extname(assetPath).split("?")[0];
-    if (!Constants.SIYUAN_ASSETS_EXTS.includes(suffix)) {
+    if (!Constants.SHEHAB_ASSETS_EXTS.includes(suffix)) {
         return;
     }
     openFile({
@@ -210,8 +210,8 @@ export const openFile = async (options: IOpenFileOptions) => {
                 optionsClone[key] = JSON.parse(JSON.stringify(options[key]));
             }
         });
-        hasMatch = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
-            cmd: Constants.SIYUAN_OPEN_FILE,
+        hasMatch = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
+            cmd: Constants.SHEHAB_OPEN_FILE,
             options: JSON.stringify(optionsClone),
             port: location.port,
         });
@@ -451,13 +451,13 @@ const newTab = (options: IOpenFileOptions) => {
     let tab: Tab;
     if (options.assetPath) {
         const suffix = pathPosix().extname(options.assetPath).split("?")[0];
-        if (Constants.SIYUAN_ASSETS_EXTS.includes(suffix)) {
+        if (Constants.SHEHAB_ASSETS_EXTS.includes(suffix)) {
             let icon = "iconPDF";
-            if (Constants.SIYUAN_ASSETS_IMAGE.includes(suffix)) {
+            if (Constants.SHEHAB_ASSETS_IMAGE.includes(suffix)) {
                 icon = "iconImage";
-            } else if (Constants.SIYUAN_ASSETS_AUDIO.includes(suffix)) {
+            } else if (Constants.SHEHAB_ASSETS_AUDIO.includes(suffix)) {
                 icon = "iconRecord";
-            } else if (Constants.SIYUAN_ASSETS_VIDEO.includes(suffix)) {
+            } else if (Constants.SHEHAB_ASSETS_VIDEO.includes(suffix)) {
                 icon = "iconVideo";
             }
             tab = new Tab({

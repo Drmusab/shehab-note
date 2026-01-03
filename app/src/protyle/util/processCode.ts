@@ -44,7 +44,7 @@ export const processPasteCode = (html: string, text: string, protyle: IProtyle) 
 
 export const processRender = (previewPanel: Element) => {
     const language = previewPanel.getAttribute("data-subtype");
-    if (!Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(language) || previewPanel.getAttribute("data-type") !== "NodeHTMLBlock") {
+    if (!Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(language) || previewPanel.getAttribute("data-type") !== "NodeHTMLBlock") {
         abcRender(previewPanel);
         htmlRender(previewPanel);
         plantumlRender(previewPanel);

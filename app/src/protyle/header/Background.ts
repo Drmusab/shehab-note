@@ -313,7 +313,7 @@ export class Background {
                         /// #if MOBILE
                         window.shehab.menus.menu.remove();
                         /// #endif
-                    }, Constants.SIYUAN_ASSETS_IMAGE);
+                    }, Constants.SHEHAB_ASSETS_IMAGE);
                     event.preventDefault();
                     event.stopPropagation();
                     break;

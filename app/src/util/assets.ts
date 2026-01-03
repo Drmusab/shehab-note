@@ -23,7 +23,7 @@ export const loadAssets = (data: Config.IAppearance) => {
         window.shehab.config.appearance.mode = (OSTheme === "light" ? 0 : 1);
     }
     const defaultStyleElement = document.getElementById("themeDefaultStyle");
-    const defaultThemeAddress = `/appearance/themes/${data.mode === 1 ? "midnight" : "daylight"}/theme.css?v=${Constants.SIYUAN_VERSION}`;
+    const defaultThemeAddress = `/appearance/themes/${data.mode === 1 ? "midnight" : "daylight"}/theme.css?v=${Constants.SHEHAB_VERSION}`;
     if (defaultStyleElement) {
         if (!defaultStyleElement.getAttribute("href").startsWith(defaultThemeAddress)) {
             const newStyleElement = document.createElement("link");
@@ -99,7 +99,7 @@ export const loadAssets = (data: Config.IAppearance) => {
     const iconScriptElement = document.getElementById("iconScript");
     const iconDefaultScriptElement = document.getElementById("iconDefaultScript");
     // 不能使用 data.iconVer，因为其他主题也需要加载默认图标，此时 data.iconVer 为其他图标的版本号
-    const iconDefaultURL = `/appearance/icons/${isBuiltInIcon ? data.icon : "material"}/icon.js?v=${Constants.SIYUAN_VERSION}`;
+    const iconDefaultURL = `/appearance/icons/${isBuiltInIcon ? data.icon : "material"}/icon.js?v=${Constants.SHEHAB_VERSION}`;
     const iconThirdURL = `/appearance/icons/${data.icon}/icon.js?v=${data.iconVer}`;
 
     if ((isBuiltInIcon && iconDefaultScriptElement && iconDefaultScriptElement.getAttribute("src").startsWith(iconDefaultURL)) ||
@@ -324,12 +324,12 @@ export const setCodeTheme = (cdn = Constants.PROTYLE_CDN) => {
     let css;
     if (window.shehab.config.appearance.mode === 0) {
         css = window.shehab.config.appearance.codeBlockThemeLight;
-        if (!Constants.SIYUAN_CONFIG_APPEARANCE_LIGHT_CODE.includes(css)) {
+        if (!Constants.SHEHAB_CONFIG_APPEARANCE_LIGHT_CODE.includes(css)) {
             css = "default";
         }
     } else {
         css = window.shehab.config.appearance.codeBlockThemeDark;
-        if (!Constants.SIYUAN_CONFIG_APPEARANCE_DARK_CODE.includes(css)) {
+        if (!Constants.SHEHAB_CONFIG_APPEARANCE_DARK_CODE.includes(css)) {
             css = "github-dark";
         }
     }
