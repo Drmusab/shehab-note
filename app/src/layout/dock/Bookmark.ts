@@ -56,21 +56,21 @@ export class Bookmark extends Model {
         this.element.classList.add("fn__flex-column", "file-tree", "sy__bookmark");
         this.element.innerHTML = `<div class="block__icons">
     <div class="block__logo">
-        <svg class="block__logoicon"><use xlink:href="#iconBookmark"></use></svg>${window.siyuan.languages.bookmark}
+        <svg class="block__logoicon"><use xlink:href="#iconBookmark"></use></svg>${window.shehab.languages.bookmark}
     </div>
     <span class="fn__flex-1"></span>
     <span class="fn__space"></span>
-    <span data-type="refresh" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.refresh}"><svg><use xlink:href='#iconRefresh'></use></svg></span>
+    <span data-type="refresh" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.refresh}"><svg><use xlink:href='#iconRefresh'></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="expand" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.expand}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.expand.custom)}">
+    <span data-type="expand" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.expand}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.expand.custom)}">
         <svg><use xlink:href="#iconExpand"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="collapse" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.collapse}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.collapse.custom)}">
+    <span data-type="collapse" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.collapse}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.collapse.custom)}">
         <svg><use xlink:href="#iconContract"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.min}${updateHotkeyAfterTip(window.siyuan.config.keymap.general.closeTab.custom)}"><svg><use xlink:href='#iconMin'></use></svg></span>
+    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.min}${updateHotkeyAfterTip(window.shehab.config.keymap.general.closeTab.custom)}"><svg><use xlink:href='#iconMin'></use></svg></span>
 </div>
 <div class="fn__flex-1" style="margin-bottom: 8px"></div>`;
         this.tree = new Tree({

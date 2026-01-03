@@ -11,7 +11,7 @@ export const setTabPosition = () => {
         return;
     }
     const wndsTemp: Wnd[] = [];
-    getAllWnds(window.siyuan.layout.layout, wndsTemp);
+    getAllWnds(window.shehab.layout.layout, wndsTemp);
     wndsTemp.forEach(async item => {
         const headerElement = item.headersElement.parentElement;
         const rect = headerElement.getBoundingClientRect();
@@ -23,8 +23,8 @@ export const setTabPosition = () => {
             (dragElement.style as CSSStyleDeclarationElectron).WebkitAppRegion = "";
         }
         const headersLastElement = headerElement.lastElementChild as HTMLElement;
-        if ("darwin" === window.siyuan.config.system.os) {
-            const isFullScreen = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
+        if ("darwin" === window.shehab.config.system.os) {
+            const isFullScreen = await ipcRenderer.invoke(Constants.SHEHAB_GET, {
                 cmd: "isFullScreen",
             });
             if (rect.top <= 0 && rect.left <= 0 && !isFullScreen) {
@@ -38,7 +38,7 @@ export const setTabPosition = () => {
         }
         // 显示器缩放后像素存在小数点偏差 https://github.com/siyuan-note/siyuan/issues/7355
         if (rect.top <= 0 && rect.right + 8 >= window.innerWidth) {
-            headersLastElement.style.paddingRight = (42 * ("darwin" === window.siyuan.config.system.os ? 1 : 4)) + "px";
+            headersLastElement.style.paddingRight = (42 * ("darwin" === window.shehab.config.system.os ? 1 : 4)) + "px";
         } else {
             headersLastElement.style.paddingRight = "";
         }

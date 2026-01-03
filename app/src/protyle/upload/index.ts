@@ -36,12 +36,12 @@ const validateFile = (protyle: IProtyle, files: File[]) => {
         let validate = true;
 
         if (!file.name) {
-            errorTip += `<li>${window.siyuan.languages.nameEmpty}</li>`;
+            errorTip += `<li>${window.shehab.languages.nameEmpty}</li>`;
             validate = false;
         }
 
         if (file.size > protyle.options.upload.max) {
-            errorTip += `<li>${file.name} ${window.siyuan.languages.over} ${protyle.options.upload.max / 1024 / 1024}M</li>`;
+            errorTip += `<li>${file.name} ${window.shehab.languages.over} ${protyle.options.upload.max / 1024 / 1024}M</li>`;
             validate = false;
         }
 
@@ -65,14 +65,14 @@ const validateFile = (protyle: IProtyle, files: File[]) => {
             });
 
             if (!isAccept) {
-                errorTip += `<li>${file.name} ${window.siyuan.languages.fileTypeError}</li>`;
+                errorTip += `<li>${file.name} ${window.shehab.languages.fileTypeError}</li>`;
                 validate = false;
             }
         }
 
         if (validate) {
             uploadFileList.push(file);
-            uploadingStr += `<li>${filename} ${window.siyuan.languages.uploading}</li>`;
+            uploadingStr += `<li>${filename} ${window.shehab.languages.uploading}</li>`;
         }
     }
     let msgId;
@@ -96,7 +96,7 @@ const genUploadedLabel = (responseText: string, protyle: IProtyle) => {
         response.data.errFiles.forEach((data: string) => {
             const lastIndex = data.lastIndexOf(".");
             const filename = lastIndex === -1 ? data : (protyle.options.upload.filename(data.substr(0, lastIndex)) + data.substr(lastIndex));
-            errorTip += `<li>${filename} ${window.siyuan.languages.uploadError}</li>`;
+            errorTip += `<li>${filename} ${window.shehab.languages.uploadError}</li>`;
         });
         errorTip += "</ul>";
     }
@@ -135,14 +135,14 @@ const genUploadedLabel = (responseText: string, protyle: IProtyle) => {
         const type = pathPosix().extname(key).toLowerCase();
         const filename = protyle.options.upload.filename(key);
         const name = filename.substring(0, filename.length - type.length);
-        hasImage = Constants.SIYUAN_ASSETS_IMAGE.includes(type);
+        hasImage = Constants.SHEHAB_ASSETS_IMAGE.includes(type);
         avAssets.push({
-            type: Constants.SIYUAN_ASSETS_IMAGE.includes(type) ? "image" : "file",
+            type: Constants.SHEHAB_ASSETS_IMAGE.includes(type) ? "image" : "file",
             content: path,
             name: name
         });
         successFileText += genAssetHTML(type, path, name, filename);
-        if (!Constants.SIYUAN_ASSETS_AUDIO.includes(type) && !Constants.SIYUAN_ASSETS_VIDEO.includes(type) &&
+        if (!Constants.SHEHAB_ASSETS_AUDIO.includes(type) && !Constants.SHEHAB_ASSETS_VIDEO.includes(type) &&
             keys.length - 1 !== index) {
             if (nodeElement && nodeElement.classList.contains("table")) {
                 successFileText += "<br>";
@@ -214,7 +214,7 @@ const genUploadedLabel = (responseText: string, protyle: IProtyle) => {
 };
 
 export const uploadLocalFiles = (files: string[], protyle: IProtyle, isUpload: boolean) => {
-    const msgId = showMessage(window.siyuan.languages.uploading, 0);
+    const msgId = showMessage(window.shehab.languages.uploading, 0);
     fetchPost("/api/asset/insertLocalAssets", {
         assetPaths: files,
         isUpload,
@@ -228,7 +228,7 @@ export const uploadLocalFiles = (files: string[], protyle: IProtyle, isUpload: b
             }
         });
         if (tip) {
-            showMessage(window.siyuan.languages.dndFolderTip.replace("${x}", `<b>${tip.substring(0, tip.length - 2)}</b>`));
+            showMessage(window.shehab.languages.dndFolderTip.replace("${x}", `<b>${tip.substring(0, tip.length - 2)}</b>`));
         }
         genUploadedLabel(JSON.stringify(response), protyle);
     });
@@ -248,7 +248,7 @@ export const uploadFiles = (protyle: IProtyle, files: FileList | DataTransferIte
                 if (xhr.status === 200) {
                     successCB(xhr.responseText);
                 } else if (xhr.status === 0) {
-                    showMessage(window.siyuan.languages.fileTypeError);
+                    showMessage(window.shehab.languages.fileTypeError);
                 } else {
                     showMessage(xhr.responseText);
                 }
@@ -356,7 +356,7 @@ export const uploadFiles = (protyle: IProtyle, files: FileList | DataTransferIte
                     genUploadedLabel(responseText, protyle);
                 }
             } else if (xhr.status === 0) {
-                showMessage(window.siyuan.languages.fileTypeError);
+                showMessage(window.shehab.languages.fileTypeError);
             } else {
                 if (protyle.options.upload.error) {
                     protyle.options.upload.error(xhr.responseText);

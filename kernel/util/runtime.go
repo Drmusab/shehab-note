@@ -291,21 +291,9 @@ func checkFileSysStatus() {
 }
 
 func IsCloudDrivePath(workspaceAbsPath string) bool {
-	if isICloudPath(workspaceAbsPath) {
-		return true
-	}
-
-	if isKnownCloudDrivePath(workspaceAbsPath) {
-		return true
-	}
-
-	if existAvailabilityStatus(workspaceAbsPath) {
-		return true
-	}
-
+	// Cloud drive warnings disabled in Shehab fork
 	return false
 }
-
 func isKnownCloudDrivePath(workspaceAbsPath string) bool {
 	workspaceAbsPathLower := strings.ToLower(workspaceAbsPath)
 	return strings.Contains(workspaceAbsPathLower, "onedrive") || strings.Contains(workspaceAbsPathLower, "dropbox") ||

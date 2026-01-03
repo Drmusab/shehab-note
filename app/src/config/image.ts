@@ -19,12 +19,12 @@ export const image = {
     <div class="layout-tab-bar fn__flex">
         <div class="item item--full item--focus" data-type="remove">
             <span class="fn__flex-1"></span>
-            <span class="item__text">${window.siyuan.languages.unreferencedAssets}</span>
+            <span class="item__text">${window.shehab.languages.unreferencedAssets}</span>
             <span class="fn__flex-1"></span>
         </div>
         <div class="item item--full" data-type="missing">
             <span class="fn__flex-1"></span>
-            <span class="item__text">${window.siyuan.languages.missingAssets}</span>
+            <span class="item__text">${window.shehab.languages.missingAssets}</span>
             <span class="fn__flex-1"></span>
         </div>
     </div>
@@ -35,7 +35,7 @@ export const image = {
                 <div class="fn__space"></div>
                 <button id="removeAll" class="b3-button b3-button--outline fn__flex-center fn__size200">
                     <svg class="svg"><use xlink:href="#iconTrashcan"></use></svg>
-                    ${window.siyuan.languages.delete}
+                    ${window.shehab.languages.delete}
                 </button>
             </div>
             <div class="fn__hr"></div>
@@ -61,7 +61,7 @@ export const image = {
             while (target && !target.isEqualNode(image.element)) {
                 const type = target.getAttribute("data-type");
                 if (target.id === "removeAll") {
-                    confirmDialog(window.siyuan.languages.deleteOpConfirm, `${window.siyuan.languages.clearAll}`, () => {
+                    confirmDialog(window.shehab.languages.deleteOpConfirm, `${window.shehab.languages.clearAll}`, () => {
                         fetchPost("/api/asset/removeUnusedAssets", {}, response => {
                             /// #if !MOBILE
                             getAllModels().asset.forEach(item => {
@@ -70,7 +70,7 @@ export const image = {
                                 }
                             });
                             /// #endif
-                            assetsListElement.innerHTML = `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+                            assetsListElement.innerHTML = `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
                             image.element.querySelector(".config-assets__preview").innerHTML = "";
                         });
                     }, undefined, true);
@@ -101,7 +101,7 @@ export const image = {
                     /// #endif
                 } else if (type === "clear") {
                     const pathString = target.parentElement.getAttribute("data-path");
-                    confirmDialog(window.siyuan.languages.deleteOpConfirm, `${window.siyuan.languages.delete} <b>${pathPosix().basename(pathString)}</b>`, () => {
+                    confirmDialog(window.shehab.languages.deleteOpConfirm, `${window.shehab.languages.delete} <b>${pathPosix().basename(pathString)}</b>`, () => {
                         fetchPost("/api/asset/removeUnusedAsset", {
                             path: pathString,
                         }, response => {
@@ -114,7 +114,7 @@ export const image = {
                             /// #endif
                             const liElement = target.parentElement;
                             if (liElement.parentElement.querySelectorAll("li").length === 1) {
-                                liElement.parentElement.innerHTML = `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+                                liElement.parentElement.innerHTML = `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
                             } else {
                                 liElement.remove();
                             }
@@ -145,13 +145,13 @@ export const image = {
         let html = "";
         let boxOpenHTML = "";
         if (!isBrowser() && action) {
-            boxOpenHTML = `<span data-type="open" class="ariaLabel b3-list-item__action" aria-label="${window.siyuan.languages.showInFolder}">
+            boxOpenHTML = `<span data-type="open" class="ariaLabel b3-list-item__action" aria-label="${window.shehab.languages.showInFolder}">
     <svg><use xlink:href="#iconFolder"></use></svg>
 </span>`;
         }
         let boxClearHTML = "";
         if (action) {
-            boxClearHTML = `<span data-type="clear" class="ariaLabel b3-list-item__action" aria-label="${window.siyuan.languages.delete}">
+            boxClearHTML = `<span data-type="clear" class="ariaLabel b3-list-item__action" aria-label="${window.shehab.languages.delete}">
     <svg><use xlink:href="#iconTrashcan"></use></svg>
 </span>`;
         }
@@ -161,13 +161,13 @@ export const image = {
             const dataPath = item.substr(idx);
             html += `<li data-path="${dataPath}"  class="b3-list-item${isM ? "" : " b3-list-item--hide-action"}">
     <span class="b3-list-item__text">${escapeHtml(item)}</span>
-    <span data-type="copy" class="ariaLabel b3-list-item__action" aria-label="${window.siyuan.languages.copy}">
+    <span data-type="copy" class="ariaLabel b3-list-item__action" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>
     ${boxOpenHTML}
     ${boxClearHTML}
 </li>`;
         });
-        element.innerHTML = html || `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+        element.innerHTML = html || `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
     }
 };

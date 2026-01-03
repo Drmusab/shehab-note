@@ -3,7 +3,7 @@ import {flashcard} from "../../config/flashcard";
 
 export const initRiffCard = () => {
     openModel({
-        title: window.siyuan.languages.riffCard,
+        title: window.shehab.languages.riffCard,
         icon: "iconRiffCard",
         html: flashcard.genHTML(),
         bindEvent(modelMainElement: HTMLElement) {

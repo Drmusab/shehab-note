@@ -75,8 +75,8 @@ export class Toolbar {
                 if (typeof toolbarItem.hotkey !== "string") {
                     toolbarItem.hotkey = "";
                 }
-                if (window.siyuan.config.keymap.plugin && window.siyuan.config.keymap.plugin[item.name] && window.siyuan.config.keymap.plugin[item.name][toolbarItem.name]) {
-                    toolbarItem.hotkey = window.siyuan.config.keymap.plugin[item.name][toolbarItem.name].custom;
+                if (window.shehab.config.keymap.plugin && window.shehab.config.keymap.plugin[item.name] && window.shehab.config.keymap.plugin[item.name][toolbarItem.name]) {
+                    toolbarItem.hotkey = window.shehab.config.keymap.plugin[item.name][toolbarItem.name].custom;
                 }
             });
             options.toolbar = toolbarKeyToMenu(pluginToolbar);
@@ -99,8 +99,8 @@ export class Toolbar {
                 if (typeof toolbarItem.hotkey !== "string") {
                     toolbarItem.hotkey = "";
                 }
-                if (window.siyuan.config.keymap.plugin && window.siyuan.config.keymap.plugin[item.name] && window.siyuan.config.keymap.plugin[item.name][toolbarItem.name]) {
-                    toolbarItem.hotkey = window.siyuan.config.keymap.plugin[item.name][toolbarItem.name].custom;
+                if (window.shehab.config.keymap.plugin && window.shehab.config.keymap.plugin[item.name] && window.shehab.config.keymap.plugin[item.name][toolbarItem.name]) {
+                    toolbarItem.hotkey = window.shehab.config.keymap.plugin[item.name][toolbarItem.name].custom;
                 }
             });
             protyle.options.toolbar = toolbarKeyToMenu(pluginToolbar);
@@ -861,7 +861,7 @@ export class Toolbar {
             return;
         }
         hideElements(["hint"], protyle);
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
         const id = nodeElement.getAttribute("data-node-id");
         const types = (renderElement.getAttribute("data-type") || "").split(" ");
         const html = oldHTML || nodeElement.outerHTML;
@@ -870,10 +870,10 @@ export class Toolbar {
         const isInlineMemo = types.includes("inline-memo");
         switch (renderElement.getAttribute("data-subtype")) {
             case "abc":
-                title = window.siyuan.languages.staff;
+                title = window.shehab.languages.staff;
                 break;
             case "echarts":
-                title = window.siyuan.languages.chart;
+                title = window.shehab.languages.chart;
                 break;
             case "flowchart":
                 title = "Flow Chart";
@@ -888,25 +888,25 @@ export class Toolbar {
                 placeholder = `- foo
   - bar
 - baz`;
-                title = window.siyuan.languages.mindmap;
+                title = window.shehab.languages.mindmap;
                 break;
             case "plantuml":
                 title = "UML";
                 break;
             case "math":
                 if (types.includes("NodeMathBlock")) {
-                    title = window.siyuan.languages.math;
+                    title = window.shehab.languages.math;
                 } else {
-                    title = window.siyuan.languages["inline-math"];
+                    title = window.shehab.languages["inline-math"];
                 }
                 break;
         }
         if (types.includes("NodeBlockQueryEmbed")) {
-            title = window.siyuan.languages.blockEmbed;
+            title = window.shehab.languages.blockEmbed;
         } else if (isInlineMemo) {
-            title = window.siyuan.languages.memo;
+            title = window.shehab.languages.memo;
         }
-        const isPin = this.subElement.querySelector('[data-type="pin"]')?.getAttribute("aria-label") === window.siyuan.languages.unpin;
+        const isPin = this.subElement.querySelector('[data-type="pin"]')?.getAttribute("aria-label") === window.shehab.languages.unpin;
         const pinData: IObject = {};
         if (isPin) {
             const textElement = this.subElement.querySelector(".b3-text-field") as HTMLTextAreaElement;
@@ -921,17 +921,17 @@ export class Toolbar {
         ${title}
     </span>
     <span class="fn__space"></span>
-    <button data-type="refresh" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${(isPin && !this.subElement.querySelector('[data-type="refresh"]').classList.contains("block__icon--active")) ? "" : " block__icon--active"}${types.includes("NodeBlockQueryEmbed") ? " fn__none" : ""}" aria-label="${window.siyuan.languages.refresh}"><svg><use xlink:href="#iconRefresh"></use></svg></button>
+    <button data-type="refresh" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${(isPin && !this.subElement.querySelector('[data-type="refresh"]').classList.contains("block__icon--active")) ? "" : " block__icon--active"}${types.includes("NodeBlockQueryEmbed") ? " fn__none" : ""}" aria-label="${window.shehab.languages.refresh}"><svg><use xlink:href="#iconRefresh"></use></svg></button>
     <span class="fn__space"></span>
-    <button data-type="before" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${protyle.disabled ? " fn__none" : ""}" aria-label="${window.siyuan.languages.insertBefore}"><svg><use xlink:href="#iconBefore"></use></svg></button>
+    <button data-type="before" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${protyle.disabled ? " fn__none" : ""}" aria-label="${window.shehab.languages.insertBefore}"><svg><use xlink:href="#iconBefore"></use></svg></button>
     <span class="fn__space${protyle.disabled ? " fn__none" : ""}"></span>
-    <button data-type="after" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${protyle.disabled ? " fn__none" : ""}" aria-label="${window.siyuan.languages.insertAfter}"><svg><use xlink:href="#iconAfter"></use></svg></button>
+    <button data-type="after" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw${protyle.disabled ? " fn__none" : ""}" aria-label="${window.shehab.languages.insertAfter}"><svg><use xlink:href="#iconAfter"></use></svg></button>
     <span class="fn__space${protyle.disabled ? " fn__none" : ""}"></span>
-    <button data-type="export" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${window.siyuan.languages.export} ${window.siyuan.languages.image}"><svg><use xlink:href="#iconImage"></use></svg></button>
+    <button data-type="export" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${window.shehab.languages.export} ${window.shehab.languages.image}"><svg><use xlink:href="#iconImage"></use></svg></button>
     <span class="fn__space"></span>
-    <button data-type="pin" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${isPin ? window.siyuan.languages.unpin : window.siyuan.languages.pin}"><svg><use xlink:href="#icon${isPin ? "Unpin" : "Pin"}"></use></svg></button>
+    <button data-type="pin" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${isPin ? window.shehab.languages.unpin : window.shehab.languages.pin}"><svg><use xlink:href="#icon${isPin ? "Unpin" : "Pin"}"></use></svg></button>
     <span class="fn__space"></span>
-    <button data-type="close" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${window.siyuan.languages.close}"><svg style="width: 10px;margin: 0 2px;"><use xlink:href="#iconClose"></use></svg></button>
+    <button data-type="close" class="block__icon block__icon--show b3-tooltips b3-tooltips__nw" aria-label="${window.shehab.languages.close}"><svg style="width: 10px;margin: 0 2px;"><use xlink:href="#iconClose"></use></svg></button>
 </div>
 <textarea ${protyle.disabled ? " readonly" : ""} spellcheck="false" class="b3-text-field b3-text-field--text fn__block" placeholder="${placeholder}" style="${isMobile() ? "" : "width:" + Math.max(480, renderElement.clientWidth * 0.7) + "px"};max-height:calc(80vh - 44px);min-height: 48px;min-width: 268px;border-radius: 0 0 var(--b3-border-radius-b) var(--b3-border-radius-b);font-family: var(--b3-font-family-code);"></textarea></div>`;
         const autoHeight = () => {
@@ -964,12 +964,12 @@ export class Toolbar {
             if (!btnElement) {
                 if (event.detail === 2) {
                     const pingElement = headerElement.querySelector('[data-type="pin"]');
-                    if (pingElement.getAttribute("aria-label") === window.siyuan.languages.unpin) {
+                    if (pingElement.getAttribute("aria-label") === window.shehab.languages.unpin) {
                         pingElement.querySelector("svg use").setAttribute("xlink:href", "#iconPin");
-                        pingElement.setAttribute("aria-label", window.siyuan.languages.pin);
+                        pingElement.setAttribute("aria-label", window.shehab.languages.pin);
                     } else {
                         pingElement.querySelector("svg use").setAttribute("xlink:href", "#iconUnpin");
-                        pingElement.setAttribute("aria-label", window.siyuan.languages.unpin);
+                        pingElement.setAttribute("aria-label", window.shehab.languages.unpin);
                     }
                     event.preventDefault();
                     event.stopPropagation();
@@ -979,16 +979,16 @@ export class Toolbar {
             event.stopPropagation();
             switch (btnElement.getAttribute("data-type")) {
                 case "close":
-                    this.subElement.querySelector('[data-type="pin"]').setAttribute("aria-label", window.siyuan.languages.pin);
+                    this.subElement.querySelector('[data-type="pin"]').setAttribute("aria-label", window.shehab.languages.pin);
                     hideElements(["util"], protyle);
                     break;
                 case "pin":
-                    if (btnElement.getAttribute("aria-label") === window.siyuan.languages.unpin) {
+                    if (btnElement.getAttribute("aria-label") === window.shehab.languages.unpin) {
                         btnElement.querySelector("svg use").setAttribute("xlink:href", "#iconPin");
-                        btnElement.setAttribute("aria-label", window.siyuan.languages.pin);
+                        btnElement.setAttribute("aria-label", window.shehab.languages.pin);
                     } else {
                         btnElement.querySelector("svg use").setAttribute("xlink:href", "#iconUnpin");
-                        btnElement.setAttribute("aria-label", window.siyuan.languages.unpin);
+                        btnElement.setAttribute("aria-label", window.shehab.languages.unpin);
                     }
                     break;
                 case "refresh":
@@ -1008,7 +1008,7 @@ export class Toolbar {
             }
         });
         const exportImg = () => {
-            const msgId = showMessage(window.siyuan.languages.exporting, 0);
+            const msgId = showMessage(window.shehab.languages.exporting, 0);
             if (renderElement.getAttribute("data-subtype") === "plantuml") {
                 fetch(renderElement.querySelector("object").getAttribute("data")).then(function (response) {
                     return response.blob();
@@ -1084,7 +1084,7 @@ export class Toolbar {
         textElement.addEventListener("keydown", (event: KeyboardEvent) => {
             event.stopPropagation();
             // 阻止 ctrl+m 缩小窗口 https://github.com/siyuan-note/siyuan/issues/5541
-            if (matchHotKey(window.siyuan.config.keymap.editor.insert["inline-math"].custom, event)) {
+            if (matchHotKey(window.shehab.config.keymap.editor.insert["inline-math"].custom, event)) {
                 event.preventDefault();
                 return;
             }
@@ -1092,7 +1092,7 @@ export class Toolbar {
                 return;
             }
             if (event.key === "Escape" || matchHotKey("⌘↩", event)) {
-                this.subElement.querySelector('[data-type="pin"]').setAttribute("aria-label", window.siyuan.languages.pin);
+                this.subElement.querySelector('[data-type="pin"]').setAttribute("aria-label", window.shehab.languages.pin);
                 hideElements(["util"], protyle);
             } else if (event.key === "Tab") {
                 // https://github.com/siyuan-note/siyuan/issues/5270
@@ -1206,12 +1206,12 @@ export class Toolbar {
                 const tempElement = document.createElement("template");
                 tempElement.innerHTML = protyle.lute.SpinBlockDOM(nodeElement.outerHTML);
                 if (tempElement.content.childElementCount > 1) {
-                    showMessage(window.siyuan.languages.htmlBlockTip);
+                    showMessage(window.shehab.languages.htmlBlockTip);
                 }
             }
             updateTransaction(protyle, id, nodeElement.outerHTML, html);
         };
-        this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.subElement.style.zIndex = (++window.shehab.zIndex).toString();
         this.subElement.classList.remove("fn__none");
         const nodeRect = renderElement.getBoundingClientRect();
         this.element.classList.add("fn__none");
@@ -1240,18 +1240,18 @@ export class Toolbar {
             return;
         }
         hideElements(["hint"], protyle);
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
         this.range = getEditorRange(nodeElement);
 
         this.subElement.style.width = "";
         this.subElement.style.padding = "";
         this.subElement.innerHTML = `<div data-id="codeLanguage" class="fn__flex-column" style="max-height:50vh">
-    <input placeholder="${window.siyuan.languages.search}" style="margin: 0 8px 4px 8px" class="b3-text-field"/>
+    <input placeholder="${window.shehab.languages.search}" style="margin: 0 8px 4px 8px" class="b3-text-field"/>
     <div class="b3-list fn__flex-1 b3-list--background" style="position: relative"></div>
 </div>`;
         const listElement = this.subElement.lastElementChild.lastElementChild as HTMLElement;
 
-        let html = `<div data-id="clearLanguage" class="b3-list-item">${window.siyuan.languages.clear}</div>`;
+        let html = `<div data-id="clearLanguage" class="b3-list-item">${window.shehab.languages.clear}</div>`;
         let hljsLanguages = Constants.ALIAS_CODE_LANGUAGES.concat(window.hljs?.listLanguages() ?? []).sort();
 
         const eventDetail = {languages: hljsLanguages, type: "init", listElement};
@@ -1301,7 +1301,7 @@ export class Toolbar {
         inputElement.addEventListener("input", (event) => {
             const value = inputElement.value.trim();
             let matchLanguages;
-            let html = `<div data-id="clearLanguage" class="b3-list-item">${window.siyuan.languages.clear}</div>`;
+            let html = `<div data-id="clearLanguage" class="b3-list-item">${window.shehab.languages.clear}</div>`;
             let isMatchLanguages = false;
             // Sort
             if (value) {
@@ -1365,7 +1365,7 @@ export class Toolbar {
             }
             this.updateLanguage(languageElements, protyle, listElement.textContent);
         });
-        this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.subElement.style.zIndex = (++window.shehab.zIndex).toString();
         this.subElement.classList.remove("fn__none");
         this.subElementCloseCB = undefined;
         /// #if !MOBILE
@@ -1381,7 +1381,7 @@ export class Toolbar {
     public showTpl(protyle: IProtyle, nodeElement: HTMLElement, range: Range) {
         this.range = range;
         hideElements(["hint"], protyle);
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
         this.subElement.style.width = "";
         this.subElement.style.padding = "";
         this.subElement.innerHTML = `<div style="max-height:50vh" class="fn__flex">
@@ -1460,15 +1460,15 @@ export class Toolbar {
                     searchHTML += `<div data-value="${item.path}" class="b3-list-item--hide-action b3-list-item${index === 0 ? " b3-list-item--focus" : ""}">
 <span class="b3-list-item__text">${item.content}</span>`;
                     /// #if !BROWSER
-                    searchHTML += `<span data-type="open" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.showInFolder}">
+                    searchHTML += `<span data-type="open" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.showInFolder}">
     <svg><use xlink:href="#iconFolder"></use></svg>
 </span>`;
                     /// #endif
-                    searchHTML += `<span data-type="remove" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.remove}">
+                    searchHTML += `<span data-type="remove" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.remove}">
     <svg><use xlink:href="#iconTrashcan"></use></svg>
 </span></div>`;
                 });
-                listElement.innerHTML = searchHTML || `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+                listElement.innerHTML = searchHTML || `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
                 const currentPath = response.data.blocks[0]?.path;
                 if (previewPath === currentPath) {
                     return;
@@ -1494,10 +1494,10 @@ export class Toolbar {
             }
             /// #endif
             if (iconElement && iconElement.getAttribute("data-type") === "remove") {
-                confirmDialog(window.siyuan.languages.remove, window.siyuan.languages.confirmDelete + "?", () => {
+                confirmDialog(window.shehab.languages.remove, window.shehab.languages.confirmDelete + "?", () => {
                     fetchPost("/api/search/removeTemplate", {path: iconElement.parentElement.getAttribute("data-value")}, () => {
                         if (iconElement.parentElement.parentElement.childElementCount === 1) {
-                            iconElement.parentElement.parentElement.innerHTML = `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+                            iconElement.parentElement.parentElement.innerHTML = `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
                             previewTemplate("", previewElement, protyle.block.parentID);
                         } else {
                             if (iconElement.parentElement.classList.contains("b3-list-item--focus")) {
@@ -1535,7 +1535,7 @@ export class Toolbar {
                 event.stopPropagation();
             }
         });
-        this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.subElement.style.zIndex = (++window.shehab.zIndex).toString();
         this.subElement.classList.remove("fn__none");
         this.subElementCloseCB = undefined;
         this.element.classList.add("fn__none");
@@ -1548,15 +1548,15 @@ export class Toolbar {
                 html += `<div data-value="${item.path}" class="b3-list-item--hide-action b3-list-item${index === 0 ? " b3-list-item--focus" : ""}">
 <span class="b3-list-item__text">${item.content}</span>`;
                 /// #if !BROWSER
-                html += `<span data-type="open" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.showInFolder}">
+                html += `<span data-type="open" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.showInFolder}">
     <svg><use xlink:href="#iconFolder"></use></svg>
 </span>`;
                 /// #endif
-                html += `<span data-type="remove" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.remove}">
+                html += `<span data-type="remove" class="b3-list-item__action b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.remove}">
     <svg><use xlink:href="#iconTrashcan"></use></svg>
 </span></div>`;
             });
-            this.subElement.querySelector(".b3-list--background").innerHTML = html || `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+            this.subElement.querySelector(".b3-list--background").innerHTML = html || `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
             /// #if !MOBILE
             const rangePosition = getSelectionPosition(nodeElement, range);
             setPosition(this.subElement, rangePosition.left, rangePosition.top + 18, Constants.SIZE_TOOLBAR_HEIGHT);
@@ -1572,7 +1572,7 @@ export class Toolbar {
     public showWidget(protyle: IProtyle, nodeElement: HTMLElement, range: Range) {
         this.range = range;
         hideElements(["hint"], protyle);
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
         this.subElement.style.width = "";
         this.subElement.style.padding = "";
         this.subElement.innerHTML = `<div class="fn__flex-column" style="max-height:50vh">
@@ -1619,7 +1619,7 @@ export class Toolbar {
             }
             hintRenderWidget(listElement.dataset.content, protyle);
         });
-        this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.subElement.style.zIndex = (++window.shehab.zIndex).toString();
         this.subElement.classList.remove("fn__none");
         this.subElementCloseCB = undefined;
         this.element.classList.add("fn__none");
@@ -1721,17 +1721,17 @@ ${item.name}
             } else if (action === "back") {
                 this.subElement.lastElementChild.innerHTML = html;
             } else if (action === "more") {
-                this.subElement.lastElementChild.innerHTML = `<button class="keyboard__action${hasCopy ? "" : " fn__none"}" data-action="copyPlainText"><span>${window.siyuan.languages.copyPlainText}</span></button>
+                this.subElement.lastElementChild.innerHTML = `<button class="keyboard__action${hasCopy ? "" : " fn__none"}" data-action="copyPlainText"><span>${window.shehab.languages.copyPlainText}</span></button>
 <div class="keyboard__split${hasCopy ? "" : " fn__none"}"></div>
-<button class="keyboard__action${protyle.disabled ? " fn__none" : ""}" data-action="pasteAsPlainText"><span>${window.siyuan.languages.pasteAsPlainText}</span></button>
+<button class="keyboard__action${protyle.disabled ? " fn__none" : ""}" data-action="pasteAsPlainText"><span>${window.shehab.languages.pasteAsPlainText}</span></button>
 <div class="keyboard__split${protyle.disabled ? " fn__none" : ""}"></div>
-<button class="keyboard__action${protyle.disabled ? " fn__none" : ""}" data-action="pasteEscaped"><span>${window.siyuan.languages.pasteEscaped}</span></button>
+<button class="keyboard__action${protyle.disabled ? " fn__none" : ""}" data-action="pasteEscaped"><span>${window.shehab.languages.pasteEscaped}</span></button>
 <div class="keyboard__split${protyle.disabled ? " fn__none" : ""}"></div>
 <button class="keyboard__action" data-action="back"><svg><use xlink:href="#iconBack"></use></svg></button>`;
                 setPosition(this.subElement, rangePosition.left, rangePosition.top + 28, Constants.SIZE_TOOLBAR_HEIGHT);
             }
         });
-        this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.subElement.style.zIndex = (++window.shehab.zIndex).toString();
         this.subElement.classList.remove("fn__none");
         this.subElementCloseCB = undefined;
         this.element.classList.add("fn__none");
@@ -1806,7 +1806,7 @@ ${item.name}
     }
 
     private updateLanguage(languageElements: HTMLElement[], protyle: IProtyle, selectedLang: string) {
-        const currentLang = selectedLang === window.siyuan.languages.clear ? "" : selectedLang;
+        const currentLang = selectedLang === window.shehab.languages.clear ? "" : selectedLang;
 
         if (protyle.app && protyle.app.plugins) {
             protyle.app.plugins.forEach((plugin: any) => {
@@ -1818,9 +1818,9 @@ ${item.name}
             });
         }
 
-        if (!Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(currentLang)) {
-            window.siyuan.storage[Constants.LOCAL_CODELANG] = currentLang;
-            setStorageVal(Constants.LOCAL_CODELANG, window.siyuan.storage[Constants.LOCAL_CODELANG]);
+        if (!Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(currentLang)) {
+            window.shehab.storage[Constants.LOCAL_CODELANG] = currentLang;
+            setStorageVal(Constants.LOCAL_CODELANG, window.shehab.storage[Constants.LOCAL_CODELANG]);
         }
         const doOperations: IOperation[] = [];
         const undoOperations: IOperation[] = [];
@@ -1833,9 +1833,9 @@ ${item.name}
                     data: nodeElement.outerHTML,
                     action: "update"
                 });
-                item.textContent = selectedLang === window.siyuan.languages.clear ? "" : selectedLang;
+                item.textContent = selectedLang === window.shehab.languages.clear ? "" : selectedLang;
                 const editElement = getContenteditableElement(nodeElement);
-                if (Constants.SIYUAN_RENDER_CODE_LANGUAGES.includes(currentLang)) {
+                if (Constants.SHEHAB_RENDER_CODE_LANGUAGES.includes(currentLang)) {
                     nodeElement.dataset.content = editElement.textContent.trim();
                     nodeElement.dataset.subtype = currentLang;
                     nodeElement.className = "render-node";

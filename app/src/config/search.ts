@@ -7,7 +7,7 @@ import {isPhablet} from "../protyle/util/compatibility";
 const getLang = (keys: string[]) => {
     const langArray: string[] = [];
     keys.forEach((key) => {
-        langArray.push(window.siyuan.languages[key]);
+        langArray.push(window.shehab.languages[key]);
     });
     return langArray;
 };
@@ -74,12 +74,12 @@ export const initConfigSearch = (element: HTMLElement, app: App) => {
             "searchBlockType", "searchCaseSensitive"]),
 
         // 快捷键
-        getLang(["keymap", "keymapTip2"].concat(Object.keys(Constants.SIYUAN_KEYMAP.general))
-            .concat(Object.keys(Constants.SIYUAN_KEYMAP.editor.general))
-            .concat(Object.keys(Constants.SIYUAN_KEYMAP.editor.heading))
-            .concat(Object.keys(Constants.SIYUAN_KEYMAP.editor.insert))
-            .concat(Object.keys(Constants.SIYUAN_KEYMAP.editor.list))
-            .concat(Object.keys(Constants.SIYUAN_KEYMAP.editor.table))),
+        getLang(["keymap", "keymapTip2"].concat(Object.keys(Constants.SHEHAB_KEYMAP.general))
+            .concat(Object.keys(Constants.SHEHAB_KEYMAP.editor.general))
+            .concat(Object.keys(Constants.SHEHAB_KEYMAP.editor.heading))
+            .concat(Object.keys(Constants.SHEHAB_KEYMAP.editor.insert))
+            .concat(Object.keys(Constants.SHEHAB_KEYMAP.editor.list))
+            .concat(Object.keys(Constants.SHEHAB_KEYMAP.editor.table))),
 
         // 账号
         getLang(["accountTip", "accountName", "password", "captcha", "forgetPassword", "login", "register",

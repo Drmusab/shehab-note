@@ -59,7 +59,7 @@ export const openGlobalSearch = (app: App, text: string, replace: boolean, searc
     if (searchModel) {
         return;
     }
-    const localData = window.siyuan.storage[Constants.LOCAL_SEARCHDATA];
+    const localData = window.shehab.storage[Constants.LOCAL_SEARCHDATA];
     openFile({
         app,
         searchData: {
@@ -76,7 +76,7 @@ export const openGlobalSearch = (app: App, text: string, replace: boolean, searc
             removed: localData.removed,
             page: 1
         },
-        position: (window.siyuan.layout.centerLayout.children.length > 1 || window.innerWidth > 1024) ? "right" : undefined
+        position: (window.shehab.layout.centerLayout.children.length > 1 || window.innerWidth > 1024) ? "right" : undefined
     });
 };
 
@@ -92,13 +92,13 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
             enableIncludeChild = true;
         }
     });
-    const data = window.siyuan.storage[Constants.LOCAL_SEARCHKEYS];
-    const unRefLocal = window.siyuan.storage[Constants.LOCAL_SEARCHUNREF];
+    const data = window.shehab.storage[Constants.LOCAL_SEARCHKEYS];
+    const unRefLocal = window.shehab.storage[Constants.LOCAL_SEARCHUNREF];
     element.innerHTML = `<div class="fn__flex-column" style="height: 100%;${closeCB ? "border-radius: var(--b3-border-radius-b);overflow: hidden;" : ""}">
     <div class="block__icons" style="overflow: auto">
-        <span data-position="9south" data-type="previous" class="block__icon block__icon--show ariaLabel" disabled="disabled" aria-label="${window.siyuan.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
+        <span data-position="9south" data-type="previous" class="block__icon block__icon--show ariaLabel" disabled="disabled" aria-label="${window.shehab.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
         <span class="fn__space"></span>
-        <span data-position="9south" data-type="next" class="block__icon block__icon--show ariaLabel" disabled="disabled" aria-label="${window.siyuan.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
+        <span data-position="9south" data-type="next" class="block__icon block__icon--show ariaLabel" disabled="disabled" aria-label="${window.shehab.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
         <span class="fn__space"></span>
         <span id="searchResult" class="fn__flex-shrink ft__selectnone"></span>
         <span class="fn__space"></span>
@@ -108,27 +108,27 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
             <svg class="search__rmpath${config.hPath ? "" : " fn__none"}"><use xlink:href="#iconCloseRound"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span data-position="9south" id="searchInclude" ${enableIncludeChild ? "" : "disabled"} aria-label="${window.siyuan.languages.includeChildDoc}" class="block__icon block__icon--show ariaLabel">
+        <span data-position="9south" id="searchInclude" ${enableIncludeChild ? "" : "disabled"} aria-label="${window.shehab.languages.includeChildDoc}" class="block__icon block__icon--show ariaLabel">
             <svg${includeChild ? ' class="ft__primary"' : ""}><use xlink:href="#iconInclude"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span id="searchPath" aria-label="${window.siyuan.languages.specifyPath}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchPath" aria-label="${window.shehab.languages.specifyPath}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconFolder"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span id="searchMore" aria-label="${window.siyuan.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchMore" aria-label="${window.shehab.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconMore"></use></svg>
         </span>
         <span class="${closeCB ? "" : "fn__none "}fn__space"></span>
-        <span id="searchOpen" aria-label="${window.siyuan.languages.openInNewTab}" class="${closeCB ? "" : "fn__none "}block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchOpen" aria-label="${window.shehab.languages.openInNewTab}" class="${closeCB ? "" : "fn__none "}block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconLayoutRight"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span id="searchUnRef" aria-label="${window.siyuan.languages.listInvalidRefBlocks}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchUnRef" aria-label="${window.shehab.languages.listInvalidRefBlocks}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconLinkOff"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span id="searchAsset" aria-label="${window.siyuan.languages.searchAssetContent}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchAsset" aria-label="${window.shehab.languages.searchAssetContent}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconExact"></use></svg>
         </span>
     </div>
@@ -138,29 +138,29 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                 <svg data-menu="true" class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
                 <svg class="search__arrowdown"><use xlink:href="#iconDown"></use></svg>
             </span>
-            <input id="searchInput" class="b3-text-field b3-text-field--text" placeholder="${window.siyuan.languages.showRecentUpdatedBlocks}" autocomplete="off" autocorrect="off" spellcheck="false">
+            <input id="searchInput" class="b3-text-field b3-text-field--text" placeholder="${window.shehab.languages.showRecentUpdatedBlocks}" autocomplete="off" autocorrect="off" spellcheck="false">
         </div>
         <div class="block__icons">
-            <span id="searchFilter" aria-label="${window.siyuan.languages.searchType}" class="block__icon ariaLabel" data-position="9south">
+            <span id="searchFilter" aria-label="${window.shehab.languages.searchType}" class="block__icon ariaLabel" data-position="9south">
                 <svg><use xlink:href="#iconFilter"></use></svg>
             </span> 
             <span class="fn__space"></span>
             ${genQueryHTML(config.method, "searchSyntaxCheck")}
             <span class="fn__space"></span>
-            <span id="searchReplace" aria-label="${window.siyuan.languages.replace}" class="block__icon ariaLabel" data-position="9south">
+            <span id="searchReplace" aria-label="${window.shehab.languages.replace}" class="block__icon ariaLabel" data-position="9south">
                 <svg><use xlink:href="#iconReplace"></use></svg>
             </span>
             <span class="fn__space"></span>
-            <span id="searchRefresh" aria-label="${window.siyuan.languages.refresh}" class="block__icon ariaLabel" data-position="9south">
+            <span id="searchRefresh" aria-label="${window.shehab.languages.refresh}" class="block__icon ariaLabel" data-position="9south">
                 <svg><use xlink:href="#iconRefresh"></use></svg>
             </span>
             <div class="fn__flex${config.group === 0 ? " fn__none" : ""}">
                 <span class="fn__space"></span>
-                <span id="searchExpand" class="block__icon block__icon--show ariaLabel" data-position="9south" aria-label="${window.siyuan.languages.expand}">
+                <span id="searchExpand" class="block__icon block__icon--show ariaLabel" data-position="9south" aria-label="${window.shehab.languages.expand}">
                     <svg><use xlink:href="#iconExpand"></use></svg>
                 </span>
                 <span class="fn__space"></span>
-                <span id="searchCollapse" class="block__icon block__icon--show ariaLabel" data-position="9south" aria-label="${window.siyuan.languages.collapse}">
+                <span id="searchCollapse" class="block__icon block__icon--show ariaLabel" data-position="9south" aria-label="${window.shehab.languages.collapse}">
                     <svg><use xlink:href="#iconContract"></use></svg>
                 </span>
             </div>
@@ -176,13 +176,13 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
         </div>
         <div class="fn__space"></div>
         <svg class="fn__rotate fn__none svg" style="padding: 0 8px;align-self: center;margin-right: 8px"><use xlink:href="#iconRefresh"></use></svg>
-        <span id="replaceFilter" aria-label="${window.siyuan.languages.replaceType}" class="block__icon ariaLabel fn__flex-center" data-position="9south">
+        <span id="replaceFilter" aria-label="${window.shehab.languages.replaceType}" class="block__icon ariaLabel fn__flex-center" data-position="9south">
             <svg><use xlink:href="#iconFilter"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <button id="replaceAllBtn" class="b3-button b3-button--small b3-button--outline fn__flex-center">${window.siyuan.languages.replaceAll}</button>
+        <button id="replaceAllBtn" class="b3-button b3-button--small b3-button--outline fn__flex-center">${window.shehab.languages.replaceAll}</button>
         <div class="fn__space"></div>
-        <button id="replaceBtn" class="b3-button b3-button--small b3-button--outline fn__flex-center">↵ ${window.siyuan.languages.replace}</button>
+        <button id="replaceBtn" class="b3-button b3-button--small b3-button--outline fn__flex-center">↵ ${window.shehab.languages.replace}</button>
         <div class="fn__space"></div>
     </div>
     <div id="criteria" class="search__header"></div>
@@ -192,29 +192,29 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
         <div id="searchPreview" class="fn__flex-1 search__preview"></div>
     </div>
     <div class="search__tip${closeCB ? "" : " fn__none"}">
-        <kbd>↑/↓/PageUp/PageDown</kbd> ${window.siyuan.languages.searchTip1}
-        <kbd>${updateHotkeyTip(window.siyuan.config.keymap.general.newFile.custom)}</kbd> ${window.siyuan.languages.new}
-        <kbd>${window.siyuan.languages.enterKey}/${window.siyuan.languages.doubleClick}</kbd> ${window.siyuan.languages.searchTip2}
-        <kbd>${window.siyuan.languages.click}</kbd> ${window.siyuan.languages.searchTip3}
-        <kbd>${updateHotkeyTip(window.siyuan.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.siyuan.languages.click)}</kbd> ${window.siyuan.languages.searchTip4}
-        <kbd>Esc</kbd> ${window.siyuan.languages.searchTip5}
+        <kbd>↑/↓/PageUp/PageDown</kbd> ${window.shehab.languages.searchTip1}
+        <kbd>${updateHotkeyTip(window.shehab.config.keymap.general.newFile.custom)}</kbd> ${window.shehab.languages.new}
+        <kbd>${window.shehab.languages.enterKey}/${window.shehab.languages.doubleClick}</kbd> ${window.shehab.languages.searchTip2}
+        <kbd>${window.shehab.languages.click}</kbd> ${window.shehab.languages.searchTip3}
+        <kbd>${updateHotkeyTip(window.shehab.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.shehab.languages.click)}</kbd> ${window.shehab.languages.searchTip4}
+        <kbd>Esc</kbd> ${window.shehab.languages.searchTip5}
     </div>
 </div>
 <div class="fn__flex-column fn__none" id="searchAssets" style="height: 100%;${closeCB ? "border-radius: var(--b3-border-radius-b);overflow: hidden;" : ""}"></div>
 <div class="fn__flex-column fn__none" id="searchUnRefPanel" style="height: 100%;${closeCB ? "border-radius: var(--b3-border-radius-b);overflow: hidden;" : ""}">
     <div class="block__icons">
-        <span data-type="unRefPrevious" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.siyuan.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
+        <span data-type="unRefPrevious" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.shehab.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
         <span class="fn__space"></span>
-        <span data-type="unRefNext" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.siyuan.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
+        <span data-type="unRefNext" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.shehab.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
         <span class="fn__space"></span>
         <span id="searchUnRefResult" class="ft__selectnone"></span>
         <span class="fn__flex-1${closeCB ? " resize__move" : ""}" style="min-height: 100%"></span>
         <span class="fn__space"></span>
-        <span id="unRefMore" aria-label="${window.siyuan.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="unRefMore" aria-label="${window.shehab.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconMore"></use></svg>
         </span>
         <span class="fn__space"></span>
-        <span id="searchUnRefClose" aria-label="${!closeCB ? window.siyuan.languages.stickSearch : window.siyuan.languages.globalSearch}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+        <span id="searchUnRefClose" aria-label="${!closeCB ? window.shehab.languages.stickSearch : window.shehab.languages.globalSearch}" class="block__icon block__icon--show ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconBack"></use></svg>
         </span>
     </div>
@@ -224,10 +224,10 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
         <div id="searchUnRefPreview" class="fn__flex-1 search__preview"></div>
     </div>
     <div class="search__tip${closeCB ? "" : " fn__none"}">
-        <kbd>↑/↓/PageUp/PageDown</kbd> ${window.siyuan.languages.searchTip1}
-        <kbd>${window.siyuan.languages.enterKey}/${window.siyuan.languages.doubleClick}</kbd> ${window.siyuan.languages.searchTip2}
-        <kbd>${updateHotkeyTip(window.siyuan.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.siyuan.languages.click)}</kbd> ${window.siyuan.languages.searchTip4}
-        <kbd>Esc</kbd> ${window.siyuan.languages.searchTip5}
+        <kbd>↑/↓/PageUp/PageDown</kbd> ${window.shehab.languages.searchTip1}
+        <kbd>${window.shehab.languages.enterKey}/${window.shehab.languages.doubleClick}</kbd> ${window.shehab.languages.searchTip2}
+        <kbd>${updateHotkeyTip(window.shehab.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.shehab.languages.click)}</kbd> ${window.shehab.languages.searchTip4}
+        <kbd>Esc</kbd> ${window.shehab.languages.searchTip5}
     </div>
 </div>
 <div class="fn__loading fn__loading--top"><img width="120px" src="/stage/loading-pure.svg"></div>`;
@@ -293,7 +293,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
         const documentSelf = document;
         const nextElement = dragElement.nextElementSibling as HTMLElement;
         const previousElement = dragElement.previousElementSibling as HTMLElement;
-        const direction = window.siyuan.storage[Constants.LOCAL_SEARCHKEYS][closeCB ? "layout" : "layoutTab"] === 1 ? "lr" : "tb";
+        const direction = window.shehab.storage[Constants.LOCAL_SEARCHKEYS][closeCB ? "layout" : "layoutTab"] === 1 ? "lr" : "tb";
         const x = event[direction === "lr" ? "clientX" : "clientY"];
         const previousSize = direction === "lr" ? previousElement.clientWidth : previousElement.clientHeight;
         const nextSize = direction === "lr" ? nextElement.clientWidth : nextElement.clientHeight;
@@ -319,8 +319,8 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
             documentSelf.ondragstart = null;
             documentSelf.onselectstart = null;
             documentSelf.onselect = null;
-            window.siyuan.storage[Constants.LOCAL_SEARCHKEYS][direction === "lr" ? (closeCB ? "col" : "colTab") : (closeCB ? "row" : "rowTab")] = nextElement[direction === "lr" ? "clientWidth" : "clientHeight"] + "px";
-            setStorageVal(Constants.LOCAL_SEARCHKEYS, window.siyuan.storage[Constants.LOCAL_SEARCHKEYS]);
+            window.shehab.storage[Constants.LOCAL_SEARCHKEYS][direction === "lr" ? (closeCB ? "col" : "colTab") : (closeCB ? "row" : "rowTab")] = nextElement[direction === "lr" ? "clientWidth" : "clientHeight"] + "px";
+            setStorageVal(Constants.LOCAL_SEARCHKEYS, window.shehab.storage[Constants.LOCAL_SEARCHKEYS]);
             if (direction === "lr") {
                 resize(edit.protyle);
             }
@@ -329,14 +329,14 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
     dragElement.addEventListener("dblclick", () => {
         edit.protyle.element.style[localSearch.layout === 1 ? "width" : "height"] = "";
         edit.protyle.element.classList.add("fn__flex-1");
-        const direction = window.siyuan.storage[Constants.LOCAL_SEARCHKEYS][closeCB ? "layout" : "layoutTab"] === 1 ? "lr" : "tb";
-        window.siyuan.storage[Constants.LOCAL_SEARCHKEYS][direction === "lr" ? (closeCB ? "col" : "colTab") : (closeCB ? "row" : "rowTab")] = "";
-        setStorageVal(Constants.LOCAL_SEARCHKEYS, window.siyuan.storage[Constants.LOCAL_SEARCHKEYS]);
+        const direction = window.shehab.storage[Constants.LOCAL_SEARCHKEYS][closeCB ? "layout" : "layoutTab"] === 1 ? "lr" : "tb";
+        window.shehab.storage[Constants.LOCAL_SEARCHKEYS][direction === "lr" ? (closeCB ? "col" : "colTab") : (closeCB ? "row" : "rowTab")] = "";
+        setStorageVal(Constants.LOCAL_SEARCHKEYS, window.shehab.storage[Constants.LOCAL_SEARCHKEYS]);
         if (direction === "lr") {
             resize(edit.protyle);
         }
     });
-    const localSearch = window.siyuan.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
+    const localSearch = window.shehab.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
     const assetsElement = element.querySelector("#searchAssets") as HTMLElement;
     const unRefPanelElement = element.querySelector("#searchUnRefPanel") as HTMLElement;
     element.addEventListener("click", (event: MouseEvent) => {
@@ -357,7 +357,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                     r: "",
                     page: 1,
                     types: getDefaultType(),
-                    replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                    replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                 }, config, edit, true);
                 element.querySelector(".b3-chip--current")?.classList.remove("b3-chip--current");
                 event.stopPropagation();
@@ -423,7 +423,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config, edit, true);
                 }
                 target.parentElement.remove();
@@ -496,7 +496,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                             inputEvent(element, config, edit, true);
                         });
                     },
-                    title: window.siyuan.languages.specifyPath,
+                    title: window.shehab.languages.specifyPath,
                     flashcard: false
                 });
                 event.stopPropagation();
@@ -545,7 +545,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                 event.preventDefault();
                 break;
             } else if (target.id === "searchUnRefClose") {
-                window.siyuan.menus.menu.remove();
+                window.shehab.menus.menu.remove();
                 unRefPanelElement.classList.add("fn__none");
                 assetsElement.previousElementSibling.classList.remove("fn__none");
                 searchInputElement.select();
@@ -580,7 +580,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                 event.preventDefault();
                 break;
             } else if (target.id === "searchAssetClose") {
-                window.siyuan.menus.menu.remove();
+                window.shehab.menus.menu.remove();
                 assetsElement.classList.add("fn__none");
                 assetsElement.previousElementSibling.classList.remove("fn__none");
                 searchInputElement.select();
@@ -593,7 +593,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                 openFile({
                     app,
                     searchData: config,
-                    position: (window.siyuan.layout.centerLayout.children.length > 1 || window.innerWidth > 1024) ? "right" : undefined
+                    position: (window.shehab.layout.centerLayout.children.length > 1 || window.innerWidth > 1024) ? "right" : undefined
                 });
                 if (closeCB) {
                     closeCB();
@@ -623,19 +623,19 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                         r: "",
                         page: 1,
                         types: getDefaultType(),
-                        replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
+                        replaceTypes: Object.assign({}, Constants.SHEHAB_DEFAULT_REPLACETYPES),
                     }, config, edit, true);
                     element.querySelector("#criteria .b3-chip--current")?.classList.remove("b3-chip--current");
                 }, () => {
-                    const localData = window.siyuan.storage[Constants.LOCAL_SEARCHKEYS];
+                    const localData = window.shehab.storage[Constants.LOCAL_SEARCHKEYS];
                     const isPopover = hasClosestByClassName(element, "b3-dialog__container");
-                    window.siyuan.menus.menu.append(new MenuItem({
+                    window.shehab.menus.menu.append(new MenuItem({
                         iconHTML: "",
-                        label: window.siyuan.languages.layout,
+                        label: window.shehab.languages.layout,
                         type: "submenu",
                         submenu: [{
                             iconHTML: "",
-                            label: window.siyuan.languages.topBottomLayout,
+                            label: window.shehab.languages.topBottomLayout,
                             current: isPopover ? localData.layout === 0 : localData.layoutTab === 0,
                             click() {
                                 element.querySelector(".search__layout").classList.remove("search__layout--row");
@@ -652,11 +652,11 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                                 } else {
                                     localData.layoutTab = 0;
                                 }
-                                setStorageVal(Constants.LOCAL_SEARCHKEYS, window.siyuan.storage[Constants.LOCAL_SEARCHKEYS]);
+                                setStorageVal(Constants.LOCAL_SEARCHKEYS, window.shehab.storage[Constants.LOCAL_SEARCHKEYS]);
                             }
                         }, {
                             iconHTML: "",
-                            label: window.siyuan.languages.leftRightLayout,
+                            label: window.shehab.languages.leftRightLayout,
                             current: isPopover ? localData.layout === 1 : localData.layoutTab === 1,
                             click() {
                                 element.querySelector(".search__layout").classList.add("search__layout--row");
@@ -673,18 +673,18 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                                 } else {
                                     localData.layoutTab = 1;
                                 }
-                                setStorageVal(Constants.LOCAL_SEARCHKEYS, window.siyuan.storage[Constants.LOCAL_SEARCHKEYS]);
+                                setStorageVal(Constants.LOCAL_SEARCHKEYS, window.shehab.storage[Constants.LOCAL_SEARCHKEYS]);
                             }
                         }]
                     }).element);
                 });
                 const rect = target.getBoundingClientRect();
-                window.siyuan.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
+                window.shehab.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
                 event.stopPropagation();
                 event.preventDefault();
                 break;
             } else if (target.id === "searchFilter") {
-                window.siyuan.menus.menu.remove();
+                window.shehab.menus.menu.remove();
                 filterMenu(config, () => {
                     config.page = 1;
                     inputEvent(element, config, edit, true);
@@ -693,7 +693,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                 event.preventDefault();
                 break;
             } else if (target.id === "replaceFilter") {
-                window.siyuan.menus.menu.remove();
+                window.shehab.menus.menu.remove();
                 replaceFilterMenu(config);
                 event.stopPropagation();
                 event.preventDefault();
@@ -749,7 +749,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                     inputEvent(element, config, edit, true);
                 });
                 const rect = target.getBoundingClientRect();
-                window.siyuan.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
+                window.shehab.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
                 event.stopPropagation();
                 event.preventDefault();
                 break;
@@ -813,7 +813,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                                 if (!target.classList.contains("b3-list-item--focus")) {
                                     assetsElement.querySelector(".b3-list-item--focus").classList.remove("b3-list-item--focus");
                                     target.classList.add("b3-list-item--focus");
-                                    renderPreview(element.querySelector("#searchAssetPreview"), target.dataset.id, searchAssetInputElement.value, window.siyuan.storage[Constants.LOCAL_SEARCHASSET].method);
+                                    renderPreview(element.querySelector("#searchAssetPreview"), target.dataset.id, searchAssetInputElement.value, window.shehab.storage[Constants.LOCAL_SEARCHASSET].method);
                                     searchAssetInputElement.focus();
                                 } else if (target.classList.contains("b3-list-item--focus")) {
                                     renderNextAssetMark(element.querySelector("#searchAssetPreview"));
@@ -852,7 +852,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                         clearTimeout(clickTimeout);
                         if (searchType === "asset") {
                             /// #if !BROWSER
-                            useShell("showItemInFolder", path.join(window.siyuan.config.system.dataDir, target.lastElementChild.getAttribute("aria-label")));
+                            useShell("showItemInFolder", path.join(window.shehab.config.system.dataDir, target.lastElementChild.getAttribute("aria-label")));
                             /// #endif
                         } else {
                             openSearchEditor({
@@ -863,7 +863,7 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
                             });
                         }
                     }
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                 } else if (target.querySelector(".b3-list-item__toggle")) {
                     target.nextElementSibling.classList.toggle("fn__none");
                     target.firstElementChild.firstElementChild.classList.toggle("b3-list-item__arrow--open");
@@ -893,8 +893,8 @@ export const genSearch = (app: App, config: Config.IUILayoutTabSearchConfig, ele
     searchInputElement.addEventListener("blur", () => {
         if (config.removed) {
             config.k = searchInputElement.value;
-            window.siyuan.storage[Constants.LOCAL_SEARCHDATA] = Object.assign({}, config);
-            setStorageVal(Constants.LOCAL_SEARCHDATA, window.siyuan.storage[Constants.LOCAL_SEARCHDATA]);
+            window.shehab.storage[Constants.LOCAL_SEARCHDATA] = Object.assign({}, config);
+            setStorageVal(Constants.LOCAL_SEARCHDATA, window.shehab.storage[Constants.LOCAL_SEARCHDATA]);
         }
         saveKeyList("keys", searchInputElement.value);
     });
@@ -944,7 +944,7 @@ export const openSearchEditor = (options: {
                 zoomInId: options.protyle.block.showAll ? options.protyle.block.id : undefined,
                 scrollTop: options.protyle.contentElement.scrollTop,
             };
-            window.siyuan.storage[Constants.LOCAL_FILEPOSITION][options.protyle.block.rootID] = scrollAttr;
+            window.shehab.storage[Constants.LOCAL_FILEPOSITION][options.protyle.block.rootID] = scrollAttr;
             if (offset.start === offset.end) {
                 currentRange = null;
             }
@@ -972,11 +972,11 @@ export const genQueryHTML = (method: number, id: string) => {
     let methodIcon = "";
     switch (method) {
         case 0:
-            methodTip = window.siyuan.languages.keyword;
+            methodTip = window.shehab.languages.keyword;
             methodIcon = "Exact";
             break;
         case 1:
-            methodTip = window.siyuan.languages.querySyntax;
+            methodTip = window.shehab.languages.querySyntax;
             methodIcon = "Quote";
             break;
         case 2:
@@ -984,11 +984,11 @@ export const genQueryHTML = (method: number, id: string) => {
             methodIcon = "Database";
             break;
         case 3:
-            methodTip = window.siyuan.languages.regex;
+            methodTip = window.shehab.languages.regex;
             methodIcon = "Regex";
             break;
     }
-    return `<span id="${id}" aria-label="${window.siyuan.languages.searchMethod} ${methodTip}" class="block__icon ariaLabel" data-position="9south">
+    return `<span id="${id}" aria-label="${window.shehab.languages.searchMethod} ${methodTip}" class="block__icon ariaLabel" data-position="9south">
     <svg><use xlink:href="#icon${methodIcon}"></use></svg>
 </span>`;
 };
@@ -1051,10 +1051,10 @@ export const updateConfig = (element: Element, item: Config.IUILayoutTabSearchCo
     (element.querySelector("#replaceInput") as HTMLInputElement).value = item.r;
     element.querySelector("#searchSyntaxCheck").outerHTML = genQueryHTML(item.method, "searchSyntaxCheck");
     config = JSON.parse(JSON.stringify(item));
-    window.siyuan.storage[Constants.LOCAL_SEARCHDATA] = JSON.parse(JSON.stringify(item));
-    setStorageVal(Constants.LOCAL_SEARCHDATA, window.siyuan.storage[Constants.LOCAL_SEARCHDATA]);
+    window.shehab.storage[Constants.LOCAL_SEARCHDATA] = JSON.parse(JSON.stringify(item));
+    setStorageVal(Constants.LOCAL_SEARCHDATA, window.shehab.storage[Constants.LOCAL_SEARCHDATA]);
     inputEvent(element, config, edit);
-    window.siyuan.menus.menu.remove();
+    window.shehab.menus.menu.remove();
     return config;
 };
 
@@ -1152,7 +1152,7 @@ export const getArticle = (options: {
                 queryMethod: options.config?.method || null,
                 queryTypes: options.config?.types || null,
                 mode: zoomIn ? 0 : 3,
-                size: zoomIn ? Constants.SIZE_GET_MAX : window.siyuan.config.editor.dynamicLoadBlocks,
+                size: zoomIn ? Constants.SIZE_GET_MAX : window.shehab.config.editor.dynamicLoadBlocks,
                 zoom: zoomIn,
                 highlight: !isSupportCSSHL(),
             }, getResponse => {
@@ -1214,7 +1214,7 @@ export const getArticle = (options: {
 
 export const replace = (element: Element, config: Config.IUILayoutTabSearchConfig, edit: Protyle, isAll: boolean) => {
     if (config.method === 2) {
-        showMessage(window.siyuan.languages._kernel[132]);
+        showMessage(window.shehab.languages._kernel[132]);
         return;
     }
     const searchPanelElement = element.querySelector("#searchList");
@@ -1307,8 +1307,8 @@ export const inputEvent = (element: Element, config: Config.IUILayoutTabSearchCo
         const searchResultElement = element.querySelector("#searchResult");
         if (config.query === "" && (!config.idPath || config.idPath.length === 0)) {
             fetchPost("/api/block/getRecentUpdatedBlocks", {}, (response) => {
-                if (window.siyuan.reqIds["/api/block/getRecentUpdatedBlocks"] && window.siyuan.reqIds["/api/search/fullTextSearchBlock"] &&
-                    window.siyuan.reqIds["/api/block/getRecentUpdatedBlocks"] < window.siyuan.reqIds["/api/search/fullTextSearchBlock"]) {
+                if (window.shehab.reqIds["/api/block/getRecentUpdatedBlocks"] && window.shehab.reqIds["/api/search/fullTextSearchBlock"] &&
+                    window.shehab.reqIds["/api/block/getRecentUpdatedBlocks"] < window.shehab.reqIds["/api/search/fullTextSearchBlock"]) {
                     return;
                 }
                 onSearch(response.data, edit, element, config);
@@ -1332,8 +1332,8 @@ export const inputEvent = (element: Element, config: Config.IUILayoutTabSearchCo
                 orderBy: config.sort,
                 page: config.page || 1,
             }, (response) => {
-                if (window.siyuan.reqIds["/api/block/getRecentUpdatedBlocks"] && window.siyuan.reqIds["/api/search/fullTextSearchBlock"] &&
-                    window.siyuan.reqIds["/api/block/getRecentUpdatedBlocks"] > window.siyuan.reqIds["/api/search/fullTextSearchBlock"]) {
+                if (window.shehab.reqIds["/api/block/getRecentUpdatedBlocks"] && window.shehab.reqIds["/api/search/fullTextSearchBlock"] &&
+                    window.shehab.reqIds["/api/block/getRecentUpdatedBlocks"] > window.shehab.reqIds["/api/search/fullTextSearchBlock"]) {
                     return;
                 }
                 if (!config.page) {
@@ -1345,9 +1345,9 @@ export const inputEvent = (element: Element, config: Config.IUILayoutTabSearchCo
                     nextElement.setAttribute("disabled", "disabled");
                 }
                 onSearch(response.data.blocks, edit, element, config, focusId);
-                let text = window.siyuan.languages.findInDoc.replace("${x}", response.data.matchedRootCount).replace("${y}", response.data.matchedBlockCount);
+                let text = window.shehab.languages.findInDoc.replace("${x}", response.data.matchedRootCount).replace("${y}", response.data.matchedBlockCount);
                 if (response.data.docMode) {
-                    text = window.siyuan.languages.matchDoc.replace("${x}", response.data.matchedRootCount);
+                    text = window.shehab.languages.matchDoc.replace("${x}", response.data.matchedRootCount);
                 }
                 searchResultElement.innerHTML = `${config.page}/${response.data.pageCount || 1}<span class="fn__space"></span>
 <span class="ft__on-surface">${text}</span>`;
@@ -1389,7 +1389,7 @@ const onSearch = (data: IBlock[], edit: Protyle, element: Element, config: Confi
 <span class="b3-list-item__toggle b3-list-item__toggle--hl">
     <svg class="b3-list-item__arrow b3-list-item__arrow--open"><use xlink:href="#iconRight"></use></svg>
 </span>
-${unicode2Emoji(getNotebookIcon(item.box) || window.siyuan.storage[Constants.LOCAL_IMAGES].note, "b3-list-item__graphic", true)}
+${unicode2Emoji(getNotebookIcon(item.box) || window.shehab.storage[Constants.LOCAL_IMAGES].note, "b3-list-item__graphic", true)}
 <span class="b3-list-item__text ariaLabel" style="color: var(--b3-theme-on-surface)" aria-label="${escapeAriaLabel(title)}">${escapeGreat(title)}</span>
 </div><div>`;
             item.children.forEach((childItem) => {
@@ -1402,7 +1402,7 @@ ${unicode2Emoji(getNotebookIcon(item.box) || window.siyuan.storage[Constants.LOC
                     }
                 }
                 if (childItem.refCount) {
-                    countHTML = `<span class="popover__block counter b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.ref}">${childItem.refCount}</span>`;
+                    countHTML = `<span class="popover__block counter b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.ref}">${childItem.refCount}</span>`;
                 }
                 resultHTML += `<div style="padding-left: 36px" data-type="search-item" class="b3-list-item" data-node-id="${childItem.id}" data-root-id="${childItem.rootID}">
 <svg class="b3-list-item__graphic popover__block" data-id="${childItem.id}"><use xlink:href="#${getIconByType(childItem.type)}"></use></svg>
@@ -1424,7 +1424,7 @@ ${countHTML}
                 }
             }
             if (item.refCount) {
-                countHTML = `<span class="popover__block counter b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.ref}">${item.refCount}</span>`;
+                countHTML = `<span class="popover__block counter b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.ref}">${item.refCount}</span>`;
             }
             resultHTML += `<div data-type="search-item" class="b3-list-item" data-node-id="${item.id}" data-root-id="${item.rootID}">
 <svg class="b3-list-item__graphic popover__block" data-id="${item.id}"><use xlink:href="#${getIconByType(item.type)}"></use></svg>
@@ -1464,15 +1464,15 @@ ${countHTML}
         config.method === 0 ? `<div class="b3-list-item b3-list-item--focus" data-type="search-new">
     <svg class="b3-list-item__graphic"><use xlink:href="#iconFile"></use></svg>
     <span class="b3-list-item__text">
-        ${window.siyuan.languages.newFile} <mark>${escapeHtml((element.querySelector("#searchInput") as HTMLInputElement).value)}</mark>
+        ${window.shehab.languages.newFile} <mark>${escapeHtml((element.querySelector("#searchInput") as HTMLInputElement).value)}</mark>
     </span>
-    <kbd class="b3-list-item__meta">${window.siyuan.languages.enterNew}</kbd>
+    <kbd class="b3-list-item__meta">${window.shehab.languages.enterNew}</kbd>
 </div>
 <div class="search__empty">
-    ${window.siyuan.languages.enterNewTip}
+    ${window.shehab.languages.enterNewTip}
 </div>` : `<div class="b3-list-item b3-list-item--focus" data-type="search-new">
     <span class="b3-list-item__text">
-        ${window.siyuan.languages.emptyContent}
+        ${window.shehab.languages.emptyContent}
     </span>
 </div>`);
     if (currentData) {

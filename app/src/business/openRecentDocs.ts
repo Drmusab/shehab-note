@@ -32,7 +32,7 @@ const getHTML = async (data: {
     sortedData.forEach((item) => {
         if (!key || item.title.toLowerCase().includes(key.toLowerCase())) {
             tabHtml += `<li data-index="${index}" data-node-id="${item.rootID}" class="b3-list-item${index === 0 ? " b3-list-item--focus" : ""}">
-${unicode2Emoji(item.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true)}
+${unicode2Emoji(item.icon || window.shehab.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true)}
 <span class="b3-list-item__text">${escapeHtml(item.title)}</span>
 </li>`;
             index++;
@@ -48,14 +48,14 @@ ${unicode2Emoji(item.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].file,
     let dockHtml = "";
     if (!isWindow()) {
         dockHtml = '<ul class="b3-list b3-list--background" style="overflow: auto;width: 200px;">';
-        if (!key || window.siyuan.languages.riffCard.toLowerCase().includes(key.toLowerCase())) {
+        if (!key || window.shehab.languages.riffCard.toLowerCase().includes(key.toLowerCase())) {
             dockHtml += `<li data-type="riffCard" data-index="0" class="b3-list-item${!switchPath ? " b3-list-item--focus" : ""}">
     <svg class="b3-list-item__graphic"><use xlink:href="#iconRiffCard"></use></svg>
-    <span class="b3-list-item__text">${window.siyuan.languages.riffCard}</span>
-    <span class="b3-list-item__meta">${updateHotkeyTip(window.siyuan.config.keymap.general.riffCard.custom)}</span>
+    <span class="b3-list-item__text">${window.shehab.languages.riffCard}</span>
+    <span class="b3-list-item__meta">${updateHotkeyTip(window.shehab.config.keymap.general.riffCard.custom)}</span>
 </li>`;
             if (!switchPath) {
-                switchPath = window.siyuan.languages.riffCard;
+                switchPath = window.shehab.languages.riffCard;
             }
         }
         let docIndex = 1;
@@ -68,7 +68,7 @@ ${unicode2Emoji(item.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].file,
 </li>`;
                 docIndex++;
                 if (!switchPath) {
-                    switchPath = window.siyuan.languages.riffCard;
+                    switchPath = window.shehab.languages.riffCard;
                 }
             }
         });
@@ -84,7 +84,7 @@ ${unicode2Emoji(item.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].file,
 };
 
 export const openRecentDocs = () => {
-    const openRecentDocsDialog = window.siyuan.dialogs.find(item => {
+    const openRecentDocsDialog = window.shehab.dialogs.find(item => {
         if (item.element.getAttribute("data-key") === Constants.DIALOG_RECENTDOCS) {
             return true;
         }
@@ -101,19 +101,19 @@ export const openRecentDocs = () => {
         const dialog = new Dialog({
             positionId: Constants.DIALOG_RECENTDOCS,
             title: `<div class="fn__flex">
-<div class="fn__flex-center">${window.siyuan.languages.recentDocs}</div>
+<div class="fn__flex-center">${window.shehab.languages.recentDocs}</div>
 <div class="fn__flex-1"></div>
 <div class="b3-form__icon fn__size200">
     <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-    <input placeholder="${window.siyuan.languages.search}" class="b3-text-field fn__block b3-form__icon-input">
+    <input placeholder="${window.shehab.languages.search}" class="b3-text-field fn__block b3-form__icon-input">
 </div>
 <span class="fn__space"></span>
 <div class="fn__flex-center">
     <select class="b3-select" id="recentDocsSort">
-        <option value="viewedAt"${window.siyuan.storage[Constants.LOCAL_RECENT_DOCS].type === "viewedAt" ? " selected" : ""}>${window.siyuan.languages.recentViewed}</option>
-        <option value="updated"${window.siyuan.storage[Constants.LOCAL_RECENT_DOCS].type === "updated" ? " selected" : ""}>${window.siyuan.languages.recentModified}</option>
-        <option value="openAt"${window.siyuan.storage[Constants.LOCAL_RECENT_DOCS].type === "openAt" ? " selected" : ""}>${window.siyuan.languages.recentOpened}</option>
-        <option value="closedAt"${window.siyuan.storage[Constants.LOCAL_RECENT_DOCS].type === "closedAt" ? " selected" : ""}>${window.siyuan.languages.recentClosed}</option>
+        <option value="viewedAt"${window.shehab.storage[Constants.LOCAL_RECENT_DOCS].type === "viewedAt" ? " selected" : ""}>${window.shehab.languages.recentViewed}</option>
+        <option value="updated"${window.shehab.storage[Constants.LOCAL_RECENT_DOCS].type === "updated" ? " selected" : ""}>${window.shehab.languages.recentModified}</option>
+        <option value="openAt"${window.shehab.storage[Constants.LOCAL_RECENT_DOCS].type === "openAt" ? " selected" : ""}>${window.shehab.languages.recentOpened}</option>
+        <option value="closedAt"${window.shehab.storage[Constants.LOCAL_RECENT_DOCS].type === "closedAt" ? " selected" : ""}>${window.shehab.languages.recentClosed}</option>
     </select>
 </div>
 </div>`,
@@ -187,8 +187,8 @@ export const openRecentDocs = () => {
                     getHTML(newResponse.data, dialog.element, searchElement.value, sortSelect.value as TRecentDocsSort);
                 });
             }
-            window.siyuan.storage[Constants.LOCAL_RECENT_DOCS].type = sortSelect.value;
-            setStorageVal(Constants.LOCAL_RECENT_DOCS, window.siyuan.storage[Constants.LOCAL_RECENT_DOCS]);
+            window.shehab.storage[Constants.LOCAL_RECENT_DOCS].type = sortSelect.value;
+            setStorageVal(Constants.LOCAL_RECENT_DOCS, window.shehab.storage[Constants.LOCAL_RECENT_DOCS]);
         });
 
         getHTML(response.data, dialog.element);

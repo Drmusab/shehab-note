@@ -4,9 +4,9 @@ import {getAllEditor} from "../../layout/getAll";
 export const hideElements = (panels: string[], protyle?: IProtyle, focusHide = false) => {
     if (!protyle) {
         if (panels.includes("dialog")) {
-            const dialogLength = window.siyuan.dialogs.length;
+            const dialogLength = window.shehab.dialogs.length;
             for (let i = 0; i < dialogLength; i++) {
-                window.siyuan.dialogs[i].destroy();
+                window.shehab.dialogs[i].destroy();
             }
         }
         return;
@@ -34,7 +34,7 @@ export const hideElements = (panels: string[], protyle?: IProtyle, focusHide = f
     }
     if (protyle.toolbar && panels.includes("util")) {
         const pinElement = protyle.toolbar.subElement.querySelector('[data-type="pin"]');
-        if (focusHide || !pinElement || (pinElement && pinElement.getAttribute("aria-label") === window.siyuan.languages.pin)) {
+        if (focusHide || !pinElement || (pinElement && pinElement.getAttribute("aria-label") === window.shehab.languages.pin)) {
             protyle.toolbar.subElement.classList.add("fn__none");
             if (protyle.toolbar.subElementCloseCB) {
                 protyle.toolbar.subElementCloseCB();
@@ -63,7 +63,7 @@ export const hideAllElements = (types: string[]) => {
         getAllEditor().forEach(item => {
             if (item.protyle.toolbar) {
                 const pinElement = item.protyle.toolbar.subElement.querySelector('[data-type="pin"]');
-                if (!pinElement || (pinElement && pinElement.getAttribute("aria-label") === window.siyuan.languages.pin)) {
+                if (!pinElement || (pinElement && pinElement.getAttribute("aria-label") === window.shehab.languages.pin)) {
                     item.protyle.toolbar.subElement.classList.add("fn__none");
                     if (item.protyle.toolbar.subElementCloseCB) {
                         item.protyle.toolbar.subElementCloseCB();

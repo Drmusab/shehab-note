@@ -48,22 +48,22 @@ export class Preview {
             }
             switch (action) {
                 case "desktop":
-                    actionHtml.push(`<button type="button" class="protyle-preview__action--current" data-type="desktop">${window.siyuan.languages.desktop}</button>`);
+                    actionHtml.push(`<button type="button" class="protyle-preview__action--current" data-type="desktop">${window.shehab.languages.desktop}</button>`);
                     break;
                 case "tablet":
-                    actionHtml.push(`<button type="button" data-type="tablet">${window.siyuan.languages.tablet}</button>`);
+                    actionHtml.push(`<button type="button" data-type="tablet">${window.shehab.languages.tablet}</button>`);
                     break;
                 case "mobile":
-                    actionHtml.push(`<button type="button" data-type="mobile">${window.siyuan.languages.mobile}</button>`);
+                    actionHtml.push(`<button type="button" data-type="mobile">${window.shehab.languages.mobile}</button>`);
                     break;
                 case "mp-wechat":
-                    actionHtml.push(`<button type="button" data-type="mp-wechat" class="b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.copyToWechatMP}"><svg><use xlink:href="#iconMp"></use></svg></button>`);
+                    actionHtml.push(`<button type="button" data-type="mp-wechat" class="b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.copyToWechatMP}"><svg><use xlink:href="#iconMp"></use></svg></button>`);
                     break;
                 case "zhihu":
-                    actionHtml.push(`<button type="button" data-type="zhihu" class="b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.copyToZhihu}"><svg><use xlink:href="#iconZhihu"></use></svg></button>`);
+                    actionHtml.push(`<button type="button" data-type="zhihu" class="b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.copyToZhihu}"><svg><use xlink:href="#iconZhihu"></use></svg></button>`);
                     break;
                 case "yuque":
-                    actionHtml.push(`<button type="button" data-type="yuque" class="b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.copyToYuque}"><svg><use xlink:href="#iconYuque"></use></svg></button>`);
+                    actionHtml.push(`<button type="button" data-type="yuque" class="b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.copyToYuque}"><svg><use xlink:href="#iconYuque"></use></svg></button>`);
                     break;
             }
         }
@@ -99,7 +99,7 @@ export class Preview {
                             openBy(linkAddress, "folder");
                         } else if (event.shiftKey) {
                             openBy(linkAddress, "app");
-                        } else if (Constants.SIYUAN_ASSETS_EXTS.includes(pathPosix().extname((linkAddress).split("?")[0]))) {
+                        } else if (Constants.SHEHAB_ASSETS_EXTS.includes(pathPosix().extname((linkAddress).split("?")[0]))) {
                             openAsset(protyle.app, linkAddress.split("?page")[0], parseInt(getSearch("page", linkAddress)));
                         }
                         /// #endif
@@ -160,7 +160,7 @@ export class Preview {
                     });
                 }
                 /// #else
-                window.siyuan.mobile.docks.outline?.setCurrentByPreview(nodeElement);
+                window.shehab.mobile.docks.outline?.setCurrentByPreview(nodeElement);
                 /// #endif
             }
         });
@@ -193,7 +193,7 @@ export class Preview {
                 processRender(protyle.preview.previewElement);
                 highlightRender(protyle.preview.previewElement);
                 avRender(protyle.preview.previewElement, protyle);
-                speechRender(protyle.preview.previewElement, window.siyuan.config.appearance.lang);
+                speechRender(protyle.preview.previewElement, window.shehab.config.appearance.lang);
                 protyle.preview.previewElement.scrollTop = oldScrollTop;
                 loadingElement.remove();
             });
@@ -207,7 +207,7 @@ export class Preview {
         copyElement.querySelectorAll("[href],[src]").forEach(item => {
             const oldLink = item.getAttribute("href") || item.getAttribute("src");
             if (oldLink && oldLink.startsWith("assets/")) {
-                const newLink = Constants.ASSETS_ADDRESS + window.siyuan.user.userId + "/" + oldLink;
+                const newLink = Constants.ASSETS_ADDRESS + window.shehab.user.userId + "/" + oldLink;
                 if (item.getAttribute("href")) {
                     item.setAttribute("href", newLink);
                 } else {
@@ -285,7 +285,7 @@ export class Preview {
                 adjustHeadingLevel: true,
             }, (response) => {
                 writeText(response.data);
-                showMessage(`${window.siyuan.languages.pasteToYuque}`);
+                showMessage(`${window.shehab.languages.pasteToYuque}`);
             });
             return;
         }
@@ -310,7 +310,7 @@ export class Preview {
         this.element.lastElementChild.remove();
         focusByRange(cloneRange);
         if (type) {
-            showMessage(`${type === "zhihu" ? window.siyuan.languages.pasteToZhihu : window.siyuan.languages.pasteToWechatMP}`);
+            showMessage(`${type === "zhihu" ? window.shehab.languages.pasteToZhihu : window.shehab.languages.pasteToWechatMP}`);
         }
     }
 

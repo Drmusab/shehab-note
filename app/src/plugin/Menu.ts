@@ -6,7 +6,7 @@ export class Menu {
     public element: HTMLElement;
 
     constructor(id?: string, closeCB?: () => void) {
-        this.menu = window.siyuan.menus.menu;
+        this.menu = window.shehab.menus.menu;
         this.isOpen = false;
         this.element = this.menu.element;
 

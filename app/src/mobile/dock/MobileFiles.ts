@@ -86,13 +86,13 @@ export class MobileFiles extends Model {
         const filesElement = document.querySelector('#sidebar [data-type="sidebar-file"]');
         filesElement.innerHTML = `<div class="toolbar toolbar--border toolbar--dark">
     <div class="fn__space"></div>
-    <div class="toolbar__text">${window.siyuan.languages.fileTree}</div>
+    <div class="toolbar__text">${window.shehab.languages.fileTree}</div>
     <div class="fn__flex-1 fn__space"></div>
     <svg data-type="newNotebook" class="toolbar__icon"><use xlink:href="#iconFilesRoot"></use></svg>
     <svg data-type="refresh" class="toolbar__icon"><use xlink:href="#iconRefresh"></use></svg>
     <svg data-type="focus" class="toolbar__icon"><use xlink:href="#iconFocus"></use></svg>
     <svg data-type="collapse" class="toolbar__icon"><use xlink:href="#iconContract"></use></svg>
-    <svg data-type="sort" class="toolbar__icon${window.siyuan.config.readonly ? " fn__none" : ""}"><use xlink:href="#iconSort"></use></svg>
+    <svg data-type="sort" class="toolbar__icon${window.shehab.config.readonly ? " fn__none" : ""}"><use xlink:href="#iconSort"></use></svg>
 </div>
 <div class="fn__flex-1"></div>
 <ul class="b3-list b3-list--background fn__flex-column" style="min-height: auto;height:42px;transition: height .2s cubic-bezier(0, 0, .2, 1) 0ms">
@@ -100,7 +100,7 @@ export class MobileFiles extends Model {
         <span class="b3-list-item__toggle">
             <svg class="b3-list-item__arrow"><use xlink:href="#iconRight"></use></svg>
         </span>
-        <span class="b3-list-item__text">${window.siyuan.languages.closeNotebook}</span>
+        <span class="b3-list-item__text">${window.shehab.languages.closeNotebook}</span>
         <span class="counter" style="cursor: auto"></span>
     </li>
     <ul class="fn__none fn__flex-1"></ul>
@@ -130,8 +130,8 @@ export class MobileFiles extends Model {
                     event.preventDefault();
                     break;
                 } else if (type === "focus") {
-                    if (window.siyuan.mobile.editor) {
-                        this.selectItem(window.siyuan.mobile.editor.protyle.notebookId, window.siyuan.mobile.editor.protyle.path);
+                    if (window.shehab.mobile.editor) {
+                        this.selectItem(window.shehab.mobile.editor.protyle.notebookId, window.shehab.mobile.editor.protyle.path);
                     }
                     event.preventDefault();
                     break;
@@ -159,7 +159,7 @@ export class MobileFiles extends Model {
                         const notebookId = ulElement.getAttribute("data-url");
                         this.getLeaf(target.parentElement, notebookId);
                         this.setCurrent(target.parentElement);
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     }
                     event.preventDefault();
                     event.stopPropagation();
@@ -191,7 +191,7 @@ export class MobileFiles extends Model {
                     const ulElement = hasTopClosestByTag(target, "UL");
                     if (ulElement) {
                         const notebookId = ulElement.getAttribute("data-url");
-                        if (!window.siyuan.config.readonly) {
+                        if (!window.shehab.config.readonly) {
                             if (type === "new") {
                                 newFile({
                                     app,
@@ -202,7 +202,7 @@ export class MobileFiles extends Model {
                                 });
                             } else if (type === "more-root") {
                                 initNavigationMenu(app, target.parentElement);
-                                window.siyuan.menus.menu.fullscreen("bottom");
+                                window.shehab.menus.menu.fullscreen("bottom");
                             } else if (type === "addLocal") {
                                 fetchPost("/api/filetree/moveLocalShorthands", {
                                     "notebook": notebookId
@@ -214,7 +214,7 @@ export class MobileFiles extends Model {
                         }
                         if (type === "more-file") {
                             initFileMenu(app, notebookId, pathString, target.parentElement);
-                            window.siyuan.menus.menu.fullscreen("bottom");
+                            window.shehab.menus.menu.fullscreen("bottom");
                         }
                     }
                     event.preventDefault();
@@ -238,22 +238,22 @@ export class MobileFiles extends Model {
             }
         });
         this.init();
-        if (window.siyuan.config.openHelp) {
+        if (window.shehab.config.openHelp) {
             mountHelp();
         }
     }
 
     private genSort() {
-        window.siyuan.menus.menu.remove();
-        const subMenu = sortMenu("notebooks", window.siyuan.config.fileTree.sort, (sort: number) => {
-            window.siyuan.config.fileTree.sort = sort;
+        window.shehab.menus.menu.remove();
+        const subMenu = sortMenu("notebooks", window.shehab.config.fileTree.sort, (sort: number) => {
+            window.shehab.config.fileTree.sort = sort;
             fetchPost("/api/setting/setFiletree", {
-                sort: window.siyuan.config.fileTree.sort,
-                alwaysSelectOpenedFile: window.siyuan.config.fileTree.alwaysSelectOpenedFile,
-                refCreateSavePath: window.siyuan.config.fileTree.refCreateSavePath,
-                docCreateSavePath: window.siyuan.config.fileTree.docCreateSavePath,
-                openFilesUseCurrentTab: window.siyuan.config.fileTree.openFilesUseCurrentTab,
-                maxListCount: window.siyuan.config.fileTree.maxListCount,
+                sort: window.shehab.config.fileTree.sort,
+                alwaysSelectOpenedFile: window.shehab.config.fileTree.alwaysSelectOpenedFile,
+                refCreateSavePath: window.shehab.config.fileTree.refCreateSavePath,
+                docCreateSavePath: window.shehab.config.fileTree.docCreateSavePath,
+                openFilesUseCurrentTab: window.shehab.config.fileTree.openFilesUseCurrentTab,
+                maxListCount: window.shehab.config.fileTree.maxListCount,
             }, () => {
                 setNoteBook(() => {
                     this.init(false);
@@ -261,9 +261,9 @@ export class MobileFiles extends Model {
             });
         });
         subMenu.forEach((item) => {
-            window.siyuan.menus.menu.append(new MenuItem(item).element);
+            window.shehab.menus.menu.append(new MenuItem(item).element);
         });
-        window.siyuan.menus.menu.fullscreen("bottom");
+        window.shehab.menus.menu.fullscreen("bottom");
     }
 
     private updateItemArrow(notebookId: string, filePath: string) {
@@ -298,7 +298,7 @@ export class MobileFiles extends Model {
     }
 
     private genNotebook(item: INotebook) {
-        const emojiHTML = `<span class="b3-list-item__icon b3-tooltips b3-tooltips__e" aria-label="${window.siyuan.languages.changeIcon}">${unicode2Emoji(item.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].note)}</span>`;
+        const emojiHTML = `<span class="b3-list-item__icon b3-tooltips b3-tooltips__e" aria-label="${window.shehab.languages.changeIcon}">${unicode2Emoji(item.icon || window.shehab.storage[Constants.LOCAL_IMAGES].note)}</span>`;
         if (item.closed) {
             return `<li data-url="${item.id}" class="b3-list-item">
     <span class="b3-list-item__toggle fn__hidden">
@@ -306,7 +306,7 @@ export class MobileFiles extends Model {
     </span>
     ${emojiHTML}
     <span class="b3-list-item__text">${escapeHtml(item.name)}</span>
-    <span data-type="open" data-url="${item.id}" class="b3-list-item__action${(window.siyuan.config.readonly) ? " fn__none" : ""}">
+    <span data-type="open" data-url="${item.id}" class="b3-list-item__action${(window.shehab.config.readonly) ? " fn__none" : ""}">
         <svg><use xlink:href="#iconOpen"></use></svg>
     </span>
 </li>`;
@@ -318,10 +318,10 @@ export class MobileFiles extends Model {
     </span>
     ${emojiHTML}
     <span class="b3-list-item__text${item.closed ? " ft__on-surface" : ""}">${escapeHtml(item.name)}</span>
-    <span data-type="more-root" class="b3-list-item__action${(window.siyuan.config.readonly || item.closed) ? " fn__none" : ""}">
+    <span data-type="more-root" class="b3-list-item__action${(window.shehab.config.readonly || item.closed) ? " fn__none" : ""}">
         <svg><use xlink:href="#iconMore"></use></svg>
     </span>
-    <span data-type="new" class="b3-list-item__action${(window.siyuan.config.readonly || item.closed) ? " fn__none" : ""}">
+    <span data-type="new" class="b3-list-item__action${(window.shehab.config.readonly || item.closed) ? " fn__none" : ""}">
         <svg><use xlink:href="#iconAdd"></use></svg>
     </span>
 </li></ul>`;
@@ -332,7 +332,7 @@ export class MobileFiles extends Model {
         let html = "";
         let closeHtml = "";
         let closeCounter = 0;
-        window.siyuan.notebooks.forEach((item) => {
+        window.shehab.notebooks.forEach((item) => {
             if (item.closed) {
                 closeCounter++;
                 closeHtml += this.genNotebook(item);
@@ -349,7 +349,7 @@ export class MobileFiles extends Model {
         } else {
             this.closeElement.classList.add("fn__none");
         }
-        window.siyuan.storage[Constants.LOCAL_FILESPATHS].forEach((item: IFilesPath) => {
+        window.shehab.storage[Constants.LOCAL_FILESPATHS].forEach((item: IFilesPath) => {
             item.openPaths.forEach((openPath) => {
                 this.selectItem(item.notebookId, openPath, undefined, false, false);
             });
@@ -385,8 +385,8 @@ export class MobileFiles extends Model {
                     sourceElement.parentElement.previousElementSibling.querySelector(".b3-list-item__toggle").classList.add("fn__hidden");
                     sourceElement.parentElement.previousElementSibling.querySelector(".b3-list-item__arrow").classList.remove("b3-list-item__arrow--open");
                     const emojiElement = sourceElement.parentElement.previousElementSibling.querySelector(".b3-list-item__icon");
-                    if (emojiElement.innerHTML === unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].folder)) {
-                        emojiElement.innerHTML = unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].file);
+                    if (emojiElement.innerHTML === unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].folder)) {
+                        emojiElement.innerHTML = unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].file);
                     }
                 }
                 sourceElement.parentElement.remove();
@@ -404,8 +404,8 @@ export class MobileFiles extends Model {
         // 重新展开移动到的新文件夹
         if (newElement) {
             const emojiElement = newElement.querySelector(".b3-list-item__icon");
-            if (emojiElement.innerHTML === unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].file)) {
-                emojiElement.innerHTML = unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].folder);
+            if (emojiElement.innerHTML === unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].file)) {
+                emojiElement.innerHTML = unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].folder);
             }
             newElement.querySelector(".b3-list-item__toggle").classList.remove("fn__hidden");
             newElement.querySelector(".b3-list-item__arrow").classList.remove("b3-list-item__arrow--open");
@@ -467,8 +467,8 @@ export class MobileFiles extends Model {
                             iconElement.parentElement.classList.add("fn__hidden");
                         }
                         const emojiElement = iconElement.parentElement.nextElementSibling;
-                        if (emojiElement.innerHTML === unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].folder)) {
-                            emojiElement.innerHTML = unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].file);
+                        if (emojiElement.innerHTML === unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].folder)) {
+                            emojiElement.innerHTML = unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].file);
                         }
                     }
                     targetElement.parentElement.remove();
@@ -594,8 +594,8 @@ export class MobileFiles extends Model {
         arrowElement.classList.add("b3-list-item__arrow--open");
         arrowElement.parentElement.classList.remove("fn__hidden");
         const emojiElement = liElement.querySelector(".b3-list-item__icon");
-        if (emojiElement.textContent === unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].file)) {
-            emojiElement.textContent = unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].folder);
+        if (emojiElement.textContent === unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].file)) {
+            emojiElement.textContent = unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].folder);
         }
         liElement.insertAdjacentHTML("afterend", `<ul>${fileHTML}</ul>`);
         let newLiElement;
@@ -607,7 +607,7 @@ export class MobileFiles extends Model {
                 const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                     notebook: data.box,
                     path: item.path,
-                    app: Constants.SIYUAN_APPID,
+                    app: Constants.SHEHAB_APPID,
                 });
                 newLiElement = await this.selectItem(response.data.box, filePath, response.data, setStorage, isSetCurrent);
             }
@@ -644,7 +644,7 @@ export class MobileFiles extends Model {
         fetchPost("/api/filetree/listDocsByPath", {
             notebook: notebookId,
             path: liElement.getAttribute("data-path"),
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
         }, response => {
             if (response.data.path === "/" && response.data.files.length === 0) {
                 newFile({
@@ -701,7 +701,7 @@ export class MobileFiles extends Model {
             const response = await fetchSyncPost("/api/filetree/listDocsByPath", {
                 notebook: notebookId,
                 path: currentPath,
-                app: Constants.SIYUAN_APPID,
+                app: Constants.SHEHAB_APPID,
             });
             liElement = await this.onLsSelect(response.data, filePath, setStorage, isSetCurrent);
         }
@@ -739,7 +739,7 @@ export class MobileFiles extends Model {
                 filesPaths.push(notebookPaths);
             }
         });
-        window.siyuan.storage[Constants.LOCAL_FILESPATHS] = filesPaths;
+        window.shehab.storage[Constants.LOCAL_FILESPATHS] = filesPaths;
         setStorageVal(Constants.LOCAL_FILESPATHS, filesPaths);
     }
 
@@ -753,12 +753,12 @@ class="b3-list-item" data-path="${item.path}">
     <span style="padding-left: ${(item.path.split("/").length - 1) * 20}px" class="b3-list-item__toggle${item.subFileCount === 0 ? " fn__hidden" : ""}">
         <svg class="b3-list-item__arrow"><use xlink:href="#iconRight"></use></svg>
     </span>
-    <span class="b3-list-item__icon">${unicode2Emoji(item.icon || (item.subFileCount === 0 ? window.siyuan.storage[Constants.LOCAL_IMAGES].file : window.siyuan.storage[Constants.LOCAL_IMAGES].folder))}</span>
+    <span class="b3-list-item__icon">${unicode2Emoji(item.icon || (item.subFileCount === 0 ? window.shehab.storage[Constants.LOCAL_IMAGES].file : window.shehab.storage[Constants.LOCAL_IMAGES].folder))}</span>
     <span class="b3-list-item__text">${getDisplayName(item.name, true, true)}</span>
-    <span data-type="more-file" class="b3-list-item__action b3-tooltips b3-tooltips__nw" aria-label="${window.siyuan.languages.more}">
+    <span data-type="more-file" class="b3-list-item__action b3-tooltips b3-tooltips__nw" aria-label="${window.shehab.languages.more}">
         <svg><use xlink:href="#iconMore"></use></svg>
     </span>
-    <span data-type="new" class="b3-list-item__action b3-tooltips b3-tooltips__nw${window.siyuan.config.readonly ? " fn__none" : ""}" aria-label="${window.siyuan.languages.newSubDoc}">
+    <span data-type="new" class="b3-list-item__action b3-tooltips b3-tooltips__nw${window.shehab.config.readonly ? " fn__none" : ""}" aria-label="${window.shehab.languages.newSubDoc}">
         <svg><use xlink:href="#iconAdd"></use></svg>
     </span>
     ${countHTML}

@@ -201,7 +201,7 @@
         const cpus = os.cpus()
         const cpuModel = cpus.length > 0 ? cpus[0].model : ''
         const systemInfo = `· ${platform} ${release} · ${arch} · ${cpuModel}`
-        document.querySelector('#icon').innerHTML = `<img src="${decodeURIComponent(getSearch('icon'))}"> SiYuan v${getSearch('v')} ${systemInfo}`
+        document.querySelector('#icon').innerHTML = `<img src="${decodeURIComponent(getSearch('icon'))}"> Shehab v${getSearch('v')} ${systemInfo}`
 
         document.getElementById('title').innerHTML = decodeURIComponent(getSearch('title'))
         document.getElementById('content').innerHTML = decodeURIComponent(getSearch('content'))

@@ -40,7 +40,7 @@ export const onGet = (options: {
             if (options.protyle.model) {
                 options.protyle.model.parent.parent.removeTab(options.protyle.model.parent.id, false);
             } else {
-                options.protyle.element.innerHTML = `<div class="ft__smaller ft__secondary b3-form__space--small" contenteditable="false">${window.siyuan.languages.refExpired}</div>`;
+                options.protyle.element.innerHTML = `<div class="ft__smaller ft__secondary b3-form__space--small" contenteditable="false">${window.shehab.languages.refExpired}</div>`;
             }
         }
         return;
@@ -219,9 +219,9 @@ const setHTML = (options: {
         if (editElement && editElement.textContent === "") {
             editElement.classList.add("protyle-wysiwyg--empty");
             /// #if MOBILE
-            editElement.setAttribute("placeholder", window.siyuan.languages.emptyMobilePlaceholder);
+            editElement.setAttribute("placeholder", window.shehab.languages.emptyMobilePlaceholder);
             /// #else
-            editElement.setAttribute("placeholder", window.siyuan.languages.emptyPlaceholder);
+            editElement.setAttribute("placeholder", window.shehab.languages.emptyPlaceholder);
             /// #endif
         }
     }
@@ -252,7 +252,7 @@ const setHTML = (options: {
             protyle.breadcrumb.element.nextElementSibling.textContent = "";
         }
         protyle.element.removeAttribute("disabled-forever");
-        if (options.action.includes(Constants.CB_GET_OPENNEW) && window.siyuan.config.editor.readOnly && !window.siyuan.config.readonly) {
+        if (options.action.includes(Constants.CB_GET_OPENNEW) && window.shehab.config.editor.readOnly && !window.shehab.config.readonly) {
             enableProtyle(protyle);
         } else {
             setReadonlyByConfig(protyle, updateReadonly);
@@ -306,7 +306,7 @@ const setHTML = (options: {
         fetchPost("/api/filetree/getDoc", {
             id: protyle.wysiwyg.element.lastElementChild.getAttribute("data-node-id"),
             mode: 2,
-            size: window.siyuan.config.editor.dynamicLoadBlocks,
+            size: window.shehab.config.editor.dynamicLoadBlocks,
         }, getResponse => {
             onGet({data: getResponse, protyle, action: [Constants.CB_GET_APPEND, Constants.CB_GET_UNCHANGEID]});
         });
@@ -317,7 +317,7 @@ const setHTML = (options: {
             // https://github.com/siyuan-note/siyuan/issues/8224
             // https://github.com/siyuan-note/siyuan/issues/10716
             if (index > 1 && protyle.block.blockCount > 1 && protyle.contentElement.scrollHeight <= protyle.contentElement.clientHeight) {
-                showMessage(window.siyuan.languages.scrollGetMore);
+                showMessage(window.shehab.languages.scrollGetMore);
             }
         });
 
@@ -330,16 +330,16 @@ const setHTML = (options: {
 export const disabledForeverProtyle = (protyle: IProtyle) => {
     disabledProtyle(protyle);
     if (protyle.breadcrumb && !isMobile()) {
-        protyle.breadcrumb.element.nextElementSibling.textContent = window.siyuan.languages["_kernel"][81];
+        protyle.breadcrumb.element.nextElementSibling.textContent = window.shehab.languages["_kernel"][81];
     } else {
-        showMessage(window.siyuan.languages["_kernel"][81]);
+        showMessage(window.shehab.languages["_kernel"][81]);
     }
     protyle.element.setAttribute("disabled-forever", "true");
 };
 
 /** 禁用编辑器 */
 export const disabledProtyle = (protyle: IProtyle) => {
-    window.siyuan.menus.menu.remove();
+    window.shehab.menus.menu.remove();
     hideElements(["gutter", "toolbar", "select", "hint", "util"], protyle);
     protyle.disabled = true;
     if (protyle.title && protyle.title.editElement) {
@@ -378,7 +378,7 @@ export const disabledProtyle = (protyle: IProtyle) => {
     if (protyle.breadcrumb) {
         const readonlyButton = protyle.breadcrumb.element.parentElement.querySelector('[data-type="readonly"]');
         readonlyButton.querySelector("use").setAttribute("xlink:href", "#iconLock");
-        readonlyButton.setAttribute("aria-label", window.siyuan.config.editor.readOnly ? window.siyuan.languages.tempUnlock : window.siyuan.languages.unlockEdit);
+        readonlyButton.setAttribute("aria-label", window.shehab.config.editor.readOnly ? window.shehab.languages.tempUnlock : window.shehab.languages.unlockEdit);
         readonlyButton.setAttribute("data-subtype", "lock");
         const undoElement = protyle.breadcrumb.element.parentElement.querySelector('[data-type="undo"]');
         if (undoElement && !undoElement.classList.contains("fn__none")) {
@@ -438,7 +438,7 @@ export const enableProtyle = (protyle: IProtyle) => {
     if (protyle.breadcrumb) {
         const readonlyButton = protyle.breadcrumb.element.parentElement.querySelector('[data-type="readonly"]');
         readonlyButton.querySelector("use").setAttribute("xlink:href", "#iconUnlock");
-        readonlyButton.setAttribute("aria-label", window.siyuan.config.editor.readOnly ? window.siyuan.languages.cancelTempUnlock : window.siyuan.languages.lockEdit);
+        readonlyButton.setAttribute("aria-label", window.shehab.config.editor.readOnly ? window.shehab.languages.cancelTempUnlock : window.shehab.languages.lockEdit);
         readonlyButton.setAttribute("data-subtype", "unlock");
         const undoElement = protyle.breadcrumb.element.parentElement.querySelector('[data-type="undo"]');
         if (undoElement && undoElement.classList.contains("fn__none")) {
@@ -528,11 +528,11 @@ const focusElementById = (protyle: IProtyle, action: string[], scrollAttr?: IScr
 };
 
 export const setReadonlyByConfig = (protyle: IProtyle, updateReadonly: boolean) => {
-    let readOnly = window.siyuan.config.readonly ? "true" : "false";
+    let readOnly = window.shehab.config.readonly ? "true" : "false";
     if (!updateReadonly) {
         readOnly = protyle.disabled ? "true" : "false";
     } else if (readOnly === "false") {
-        readOnly = window.siyuan.config.editor.readOnly ? "true" : "false";
+        readOnly = window.shehab.config.editor.readOnly ? "true" : "false";
         if (readOnly === "false") {
             readOnly = protyle.wysiwyg.element.getAttribute(Constants.CUSTOM_SY_READONLY);
         }

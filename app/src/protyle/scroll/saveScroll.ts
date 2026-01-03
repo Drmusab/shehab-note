@@ -7,7 +7,7 @@ import {setStorageVal} from "../util/compatibility";
 import {isSupportCSSHL} from "../render/searchMarkRender";
 
 export const saveScroll = (protyle: IProtyle, getObject = false) => {
-    if (!protyle.wysiwyg.element.firstElementChild || window.siyuan.config.readonly) {
+    if (!protyle.wysiwyg.element.firstElementChild || window.shehab.config.readonly) {
         // 报错或者空白页面
         return undefined;
     }
@@ -41,9 +41,9 @@ export const saveScroll = (protyle: IProtyle, getObject = false) => {
         return attr;
     }
 
-    window.siyuan.storage[Constants.LOCAL_FILEPOSITION][protyle.block.rootID] = attr;
+    window.shehab.storage[Constants.LOCAL_FILEPOSITION][protyle.block.rootID] = attr;
     return new Promise(resolve => {
-        setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION], () => {
+        setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION], () => {
             resolve(true);
         });
     });

@@ -24,10 +24,10 @@ import {dragOverScroll, stopScrollAnimation} from "./dragover";
 
 export const initWindowEvent = (app: App) => {
     document.body.addEventListener("mouseleave", () => {
-        if (window.siyuan.layout.leftDock) {
-            window.siyuan.layout.leftDock.hideDock();
-            window.siyuan.layout.rightDock.hideDock();
-            window.siyuan.layout.bottomDock.hideDock();
+        if (window.shehab.layout.leftDock) {
+            window.shehab.layout.leftDock.hideDock();
+            window.shehab.layout.rightDock.hideDock();
+            window.shehab.layout.bottomDock.hideDock();
         }
         document.querySelectorAll(".protyle-gutters").forEach(item => {
             item.classList.add("fn__none");
@@ -37,7 +37,7 @@ export const initWindowEvent = (app: App) => {
     });
     let mouseIsEnter = false;
     document.body.addEventListener("mouseenter", () => {
-        if (window.siyuan.layout.leftDock) {
+        if (window.shehab.layout.leftDock) {
             mouseIsEnter = true;
             setTimeout(() => {
                 mouseIsEnter = false;
@@ -65,7 +65,7 @@ export const initWindowEvent = (app: App) => {
             scrollTarget = fileElement;
         }
         if (hasClosestByClassName(event.target, "layout-tab-container__drag") ||
-            event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
+            event.dataTransfer.types.includes(Constants.SHEHAB_DROP_TAB)) {
             stopScrollAnimation();
             return;
         }
@@ -76,7 +76,7 @@ export const initWindowEvent = (app: App) => {
             scrollElement = scrollTarget.querySelector(".protyle-content");
         }
         if (scrollTarget && scrollElement) {
-            if ((event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE) &&
+            if ((event.dataTransfer.types.includes(Constants.SHEHAB_DROP_FILE) &&
                     hasClosestByClassName(event.target, "layout-tab-bar")) ||
                 (event.dataTransfer.types.includes("Files") && scrollTarget.classList.contains("sy__file"))) {
                 stopScrollAnimation();
@@ -120,9 +120,9 @@ export const initWindowEvent = (app: App) => {
     });
 
     window.addEventListener("blur", () => {
-        window.siyuan.ctrlIsPressed = false;
-        window.siyuan.shiftIsPressed = false;
-        window.siyuan.altIsPressed = false;
+        window.shehab.ctrlIsPressed = false;
+        window.shehab.shiftIsPressed = false;
+        window.shehab.altIsPressed = false;
     });
 
     window.addEventListener("click", (event: MouseEvent & { target: HTMLElement }) => {
@@ -194,7 +194,7 @@ export const initWindowEvent = (app: App) => {
                             action: zoomIn ? [Constants.CB_GET_FOCUS, Constants.CB_GET_ALL] : [Constants.CB_GET_FOCUS, Constants.CB_GET_CONTEXT],
                             zoomIn,
                         });
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     });
                 }
                 event.stopImmediatePropagation();

@@ -35,15 +35,15 @@ export class Menus {
             }
             if (target.classList.contains("b3-text-field") || (target.tagName === "INPUT" && (target as HTMLInputElement).type === "text")) {
                 /// #if !BROWSER
-                ipcRenderer.send(Constants.SIYUAN_CONTEXT_MENU, {
-                    undo: window.siyuan.languages.undo,
-                    redo: window.siyuan.languages.redo,
-                    copy: window.siyuan.languages.copy,
-                    cut: window.siyuan.languages.cut,
-                    delete: window.siyuan.languages.delete,
-                    paste: window.siyuan.languages.paste,
-                    pasteAsPlainText: window.siyuan.languages.pasteAsPlainText,
-                    selectAll: window.siyuan.languages.selectAll,
+                ipcRenderer.send(Constants.SHEHAB_CONTEXT_MENU, {
+                    undo: window.shehab.languages.undo,
+                    redo: window.shehab.languages.redo,
+                    copy: window.shehab.languages.copy,
+                    cut: window.shehab.languages.cut,
+                    delete: window.shehab.languages.delete,
+                    paste: window.shehab.languages.paste,
+                    pasteAsPlainText: window.shehab.languages.pasteAsPlainText,
+                    selectAll: window.shehab.languages.selectAll,
                 });
                 /// #endif
                 event.stopPropagation();
@@ -61,7 +61,7 @@ export class Menus {
                     });
                     event.stopPropagation();
                     break;
-                } else if (dataType === "navigation-root" && !window.siyuan.config.readonly) {
+                } else if (dataType === "navigation-root" && !window.shehab.config.readonly) {
                     if (target.querySelector(".b3-list-item__text").classList.contains("ft__on-surface")) {
                         return;
                     }

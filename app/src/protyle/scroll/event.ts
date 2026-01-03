@@ -32,7 +32,7 @@ export const scrollEvent = (protyle: IProtyle, element: HTMLElement) => {
             protyle.contentElement.setAttribute("data-scrolltop", element.scrollTop.toString());
         }
 
-        if (!window.siyuan.dragElement) { // https://ld246.com/article/1649638389841
+        if (!window.shehab.dragElement) { // https://ld246.com/article/1649638389841
             hideElements(["gutterOnly"], protyle);
         }
 
@@ -81,7 +81,7 @@ export const scrollEvent = (protyle: IProtyle, element: HTMLElement) => {
                 fetchPost("/api/filetree/getDoc", {
                     id: protyle.wysiwyg.element.firstElementChild.getAttribute("data-node-id"),
                     mode: 1,
-                    size: window.siyuan.config.editor.dynamicLoadBlocks,
+                    size: window.shehab.config.editor.dynamicLoadBlocks,
                 }, getResponse => {
                     protyle.contentElement.style.overflow = "";
                     protyle.contentElement.style.width = "";
@@ -104,7 +104,7 @@ export const scrollEvent = (protyle: IProtyle, element: HTMLElement) => {
             fetchPost("/api/filetree/getDoc", {
                 id: protyle.wysiwyg.element.lastElementChild.getAttribute("data-node-id"),
                 mode: 2,
-                size: window.siyuan.config.editor.dynamicLoadBlocks,
+                size: window.shehab.config.editor.dynamicLoadBlocks,
             }, getResponse => {
                 onGet({
                     data: getResponse,

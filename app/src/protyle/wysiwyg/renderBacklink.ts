@@ -26,7 +26,7 @@ export const renderBacklink = (protyle: IProtyle, backlinkData: {
     avRender(protyle.wysiwyg.element, protyle);
     blockRender(protyle, protyle.wysiwyg.element);
     removeLoading(protyle);
-    if (window.siyuan.config.readonly || window.siyuan.config.editor.readOnly) {
+    if (window.shehab.config.readonly || window.shehab.config.editor.readOnly) {
         disabledProtyle(protyle);
     }
 };
@@ -81,7 +81,7 @@ export const loadBreadcrumb = (protyle: IProtyle, element: HTMLElement) => {
         blockRender(protyle, element.parentElement.parentElement);
         if (getResponse.data.isSyncing) {
             disabledForeverProtyle(protyle);
-        } else if (window.siyuan.config.readonly || window.siyuan.config.editor.readOnly) {
+        } else if (window.shehab.config.readonly || window.shehab.config.editor.readOnly) {
             disabledProtyle(protyle);
         } else if (element.parentElement.parentElement.classList.contains("protyle-wysiwyg__embed")) {
             // 嵌入块

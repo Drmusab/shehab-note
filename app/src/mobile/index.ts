@@ -36,10 +36,10 @@ class App {
     public appId: string;
 
     constructor() {
-        registerServiceWorker(`${Constants.SERVICE_WORKER_PATH}?v=${Constants.SIYUAN_VERSION}`);
+        registerServiceWorker(`${Constants.SERVICE_WORKER_PATH}?v=${Constants.SHEHAB_VERSION}`);
         addBaseURL();
-        this.appId = Constants.SIYUAN_APPID;
-        window.siyuan = {
+        this.appId = Constants.SHEHAB_APPID;
+        window.shehab = {
             zIndex: 10,
             notebooks: [],
             transactions: [],
@@ -71,49 +71,49 @@ class App {
         };
         // 不能使用 touchstart，否则会被 event.stopImmediatePropagation() 阻塞
         window.addEventListener("click", (event: MouseEvent & { target: HTMLElement }) => {
-            if (!window.siyuan.menus.menu.element.contains(event.target) && !hasClosestByAttribute(event.target, "data-menu", "true")) {
-                window.siyuan.menus.menu.remove();
+            if (!window.shehab.menus.menu.element.contains(event.target) && !hasClosestByAttribute(event.target, "data-menu", "true")) {
+                window.shehab.menus.menu.remove();
             }
             const copyElement = hasTopClosestByClassName(event.target, "protyle-action__copy");
             if (copyElement) {
                 let text = copyElement.parentElement.nextElementSibling.textContent.trimEnd();
                 text = text.replace(/\u00A0/g, " "); // Replace non-breaking spaces with normal spaces when copying https://github.com/siyuan-note/siyuan/issues/9382
                 writeText(text);
-                showMessage(window.siyuan.languages.copied, 2000);
+                showMessage(window.shehab.languages.copied, 2000);
                 event.preventDefault();
             }
         });
         window.addEventListener("beforeunload", () => {
-            saveScroll(window.siyuan.mobile.editor.protyle);
+            saveScroll(window.shehab.mobile.editor.protyle);
         }, false);
         window.addEventListener("pagehide", () => {
-            saveScroll(window.siyuan.mobile.editor.protyle);
+            saveScroll(window.shehab.mobile.editor.protyle);
         }, false);
         // 判断手机横竖屏状态
         window.matchMedia("(orientation:portrait)").addEventListener("change", () => {
             updateCardHV();
         });
         fetchPost("/api/system/getConf", {}, async (confResponse) => {
-            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}`, "protyleLuteScript");
-            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}`, "protyleWcHtmlScript");
-            window.siyuan.config = confResponse.data.conf;
+            addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SHEHAB_VERSION}`, "protyleLuteScript");
+            addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SHEHAB_VERSION}`, "protyleWcHtmlScript");
+            window.shehab.config = confResponse.data.conf;
             updateControlAlt();
-            window.siyuan.isPublish = confResponse.data.isPublish;
+            window.shehab.isPublish = confResponse.data.isPublish;
             correctHotkey(siyuanApp);
             await loadPlugins(this);
             getLocalStorage(() => {
-                fetchGet(`/appearance/langs/${window.siyuan.config.appearance.lang}.json?v=${Constants.SIYUAN_VERSION}`, (lauguages: IObject) => {
-                    window.siyuan.languages = lauguages;
-                    window.siyuan.menus = new Menus(this);
-                    document.title = window.siyuan.languages.siyuanNote;
+                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SHEHAB_VERSION}`, (lauguages: IObject) => {
+                    window.shehab.languages = lauguages;
+                    window.shehab.menus = new Menus(this);
+                    document.title = window.shehab.languages.siyuanNote;
                     bootSync();
                     loadAssets(confResponse.data.conf.appearance);
                     initMessage();
                     initAssets();
                     fetchPost("/api/setting/getCloudUser", {}, userResponse => {
-                        window.siyuan.user = userResponse.data;
+                        window.shehab.user = userResponse.data;
                         fetchPost("/api/system/getEmojiConf", {}, emojiResponse => {
-                            window.siyuan.emojis = emojiResponse.data as IEmoji[];
+                            window.shehab.emojis = emojiResponse.data as IEmoji[];
                             setNoteBook(() => {
                                 initFramework(this, confResponse.data.start);
                                 initRightMenu(this);
@@ -129,9 +129,9 @@ class App {
                 handleTouchEnd(event, siyuanApp);
             }, false);
             window.addEventListener("keyup", () => {
-                window.siyuan.ctrlIsPressed = false;
-                window.siyuan.shiftIsPressed = false;
-                window.siyuan.altIsPressed = false;
+                window.shehab.ctrlIsPressed = false;
+                window.shehab.shiftIsPressed = false;
+                window.shehab.altIsPressed = false;
             });
             // 移动端删除键 https://github.com/siyuan-note/siyuan/issues/9259
             window.addEventListener("keydown", (event) => {
@@ -161,10 +161,10 @@ const siyuanApp = new App();
 
 // https://github.com/siyuan-note/siyuan/issues/8441
 window.reconnectWebSocket = () => {
-    window.siyuan.ws.send("ping", {});
-    window.siyuan.mobile.docks.file.send("ping", {});
-    window.siyuan.mobile.editor.protyle.ws.send("ping", {});
-    window.siyuan.mobile.popEditor?.protyle.ws.send("ping", {});
+    window.shehab.ws.send("ping", {});
+    window.shehab.mobile.docks.file.send("ping", {});
+    window.shehab.mobile.editor.protyle.ws.send("ping", {});
+    window.shehab.mobile.popEditor?.protyle.ws.send("ping", {});
 };
 window.goBack = goBack;
 window.showMessage = showMessage;

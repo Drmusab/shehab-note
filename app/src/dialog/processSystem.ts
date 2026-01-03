@@ -50,28 +50,28 @@ export const reloadSync = (
         hideMessage();
     }
     /// #if MOBILE
-    if (window.siyuan.mobile.popEditor) {
-        if (data.removeRootIDs.includes(window.siyuan.mobile.popEditor.protyle.block.rootID)) {
+    if (window.shehab.mobile.popEditor) {
+        if (data.removeRootIDs.includes(window.shehab.mobile.popEditor.protyle.block.rootID)) {
             hideElements(["dialog"]);
         } else {
-            reloadProtyle(window.siyuan.mobile.popEditor.protyle, false, updateReadonly);
+            reloadProtyle(window.shehab.mobile.popEditor.protyle, false, updateReadonly);
         }
     }
-    if (window.siyuan.mobile.editor) {
-        if (data.removeRootIDs.includes(window.siyuan.mobile.editor.protyle.block.rootID)) {
+    if (window.shehab.mobile.editor) {
+        if (data.removeRootIDs.includes(window.shehab.mobile.editor.protyle.block.rootID)) {
             setEmpty(app);
         } else {
-            reloadProtyle(window.siyuan.mobile.editor.protyle, false, updateReadonly);
+            reloadProtyle(window.shehab.mobile.editor.protyle, false, updateReadonly);
             fetchPost("/api/block/getDocInfo", {
-                id: window.siyuan.mobile.editor.protyle.block.rootID
+                id: window.shehab.mobile.editor.protyle.block.rootID
             }, (response) => {
                 setTitle(response.data.name);
-                window.siyuan.mobile.editor.protyle.title.setTitle(response.data.name);
+                window.shehab.mobile.editor.protyle.title.setTitle(response.data.name);
             });
         }
     }
     setNoteBook(() => {
-        window.siyuan.mobile.docks.file.init(false);
+        window.shehab.mobile.docks.file.init(false);
     });
     /// #else
     const allModels = getAllModels();
@@ -86,8 +86,8 @@ export const reloadSync = (
             });
         } else if (data.removeRootIDs.includes(item.editor.protyle.block.rootID)) {
             item.parent.parent.removeTab(item.parent.id, false, false);
-            delete window.siyuan.storage[Constants.LOCAL_FILEPOSITION][item.editor.protyle.block.rootID];
-            setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION]);
+            delete window.shehab.storage[Constants.LOCAL_FILEPOSITION][item.editor.protyle.block.rootID];
+            setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION]);
         }
     });
     allModels.graph.forEach(item => {
@@ -215,7 +215,7 @@ export const setDefRefCount = (data: {
 
     let liElement;
     /// #if MOBILE
-    liElement = window.siyuan.mobile.docks.file.element.querySelector(`li[data-node-id="${data.rootID}"]`);
+    liElement = window.shehab.mobile.docks.file.element.querySelector(`li[data-node-id="${data.rootID}"]`);
     /// #else
     liElement = (getDockByType("file").data.file as Files).element.querySelector(`li[data-node-id="${data.rootID}"]`);
     /// #endif
@@ -228,13 +228,13 @@ export const setDefRefCount = (data: {
                 counterElement.textContent = data.rootRefCount.toString();
             }
         } else if (data.rootRefCount > 0) {
-            liElement.insertAdjacentHTML("beforeend", `<span class="popover__block counter b3-tooltips b3-tooltips__nw" aria-label="${window.siyuan.languages.ref}">${data.rootRefCount}</span>`);
+            liElement.insertAdjacentHTML("beforeend", `<span class="popover__block counter b3-tooltips b3-tooltips__nw" aria-label="${window.shehab.languages.ref}">${data.rootRefCount}</span>`);
         }
     }
 };
 
 export const lockScreen = (app: App) => {
-    if (window.siyuan.config.readonly) {
+    if (window.shehab.config.readonly) {
         return;
     }
     app.plugins.forEach(item => {
@@ -245,7 +245,7 @@ export const lockScreen = (app: App) => {
         redirectToCheckAuth();
     });
     /// #else
-    ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "lockscreen"});
+    ipcRenderer.send(Constants.SHEHAB_SEND_WINDOWS, {cmd: "lockscreen"});
     /// #endif
 };
 
@@ -253,11 +253,11 @@ export const kernelError = () => {
     if (document.querySelector("#errorLog")) {
         return;
     }
-    let title = `💔 ${window.siyuan.languages.kernelFault0} <small>v${Constants.SIYUAN_VERSION}</small>`;
-    let body = `<div>${window.siyuan.languages.kernelFault1}</div><div class="fn__hr"></div><div>${window.siyuan.languages.kernelFault2}</div>`;
+    let title = `💔 ${window.shehab.languages.kernelFault0} <small>v${Constants.SHEHAB_VERSION}</small>`;
+    let body = `<div>${window.shehab.languages.kernelFault1}</div><div class="fn__hr"></div><div>${window.shehab.languages.kernelFault2}</div>`;
     if (isInIOS()) {
-        title = `🍵 ${window.siyuan.languages.pleaseWait} <small>v${Constants.SIYUAN_VERSION}</small>`;
-        body = `<div>${window.siyuan.languages.reconnectPrompt}</div><div class="fn__hr"></div><div class="fn__flex"><div class="fn__flex-1"></div><button class="b3-button">${window.siyuan.languages.retry}</button></div>`;
+        title = `🍵 ${window.shehab.languages.pleaseWait} <small>v${Constants.SHEHAB_VERSION}</small>`;
+        body = `<div>${window.shehab.languages.reconnectPrompt}</div><div class="fn__hr"></div><div class="fn__flex"><div class="fn__flex-1"></div><button class="b3-button">${window.shehab.languages.retry}</button></div>`;
     }
     const dialog = new Dialog({
         disableClose: true,
@@ -283,8 +283,8 @@ export const kernelError = () => {
 export const exitSiYuan = async (setCurrentWorkspace = true) => {
     hideAllElements(["util"]);
     /// #if MOBILE
-    if (window.siyuan.mobile.editor) {
-        await saveScroll(window.siyuan.mobile.editor.protyle);
+    if (window.shehab.mobile.editor) {
+        await saveScroll(window.shehab.mobile.editor.protyle);
     }
     /// #endif
     fetchPost("/api/system/exit", {force: false, setCurrentWorkspace}, (response) => {
@@ -295,7 +295,7 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                 buttonElement.addEventListener("click", () => {
                     fetchPost("/api/system/exit", {force: true, setCurrentWorkspace}, () => {
                         /// #if !BROWSER
-                        ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                        ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                         /// #else
                         if (isInAndroid()) {
                             window.JSAndroid.exit();
@@ -317,11 +317,11 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
         } else if (response.code === 2) { // 提示新安装包
             hideMessage();
 
-            if ("std" === window.siyuan.config.system.container) {
-                ipcRenderer.send(Constants.SIYUAN_SHOW_WINDOW);
+            if ("std" === window.shehab.config.system.container) {
+                ipcRenderer.send(Constants.SHEHAB_SHOW_WINDOW);
             }
 
-            confirmDialog(window.siyuan.languages.tip, response.msg, () => {
+            confirmDialog(window.shehab.languages.tip, response.msg, () => {
                 fetchPost("/api/system/exit", {
                     force: true,
                     setCurrentWorkspace,
@@ -331,11 +331,11 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                     // 桌面端退出拉起更新安装时有时需要重启两次 https://github.com/siyuan-note/siyuan/issues/6544
                     // 这里先将主界面隐藏
                     setTimeout(() => {
-                        ipcRenderer.send(Constants.SIYUAN_CMD, "hide");
+                        ipcRenderer.send(Constants.SHEHAB_CMD, "hide");
                     }, 2000);
                     // 然后等待一段时间后再退出，避免界面主进程退出以后内核子进程被杀死
                     setTimeout(() => {
-                        ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                        ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                     }, 4000);
                     /// #endif
                 });
@@ -346,13 +346,13 @@ export const exitSiYuan = async (setCurrentWorkspace = true) => {
                     execInstallPkg: 1 //  0：默认检查新版本，1：不执行新版本安装，2：执行新版本安装
                 }, () => {
                     /// #if !BROWSER
-                    ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+                    ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
                     /// #endif
                 });
             });
         } else { // 正常退出
             /// #if !BROWSER
-            ipcRenderer.send(Constants.SIYUAN_QUIT, location.port);
+            ipcRenderer.send(Constants.SHEHAB_QUIT, location.port);
             /// #else
             if (isInAndroid()) {
                 window.JSAndroid.exit();
@@ -378,12 +378,12 @@ export const transactionError = () => {
     }
     const dialog = new Dialog({
         disableClose: true,
-        title: `${window.siyuan.languages.stateExcepted} v${Constants.SIYUAN_VERSION}`,
-        content: `<div class="b3-dialog__content" id="transactionError">${window.siyuan.languages.rebuildIndexTip}</div>
+        title: `${window.shehab.languages.stateExcepted} v${Constants.SHEHAB_VERSION}`,
+        content: `<div class="b3-dialog__content" id="transactionError">${window.shehab.languages.rebuildIndexTip}</div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--text">${window.siyuan.languages._kernel[97]}</button>
+    <button class="b3-button b3-button--text">${window.shehab.languages._kernel[97]}</button>
     <div class="fn__space"></div>
-    <button class="b3-button">${window.siyuan.languages.rebuildIndex}</button>
+    <button class="b3-button">${window.shehab.languages.rebuildIndex}</button>
 </div>`,
         width: isMobile() ? "92vw" : "520px",
     });
@@ -406,8 +406,8 @@ export const transactionError = () => {
 };
 
 export const refreshFileTree = (cb?: () => void) => {
-    window.siyuan.storage[Constants.LOCAL_FILEPOSITION] = {};
-    setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION]);
+    window.shehab.storage[Constants.LOCAL_FILEPOSITION] = {};
+    setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION]);
     fetchPost("/api/system/rebuildDataIndex", {}, () => {
         if (cb) {
             cb();
@@ -430,7 +430,7 @@ export const progressStatus = (data: IWebSocketData) => {
 export const progressLoading = (data: IWebSocketData) => {
     let progressElement = document.getElementById("progress");
     if (!progressElement) {
-        document.body.insertAdjacentHTML("beforeend", `<div id="progress" style="z-index: ${++window.siyuan.zIndex}"></div>`);
+        document.body.insertAdjacentHTML("beforeend", `<div id="progress" style="z-index: ${++window.shehab.zIndex}"></div>`);
         progressElement = document.getElementById("progress");
     }
     // code 0: 有进度；1: 无进度；2: 关闭
@@ -465,9 +465,9 @@ export const progressBackgroundTask = (tasks: { action: string }[]) => {
     }
     if (tasks.length === 0) {
         backgroundTaskElement.classList.add("fn__none");
-        if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-            window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_BACKGROUND_TASK) {
-            window.siyuan.menus.menu.remove();
+        if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+            window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_BACKGROUND_TASK) {
+            window.shehab.menus.menu.remove();
         }
     } else {
         backgroundTaskElement.classList.remove("fn__none");
@@ -481,11 +481,11 @@ export const bootSync = () => {
         if (response.code === 1) {
             const dialog = new Dialog({
                 width: isMobile() ? "92vw" : "50vw",
-                title: "🌩️ " + window.siyuan.languages.bootSyncFailed,
+                title: "🌩️ " + window.shehab.languages.bootSyncFailed,
                 content: `<div class="b3-dialog__content">${response.msg}</div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.syncNow}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.syncNow}</button>
 </div>`
             });
             dialog.element.setAttribute("data-key", Constants.DIALOG_BOOTSYNCFAILED);
@@ -512,16 +512,16 @@ export const bootSync = () => {
 export const setTitle = (title: string) => {
     const dragElement = document.getElementById("drag");
     const workspaceName = getWorkspaceName();
-    if (title === window.siyuan.languages.siyuanNote) {
-        const versionTitle = `${workspaceName} - ${window.siyuan.languages.siyuanNote} v${Constants.SIYUAN_VERSION}`;
+    if (title === window.shehab.languages.siyuanNote) {
+        const versionTitle = `${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SHEHAB_VERSION}`;
         document.title = versionTitle;
         if (dragElement) {
             dragElement.textContent = versionTitle;
             dragElement.setAttribute("title", versionTitle);
         }
     } else {
-        title = title || window.siyuan.languages.untitled;
-        document.title = `${title} - ${workspaceName} - ${window.siyuan.languages.siyuanNote} v${Constants.SIYUAN_VERSION}`;
+        title = title || window.shehab.languages.untitled;
+        document.title = `${title} - ${workspaceName} - ${window.shehab.languages.siyuanNote} v${Constants.SHEHAB_VERSION}`;
         if (!dragElement) {
             return;
         }
@@ -557,7 +557,7 @@ export const processSync = (data?: IWebSocketData, plugins?: Plugin[]) => {
     const menuSyncUseElement = document.querySelector("#menuSyncNow use");
     const barSyncUseElement = document.querySelector("#toolbarSync use");
     if (!data) {
-        if (!window.siyuan.config.sync.enabled || (0 === window.siyuan.config.sync.provider && needSubscribe(""))) {
+        if (!window.shehab.config.sync.enabled || (0 === window.shehab.config.sync.provider && needSubscribe(""))) {
             menuSyncUseElement?.setAttribute("xlink:href", "#iconCloudOff");
             barSyncUseElement.setAttribute("xlink:href", "#iconCloudOff");
         } else {
@@ -588,7 +588,7 @@ export const processSync = (data?: IWebSocketData, plugins?: Plugin[]) => {
     const useElement = iconElement.querySelector("use");
     if (!data) {
         iconElement.classList.remove("toolbar__item--active");
-        if (!window.siyuan.config.sync.enabled || (0 === window.siyuan.config.sync.provider && needSubscribe(""))) {
+        if (!window.shehab.config.sync.enabled || (0 === window.shehab.config.sync.provider && needSubscribe(""))) {
             useElement.setAttribute("xlink:href", "#iconCloudOff");
         } else {
             useElement.setAttribute("xlink:href", "#iconCloudSucc");

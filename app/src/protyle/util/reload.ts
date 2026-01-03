@@ -13,22 +13,22 @@ export const reloadProtyle = (protyle: IProtyle, focus: boolean, updateReadonly?
         removeLoading(protyle);
         return;
     }
-    if (window.siyuan.config.editor.displayBookmarkIcon) {
+    if (window.shehab.config.editor.displayBookmarkIcon) {
         protyle.wysiwyg.element.classList.add("protyle-wysiwyg--attr");
     } else {
         protyle.wysiwyg.element.classList.remove("protyle-wysiwyg--attr");
     }
     if (protyle.title) {
         protyle.title.element.removeAttribute("data-render");
-        protyle.title.element.setAttribute("spellcheck", window.siyuan.config.editor.spellcheck.toString());
-        if (window.siyuan.config.editor.displayBookmarkIcon) {
+        protyle.title.element.setAttribute("spellcheck", window.shehab.config.editor.spellcheck.toString());
+        if (window.shehab.config.editor.displayBookmarkIcon) {
             protyle.title.element.classList.add("protyle-wysiwyg--attr");
         } else {
             protyle.title.element.classList.remove("protyle-wysiwyg--attr");
         }
     }
-    protyle.lute.SetProtyleMarkNetImg(window.siyuan.config.editor.displayNetImgMark);
-    protyle.lute.SetSpellcheck(window.siyuan.config.editor.spellcheck);
+    protyle.lute.SetProtyleMarkNetImg(window.shehab.config.editor.displayNetImgMark);
+    protyle.lute.SetSpellcheck(window.shehab.config.editor.spellcheck);
     restoreLuteMarkdownSyntax(protyle);
     protyle.lute.SetGFMStrikethrough1(false);
     addLoading(protyle);

@@ -3,7 +3,7 @@ import {image} from "../../config/image";
 
 export const initAssets = () => {
     openModel({
-        title: window.siyuan.languages.assets,
+        title: window.shehab.languages.assets,
         icon: "iconImage",
         html: image.genHTML(),
         bindEvent(modelMainElement: HTMLElement) {

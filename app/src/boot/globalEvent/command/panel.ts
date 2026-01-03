@@ -30,7 +30,7 @@ export const commandPanel = (app: App) => {
     const dialog = new Dialog({
         width: isMobile() ? "92vw" : "80vw",
         height: isMobile() ? "80vh" : "70vh",
-        title: window.siyuan.languages.commandPanel,
+        title: window.shehab.languages.commandPanel,
         content: `<div class="fn__flex-column">
     <div class="b3-form__icon search__header" style="border-top: 0;border-bottom: 1px solid var(--b3-theme-surface-lighter);">
         <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
@@ -38,9 +38,9 @@ export const commandPanel = (app: App) => {
     </div>
     <ul class="b3-list b3-list--background search__list" id="commands"></ul>
     <div class="search__tip">
-        <kbd>↑/↓</kbd> ${window.siyuan.languages.searchTip1}
-        <kbd>${window.siyuan.languages.enterKey}/${window.siyuan.languages.click}</kbd> ${window.siyuan.languages.confirm}
-        <kbd>Esc</kbd> ${window.siyuan.languages.close}
+        <kbd>↑/↓</kbd> ${window.shehab.languages.searchTip1}
+        <kbd>${window.shehab.languages.enterKey}/${window.shehab.languages.click}</kbd> ${window.shehab.languages.confirm}
+        <kbd>Esc</kbd> ${window.shehab.languages.close}
     </div>
 </div>`,
         destroyCallback() {
@@ -52,7 +52,7 @@ export const commandPanel = (app: App) => {
     dialog.element.setAttribute("data-key", Constants.DIALOG_COMMANDPANEL);
     const listElement = dialog.element.querySelector("#commands");
     let html = "";
-    Object.keys(window.siyuan.config.keymap.general).forEach((key) => {
+    Object.keys(window.shehab.config.keymap.general).forEach((key) => {
         let keys;
         /// #if MOBILE
         keys = ["addToDatabase", "fileTree", "outline", "bookmark", "tag", "dailyNote", "inbox", "backlinks",
@@ -73,16 +73,16 @@ export const commandPanel = (app: App) => {
         /// #endif
         if (keys.includes(key)) {
             html += `<li class="b3-list-item" data-command="${key}">
-    <span class="b3-list-item__text">${window.siyuan.languages[key]}</span>
-    <span class="b3-list-item__meta${isMobile() ? " fn__none" : ""}">${updateHotkeyTip(window.siyuan.config.keymap.general[key].custom)}</span>
+    <span class="b3-list-item__text">${window.shehab.languages[key]}</span>
+    <span class="b3-list-item__meta${isMobile() ? " fn__none" : ""}">${updateHotkeyTip(window.shehab.config.keymap.general[key].custom)}</span>
 </li>`;
         }
     });
-    Object.keys(window.siyuan.config.keymap.editor.general).forEach((key) => {
+    Object.keys(window.shehab.config.keymap.editor.general).forEach((key) => {
         if (["switchReadonly", "switchAdjust"].includes(key)) {
             html += `<li class="b3-list-item" data-command="${key}">
-    <span class="b3-list-item__text">${window.siyuan.languages[key]}</span>
-    <span class="b3-list-item__meta${isMobile() ? " fn__none" : ""}">${updateHotkeyTip(window.siyuan.config.keymap.editor.general[key].custom)}</span>
+    <span class="b3-list-item__text">${window.shehab.languages[key]}</span>
+    <span class="b3-list-item__meta${isMobile() ? " fn__none" : ""}">${updateHotkeyTip(window.shehab.config.keymap.editor.general[key].custom)}</span>
 </li>`;
         }
     });
@@ -110,7 +110,7 @@ export const commandPanel = (app: App) => {
     if (listElement.childElementCount === 0) {
         const liElement = document.createElement("li");
         liElement.classList.add("b3-list-item", "b3-list-item--focus");
-        liElement.innerHTML = `<span class="b3-list-item__text" style="-webkit-line-clamp: inherit;">${window.siyuan.languages._kernel[122]}</span>`;
+        liElement.innerHTML = `<span class="b3-list-item__text" style="-webkit-line-clamp: inherit;">${window.shehab.languages._kernel[122]}</span>`;
         liElement.addEventListener("click", () => {
             dialog.destroy();
         });
@@ -210,7 +210,7 @@ export const execByCommand = async (options: {
     let fileLiElements = options.fileLiElements;
     if (!isFileFocus && !protyle) {
         if (range) {
-            window.siyuan.dialogs.find(item => {
+            window.shehab.dialogs.find(item => {
                 if (item.editors) {
                     Object.keys(item.editors).find(key => {
                         if (item.editors[key].protyle.element.contains(range.startContainer)) {
@@ -246,7 +246,7 @@ export const execByCommand = async (options: {
             }
         } else if (!protyle) {
             if (!protyle && range) {
-                window.siyuan.blockPanels.find(item => {
+                window.shehab.blockPanels.find(item => {
                     item.editors.find(editorItem => {
                         if (editorItem.protyle.element.contains(range.startContainer)) {
                             protyle = editorItem.protyle;
@@ -442,7 +442,7 @@ export const execByCommand = async (options: {
         case "move":
             if (!isFileFocus) {
                 const nodeElement = hasClosestBlock(range.startContainer);
-                if (protyle.title?.editElement.contains(range.startContainer) || !nodeElement || window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_TITLE) {
+                if (protyle.title?.editElement.contains(range.startContainer) || !nodeElement || window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_TITLE) {
                     movePathTo({
                         cb: (toPath, toNotebook) => {
                             moveToPath([protyle.path], toNotebook[0], toPath[0]);

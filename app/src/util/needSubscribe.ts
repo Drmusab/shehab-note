@@ -1,16 +1,16 @@
 import {showMessage} from "../dialog/message";
 import {getCloudURL} from "../config/util/about";
 
-export const needSubscribe = (tip = window.siyuan.languages._kernel[29]) => {
-    if (window.siyuan.user && (window.siyuan.user.userSiYuanProExpireTime === -1 || window.siyuan.user.userSiYuanProExpireTime > 0)) {
+export const needSubscribe = (tip = window.shehab.languages._kernel[29]) => {
+    if (window.shehab.user && (window.shehab.user.userSiYuanProExpireTime === -1 || window.shehab.user.userSiYuanProExpireTime > 0)) {
         return false;
     }
     if (tip) {
-        if (tip === window.siyuan.languages._kernel[29] && window.siyuan.config.system.container === "ios") {
-            showMessage(window.siyuan.languages._kernel[122]);
+        if (tip === window.shehab.languages._kernel[29] && window.shehab.config.system.container === "ios") {
+            showMessage(window.shehab.languages._kernel[122]);
         } else {
-            if (tip === window.siyuan.languages._kernel[29]) {
-                tip = window.siyuan.languages._kernel[29].replaceAll("${accountServer}", getCloudURL(""));
+            if (tip === window.shehab.languages._kernel[29]) {
+                tip = window.shehab.languages._kernel[29].replaceAll("${accountServer}", getCloudURL(""));
             }
             showMessage(tip);
         }
@@ -19,5 +19,5 @@ export const needSubscribe = (tip = window.siyuan.languages._kernel[29]) => {
 };
 
 export const isPaidUser = () => {
-    return window.siyuan.user && (0 === window.siyuan.user.userSiYuanSubscriptionStatus || 1 === window.siyuan.user.userSiYuanOneTimePayStatus);
+    return window.shehab.user && (0 === window.shehab.user.userSiYuanSubscriptionStatus || 1 === window.shehab.user.userSiYuanOneTimePayStatus);
 };

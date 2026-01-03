@@ -47,7 +47,7 @@ export const onWindowsMsg = (ipcData: IWebSocketData) => {
             });
             break;
         case "lockscreenByMode":
-            if (window.siyuan.config.system.lockScreenMode === 1) {
+            if (window.shehab.config.system.lockScreenMode === 1) {
                 exportLayout({
                     errorExit: false,
                     cb() {

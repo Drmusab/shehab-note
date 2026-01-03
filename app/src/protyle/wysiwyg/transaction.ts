@@ -62,32 +62,32 @@ const removeTopElement = (updateElement: Element, protyle: IProtyle) => {
 
 // 用于执行操作，外加处理当前编辑器中块引用、嵌入块的更新
 const promiseTransaction = () => {
-    if (window.siyuan.transactions.length === 0) {
+    if (window.shehab.transactions.length === 0) {
         return;
     }
-    const protyle = window.siyuan.transactions[0].protyle;
-    const doOperations = window.siyuan.transactions[0].doOperations;
-    const undoOperations = window.siyuan.transactions[0].undoOperations;
+    const protyle = window.shehab.transactions[0].protyle;
+    const doOperations = window.shehab.transactions[0].doOperations;
+    const undoOperations = window.shehab.transactions[0].undoOperations;
     // 1. * ;2. * ;3. a
     // 第一步请求没有返回前在 transaction 中会合并1、2步，此时第一步请求返回将被以下代码删除，在输入a时，就会出现 block not found，因此以下代码不能放入请求回调中
-    window.siyuan.transactions.splice(0, 1);
+    window.shehab.transactions.splice(0, 1);
     fetchPost("/api/transactions", {
         session: protyle.id,
-        app: Constants.SIYUAN_APPID,
+        app: Constants.SHEHAB_APPID,
         transactions: [{
             doOperations,
             undoOperations // 目前用于 ws 推送更新大纲
         }]
     }, (response) => {
-        if (window.siyuan.transactions.length === 0) {
+        if (window.shehab.transactions.length === 0) {
             countBlockWord([], protyle.block.rootID, true);
         } else {
             promiseTransaction();
         }
         /// #if MOBILE
-        if (((0 !== window.siyuan.config.sync.provider && isPaidUser()) ||
-                (0 === window.siyuan.config.sync.provider && !needSubscribe(""))) &&
-            window.siyuan.config.repo.key && window.siyuan.config.sync.enabled) {
+        if (((0 !== window.shehab.config.sync.provider && isPaidUser()) ||
+                (0 === window.shehab.config.sync.provider && !needSubscribe(""))) &&
+            window.shehab.config.repo.key && window.shehab.config.sync.enabled) {
             document.getElementById("toolbarSync").classList.remove("fn__none");
         }
         /// #endif
@@ -588,7 +588,7 @@ export const onTransaction = (protyle: IProtyle, operation: IOperation, isUndo: 
             if (data.new[Constants.CUSTOM_SY_READONLY] !== data.old[Constants.CUSTOM_SY_READONLY]) {
                 let customReadOnly = data.new[Constants.CUSTOM_SY_READONLY];
                 if (!customReadOnly) {
-                    customReadOnly = window.siyuan.config.editor.readOnly ? "true" : "false";
+                    customReadOnly = window.shehab.config.editor.readOnly ? "true" : "false";
                 }
                 if (customReadOnly === "true") {
                     disabledProtyle(protyle);
@@ -600,7 +600,7 @@ export const onTransaction = (protyle: IProtyle, operation: IOperation, isUndo: 
                 data.new["title-img"] !== data.old["title-img"] ||
                 data.new.tags !== data.old.tags && protyle.background) {
                 /// #if MOBILE
-                protyle = window.siyuan.mobile.editor.protyle;
+                protyle = window.shehab.mobile.editor.protyle;
                 /// #endif
                 protyle.background.ial.icon = data.new.icon;
                 protyle.background.ial.tags = data.new.tags;
@@ -676,7 +676,7 @@ export const onTransaction = (protyle: IProtyle, operation: IOperation, isUndo: 
         }
         if (updateElements.length === 0) {
             // 页签拖入浮窗 https://github.com/siyuan-note/siyuan/issues/6647
-            window.siyuan.blockPanels.forEach((item) => {
+            window.shehab.blockPanels.forEach((item) => {
                 const updateCloneElement = item.element.querySelector(`[data-node-id="${operation.id}"]`);
                 if (updateCloneElement) {
                     updateElements.push(updateCloneElement.cloneNode(true) as Element);
@@ -1256,7 +1256,7 @@ export const turnsOneInto = async (options: {
             item.removeAttribute("fold");
             const response = await fetchSyncPost("/api/transactions", {
                 session: options.protyle.id,
-                app: Constants.SIYUAN_APPID,
+                app: Constants.SHEHAB_APPID,
                 transactions: [{
                     doOperations: [{
                         action: "unfoldHeading",
@@ -1345,8 +1345,8 @@ export const transaction = (protyle: IProtyle, doOperations: IOperation[], undoO
     if (!protyle) {
         // 文档树中点开属性->数据库后的变更操作 & 文档树添加到数据库
         fetchPost("/api/transactions", {
-            session: Constants.SIYUAN_APPID,
-            app: Constants.SIYUAN_APPID,
+            session: Constants.SHEHAB_APPID,
+            app: Constants.SHEHAB_APPID,
             transactions: [{
                 doOperations
             }]
@@ -1354,7 +1354,7 @@ export const transaction = (protyle: IProtyle, doOperations: IOperation[], undoO
         return;
     }
 
-    const lastTransaction = window.siyuan.transactions[window.siyuan.transactions.length - 1];
+    const lastTransaction = window.shehab.transactions[window.shehab.transactions.length - 1];
     let needDebounce = false;
     const time = new Date().getTime();
     if (lastTransaction && lastTransaction.doOperations.length === 1 && lastTransaction.doOperations[0].action === "update" &&
@@ -1364,7 +1364,7 @@ export const transaction = (protyle: IProtyle, doOperations: IOperation[], undoO
         needDebounce = true;
     }
     if (undoOperations) {
-        if (window.siyuan.config.fileTree.openFilesUseCurrentTab && protyle.model) {
+        if (window.shehab.config.fileTree.openFilesUseCurrentTab && protyle.model) {
             protyle.model.headElement.classList.remove("item--unupdate");
         }
         protyle.updated = true;
@@ -1383,7 +1383,7 @@ export const transaction = (protyle: IProtyle, doOperations: IOperation[], undoO
         protyle.transactionTime = time + Constants.TIMEOUT_INPUT * 2;
         fetchPost("/api/transactions", {
             session: protyle.id,
-            app: Constants.SIYUAN_APPID,
+            app: Constants.SHEHAB_APPID,
             transactions: [{
                 doOperations,
                 undoOperations
@@ -1412,10 +1412,10 @@ export const transaction = (protyle: IProtyle, doOperations: IOperation[], undoO
     window.clearTimeout(transactionsTimeout);
     if (needDebounce) {
         // 不能覆盖 undoOperations https://github.com/siyuan-note/siyuan/issues/3727
-        window.siyuan.transactions[window.siyuan.transactions.length - 1].protyle = protyle;
-        window.siyuan.transactions[window.siyuan.transactions.length - 1].doOperations = doOperations;
+        window.shehab.transactions[window.shehab.transactions.length - 1].protyle = protyle;
+        window.shehab.transactions[window.shehab.transactions.length - 1].doOperations = doOperations;
     } else {
-        window.siyuan.transactions.push({
+        window.shehab.transactions.push({
             protyle,
             doOperations,
             undoOperations
@@ -1496,7 +1496,7 @@ const processFold = (operation: IOperation, protyle: IProtyle) => {
             fetchPost("/api/filetree/getDoc", {
                 id: protyle.wysiwyg.element.lastElementChild.getAttribute("data-node-id"),
                 mode: 2,
-                size: window.siyuan.config.editor.dynamicLoadBlocks,
+                size: window.shehab.config.editor.dynamicLoadBlocks,
             }, getResponse => {
                 onGet({
                     data: getResponse,

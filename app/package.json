@@ -1,8 +1,8 @@
 {
-  "name": "SiYuan",
+  "name": "Shehab",
   "version": "3.5.2",
-  "description": "Refactor your thinking",
-  "homepage": "https://b3log.org/siyuan",
+  "description": "Local-first personal knowledge management",
+  "homepage": "",
   "main": "./electron/main.js",
   "packageManager": "pnpm@10.22.0",
   "scripts": {
@@ -31,22 +31,10 @@
     "notebook"
   ],
   "author": {
-    "name": "Yunnan Liandi Technology Co., Ltd.",
-    "email": "845765@qq.com",
-    "url": "https://ld246.com"
+    "name": "Shehab Project",
+    "email": "",
+    "url": ""
   },
-  "maintainers": [
-    {
-      "name": "Liang Ding",
-      "email": "845765@qq.com",
-      "url": "https://ld246.com/member/88250"
-    },
-    {
-      "name": "Liyuan Li",
-      "email": "84588990@qq.com",
-      "url": "https://ld246.com/member/Vanessa"
-    }
-  ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.24.0",

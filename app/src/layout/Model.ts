@@ -37,7 +37,7 @@ export class Model {
         msgCallback?: (data: IWebSocketData) => void
     }) {
         const websocketURL = `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`;
-        const ws = new WebSocket(`${websocketURL}?app=${Constants.SIYUAN_APPID}&id=${options.id}${options.type ? "&type=" + options.type : ""}`);
+        const ws = new WebSocket(`${websocketURL}?app=${Constants.SHEHAB_APPID}&id=${options.id}${options.type ? "&type=" + options.type : ""}`);
         ws.onopen = () => {
             if (options.callback) {
                 options.callback.call(this);
@@ -46,7 +46,7 @@ export class Model {
             if (logElement) {
                 // 内核中断后无法 catch fetch 请求错误，重连会导致无法执行 transactionsTimeout
                 reloadSync(this.app, {upsertRootIDs: [], removeRootIDs: []});
-                window.siyuan.dialogs.find(item => {
+                window.shehab.dialogs.find(item => {
                     if (item.element.id === "errorLog") {
                         item.destroy();
                         return true;

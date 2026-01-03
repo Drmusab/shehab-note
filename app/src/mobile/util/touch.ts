@@ -37,15 +37,15 @@ export const handleTouchEnd = (event: TouchEvent, app: App) => {
     if (!clientY || typeof yDiff === "undefined" ||
         target.tagName === "AUDIO" ||
         hasClosestByClassName(target, "b3-dialog", true) ||
-        (window.siyuan.mobile.editor && !window.siyuan.mobile.editor.protyle.toolbar.subElement.classList.contains("fn__none")) ||
+        (window.shehab.mobile.editor && !window.shehab.mobile.editor.protyle.toolbar.subElement.classList.contains("fn__none")) ||
         hasClosestByClassName(target, "viewer-container") ||
         hasClosestByClassName(target, "keyboard") ||
         hasClosestByAttribute(target, "id", "commonMenu")
     ) {
         return;
     }
-    if (window.siyuan.mobile.editor) {
-        window.siyuan.mobile.editor.protyle.contentElement.style.overflow = "";
+    if (window.shehab.mobile.editor) {
+        window.shehab.mobile.editor.protyle.contentElement.style.overflow = "";
     }
 
     // 有些事件不经过 touchstart 和 touchmove，因此需设置为 null 不再继续执行
@@ -171,7 +171,7 @@ export const handleTouchMove = (event: TouchEvent) => {
     if (!clientX || !clientY ||
         target.tagName === "AUDIO" ||
         hasClosestByClassName(target, "b3-dialog", true) ||
-        (window.siyuan.mobile.editor && !window.siyuan.mobile.editor.protyle.toolbar.subElement.classList.contains("fn__none")) ||
+        (window.shehab.mobile.editor && !window.shehab.mobile.editor.protyle.toolbar.subElement.classList.contains("fn__none")) ||
         hasClosestByClassName(target, "keyboard") ||
         hasClosestByClassName(target, "viewer-container") ||
         hasClosestByAttribute(target, "id", "commonMenu") || firstXY === "y"
@@ -187,7 +187,7 @@ export const handleTouchMove = (event: TouchEvent) => {
     if (getSelection().rangeCount > 0) {
         // 选中后扩选的情况
         const range = getSelection().getRangeAt(0);
-        if (range.toString() !== "" && window.siyuan.mobile.editor.protyle.wysiwyg.element.contains(range.startContainer)) {
+        if (range.toString() !== "" && window.shehab.mobile.editor.protyle.wysiwyg.element.contains(range.startContainer)) {
             return;
         }
     }
@@ -279,9 +279,9 @@ export const handleTouchMove = (event: TouchEvent) => {
         }
 
         if (isFirstMove) {
-            sideMaskElement.style.zIndex = (++window.siyuan.zIndex).toString();
-            document.getElementById("sidebar").style.zIndex = (++window.siyuan.zIndex).toString();
-            document.getElementById("menu").style.zIndex = (++window.siyuan.zIndex).toString();
+            sideMaskElement.style.zIndex = (++window.shehab.zIndex).toString();
+            document.getElementById("sidebar").style.zIndex = (++window.shehab.zIndex).toString();
+            document.getElementById("menu").style.zIndex = (++window.shehab.zIndex).toString();
             isFirstMove = false;
         }
         const windowWidth = window.innerWidth;
@@ -316,8 +316,8 @@ export const handleTouchMove = (event: TouchEvent) => {
             transformMask((windowWidth - xDiff) / windowWidth);
         }
         activeBlur();
-        if (window.siyuan.mobile.editor) {
-            window.siyuan.mobile.editor.protyle.contentElement.style.overflow = "hidden";
+        if (window.shehab.mobile.editor) {
+            window.shehab.mobile.editor.protyle.contentElement.style.overflow = "hidden";
         }
     }
 };

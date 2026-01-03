@@ -35,8 +35,8 @@ export const highlightRender = (element: Element, cdn = Constants.PROTYLE_CDN, z
             codeElements.forEach((block: HTMLElement) => {
                 const iconElements = block.parentElement.querySelectorAll(".protyle-icon");
                 if (iconElements.length === 2) {
-                    iconElements[0].setAttribute("aria-label", window.siyuan.languages.copy);
-                    iconElements[1].setAttribute("aria-label", window.siyuan.languages.more);
+                    iconElements[0].setAttribute("aria-label", window.shehab.languages.copy);
+                    iconElements[1].setAttribute("aria-label", window.shehab.languages.more);
                 }
                 if (block.getAttribute("data-render") === "true") {
                     return;
@@ -74,7 +74,7 @@ export const highlightRender = (element: Element, cdn = Constants.PROTYLE_CDN, z
                 const ligatures = block.parentElement.getAttribute("ligatures");
                 const lineNumber = block.parentElement.getAttribute("linenumber");
                 const hljsElement = block.lastElementChild ? block.lastElementChild as HTMLElement : block;
-                if (autoEnter === "true" || (autoEnter !== "false" && window.siyuan.config.editor.codeLineWrap)) {
+                if (autoEnter === "true" || (autoEnter !== "false" && window.shehab.config.editor.codeLineWrap)) {
                     hljsElement.style.setProperty("white-space", "pre-wrap");
                     hljsElement.style.setProperty("word-break", "break-word");
                 } else {
@@ -82,14 +82,14 @@ export const highlightRender = (element: Element, cdn = Constants.PROTYLE_CDN, z
                     hljsElement.style.setProperty("white-space", "pre");
                     hljsElement.style.setProperty("word-break", "initial");
                 }
-                if (ligatures === "true" || (ligatures !== "false" && window.siyuan.config.editor.codeLigatures)) {
+                if (ligatures === "true" || (ligatures !== "false" && window.shehab.config.editor.codeLigatures)) {
                     hljsElement.style.fontVariantLigatures = "normal";
                 } else {
                     hljsElement.style.fontVariantLigatures = "none";
                 }
                 const codeText = hljsElement.textContent;
                 if (block.firstElementChild) {
-                    if (!isPreview && (lineNumber === "true" || (lineNumber !== "false" && window.siyuan.config.editor.codeSyntaxHighlightLineNum))) {
+                    if (!isPreview && (lineNumber === "true" || (lineNumber !== "false" && window.shehab.config.editor.codeSyntaxHighlightLineNum))) {
                         // 需要先添加 class 以防止抖动 https://ld246.com/article/1648116585443
                         block.firstElementChild.className = "protyle-linenumber__rows";
                         block.firstElementChild.setAttribute("contenteditable", "false");
@@ -121,11 +121,11 @@ export const lineNumberRender = (block: HTMLElement, zoom = 1) => {
     if (lineNumber === "false") {
         return;
     }
-    if (!window.siyuan.config.editor.codeSyntaxHighlightLineNum && lineNumber !== "true") {
+    if (!window.shehab.config.editor.codeSyntaxHighlightLineNum && lineNumber !== "true") {
         return;
     }
     // clientHeight 总是取的整数
-    block.parentElement.style.lineHeight = `${((parseInt(block.parentElement.style.fontSize) || window.siyuan.config.editor.fontSize) * 1.625 * 0.85).toFixed(0)}px`;
+    block.parentElement.style.lineHeight = `${((parseInt(block.parentElement.style.fontSize) || window.shehab.config.editor.fontSize) * 1.625 * 0.85).toFixed(0)}px`;
     const codeElement = block.lastElementChild as HTMLElement;
 
     const lineList = codeElement.textContent.split(/\r\n|\r|\n|\u2028|\u2029/g);

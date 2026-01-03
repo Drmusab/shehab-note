@@ -5,20 +5,20 @@ import {fetchPost} from "../util/fetch";
 import {Constants} from "../constants";
 
 export const transferBlockRef = (id: string) => {
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "transferBlockRef",
-        label: window.siyuan.languages.transferBlockRef,
+        label: window.shehab.languages.transferBlockRef,
         icon: "iconScrollHoriz",
         click() {
             const renameDialog = new Dialog({
-                title: window.siyuan.languages.transferBlockRef,
+                title: window.shehab.languages.transferBlockRef,
                 content: `<div class="b3-dialog__content">
-    <input class="b3-text-field fn__block" placeholder="${window.siyuan.languages.targetBlockID}">
-    <div class="b3-label__text">${window.siyuan.languages.transferBlockRefTip}</div>
+    <input class="b3-text-field fn__block" placeholder="${window.shehab.languages.targetBlockID}">
+    <div class="b3-label__text">${window.shehab.languages.transferBlockRefTip}</div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
                 width: isMobile() ? "92vw" : "520px",
             });

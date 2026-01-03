@@ -16,7 +16,7 @@ export const previewImages = (srcList: string[], currentSrc?: string) => {
             }
         });
         imagesElement.innerHTML = html;
-        window.siyuan.viewer = new Viewer(imagesElement, {
+        window.shehab.viewer = new Viewer(imagesElement, {
             initialViewIndex: currentSrc ? initialViewIndex : 0,
             title: [1, (image: HTMLImageElement, imageData: IObject) => {
                 let name = image.alt;
@@ -29,7 +29,7 @@ export const previewImages = (srcList: string[], currentSrc?: string) => {
             button: false,
             transition: false,
             hidden: function () {
-                window.siyuan.viewer.destroy();
+                window.shehab.viewer.destroy();
             },
             toolbar: {
                 zoomIn: true,
@@ -44,11 +44,11 @@ export const previewImages = (srcList: string[], currentSrc?: string) => {
                 flipHorizontal: true,
                 flipVertical: true,
                 close: function () {
-                    window.siyuan.viewer.destroy();
+                    window.shehab.viewer.destroy();
                 },
             },
         });
-        window.siyuan.viewer.show();
+        window.shehab.viewer.show();
     });
 };
 

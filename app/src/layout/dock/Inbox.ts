@@ -35,7 +35,7 @@ export class Inbox extends Model {
         this.element.innerHTML = `<div class="toolbar toolbar--border toolbar--dark">
     <div class="fn__space"></div>
     <div class="toolbar__text">
-        ${window.siyuan.languages.inbox}
+        ${window.shehab.languages.inbox}
         <span class="fn__space"></span>
         <span class="inboxSelectCount ft__smaller ft__on-surface"></span>
     </div>
@@ -55,20 +55,20 @@ export class Inbox extends Model {
         this.element.classList.add("fn__flex-column", "file-tree", "sy__inbox");
         this.element.innerHTML = `<div class="block__icons">
     <div class="block__logo">
-        <svg class="block__logoicon"><use xlink:href="#iconInbox"></use></svg>${window.siyuan.languages.inbox}&nbsp;
+        <svg class="block__logoicon"><use xlink:href="#iconInbox"></use></svg>${window.shehab.languages.inbox}&nbsp;
         <span class="inboxSelectCount"></span>
     </div>
     <span class="fn__flex-1"></span>
     <span class="fn__space"></span>
     <span data-type="selectall" class="block__icon"><svg><use xlink:href="#iconUncheck"></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="previous" class="block__icon b3-tooltips b3-tooltips__w" disabled="disabled" aria-label="${window.siyuan.languages.previousLabel}"><svg><use xlink:href="#iconLeft"></use></svg></span>
+    <span data-type="previous" class="block__icon b3-tooltips b3-tooltips__w" disabled="disabled" aria-label="${window.shehab.languages.previousLabel}"><svg><use xlink:href="#iconLeft"></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="next" class="block__icon b3-tooltips b3-tooltips__w" disabled="disabled" aria-label="${window.siyuan.languages.nextLabel}"><svg><use xlink:href="#iconRight"></use></svg></span>
+    <span data-type="next" class="block__icon b3-tooltips b3-tooltips__w" disabled="disabled" aria-label="${window.shehab.languages.nextLabel}"><svg><use xlink:href="#iconRight"></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="more" data-menu="true" class="block__icon b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.more}"><svg><use xlink:href="#iconMore"></use></svg></span>
+    <span data-type="more" data-menu="true" class="block__icon b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.more}"><svg><use xlink:href="#iconMore"></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.min}${updateHotkeyAfterTip(window.siyuan.config.keymap.general.closeTab.custom)}"><svg><use xlink:href="#iconMin"></use></svg></span>
+    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.min}${updateHotkeyAfterTip(window.shehab.config.keymap.general.closeTab.custom)}"><svg><use xlink:href="#iconMin"></use></svg></span>
 </div>
 <div class="fn__loading fn__none">
     <img width="64px" src="/stage/loading-pure.svg"></div>
@@ -117,7 +117,7 @@ export class Inbox extends Model {
                         useElement.setAttribute("xlink:href", "#iconUncheck");
                     }
                     countElement.innerHTML = `${this.selectIds.length.toString()}/${this.pageCount.toString()}`;
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.stopPropagation();
                     break;
                 } else if (type === "select") {
@@ -132,7 +132,7 @@ export class Inbox extends Model {
                     }
                     countElement.innerHTML = `${this.selectIds.length.toString()}/${this.pageCount.toString()}`;
                     selectAllElement.querySelector("use").setAttribute("xlink:href", this.element.lastElementChild.querySelectorAll('[*|href="#iconCheck"]').length === this.element.lastElementChild.querySelectorAll(".b3-list-item").length ? "#iconCheck" : "#iconUncheck");
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.stopPropagation();
                     break;
                 } else if (type === "previous") {
@@ -203,7 +203,7 @@ ${data.shorthandContent}
 </div>`;
         /// #else
         if (data.shorthandURL) {
-            linkHTML = `<span class="fn__space"></span><a href="${data.shorthandURL}" target="_blank" class="block__icon block__icon--show b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.link}">
+            linkHTML = `<span class="fn__space"></span><a href="${data.shorthandURL}" target="_blank" class="block__icon block__icon--show b3-tooltips b3-tooltips__w" aria-label="${window.shehab.languages.link}">
         <svg><use xlink:href="#iconLink"></use></svg>
     </a>`;
         }
@@ -232,9 +232,9 @@ ${data.shorthandContent}
 
     private more(event: MouseEvent, itemElement?: HTMLElement) {
         const detailsElement = this.element.querySelector(".inboxDetails");
-        window.siyuan.menus.menu.remove();
-        window.siyuan.menus.menu.append(new MenuItem({
-            label: window.siyuan.languages.refresh,
+        window.shehab.menus.menu.remove();
+        window.shehab.menus.menu.append(new MenuItem({
+            label: window.shehab.languages.refresh,
             icon: "iconRefresh",
             click: () => {
                 if (itemElement) {
@@ -267,22 +267,22 @@ ${data.shorthandContent}
             ids = [detailsElement.getAttribute("data-id")];
         }
         if (ids.length > 0) {
-            window.siyuan.menus.menu.append(new MenuItem({
-                label: window.siyuan.languages.move,
+            window.shehab.menus.menu.append(new MenuItem({
+                label: window.shehab.languages.move,
                 icon: "iconMove",
                 click: () => {
                     this.move(ids);
                 }
             }).element);
-            window.siyuan.menus.menu.append(new MenuItem({
-                label: window.siyuan.languages.remove,
+            window.shehab.menus.menu.append(new MenuItem({
+                label: window.shehab.languages.remove,
                 icon: "iconTrashcan",
                 click: () => {
                     let removeTitle = "";
                     ids.forEach((id, index) => {
                         removeTitle += '<code class="fn__code">' + escapeHtml(this.data[id].shorthandTitle) + "</code>" + (index === ids.length - 1 ? "" : ", ");
                     });
-                    confirmDialog(window.siyuan.languages.deleteOpConfirm, `${window.siyuan.languages.confirmDelete} ${removeTitle}?`, () => {
+                    confirmDialog(window.shehab.languages.deleteOpConfirm, `${window.shehab.languages.confirmDelete} ${removeTitle}?`, () => {
                         if (itemElement) {
                             this.remove([itemElement.dataset.id]);
                         } else if (detailsElement.classList.contains("fn__none")) {
@@ -305,7 +305,7 @@ ${data.shorthandContent}
                 separatorPosition: "top",
             });
         }
-        window.siyuan.menus.menu.popup({x: event.clientX, y: event.clientY + 16});
+        window.shehab.menus.menu.popup({x: event.clientX, y: event.clientY + 16});
     }
 
     private remove(removeIds?: string[]) {
@@ -360,10 +360,10 @@ ${data.shorthandContent}
         if (needSubscribe("")) {
             this.element.lastElementChild.innerHTML = `<ul class="b3-list b3-list--background">
     <li class="b3-list--empty">
-        ${window.siyuan.languages.inboxTip}
+        ${window.shehab.languages.inboxTip}
     </li>
     <li class="b3-list--empty">
-        ${window.siyuan.config.system.container === "ios" ? window.siyuan.languages._kernel[122] : window.siyuan.languages._kernel[29].replaceAll("${accountServer}", getCloudURL(""))}
+        ${window.shehab.config.system.container === "ios" ? window.shehab.languages._kernel[122] : window.shehab.languages._kernel[29].replaceAll("${accountServer}", getCloudURL(""))}
     </li>
 </ul>`;
             loadingElement.classList.add("fn__none");
@@ -377,7 +377,7 @@ ${data.shorthandContent}
             loadingElement.classList.add("fn__none");
             let html = "";
             if (response.data.data.shorthands.length === 0) {
-                html = `<ul class="b3-list b3-list--background"><li class="b3-list--empty">${window.siyuan.languages.inboxTip}</li></ul>`;
+                html = `<ul class="b3-list b3-list--background"><li class="b3-list--empty">${window.shehab.languages.inboxTip}</li></ul>`;
             } else {
                 html = '<ul style="padding: 8px 0" class="b3-list b3-list--background">';
                 response.data.data.shorthands.forEach((item: IInbox) => {

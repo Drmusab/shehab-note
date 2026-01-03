@@ -38,7 +38,7 @@ func NewSync() *Sync {
 		Perception:          false,
 		Mode:                1,
 		GenerateConflictDoc: false,
-		Provider:            ProviderSiYuan,
+		Provider:            ProviderLocal, // Shehab fork: default to local-only
 		Interval:            30,
 	}
 }
@@ -71,9 +71,9 @@ type Local struct {
 }
 
 const (
-	ProviderSiYuan = 0 // ProviderSiYuan 为思源官方提供的云端存储服务
-	ProviderS3     = 2 // ProviderS3 为 S3 协议对象存储提供的云端存储服务
-	ProviderWebDAV = 3 // ProviderWebDAV 为 WebDAV 协议提供的云端存储服务
+	ProviderSiYuan = 0 // ProviderSiYuan disabled in Shehab fork (was official cloud service)
+	ProviderS3     = 2 // ProviderS3 disabled in Shehab fork (was S3 object storage)
+	ProviderWebDAV = 3 // ProviderWebDAV disabled in Shehab fork (was WebDAV protocol)
 	ProviderLocal  = 4 // ProviderLocal 为本地文件系统提供的存储服务
 )
 

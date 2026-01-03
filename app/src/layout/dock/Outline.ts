@@ -97,31 +97,31 @@ export class Outline extends Model {
         options.tab.panelElement.classList.add("fn__flex-column", "file-tree", "sy__outline");
         options.tab.panelElement.innerHTML = `<div class="block__icons fn__hidescrollbar">
     <div class="block__logo">
-        <svg class="block__logoicon"><use xlink:href="#iconAlignCenter"></use></svg>${window.siyuan.languages.outline}
+        <svg class="block__logoicon"><use xlink:href="#iconAlignCenter"></use></svg>${window.shehab.languages.outline}
     </div>
     <span class="fn__flex-1 fn__space"></span>
-    <input class="b3-text-field search__label fn__none fn__size200" placeholder="${window.siyuan.languages.filterKeywordEnter}" />
-    <span data-type="search" class="block__icon ariaLabel" aria-label="${window.siyuan.languages.filter}">
+    <input class="b3-text-field search__label fn__none fn__size200" placeholder="${window.shehab.languages.filterKeywordEnter}" />
+    <span data-type="search" class="block__icon ariaLabel" aria-label="${window.shehab.languages.filter}">
         <svg><use xlink:href='#iconFilter'></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="keepCurrentExpand" class="block__icon ariaLabel${window.siyuan.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand ? " block__icon--active" : ""}" aria-label="${window.siyuan.languages.outlineKeepCurrentExpand}">
+    <span data-type="keepCurrentExpand" class="block__icon ariaLabel${window.shehab.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand ? " block__icon--active" : ""}" aria-label="${window.shehab.languages.outlineKeepCurrentExpand}">
         <svg><use xlink:href="#iconFocus"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="expandLevel" class="block__icon ariaLabel" aria-label="${window.siyuan.languages.expandLevel}">
+    <span data-type="expandLevel" class="block__icon ariaLabel" aria-label="${window.shehab.languages.expandLevel}">
         <svg><use xlink:href="#iconList"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="expand" class="block__icon ariaLabel" aria-label="${window.siyuan.languages.expandAll}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.expand.custom)}">
+    <span data-type="expand" class="block__icon ariaLabel" aria-label="${window.shehab.languages.expandAll}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.expand.custom)}">
         <svg><use xlink:href="#iconExpand"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="collapse" class="block__icon ariaLabel" aria-label="${window.siyuan.languages.foldAll}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.collapse.custom)}">
+    <span data-type="collapse" class="block__icon ariaLabel" aria-label="${window.shehab.languages.foldAll}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.collapse.custom)}">
         <svg><use xlink:href="#iconContract"></use></svg>
     </span>
     <span class="${this.type === "local" ? "fn__none " : ""}fn__space"></span>
-    <span data-type="min" class="${this.type === "local" ? "fn__none " : ""}block__icon ariaLabel" aria-label="${window.siyuan.languages.min}${updateHotkeyAfterTip(window.siyuan.config.keymap.general.closeTab.custom)}">
+    <span data-type="min" class="${this.type === "local" ? "fn__none " : ""}block__icon ariaLabel" aria-label="${window.shehab.languages.min}${updateHotkeyAfterTip(window.shehab.config.keymap.general.closeTab.custom)}">
         <svg><use xlink:href='#iconMin'></use></svg>
     </span>
 </div>
@@ -136,10 +136,10 @@ export class Outline extends Model {
             const value = inputElement.value;
             if (value) {
                 filterIconElement.classList.add("block__icon--active");
-                filterIconElement.setAttribute("aria-label", window.siyuan.languages.filter + " " + escapeAttr(value));
+                filterIconElement.setAttribute("aria-label", window.shehab.languages.filter + " " + escapeAttr(value));
             } else {
                 filterIconElement.classList.remove("block__icon--active");
-                filterIconElement.setAttribute("aria-label", window.siyuan.languages.filter);
+                filterIconElement.setAttribute("aria-label", window.shehab.languages.filter);
             }
             if (inputElement.dataset.value !== value) {
                 this.setFilter();
@@ -250,10 +250,10 @@ export class Outline extends Model {
             }
             if (iconElement.classList.contains("block__icon--active")) {
                 iconElement.classList.remove("block__icon--active");
-                window.siyuan.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand = false;
+                window.shehab.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand = false;
             } else {
                 iconElement.classList.add("block__icon--active");
-                window.siyuan.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand = true;
+                window.shehab.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand = true;
                 let focusElement;
                 getAllModels().editor.find(editItem => {
                     if (editItem.editor.protyle.block.rootID === this.blockId) {
@@ -272,7 +272,7 @@ export class Outline extends Model {
                 }
             }
             // 保存keepCurrentExpand状态到localStorage
-            setStorageVal(Constants.LOCAL_OUTLINE, window.siyuan.storage[Constants.LOCAL_OUTLINE]);
+            setStorageVal(Constants.LOCAL_OUTLINE, window.shehab.storage[Constants.LOCAL_OUTLINE]);
         });
         options.tab.panelElement.addEventListener("click", (event: MouseEvent & { target: HTMLElement }) => {
             let target = event.target as HTMLElement;
@@ -487,7 +487,7 @@ export class Outline extends Model {
                 return;
             }
             if (ial) {
-                let iconHTML = `${unicode2Emoji(ial.icon || window.siyuan.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true)}`;
+                let iconHTML = `${unicode2Emoji(ial.icon || window.shehab.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true)}`;
                 if (ial.icon === Constants.ZWSP && docTitleElement.firstElementChild) {
                     iconHTML = docTitleElement.firstElementChild.outerHTML;
                 }
@@ -617,7 +617,7 @@ export class Outline extends Model {
             item.classList.remove("b3-list-item--focus");
         });
         let currentElement = this.element.querySelector(`.b3-list-item[data-node-id="${id}"]`) as HTMLElement;
-        if (window.siyuan.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand) {
+        if (window.shehab.storage[Constants.LOCAL_OUTLINE].keepCurrentExpand) {
             let ulElement = currentElement.parentElement;
             while (ulElement && !ulElement.classList.contains("b3-list") && ulElement.tagName === "UL") {
                 ulElement.classList.remove("fn__none");
@@ -670,7 +670,7 @@ export class Outline extends Model {
     }
 
     public saveExpendIds() {
-        if (window.siyuan.config.readonly || window.siyuan.isPublish) {
+        if (window.shehab.config.readonly || window.shehab.isPublish) {
             return;
         }
 
@@ -803,23 +803,23 @@ export class Outline extends Model {
      * 显示展开层级菜单
      */
     private showExpandLevelMenu(target: HTMLElement) {
-        window.siyuan.menus.menu.remove();
-        window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_OUTLINE_EXPAND_LEVEL);
+        window.shehab.menus.menu.remove();
+        window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_OUTLINE_EXPAND_LEVEL);
         for (let i = 1; i <= 6; i++) {
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: `heading${i}`,
                 icon: `iconH${i}`,
-                label: window.siyuan.languages[`heading${i}`],
+                label: window.shehab.languages[`heading${i}`],
                 click: () => this.expandToLevel(i)
             }).element);
         }
         const rect = target.getBoundingClientRect();
-        window.siyuan.menus.menu.popup({
+        window.shehab.menus.menu.popup({
             x: rect.left,
             y: rect.bottom,
             h: rect.height
         });
-        return window.siyuan.menus.menu;
+        return window.shehab.menus.menu;
     }
 
     /**
@@ -884,16 +884,16 @@ export class Outline extends Model {
             return; // 预览模式下不显示右键菜单
         }
         const currentLevel = this.getHeadingLevel(element);
-        window.siyuan.menus.menu.remove();
-        window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_OUTLINE_CONTEXT);
+        window.shehab.menus.menu.remove();
+        window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_OUTLINE_CONTEXT);
         const id = element.getAttribute("data-node-id");
-        if (!window.siyuan.config.readonly) {
+        if (!window.shehab.config.readonly) {
             // 升级
             if (currentLevel > 1) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "upgrade",
                     icon: "iconUp",
-                    label: window.siyuan.languages.upgrade,
+                    label: window.shehab.languages.upgrade,
                     click: () => {
                         const data = this.getProtyleAndBlockElement(element);
                         if (data) {
@@ -910,10 +910,10 @@ export class Outline extends Model {
 
             // 降级
             if (currentLevel < 6) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "downgrade",
                     icon: "iconDown",
-                    label: window.siyuan.languages.downgrade,
+                    label: window.shehab.languages.downgrade,
                     click: () => {
                         const data = this.getProtyleAndBlockElement(element);
                         if (data) {
@@ -959,22 +959,22 @@ export class Outline extends Model {
             }
 
             if (headingSubMenu.length > 0) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "tWithSubtitle",
                     type: "submenu",
                     icon: "iconRefresh",
-                    label: window.siyuan.languages.tWithSubtitle,
+                    label: window.shehab.languages.tWithSubtitle,
                     submenu: headingSubMenu
                 }).element);
             }
 
-            window.siyuan.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
+            window.shehab.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
 
             // 在前面插入同级标题
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "insertSameLevelHeadingBefore",
                 icon: "iconBefore",
-                label: window.siyuan.languages.insertSameLevelHeadingBefore,
+                label: window.shehab.languages.insertSameLevelHeadingBefore,
                 click: () => {
                     const data = this.getProtyleAndBlockElement(element);
                     const newId = Lute.NewNodeID();
@@ -996,10 +996,10 @@ export class Outline extends Model {
             }).element);
 
             // 在后面插入同级标题
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "insertSameLevelHeadingAfter",
                 icon: "iconAfter",
-                label: window.siyuan.languages.insertSameLevelHeadingAfter,
+                label: window.shehab.languages.insertSameLevelHeadingAfter,
                 click: () => {
                     fetchPost("/api/block/getHeadingDeleteTransaction", {
                         id,
@@ -1030,10 +1030,10 @@ export class Outline extends Model {
 
             // 添加子标题
             if (currentLevel < 6) { // 只有当前级别小于6时才能添加子标题
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "addChildHeading",
                     icon: "iconAdd",
-                    label: window.siyuan.languages.addChildHeading,
+                    label: window.shehab.languages.addChildHeading,
                     click: () => {
                         fetchPost("/api/block/getHeadingDeleteTransaction", {
                             id,
@@ -1071,14 +1071,14 @@ export class Outline extends Model {
                 }).element);
             }
 
-            window.siyuan.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
+            window.shehab.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
         }
 
         // 复制带子标题
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "copyHeadings1",
             icon: "iconCopy",
-            label: `${window.siyuan.languages.copy} ${window.siyuan.languages.headings1}`,
+            label: `${window.shehab.languages.copy} ${window.shehab.languages.headings1}`,
             click: () => {
                 const data = this.getProtyleAndBlockElement(element);
                 fetchPost("/api/block/getHeadingChildrenDOM", {
@@ -1096,12 +1096,12 @@ export class Outline extends Model {
             }
         }).element);
 
-        if (!window.siyuan.config.readonly) {
+        if (!window.shehab.config.readonly) {
             // 剪切带子标题
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "cutHeadings1",
                 icon: "iconCut",
-                label: `${window.siyuan.languages.cut} ${window.siyuan.languages.headings1}`,
+                label: `${window.shehab.languages.cut} ${window.shehab.languages.headings1}`,
                 click: () => {
                     const data = this.getProtyleAndBlockElement(element);
                     fetchPost("/api/block/getHeadingChildrenDOM", {
@@ -1146,10 +1146,10 @@ export class Outline extends Model {
             }).element);
 
             // 删除
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "deleteHeadings1",
                 icon: "iconTrashcan",
-                label: `${window.siyuan.languages.delete} ${window.siyuan.languages.headings1}`,
+                label: `${window.shehab.languages.delete} ${window.shehab.languages.headings1}`,
                 click: () => {
                     const data = this.getProtyleAndBlockElement(element);
                     fetchPost("/api/block/getHeadingDeleteTransaction", {
@@ -1181,49 +1181,49 @@ export class Outline extends Model {
                 }
             }).element);
         }
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
 
         // 展开子标题
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "expandChildHeading",
             icon: "iconExpand",
-            label: window.siyuan.languages.expandChildHeading,
-            accelerator: "⌘" + window.siyuan.languages.clickArrow,
+            label: window.shehab.languages.expandChildHeading,
+            accelerator: "⌘" + window.shehab.languages.clickArrow,
             click: () => this.collapseChildren(element, true)
         }).element);
 
         // 折叠子标题
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "foldChildHeading",
             icon: "iconContract",
-            label: window.siyuan.languages.foldChildHeading,
-            accelerator: "⌘" + window.siyuan.languages.clickArrow,
+            label: window.shehab.languages.foldChildHeading,
+            accelerator: "⌘" + window.shehab.languages.clickArrow,
             click: () => this.collapseChildren(element, false)
         }).element);
 
         // 展开同级标题
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "expandSameLevelHeading",
             icon: "iconExpand",
-            label: window.siyuan.languages.expandSameLevelHeading,
-            accelerator: "⌥" + window.siyuan.languages.clickArrow,
+            label: window.shehab.languages.expandSameLevelHeading,
+            accelerator: "⌥" + window.shehab.languages.clickArrow,
             click: () => this.collapseSameLevel(element, true)
         }).element);
 
         // 折叠同级标题
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "foldSameLevelHeading",
             icon: "iconContract",
-            label: window.siyuan.languages.foldSameLevelHeading,
-            accelerator: "⌥" + window.siyuan.languages.clickArrow,
+            label: window.shehab.languages.foldSameLevelHeading,
+            accelerator: "⌥" + window.shehab.languages.clickArrow,
             click: () => this.collapseSameLevel(element, false)
         }).element);
 
         // 全部展开
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "expandAll",
             icon: "iconExpand",
-            label: window.siyuan.languages.expandAll,
+            label: window.shehab.languages.expandAll,
             click: () => {
                 this.tree.expandAll();
                 this.saveExpendIds();
@@ -1231,17 +1231,17 @@ export class Outline extends Model {
         }).element);
 
         // 全部折叠
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "foldAll",
             icon: "iconContract",
-            label: window.siyuan.languages.foldAll,
+            label: window.shehab.languages.foldAll,
             click: () => {
                 this.tree.collapseAll();
                 this.saveExpendIds();
             }
         }).element);
 
-        window.siyuan.menus.menu.popup({
+        window.shehab.menus.menu.popup({
             x: event.clientX,
             y: event.clientY
         });
@@ -1275,7 +1275,7 @@ export class Outline extends Model {
             id: "heading" + level,
             iconHTML: "",
             icon: "iconHeading" + level,
-            label: window.siyuan.languages["heading" + level],
+            label: window.shehab.languages["heading" + level],
             click: () => {
                 let protyle: IProtyle;
                 getAllModels().editor.find(editItem => {

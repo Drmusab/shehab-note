@@ -162,7 +162,7 @@ openTab = (options: {
             afterOpen: options.afterOpen,
             custom: {
                 icon: "iconRiffCard",
-                title: window.siyuan.languages.spaceRepetition,
+                title: window.shehab.languages.spaceRepetition,
                 data: {
                     cardType: options.card.type,
                     id: options.card.id || "",
@@ -181,7 +181,7 @@ openTab = (options: {
 
 const getModelByDockType = (type: TDock | string) => {
     /// #if MOBILE
-    return window.siyuan.mobile.docks[type];
+    return window.shehab.mobile.docks[type];
     /// #else
     return getDockByType(type).data[type];
     /// #endif
@@ -202,8 +202,8 @@ const openAttributePanel = (options: {
 
 const saveLayout = (cb: () => void) => {
     /// #if MOBILE
-    if (window.siyuan.mobile.editor) {
-        const result = saveScroll(window.siyuan.mobile.editor.protyle);
+    if (window.shehab.mobile.editor) {
+        const result = saveScroll(window.shehab.mobile.editor.protyle);
         if (cb && result instanceof Promise) {
             result.then(() => {
                 cb();
@@ -256,7 +256,7 @@ const getActiveEditor = (wndActive = true) => {
         });
     }
     /// #else
-    editor = window.siyuan.mobile.popEditor || window.siyuan.mobile.editor;
+    editor = window.shehab.mobile.popEditor || window.shehab.mobile.editor;
     if (editor?.protyle.element.classList.contains("fn__none")) {
         return undefined;
     }
@@ -269,7 +269,7 @@ export const expandDocTree = async (options: {
     isSetCurrent?: boolean
 }) => {
     let isNotebook = false;
-    window.siyuan.notebooks.find(item => {
+    window.shehab.notebooks.find(item => {
         if (options.id === item.id) {
             isNotebook = true;
             return true;

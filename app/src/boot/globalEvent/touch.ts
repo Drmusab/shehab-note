@@ -67,14 +67,14 @@ export const globalTouchEnd = (event: TouchEvent, yDiff: number, time: number, a
         // 文档树
         const fileItemElement = hasClosestByAttribute(target, "data-type", "navigation-root") || hasClosestByAttribute(target, "data-type", "navigation-file");
         if (fileItemElement) {
-            if (!window.siyuan.config.readonly && fileItemElement.dataset.type === "navigation-root") {
+            if (!window.shehab.config.readonly && fileItemElement.dataset.type === "navigation-root") {
                 const menu = initNavigationMenu(app, fileItemElement);
                 if (isIPadBoolean) {
                     const rect = fileItemElement.getBoundingClientRect();
                     menu.popup({x: rect.right - 52, y: rect.bottom, h: rect.height});
                     hideTooltip();
                 } else {
-                    window.siyuan.menus.menu.fullscreen("bottom");
+                    window.shehab.menus.menu.fullscreen("bottom");
                 }
             } else if (fileItemElement.dataset.type === "navigation-file") {
                 const rootElement = hasTopClosestByTag(fileItemElement, "UL");
@@ -85,7 +85,7 @@ export const globalTouchEnd = (event: TouchEvent, yDiff: number, time: number, a
                         menu.popup({x: rect.right - 52, y: rect.bottom, h: rect.height});
                         hideTooltip();
                     } else {
-                        window.siyuan.menus.menu.fullscreen("bottom");
+                        window.shehab.menus.menu.fullscreen("bottom");
                     }
                 }
             }

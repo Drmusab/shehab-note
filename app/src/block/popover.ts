@@ -16,9 +16,9 @@ export const initBlockPopover = (app: App) => {
     let timeoutHide: number;
     // 编辑器内容块引用/backlinks/tag/bookmark/套娃中使用
     document.addEventListener("mouseover", (event: MouseEvent & { target: HTMLElement, path: HTMLElement[] }) => {
-        if (!window.siyuan.config || !window.siyuan.menus ||
+        if (!window.shehab.config || !window.shehab.menus ||
             // 拖拽时禁止
-            window.siyuan.dragElement || document.onmousemove) {
+            window.shehab.dragElement || document.onmousemove) {
             hideTooltip();
             return;
         }
@@ -105,7 +105,7 @@ export const initBlockPopover = (app: App) => {
                                 assetTip += '<div class="fn__hr"></div><span>' + title + "</span>";
                             }
                         } else {
-                            assetTip += ` ${response.data.hSize}${title ? '<div class="fn__hr"></div><span>' + title + "</span>" : ""}<br>${window.siyuan.languages.modifiedAt} ${response.data.hUpdated}<br>${window.siyuan.languages.createdAt} ${response.data.hCreated}`;
+                            assetTip += ` ${response.data.hSize}${title ? '<div class="fn__hr"></div><span>' + title + "</span>" : ""}<br>${window.shehab.languages.modifiedAt} ${response.data.hUpdated}<br>${window.shehab.languages.createdAt} ${response.data.hCreated}`;
                         }
                         showTooltip(assetTip, aElement, tooltipClass, event, tooltipSpace);
                     });
@@ -119,7 +119,7 @@ export const initBlockPopover = (app: App) => {
             if (notebookItemElement && notebookItemElement.parentElement.getAttribute("data-type") === "navigation-root") {
                 fetchPost("/api/notebook/getNotebookInfo", {notebook: notebookItemElement.parentElement.parentElement.getAttribute("data-url")}, (response) => {
                     const boxData = response.data.boxInfo;
-                    const tip = `${boxData.name} <small class='ft__on-surface'>${boxData.hSize}</small>${boxData.docCount !== 0 ? window.siyuan.languages.includeSubFile.replace("x", boxData.docCount) : ""}<br>${window.siyuan.languages.modifiedAt} ${boxData.hMtime}<br>${window.siyuan.languages.createdAt} ${boxData.hCtime}`;
+                    const tip = `${boxData.name} <small class='ft__on-surface'>${boxData.hSize}</small>${boxData.docCount !== 0 ? window.shehab.languages.includeSubFile.replace("x", boxData.docCount) : ""}<br>${window.shehab.languages.modifiedAt} ${boxData.hMtime}<br>${window.shehab.languages.createdAt} ${boxData.hCtime}`;
                     const scopeNotebookItemElement = hasClosestByClassName(event.target, "b3-list-item__text");
                     if (notebookItemElement && scopeNotebookItemElement && (notebookItemElement === scopeNotebookItemElement)) {
                         showTooltip(tip, notebookItemElement);
@@ -152,7 +152,7 @@ export const initBlockPopover = (app: App) => {
                 hideTooltip();
             }
         }
-        if (window.siyuan.config.editor.floatWindowMode === 1 || window.siyuan.shiftIsPressed) {
+        if (window.shehab.config.editor.floatWindowMode === 1 || window.shehab.shiftIsPressed) {
             clearTimeout(timeoutHide);
             timeoutHide = window.setTimeout(() => {
                 hidePopover(event);
@@ -165,10 +165,10 @@ export const initBlockPopover = (app: App) => {
             if (event.relatedTarget && !document.contains(event.relatedTarget as Node)) {
                 return;
             }
-            if (window.siyuan.ctrlIsPressed) {
+            if (window.shehab.ctrlIsPressed) {
                 clearTimeout(timeoutHide);
                 showPopover(app);
-            } else if (window.siyuan.shiftIsPressed) {
+            } else if (window.shehab.shiftIsPressed) {
                 clearTimeout(timeoutHide);
                 showPopover(app, true);
             }
@@ -212,7 +212,7 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
     const avPanelElement = hasClosestByClassName(target, "av__panel") || hasClosestByClassName(target, "av__mask");
     if (avPanelElement) {
         // 浮窗上点击 av 操作，浮窗不能消失
-        const blockPanel = window.siyuan.blockPanels.find((item) => {
+        const blockPanel = window.shehab.blockPanels.find((item) => {
             if (item.element.style.zIndex < avPanelElement.style.zIndex) {
                 return true;
             }
@@ -224,7 +224,7 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
         // 浮窗上点击菜单，浮窗不能消失 https://ld246.com/article/1632668091023
         const menuElement = hasClosestByClassName(target, "b3-menu");
         if (menuElement && menuElement.getAttribute("data-name") !== Constants.MENU_DOC_TREE_MORE) {
-            const blockPanel = window.siyuan.blockPanels.find((item) => {
+            const blockPanel = window.shehab.blockPanels.find((item) => {
                 if (item.element.style.zIndex < menuElement.style.zIndex) {
                     return true;
                 }
@@ -246,7 +246,7 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
     if (!popoverTargetElement && linkElement && linkElement.getAttribute("data-href")?.startsWith("siyuan://blocks")) {
         popoverTargetElement = linkElement;
     }
-    if (!popoverTargetElement || (popoverTargetElement && window.siyuan.menus.menu.data && window.siyuan.menus.menu.data === popoverTargetElement)) {
+    if (!popoverTargetElement || (popoverTargetElement && window.shehab.menus.menu.data && window.shehab.menus.menu.data === popoverTargetElement)) {
         // 移动到弹窗的 loading 元素上，但经过 settimeout 后 loading 已经被移除了
         // https://ld246.com/article/1673596577519/comment/1673767749885#comments
         let targetElement = target;
@@ -255,7 +255,7 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
         }
         const blockElement = hasClosestByClassName(targetElement, "block__popover", true);
         const maxEditLevels: { [key: string]: number } = {oid: 0};
-        window.siyuan.blockPanels.forEach((item) => {
+        window.shehab.blockPanels.forEach((item) => {
             if ((item.targetElement || typeof item.x === "number") && item.element.getAttribute("data-pin") === "true") {
                 const level = parseInt(item.element.getAttribute("data-level"));
                 const oid = item.element.getAttribute("data-oid");
@@ -268,10 +268,10 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
                 }
             }
         });
-        const menuLevel = parseInt(window.siyuan.menus.menu.element.dataset.from);
+        const menuLevel = parseInt(window.shehab.menus.menu.element.dataset.from);
         if (blockElement) {
-            for (let i = window.siyuan.blockPanels.length - 1; i >= 0; i--) {
-                const item = window.siyuan.blockPanels[i];
+            for (let i = window.shehab.blockPanels.length - 1; i >= 0; i--) {
+                const item = window.shehab.blockPanels[i];
                 const itemLevel = parseInt(item.element.getAttribute("data-level"));
                 if ((item.targetElement || typeof item.x === "number") &&
                     itemLevel > (maxEditLevels[item.element.getAttribute("data-oid")] || 0) &&
@@ -294,8 +294,8 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
                 }
             }
         } else {
-            for (let i = window.siyuan.blockPanels.length - 1; i >= 0; i--) {
-                const item = window.siyuan.blockPanels[i];
+            for (let i = window.shehab.blockPanels.length - 1; i >= 0; i--) {
+                const item = window.shehab.blockPanels[i];
                 const itemLevel = parseInt(item.element.getAttribute("data-level"));
                 if ((item.targetElement || typeof item.x === "number") && item.element.getAttribute("data-pin") === "false") {
                     if (menuLevel && menuLevel >= itemLevel) {
@@ -323,7 +323,7 @@ const hidePopover = (event: MouseEvent & { path: HTMLElement[] }) => {
 };
 
 const getTarget = (event: MouseEvent & { target: HTMLElement }, aElement: false | HTMLElement) => {
-    if (window.siyuan.config.editor.floatWindowMode === 2 || hasClosestByClassName(event.target, "history__repo", true)) {
+    if (window.shehab.config.editor.floatWindowMode === 2 || hasClosestByClassName(event.target, "history__repo", true)) {
         return false;
     }
     popoverTargetElement = hasClosestByAttribute(event.target, "data-type", "block-ref") as HTMLElement ||
@@ -344,8 +344,8 @@ const getTarget = (event: MouseEvent & { target: HTMLElement }, aElement: false 
             }
         }
     }
-    if (!popoverTargetElement || window.siyuan.altIsPressed ||
-        (window.siyuan.config.editor.floatWindowMode === 0 && window.siyuan.ctrlIsPressed) ||
+    if (!popoverTargetElement || window.shehab.altIsPressed ||
+        (window.shehab.config.editor.floatWindowMode === 0 && window.shehab.ctrlIsPressed) ||
         (popoverTargetElement && popoverTargetElement.getAttribute("prevent-popover") === "true")) {
         return false;
     }
@@ -360,7 +360,7 @@ const getTarget = (event: MouseEvent & { target: HTMLElement }, aElement: false 
 };
 
 export const showPopover = async (app: App, showRef = false) => {
-    if (!popoverTargetElement || (window.siyuan.menus.menu.data && window.siyuan.menus.menu.data === popoverTargetElement)) {
+    if (!popoverTargetElement || (window.shehab.menus.menu.data && window.shehab.menus.menu.data === popoverTargetElement)) {
         return;
     }
     let refDefs: IRefDefs[] = [];
@@ -434,7 +434,7 @@ export const showPopover = async (app: App, showRef = false) => {
     }
 
     let hasPin = false;
-    window.siyuan.blockPanels.find((item) => {
+    window.shehab.blockPanels.find((item) => {
         if ((item.targetElement || typeof item.x === "number") && item.element.getAttribute("data-pin") === "true"
             && JSON.stringify(refDefs) === JSON.stringify(item.refDefs)) {
             hasPin = true;
@@ -444,7 +444,7 @@ export const showPopover = async (app: App, showRef = false) => {
     if (!hasPin && popoverTargetElement.parentElement &&
         popoverTargetElement.parentElement.style.opacity !== "0.38" // 反向面板图标拖拽时不应该弹层
     ) {
-        window.siyuan.blockPanels.push(new BlockPanel({
+        window.shehab.blockPanels.push(new BlockPanel({
             app,
             targetElement: popoverTargetElement,
             isBacklink: showRef || popoverTargetElement.classList.contains("protyle-attr--refcount") || popoverTargetElement.classList.contains("counter"),

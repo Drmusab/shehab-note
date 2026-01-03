@@ -33,7 +33,7 @@ export const openBacklink = async (options: {
         wnd = getInstanceById(element.getAttribute("data-id")) as Wnd;
     }
     if (!wnd) {
-        wnd = getWndByLayout(window.siyuan.layout.centerLayout);
+        wnd = getWndByLayout(window.shehab.layout.centerLayout);
     }
     if (!options.rootId) {
         const response = await fetchSyncPost("api/block/getDocInfo", {id: options.blockId});
@@ -42,13 +42,13 @@ export const openBacklink = async (options: {
         }
         options.rootId = response.data.rootID;
         options.useBlockId = response.data.rootID !== response.data.id;
-        options.title = response.data.name || window.siyuan.languages.untitled;
+        options.title = response.data.name || window.shehab.languages.untitled;
     } else if (!options.title) {
         const response = await fetchSyncPost("api/block/getDocInfo", {id: options.blockId});
         if (response.code === -1) {
             return;
         }
-        options.title = response.data.name || window.siyuan.languages.untitled;
+        options.title = response.data.name || window.shehab.languages.untitled;
     }
     const newWnd = wnd.split("lr");
     newWnd.addTab(new Tab({
@@ -89,7 +89,7 @@ export const openGraph = async (options: {
         wnd = getInstanceById(element.getAttribute("data-id")) as Wnd;
     }
     if (!wnd) {
-        wnd = getWndByLayout(window.siyuan.layout.centerLayout);
+        wnd = getWndByLayout(window.shehab.layout.centerLayout);
     }
     if (!options.rootId) {
         const response = await fetchSyncPost("api/block/getDocInfo", {id: options.blockId});
@@ -98,13 +98,13 @@ export const openGraph = async (options: {
         }
         options.rootId = response.data.rootID;
         options.useBlockId = response.data.rootID !== response.data.id;
-        options.title = response.data.name || window.siyuan.languages.untitled;
+        options.title = response.data.name || window.shehab.languages.untitled;
     } else if (!options.title) {
         const response = await fetchSyncPost("api/block/getDocInfo", {id: options.blockId});
         if (response.code === -1) {
             return;
         }
-        options.title = response.data.name || window.siyuan.languages.untitled;
+        options.title = response.data.name || window.shehab.languages.untitled;
     }
     const newWnd = wnd.split("lr");
     newWnd.addTab(new Tab({
@@ -143,12 +143,12 @@ export const openOutline = async (options: {
         wnd = getInstanceById(element.getAttribute("data-id")) as Wnd;
     }
     if (!wnd) {
-        wnd = getWndByLayout(window.siyuan.layout.centerLayout);
+        wnd = getWndByLayout(window.shehab.layout.centerLayout);
     }
     const newWnd = wnd.split("lr");
     if (options.title) {
         const response = await fetchSyncPost("api/block/getDocInfo", {id: options.rootId});
-        options.title = response.data.name || window.siyuan.languages.untitled;
+        options.title = response.data.name || window.shehab.languages.untitled;
     }
     newWnd.addTab(new Tab({
         icon: "iconAlignCenter",
@@ -171,14 +171,14 @@ export const openOutline = async (options: {
 };
 
 export const resetFloatDockSize = () => {
-    if (!window.siyuan.layout.leftDock.pin && window.siyuan.layout.leftDock.layout.element.style.opacity === "1") {
-        window.siyuan.layout.leftDock.showDock(true);
+    if (!window.shehab.layout.leftDock.pin && window.shehab.layout.leftDock.layout.element.style.opacity === "1") {
+        window.shehab.layout.leftDock.showDock(true);
     }
-    if (!window.siyuan.layout.rightDock.pin && window.siyuan.layout.rightDock.layout.element.style.opacity === "1") {
-        window.siyuan.layout.rightDock.showDock(true);
+    if (!window.shehab.layout.rightDock.pin && window.shehab.layout.rightDock.layout.element.style.opacity === "1") {
+        window.shehab.layout.rightDock.showDock(true);
     }
-    if (!window.siyuan.layout.bottomDock.pin && window.siyuan.layout.bottomDock.layout.element.style.opacity === "1") {
-        window.siyuan.layout.bottomDock.showDock(true);
+    if (!window.shehab.layout.bottomDock.pin && window.shehab.layout.bottomDock.layout.element.style.opacity === "1") {
+        window.shehab.layout.bottomDock.showDock(true);
     }
 };
 
@@ -189,7 +189,7 @@ export const toggleDockBar = (useElement: Element) => {
     } else {
         useElement.setAttribute("xlink:href", "#iconHideDock");
     }
-    window.siyuan.config.uiLayout.hideDock = dockIsShow;
+    window.shehab.config.uiLayout.hideDock = dockIsShow;
     document.querySelectorAll(".dock").forEach(item => {
         if (dockIsShow) {
             item.classList.add("fn__none");

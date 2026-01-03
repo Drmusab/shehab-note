@@ -146,14 +146,14 @@ export class Undo {
 
 export const electronUndo = (event: KeyboardEvent) => {
     /// #if !BROWSER
-    if (matchHotKey(window.siyuan.config.keymap.editor.general.undo.custom, event)) {
-        ipcRenderer.send(Constants.SIYUAN_CMD, "undo");
+    if (matchHotKey(window.shehab.config.keymap.editor.general.undo.custom, event)) {
+        ipcRenderer.send(Constants.SHEHAB_CMD, "undo");
         event.preventDefault();
         event.stopPropagation();
         return true;
     }
-    if (matchHotKey(window.siyuan.config.keymap.editor.general.redo.custom, event)) {
-        ipcRenderer.send(Constants.SIYUAN_CMD, "redo");
+    if (matchHotKey(window.shehab.config.keymap.editor.general.redo.custom, event)) {
+        ipcRenderer.send(Constants.SHEHAB_CMD, "redo");
         event.preventDefault();
         event.stopPropagation();
         return true;

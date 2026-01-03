@@ -36,7 +36,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
         }
         if (!wnd) {
             // 中心 tab
-            wnd = getWndByLayout(window.siyuan.layout.centerLayout);
+            wnd = getWndByLayout(window.shehab.layout.centerLayout);
         }
         if (wnd) {
             const info = await fetchSyncPost("/api/block/getBlockInfo", {id: stack.id});
@@ -53,7 +53,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
                     scrollAttr.focusId = stack.id;
                     scrollAttr.focusStart = stack.position.start;
                     scrollAttr.focusEnd = stack.position.end;
-                    window.siyuan.storage[Constants.LOCAL_FILEPOSITION][stack.protyle.block.rootID] = scrollAttr;
+                    window.shehab.storage[Constants.LOCAL_FILEPOSITION][stack.protyle.block.rootID] = scrollAttr;
                     const editor = new Editor({
                         app: app,
                         tab,
@@ -65,7 +65,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
                     tab.addModel(editor);
                 }
             });
-            if (window.siyuan.config.fileTree.openFilesUseCurrentTab) {
+            if (window.shehab.config.fileTree.openFilesUseCurrentTab) {
                 let unUpdateTab: Tab;
                 // 不能 reverse, 找到也不能提前退出循环，否则 https://github.com/siyuan-note/siyuan/issues/3271
                 wnd.children.forEach((item) => {
@@ -89,7 +89,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
                     item.protyle = protyle;
                 }
             });
-            window.siyuan.backStack.forEach(item => {
+            window.shehab.backStack.forEach(item => {
                 if (!document.contains(item.protyle.element) && item.protyle.block.rootID === info.data.rootID) {
                     item.protyle = protyle;
                 }
@@ -158,7 +158,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
             fetchPost("/api/filetree/getDoc", {
                 id: stack.id,
                 mode: 3,
-                size: window.siyuan.config.editor.dynamicLoadBlocks,
+                size: window.shehab.config.editor.dynamicLoadBlocks,
             }, getResponse => {
                 onGet({
                     data: getResponse,
@@ -215,7 +215,7 @@ const focusStack = async (app: App, stack: IBackStack) => {
 };
 
 export const goBack = async (app: App) => {
-    if (window.siyuan.backStack.length === 0) {
+    if (window.shehab.backStack.length === 0) {
         if (forwardStack.length > 0) {
             await focusStack(app, forwardStack[forwardStack.length - 1]);
         }
@@ -224,42 +224,42 @@ export const goBack = async (app: App) => {
     document.querySelector("#barForward")?.classList.remove("toolbar__item--disabled");
     if (!previousIsBack &&
         // 页签被关闭时应优先打开该页签，页签存在时即可返回上一步，不用再重置光标到该页签上
-        document.contains(window.siyuan.backStack[window.siyuan.backStack.length - 1].protyle.element)) {
-        forwardStack.push(window.siyuan.backStack.pop());
+        document.contains(window.shehab.backStack[window.shehab.backStack.length - 1].protyle.element)) {
+        forwardStack.push(window.shehab.backStack.pop());
     }
-    let stack = window.siyuan.backStack.pop();
+    let stack = window.shehab.backStack.pop();
     while (stack) {
         const isFocus = await focusStack(app, stack);
         if (isFocus) {
             forwardStack.push(stack);
             break;
         } else {
-            stack = window.siyuan.backStack.pop();
+            stack = window.shehab.backStack.pop();
         }
     }
     previousIsBack = true;
-    if (window.siyuan.backStack.length === 0) {
+    if (window.shehab.backStack.length === 0) {
         document.querySelector("#barBack")?.classList.add("toolbar__item--disabled");
     }
 };
 
 export const goForward = async (app: App) => {
     if (forwardStack.length === 0) {
-        if (window.siyuan.backStack.length > 0) {
-            await focusStack(app, window.siyuan.backStack[window.siyuan.backStack.length - 1]);
+        if (window.shehab.backStack.length > 0) {
+            await focusStack(app, window.shehab.backStack[window.shehab.backStack.length - 1]);
         }
         return;
     }
     document.querySelector("#barBack")?.classList.remove("toolbar__item--disabled");
     if (previousIsBack) {
-        window.siyuan.backStack.push(forwardStack.pop());
+        window.shehab.backStack.push(forwardStack.pop());
     }
 
     let stack = forwardStack.pop();
     while (stack) {
         const isFocus = await focusStack(app, stack);
         if (isFocus) {
-            window.siyuan.backStack.push(stack);
+            window.shehab.backStack.push(stack);
             break;
         } else {
             stack = forwardStack.pop();
@@ -290,7 +290,7 @@ export const pushBack = (protyle: IProtyle, range?: Range, blockElement?: Elemen
     if (editElement) {
         const position = getSelectionOffset(editElement, undefined, range);
         const id = blockElement.getAttribute("data-node-id") || protyle.block.rootID;
-        const lastStack = window.siyuan.backStack[window.siyuan.backStack.length - 1];
+        const lastStack = window.shehab.backStack[window.shehab.backStack.length - 1];
         if (lastStack && lastStack.id === id && (
             (protyle.block.showAll && lastStack.zoomId === protyle.block.id) || (!lastStack.zoomId && !protyle.block.showAll)
         )) {
@@ -298,23 +298,23 @@ export const pushBack = (protyle: IProtyle, range?: Range, blockElement?: Elemen
         } else {
             if (forwardStack.length > 0) {
                 if (previousIsBack) {
-                    window.siyuan.backStack.push(forwardStack.pop());
+                    window.shehab.backStack.push(forwardStack.pop());
                 }
                 forwardStack = [];
                 document.querySelector("#barForward")?.classList.add("toolbar__item--disabled");
             }
-            window.siyuan.backStack.push({
+            window.shehab.backStack.push({
                 position,
                 id,
                 protyle,
                 zoomId: protyle.block.showAll ? protyle.block.id : undefined,
             });
-            if (window.siyuan.backStack.length > Constants.SIZE_UNDO) {
-                window.siyuan.backStack.shift();
+            if (window.shehab.backStack.length > Constants.SIZE_UNDO) {
+                window.shehab.backStack.shift();
             }
             previousIsBack = false;
         }
-        if (window.siyuan.backStack.length > 1) {
+        if (window.shehab.backStack.length > 1) {
             document.querySelector("#barBack")?.classList.remove("toolbar__item--disabled");
         }
     }

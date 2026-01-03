@@ -7,7 +7,7 @@ import {showMessage} from "../dialog/message";
 import {escapeHtml} from "../util/escape";
 
 export const deleteFile = (notebookId: string, pathString: string) => {
-    if (window.siyuan.config.fileTree.removeDocWithoutConfirm) {
+    if (window.shehab.config.fileTree.removeDocWithoutConfirm) {
         fetchPost("/api/filetree/removeDoc", {
             notebook: notebookId,
             path: pathString
@@ -18,15 +18,15 @@ export const deleteFile = (notebookId: string, pathString: string) => {
         id: getDisplayName(pathString, true, true)
     }, (response) => {
         const fileName = escapeHtml(response.data.name);
-        let tip = `${window.siyuan.languages.confirmDeleteTip.replace("${x}", fileName)}
+        let tip = `${window.shehab.languages.confirmDeleteTip.replace("${x}", fileName)}
 <div class="fn__hr"></div>
-<div class="ft__smaller ft__on-surface">${window.siyuan.languages.rollbackTip.replace("${x}", window.siyuan.config.editor.historyRetentionDays)}</div>`;
+<div class="ft__smaller ft__on-surface">${window.shehab.languages.rollbackTip.replace("${x}", window.shehab.config.editor.historyRetentionDays)}</div>`;
         if (response.data.subFileCount > 0) {
-            tip = `${window.siyuan.languages.andSubFile.replace("${x}", fileName).replace("${y}", response.data.subFileCount)}
+            tip = `${window.shehab.languages.andSubFile.replace("${x}", fileName).replace("${y}", response.data.subFileCount)}
 <div class="fn__hr"></div>
-<div class="ft__smaller ft__on-surface">${window.siyuan.languages.rollbackTip.replace("${x}", window.siyuan.config.editor.historyRetentionDays)}</div>`;
+<div class="ft__smaller ft__on-surface">${window.shehab.languages.rollbackTip.replace("${x}", window.shehab.config.editor.historyRetentionDays)}</div>`;
         }
-        confirmDialog(window.siyuan.languages.deleteOpConfirm, tip, () => {
+        confirmDialog(window.shehab.languages.deleteOpConfirm, tip, () => {
             fetchPost("/api/filetree/removeDoc", {
                 notebook: notebookId,
                 path: pathString
@@ -43,10 +43,10 @@ export const deleteFiles = (liElements: Element[]) => {
             if (liElements[0].getAttribute("data-type") === "navigation-file") {
                 deleteFile(itemNotebookId, liElements[0].getAttribute("data-path"));
             } else {
-                confirmDialog(window.siyuan.languages.deleteOpConfirm,
-                    `${window.siyuan.languages.confirmDeleteTip.replace("${x}", Lute.EscapeHTMLStr(getNotebookName(itemNotebookId)))}
+                confirmDialog(window.shehab.languages.deleteOpConfirm,
+                    `${window.shehab.languages.confirmDeleteTip.replace("${x}", Lute.EscapeHTMLStr(getNotebookName(itemNotebookId)))}
 <div class="fn__hr"></div>
-<div class="ft__smaller ft__on-surface">${window.siyuan.languages.rollbackTip.replace("${x}", window.siyuan.config.editor.historyRetentionDays)}</div>`, () => {
+<div class="ft__smaller ft__on-surface">${window.shehab.languages.rollbackTip.replace("${x}", window.shehab.config.editor.historyRetentionDays)}</div>`, () => {
                         fetchPost("/api/notebook/removeNotebook", {
                             notebook: itemNotebookId,
                             callback: Constants.CB_MOUNT_REMOVE
@@ -63,13 +63,13 @@ export const deleteFiles = (liElements: Element[]) => {
             }
         });
         if (paths.length === 0) {
-            showMessage(window.siyuan.languages.notBatchRemove);
+            showMessage(window.shehab.languages.notBatchRemove);
             return;
         }
-        confirmDialog(window.siyuan.languages.deleteOpConfirm,
-            `${window.siyuan.languages.confirmRemoveAll.replace("${count}", paths.length)}
+        confirmDialog(window.shehab.languages.deleteOpConfirm,
+            `${window.shehab.languages.confirmRemoveAll.replace("${count}", paths.length)}
 <div class="fn__hr"></div>
-<div class="ft__smaller ft__on-surface">${window.siyuan.languages.rollbackTip.replace("${x}", window.siyuan.config.editor.historyRetentionDays)}</div>`, () => {
+<div class="ft__smaller ft__on-surface">${window.shehab.languages.rollbackTip.replace("${x}", window.shehab.config.editor.historyRetentionDays)}</div>`, () => {
                 fetchPost("/api/filetree/removeDocs", {
                     paths
                 });

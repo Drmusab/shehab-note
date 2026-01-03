@@ -1,9 +1,9 @@
 import {isMobile} from "./util/functions";
 
-declare const SIYUAN_VERSION: string;
+declare const SHEHAB_VERSION: string;
 declare const NODE_ENV: string;
 
-const _SIYUAN_VERSION = SIYUAN_VERSION;
+const _SHEHAB_VERSION = SHEHAB_VERSION;
 const _NODE_ENV = NODE_ENV;
 
 const altNumber = navigator.platform.toUpperCase().indexOf("MAC") > -1 ? "⌃" : "⌥";
@@ -17,9 +17,9 @@ const getFunctionKey = () => {
 };
 
 export abstract class Constants {
-    public static readonly SIYUAN_VERSION: string = _SIYUAN_VERSION;
+    public static readonly SHEHAB_VERSION: string = _SHEHAB_VERSION;
     public static readonly NODE_ENV: string = _NODE_ENV;
-    public static readonly SIYUAN_APPID: string = Math.random().toString(36).substring(8);
+    public static readonly SHEHAB_APPID: string = Math.random().toString(36).substring(8);
 
     // 服务器地址
     public static readonly ASSETS_ADDRESS: string = "https://assets.b3logfile.com/siyuan/";
@@ -28,35 +28,35 @@ export abstract class Constants {
     public static readonly SERVICE_WORKER_PATH: string = "/service-worker.js";
 
     // drop 事件
-    public static readonly SIYUAN_DROP_FILE: string = "application/siyuan-file";
-    public static readonly SIYUAN_DROP_GUTTER: string = "application/siyuan-gutter";
-    public static readonly SIYUAN_DROP_TAB: string = "application/siyuan-tab";
-    public static readonly SIYUAN_DROP_EDITOR: string = "application/siyuan-editor";
+    public static readonly SHEHAB_DROP_FILE: string = "application/siyuan-file";
+    public static readonly SHEHAB_DROP_GUTTER: string = "application/siyuan-gutter";
+    public static readonly SHEHAB_DROP_TAB: string = "application/siyuan-tab";
+    public static readonly SHEHAB_DROP_EDITOR: string = "application/siyuan-editor";
 
     // 渲染进程调主进程
-    public static readonly SIYUAN_CMD: string = "siyuan-cmd";
-    public static readonly SIYUAN_GET: string = "siyuan-get";
-    public static readonly SIYUAN_EVENT: string = "siyuan-event";
+    public static readonly SHEHAB_CMD: string = "siyuan-cmd";
+    public static readonly SHEHAB_GET: string = "siyuan-get";
+    public static readonly SHEHAB_EVENT: string = "siyuan-event";
 
-    public static readonly SIYUAN_CONFIG_TRAY: string = "siyuan-config-tray";
-    public static readonly SIYUAN_QUIT: string = "siyuan-quit";
-    public static readonly SIYUAN_HOTKEY: string = "siyuan-hotkey";
-    public static readonly SIYUAN_INIT: string = "siyuan-init";
-    public static readonly SIYUAN_SEND_WINDOWS: string = "siyuan-send-windows"; // 主窗口和各新窗口之间的通信，{cmd: "closetab"|"lockscreen"|"lockscreenByMode", data: {}})
-    public static readonly SIYUAN_SAVE_CLOSE: string = "siyuan-save-close";
-    public static readonly SIYUAN_AUTO_LAUNCH: string = "siyuan-auto-launch";
+    public static readonly SHEHAB_CONFIG_TRAY: string = "siyuan-config-tray";
+    public static readonly SHEHAB_QUIT: string = "siyuan-quit";
+    public static readonly SHEHAB_HOTKEY: string = "siyuan-hotkey";
+    public static readonly SHEHAB_INIT: string = "siyuan-init";
+    public static readonly SHEHAB_SEND_WINDOWS: string = "siyuan-send-windows"; // 主窗口和各新窗口之间的通信，{cmd: "closetab"|"lockscreen"|"lockscreenByMode", data: {}})
+    public static readonly SHEHAB_SAVE_CLOSE: string = "siyuan-save-close";
+    public static readonly SHEHAB_AUTO_LAUNCH: string = "siyuan-auto-launch";
 
-    public static readonly SIYUAN_OPEN_WORKSPACE: string = "siyuan-open-workspace";
-    public static readonly SIYUAN_OPEN_URL: string = "siyuan-open-url";
-    public static readonly SIYUAN_OPEN_WINDOW: string = "siyuan-open-window";
-    public static readonly SIYUAN_OPEN_FILE: string = "siyuan-open-file";
+    public static readonly SHEHAB_OPEN_WORKSPACE: string = "siyuan-open-workspace";
+    public static readonly SHEHAB_OPEN_URL: string = "siyuan-open-url";
+    public static readonly SHEHAB_OPEN_WINDOW: string = "siyuan-open-window";
+    public static readonly SHEHAB_OPEN_FILE: string = "siyuan-open-file";
 
-    public static readonly SIYUAN_EXPORT_PDF: string = "siyuan-export-pdf";
-    public static readonly SIYUAN_EXPORT_NEWWINDOW: string = "siyuan-export-newwindow";
+    public static readonly SHEHAB_EXPORT_PDF: string = "siyuan-export-pdf";
+    public static readonly SHEHAB_EXPORT_NEWWINDOW: string = "siyuan-export-newwindow";
 
-    public static readonly SIYUAN_CONTEXT_MENU: string = "siyuan-context-menu";
+    public static readonly SHEHAB_CONTEXT_MENU: string = "siyuan-context-menu";
 
-    public static readonly SIYUAN_SHOW_WINDOW: string = "siyuan-show-window";
+    public static readonly SHEHAB_SHOW_WINDOW: string = "siyuan-show-window";
 
     // custom
     public static readonly CUSTOM_SY_READONLY: string = "custom-sy-readonly";
@@ -415,7 +415,7 @@ export abstract class Constants {
     // "⌘", "⇧", "⌥", "⌃"
     // "⌘A", "⌘X", "⌘C", "⌘V", "⌘-", "⌘=", "⌘0", "⇧⌘V", "⌘/", "⇧↑", "⇧↓", "⇧→", "⇧←", "⇧⇥", "⌃D", "⇧⌘→", "⇧⌘←",
     // "⌘Home", "⌘End", "⇧↩", "↩", "PageUp", "PageDown", "⌫", "⌦", "Escape" 不可自定义
-    public static readonly SIYUAN_KEYMAP: Config.IKeymap = {
+    public static readonly SHEHAB_KEYMAP: Config.IKeymap = {
         general: {
             mainMenu: {default: "⌥\\", custom: "⌥\\"},
             commandPanel: {default: "⌥⇧P", custom: "⌥⇧P"},
@@ -594,7 +594,7 @@ export abstract class Constants {
         plugin: {},
     };
 
-    public static readonly SIYUAN_EMPTY_LAYOUT: Config.IUiLayout = {
+    public static readonly SHEHAB_EMPTY_LAYOUT: Config.IUiLayout = {
         hideDock: false,
         layout: {
             "direction": "tb",
@@ -729,7 +729,7 @@ export abstract class Constants {
         }
     };
 
-    public static readonly SIYUAN_DEFAULT_REPLACETYPES: Required<Config.IUILayoutTabSearchConfigReplaceTypes> = {
+    public static readonly SHEHAB_DEFAULT_REPLACETYPES: Required<Config.IUILayoutTabSearchConfigReplaceTypes> = {
         "text": true,
         "imgText": true,
         "imgTitle": true,
@@ -758,7 +758,7 @@ export abstract class Constants {
     };
 
     // image
-    public static readonly SIYUAN_IMAGE_VIP: string = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    public static readonly SHEHAB_IMAGE_VIP: string = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
 <path fill="#ffd00f" d="M2.288 12.643l23.487 12.853c0.286 0.153 0.477 0.45 0.477 0.791 0 0.082-0.011 0.161-0.032 0.237l0.001-0.006c-0.119 0.395-0.479 0.678-0.905 0.678-0.004 0-0.009-0-0.013-0h-19.439c-0.958 0-1.766-0.684-1.885-1.595l-1.691-12.956z"></path>
 <path fill="#ffd00f" d="M29.676 12.643l-1.691 12.957c-0.119 0.911-0.927 1.594-1.884 1.594h-19.442c-0.004 0-0.009 0-0.013 0-0.425 0-0.785-0.281-0.903-0.668l-0.002-0.007c-0.019-0.070-0.031-0.15-0.031-0.232 0-0.341 0.191-0.638 0.472-0.788l0.005-0.002 23.487-12.853z"></path>
 <path fill="#ffe668" d="M15.413 8.369l10.394 15.921c0.378 0.579 0.407 1.317 0.076 1.924-0.328 0.591-0.948 0.985-1.66 0.985-0 0-0.001 0-0.001 0h-17.617c-0.694 0-1.331-0.378-1.661-0.985-0.144-0.26-0.229-0.569-0.229-0.899 0-0.382 0.114-0.736 0.31-1.033l-0.004 0.007 10.394-15.921z"></path>
@@ -767,16 +767,16 @@ export abstract class Constants {
 </svg>`;
 
     // assets
-    public static readonly SIYUAN_ASSETS_IMAGE: string[] = [".apng", ".ico", ".cur", ".jpg", ".jpe", ".jpeg", ".jfif", ".pjp", ".pjpeg", ".png", ".gif", ".webp", ".bmp", ".svg", ".avif", ".tiff", ".tif"];
-    public static readonly SIYUAN_ASSETS_AUDIO: string[] = [".mp3", ".wav", ".ogg", ".m4a", ".aac", ".flac"];
-    public static readonly SIYUAN_ASSETS_VIDEO: string[] = [".mov", ".weba", ".mkv", ".mp4", ".webm"];
-    public static readonly SIYUAN_ASSETS_EXTS: string[] = [".pdf"].concat(Constants.SIYUAN_ASSETS_IMAGE, Constants.SIYUAN_ASSETS_AUDIO, Constants.SIYUAN_ASSETS_VIDEO);
-    public static readonly SIYUAN_ASSETS_SEARCH: string[] = [".txt", ".md", ".markdown", ".docx", ".xlsx", ".pptx", ".pdf", ".json", ".log", ".sql", ".html", ".xml", ".java", ".h", ".c",
+    public static readonly SHEHAB_ASSETS_IMAGE: string[] = [".apng", ".ico", ".cur", ".jpg", ".jpe", ".jpeg", ".jfif", ".pjp", ".pjpeg", ".png", ".gif", ".webp", ".bmp", ".svg", ".avif", ".tiff", ".tif"];
+    public static readonly SHEHAB_ASSETS_AUDIO: string[] = [".mp3", ".wav", ".ogg", ".m4a", ".aac", ".flac"];
+    public static readonly SHEHAB_ASSETS_VIDEO: string[] = [".mov", ".weba", ".mkv", ".mp4", ".webm"];
+    public static readonly SHEHAB_ASSETS_EXTS: string[] = [".pdf"].concat(Constants.SHEHAB_ASSETS_IMAGE, Constants.SHEHAB_ASSETS_AUDIO, Constants.SHEHAB_ASSETS_VIDEO);
+    public static readonly SHEHAB_ASSETS_SEARCH: string[] = [".txt", ".md", ".markdown", ".docx", ".xlsx", ".pptx", ".pdf", ".json", ".log", ".sql", ".html", ".xml", ".java", ".h", ".c",
         ".cpp", ".go", ".rs", ".swift", ".kt", ".py", ".php", ".js", ".css", ".ts", ".sh", ".bat", ".cmd", ".ini", ".yaml",
         ".rst", ".adoc", ".textile", ".opml", ".org", ".wiki", ".epub", ".cs"];
 
     // protyle
-    public static readonly SIYUAN_CONFIG_APPEARANCE_DARK_CODE: string[] = ["a11y-dark", "agate", "an-old-hope", "androidstudio",
+    public static readonly SHEHAB_CONFIG_APPEARANCE_DARK_CODE: string[] = ["a11y-dark", "agate", "an-old-hope", "androidstudio",
         "arta", "atom-one-dark", "atom-one-dark-reasonable", "base16/3024", "base16/apathy", "base16/apprentice", "base16/ashes",
         "base16/atelier-cave", "base16/atelier-dune", "base16/atelier-estuary", "base16/atelier-forest", "base16/atelier-heath",
         "base16/atelier-lakeside", "base16/atelier-plateau", "base16/atelier-savanna", "base16/atelier-seaside", "base16/atelier-sulphurpool",
@@ -806,7 +806,7 @@ export abstract class Constants {
         "paraiso-dark", "pojoaque", "qtcreator-dark", "rainbow", "rose-pine", "rose-pine-moon", "shades-of-purple", "srcery",
         "stackoverflow-dark", "sunburst", "tomorrow-night-blue", "tomorrow-night-bright", "tokyo-night-dark", "vs2015", "xt256"
     ];
-    public static readonly SIYUAN_CONFIG_APPEARANCE_LIGHT_CODE: string[] = ["ant-design",
+    public static readonly SHEHAB_CONFIG_APPEARANCE_LIGHT_CODE: string[] = ["ant-design",
         "1c-light", "a11y-light", "arduino-light", "ascetic", "atom-one-light", "base16/atelier-cave-light", "base16/atelier-dune-light",
         "base16/atelier-estuary-light", "base16/atelier-forest-light", "base16/atelier-heath-light", "base16/atelier-lakeside-light",
         "base16/atelier-plateau-light", "base16/atelier-savanna-light", "base16/atelier-seaside-light", "base16/atelier-sulphurpool-light",
@@ -831,7 +831,7 @@ export abstract class Constants {
     public static readonly ALIAS_CODE_LANGUAGES: string[] = [
         "js", "ts", "html", "toml", "c#", "bat"
     ];
-    public static readonly SIYUAN_RENDER_CODE_LANGUAGES: string[] = [
+    public static readonly SHEHAB_RENDER_CODE_LANGUAGES: string[] = [
         "abc", "plantuml", "mermaid", "flowchart", "echarts", "mindmap", "graphviz", "math"
     ];
     public static readonly PROTYLE_TOOLBAR: string[] = isMobile() ? [

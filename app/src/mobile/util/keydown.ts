@@ -10,8 +10,8 @@ export const mobileKeydown = (app: App, event: KeyboardEvent) => {
         return;
     }
     const protyle = getCurrentEditor().protyle;
-    const matchGeneral = Object.keys(window.siyuan.config.keymap.general).find((key) => {
-        if (matchHotKey(window.siyuan.config.keymap.general[key].custom, event)) {
+    const matchGeneral = Object.keys(window.shehab.config.keymap.general).find((key) => {
+        if (matchHotKey(window.shehab.config.keymap.general[key].custom, event)) {
             execByCommand({command: key, app, protyle, previousRange: protyle.toolbar.range});
             return true;
         }

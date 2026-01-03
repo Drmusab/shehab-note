@@ -38,7 +38,7 @@ export const blockRender = (protyle: IProtyle, element: Element, top?: number) =
         if (breadcrumb) {
             breadcrumb = breadcrumb === "true";
         } else {
-            breadcrumb = window.siyuan.config.editor.embedBlockBreadcrumb;
+            breadcrumb = window.shehab.config.editor.embedBlockBreadcrumb;
         }
 
         if (content.startsWith("//!js")) {
@@ -55,7 +55,7 @@ export const blockRender = (protyle: IProtyle, element: Element, top?: number) =
                             fetchPost("/api/search/getEmbedBlock", {
                                 embedBlockID: item.getAttribute("data-node-id"),
                                 includeIDs: promiseIds,
-                                headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.siyuan.config.editor.headingEmbedMode,
+                                headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.shehab.config.editor.headingEmbedMode,
                                 breadcrumb
                             }, (response) => {
                                 renderEmbed(response.data.blocks || [], protyle, item, top);
@@ -70,7 +70,7 @@ export const blockRender = (protyle: IProtyle, element: Element, top?: number) =
                     fetchPost("/api/search/getEmbedBlock", {
                         embedBlockID: item.getAttribute("data-node-id"),
                         includeIDs,
-                        headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.siyuan.config.editor.headingEmbedMode,
+                        headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.shehab.config.editor.headingEmbedMode,
                         breadcrumb
                     }, (response) => {
                         renderEmbed(response.data.blocks || [], protyle, item, top);
@@ -85,7 +85,7 @@ export const blockRender = (protyle: IProtyle, element: Element, top?: number) =
             fetchPost("/api/search/searchEmbedBlock", {
                 embedBlockID: item.getAttribute("data-node-id"),
                 stmt: content,
-                headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.siyuan.config.editor.headingEmbedMode,
+                headingMode: ["0", "1", "2"].includes(item.getAttribute("custom-heading-mode")) ? parseInt(item.getAttribute("custom-heading-mode")) : window.shehab.config.editor.headingEmbedMode,
                 excludeIDs: [item.getAttribute("data-node-id"), protyle.block.rootID],
                 breadcrumb
             }, (response) => {
@@ -115,7 +115,7 @@ const renderEmbed = (blocks: {
         item.firstElementChild.insertAdjacentHTML("afterend", html);
         improveBreadcrumbAppearance(item.querySelector(".protyle-wysiwyg__embed"));
     } else {
-        item.firstElementChild.insertAdjacentHTML("afterend", `<div class="protyle-wysiwyg__embed ft__smaller ft__secondary b3-form__space--small" contenteditable="false">${errorTip || window.siyuan.languages.refExpired}</div>`);
+        item.firstElementChild.insertAdjacentHTML("afterend", `<div class="protyle-wysiwyg__embed ft__smaller ft__secondary b3-form__space--small" contenteditable="false">${errorTip || window.shehab.languages.refExpired}</div>`);
     }
 
     processRender(item);
