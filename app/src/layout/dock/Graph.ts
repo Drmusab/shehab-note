@@ -181,6 +181,35 @@ export class Graph extends Model {
     <input data-type="linkDistance" class="b3-tooltips b3-tooltips__n b3-slider" max="2000" min="100" step="100" type="range" value="${window.shehab.config.graph.global.d3.linkDistance}" aria-label="${window.shehab.config.graph.global.d3.linkDistance}"/>
 </label>
 <div class="fn__hr"></div>
+<label>
+    <span>Enable Glow Effects</span> 
+    <input data-type="glowEnabled" type="checkbox" class="b3-switch"${window.shehab.config.graph.global.d3.glowEnabled ? " checked" : ""}/>
+</label>
+<label>
+    <span>Glow Intensity</span> 
+    <input data-type="glowIntensity" class="b3-tooltips b3-tooltips__n b3-slider" max="1" min="0" step="0.1" type="range" value="${window.shehab.config.graph.global.d3.glowIntensity}" aria-label="${window.shehab.config.graph.global.d3.glowIntensity}"/>
+</label>
+<label>
+    <span>Curved Edges</span> 
+    <input data-type="curvedEdges" type="checkbox" class="b3-switch"${window.shehab.config.graph.global.d3.curvedEdges ? " checked" : ""}/>
+</label>
+<label>
+    <span>Edge Curvature</span> 
+    <input data-type="edgeCurvature" class="b3-tooltips b3-tooltips__n b3-slider" max="0.5" min="0" step="0.05" type="range" value="${window.shehab.config.graph.global.d3.edgeCurvature}" aria-label="${window.shehab.config.graph.global.d3.edgeCurvature}"/>
+</label>
+<label>
+    <span>Flow Animation</span> 
+    <input data-type="flowAnimation" type="checkbox" class="b3-switch"${window.shehab.config.graph.global.d3.flowAnimation ? " checked" : ""}/>
+</label>
+<label>
+    <span>Flow Speed</span> 
+    <input data-type="flowSpeed" class="b3-tooltips b3-tooltips__n b3-slider" max="100" min="10" step="10" type="range" value="${window.shehab.config.graph.global.d3.flowSpeed}" aria-label="${window.shehab.config.graph.global.d3.flowSpeed}"/>
+</label>
+<label>
+    <span>Centrality Sizing</span> 
+    <input data-type="centralitySizing" type="checkbox" class="b3-switch"${window.shehab.config.graph.global.d3.centralitySizing ? " checked" : ""}/>
+</label>
+<div class="fn__hr"></div>
 <button class="b3-button b3-button--small fn__block">${window.shehab.languages.reset}</button>`;
         } else {
             panelHTML = `
@@ -263,6 +292,35 @@ export class Graph extends Model {
 <label>
     <span>${window.shehab.languages.linkDistance}</span> 
     <input data-type="linkDistance" class="b3-tooltips b3-tooltips__n b3-slider" max="2000" min="100" step="100" type="range" value="${window.shehab.config.graph.local.d3.linkDistance}" aria-label="${window.shehab.config.graph.local.d3.linkDistance}"/>
+</label>
+<div class="fn__hr"></div>
+<label>
+    <span>Enable Glow Effects</span> 
+    <input data-type="glowEnabled" type="checkbox" class="b3-switch"${window.shehab.config.graph.local.d3.glowEnabled ? " checked" : ""}/>
+</label>
+<label>
+    <span>Glow Intensity</span> 
+    <input data-type="glowIntensity" class="b3-tooltips b3-tooltips__n b3-slider" max="1" min="0" step="0.1" type="range" value="${window.shehab.config.graph.local.d3.glowIntensity}" aria-label="${window.shehab.config.graph.local.d3.glowIntensity}"/>
+</label>
+<label>
+    <span>Curved Edges</span> 
+    <input data-type="curvedEdges" type="checkbox" class="b3-switch"${window.shehab.config.graph.local.d3.curvedEdges ? " checked" : ""}/>
+</label>
+<label>
+    <span>Edge Curvature</span> 
+    <input data-type="edgeCurvature" class="b3-tooltips b3-tooltips__n b3-slider" max="0.5" min="0" step="0.05" type="range" value="${window.shehab.config.graph.local.d3.edgeCurvature}" aria-label="${window.shehab.config.graph.local.d3.edgeCurvature}"/>
+</label>
+<label>
+    <span>Flow Animation</span> 
+    <input data-type="flowAnimation" type="checkbox" class="b3-switch"${window.shehab.config.graph.local.d3.flowAnimation ? " checked" : ""}/>
+</label>
+<label>
+    <span>Flow Speed</span> 
+    <input data-type="flowSpeed" class="b3-tooltips b3-tooltips__n b3-slider" max="100" min="10" step="10" type="range" value="${window.shehab.config.graph.local.d3.flowSpeed}" aria-label="${window.shehab.config.graph.local.d3.flowSpeed}"/>
+</label>
+<label>
+    <span>Centrality Sizing</span> 
+    <input data-type="centralitySizing" type="checkbox" class="b3-switch"${window.shehab.config.graph.local.d3.centralitySizing ? " checked" : ""}/>
 </label>
 <div class="fn__hr"></div>
 <button class="b3-button b3-button--small fn__block">${window.shehab.languages.reset}</button>`;
@@ -415,6 +473,19 @@ export class Graph extends Model {
         (this.panelElement.querySelector("[data-type='blockquote']") as HTMLInputElement).checked = conf.type.blockquote;
         (this.panelElement.querySelector("[data-type='callout']") as HTMLInputElement).checked = conf.type.callout;
         (this.panelElement.querySelector("[data-type='code']") as HTMLInputElement).checked = conf.type.code;
+        
+        // Phase 1 Visual Enhancements
+        (this.panelElement.querySelector("[data-type='glowEnabled']") as HTMLInputElement).checked = conf.d3.glowEnabled;
+        this.panelElement.querySelector("[data-type='glowIntensity']").setAttribute("aria-label", conf.d3.glowIntensity.toString());
+        (this.panelElement.querySelector("[data-type='glowIntensity']") as HTMLInputElement).value = conf.d3.glowIntensity.toString();
+        (this.panelElement.querySelector("[data-type='curvedEdges']") as HTMLInputElement).checked = conf.d3.curvedEdges;
+        this.panelElement.querySelector("[data-type='edgeCurvature']").setAttribute("aria-label", conf.d3.edgeCurvature.toString());
+        (this.panelElement.querySelector("[data-type='edgeCurvature']") as HTMLInputElement).value = conf.d3.edgeCurvature.toString();
+        (this.panelElement.querySelector("[data-type='flowAnimation']") as HTMLInputElement).checked = conf.d3.flowAnimation;
+        this.panelElement.querySelector("[data-type='flowSpeed']").setAttribute("aria-label", conf.d3.flowSpeed.toString());
+        (this.panelElement.querySelector("[data-type='flowSpeed']") as HTMLInputElement).value = conf.d3.flowSpeed.toString();
+        (this.panelElement.querySelector("[data-type='centralitySizing']") as HTMLInputElement).checked = conf.d3.centralitySizing;
+        
         this.searchGraph(false);
     }
 
@@ -446,6 +517,15 @@ export class Graph extends Model {
             lineOpacity: parseFloat((this.panelElement.querySelector("[data-type='lineOpacity']") as HTMLInputElement).value),
             linkDistance: parseFloat((this.panelElement.querySelector("[data-type='linkDistance']") as HTMLInputElement).value),
             linkWidth: parseFloat((this.panelElement.querySelector("[data-type='linkWidth']") as HTMLInputElement).value),
+            
+            // Phase 1 Visual Enhancements
+            glowEnabled: (this.panelElement.querySelector("[data-type='glowEnabled']") as HTMLInputElement).checked,
+            glowIntensity: parseFloat((this.panelElement.querySelector("[data-type='glowIntensity']") as HTMLInputElement).value),
+            curvedEdges: (this.panelElement.querySelector("[data-type='curvedEdges']") as HTMLInputElement).checked,
+            edgeCurvature: parseFloat((this.panelElement.querySelector("[data-type='edgeCurvature']") as HTMLInputElement).value),
+            flowAnimation: (this.panelElement.querySelector("[data-type='flowAnimation']") as HTMLInputElement).checked,
+            flowSpeed: parseFloat((this.panelElement.querySelector("[data-type='flowSpeed']") as HTMLInputElement).value),
+            centralitySizing: (this.panelElement.querySelector("[data-type='centralitySizing']") as HTMLInputElement).checked,
         };
         if (this.type === "global") {
             // 全局
