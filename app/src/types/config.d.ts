@@ -803,6 +803,40 @@ declare namespace Config {
          * Node size
          */
         nodeSize: number;
+        
+        // Phase 1 Visual Enhancements
+        /**
+         * Whether to enable glow effect on selected nodes
+         */
+        glowEnabled: boolean;
+        /**
+         * Glow intensity (0.0 - 1.0)
+         */
+        glowIntensity: number;
+        /**
+         * Whether to use curved edges (Bézier curves)
+         */
+        curvedEdges: boolean;
+        /**
+         * Edge curvature amount (0.0 - 0.5)
+         */
+        edgeCurvature: number;
+        /**
+         * Whether to enable flow animation on edges
+         */
+        flowAnimation: boolean;
+        /**
+         * Flow animation speed in pixels per second
+         */
+        flowSpeed: number;
+        /**
+         * Zoom level threshold for label fade (0.0 - 1.0)
+         */
+        labelFadeZoom: number;
+        /**
+         * Whether to size nodes based on centrality (link count)
+         */
+        centralitySizing: boolean;
     }
 
     /**

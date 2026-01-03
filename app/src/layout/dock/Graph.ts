@@ -13,6 +13,8 @@ import {openGlobalSearch} from "../../search/util";
 import {App} from "../../index";
 import {checkFold} from "../../util/noRelyPCFunction";
 import {Editor} from "../../editor";
+import {EdgeFlowAnimation, NodePulseAnimation} from "./graph/GraphAnimations";
+import {getSemanticColor} from "./graph/GraphStyles";
 
 declare const vis: any;
 
@@ -22,6 +24,8 @@ export class Graph extends Model {
     private panelElement: HTMLElement;
     private element: HTMLElement;
     private network: any;
+    private edgeFlowAnimation: EdgeFlowAnimation | null = null;
+    private nodePulseAnimation: NodePulseAnimation | null = null;
     public blockId: string; // "local" / "pin" 必填
     public rootId: string; // "local" 必填
     public graphData: {
@@ -510,6 +514,14 @@ export class Graph extends Model {
     }
 
     public destroy() {
+        if (this.edgeFlowAnimation) {
+            this.edgeFlowAnimation.stop();
+            this.edgeFlowAnimation = null;
+        }
+        if (this.nodePulseAnimation) {
+            this.nodePulseAnimation.stop();
+            this.nodePulseAnimation = null;
+        }
         this.network?.destroy();
     }
 
@@ -525,48 +537,7 @@ export class Graph extends Model {
         // 使用颜色
         const rootStyle = getComputedStyle(document.body);
         this.graphData.nodes.forEach(item => {
-            switch (item.type) {
-                case "NodeDocument":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-doc-point").trim()};
-                    break;
-                case "NodeParagraph":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-p-point").trim()};
-                    break;
-                case "NodeHeading":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-heading-point").trim()};
-                    break;
-                case "NodeMathBlock":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-math-point").trim()};
-                    break;
-                case "NodeCodeBlock":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-code-point").trim()};
-                    break;
-                case "NodeTable":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-table-point").trim()};
-                    break;
-                case "NodeList":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-list-point").trim()};
-                    break;
-                case "NodeListItem":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-listitem-point").trim()};
-                    break;
-                case "NodeBlockquote":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-bq-point").trim()};
-                    break;
-                case "NodeCallout":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-callout-point").trim()};
-                    break;
-                case "NodeSuperBlock":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-super-point").trim()};
-                    break;
-                case "tag":
-                case "textmark tag":
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-tag-point").trim()};
-                    break;
-                default:
-                    item.color = {background: rootStyle.getPropertyValue("--b3-graph-p-point").trim()};
-                    break;
-            }
+            item.color = getSemanticColor(item.type);
         });
         this.graphData.links.forEach(item => {
             if (item.ref) {
@@ -605,6 +576,13 @@ export class Graph extends Model {
                     borderWidth: 0,
                     borderWidthSelected: 5,
                     shape: "dot",
+                    shadow: config.d3.glowEnabled ? {
+                        enabled: true,
+                        color: rootStyle.getPropertyValue("--b3-graph-glow-color").trim(),
+                        size: 15,
+                        x: 0,
+                        y: 0
+                    } : false,
                     font: {
                         face: rootStyle.getPropertyValue("--b3-font-family-graph").trim(),
                         size: 32,
@@ -624,7 +602,10 @@ export class Graph extends Model {
                 edges: {
                     width: config.d3.linkWidth,
                     arrowStrikethrough: false,
-                    smooth: false,
+                    smooth: config.d3.curvedEdges ? {
+                        type: 'curvedCW',
+                        roundness: config.d3.edgeCurvature
+                    } : false,
                     color: {
                         opacity: config.d3.lineOpacity,
                         hover: rootStyle.getPropertyValue("--b3-graph-hl-line").trim(),
@@ -713,6 +694,21 @@ export class Graph extends Model {
                 j += batch;
             }, time);
             this.network = network;
+            
+            // Initialize animation controllers
+            if (this.edgeFlowAnimation) {
+                this.edgeFlowAnimation.stop();
+            }
+            if (this.nodePulseAnimation) {
+                this.nodePulseAnimation.stop();
+            }
+            this.edgeFlowAnimation = new EdgeFlowAnimation(network, config.d3.flowSpeed, config.d3.flowAnimation);
+            this.nodePulseAnimation = new NodePulseAnimation(network, config.d3.glowEnabled);
+            
+            if (config.d3.flowAnimation) {
+                this.edgeFlowAnimation.start();
+            }
+            
             network.on("stabilizationIterationsDone", () => {
                 network.physics.stopSimulation();
                 if (hl) {
