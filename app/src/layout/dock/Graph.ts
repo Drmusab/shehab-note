@@ -683,7 +683,7 @@ export class Graph extends Model {
                     width: config.d3.linkWidth,
                     arrowStrikethrough: false,
                     smooth: config.d3.curvedEdges ? {
-                        type: 'curvedCW',
+                        type: "curvedCW",
                         roundness: config.d3.edgeCurvature
                     } : false,
                     color: {

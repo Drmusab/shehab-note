@@ -78,6 +78,7 @@ export class LabelManager {
         nodeId: string,
         label: string,
         basePosition: LabelPosition,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         priority: number
     ): LabelPosition | null {
         // Try positions: right, left, top, bottom

@@ -44,10 +44,10 @@ export function getGraphThemeVariables(): {
 } {
     const rootStyle = getComputedStyle(document.body);
     return {
-        glowColor: rootStyle.getPropertyValue('--b3-graph-glow-color').trim(),
-        glowRadius: rootStyle.getPropertyValue('--b3-graph-glow-radius').trim(),
-        edgeFlowColor: rootStyle.getPropertyValue('--b3-graph-edge-flow-color').trim(),
-        labelFadeOpacity: rootStyle.getPropertyValue('--b3-graph-label-fade-opacity').trim(),
+        glowColor: rootStyle.getPropertyValue("--b3-graph-glow-color").trim(),
+        glowRadius: rootStyle.getPropertyValue("--b3-graph-glow-radius").trim(),
+        edgeFlowColor: rootStyle.getPropertyValue("--b3-graph-edge-flow-color").trim(),
+        labelFadeOpacity: rootStyle.getPropertyValue("--b3-graph-label-fade-opacity").trim(),
     };
 }
 
@@ -59,21 +59,21 @@ export function getGraphThemeVariables(): {
 export function getSemanticColor(nodeType: string): { background: string } {
     const rootStyle = getComputedStyle(document.body);
     const colorMap: { [key: string]: string } = {
-        'NodeDocument': '--b3-graph-doc-point',
-        'NodeParagraph': '--b3-graph-p-point',
-        'NodeHeading': '--b3-graph-heading-point',
-        'NodeMathBlock': '--b3-graph-math-point',
-        'NodeCodeBlock': '--b3-graph-code-point',
-        'NodeTable': '--b3-graph-table-point',
-        'NodeList': '--b3-graph-list-point',
-        'NodeListItem': '--b3-graph-listitem-point',
-        'NodeBlockquote': '--b3-graph-bq-point',
-        'NodeCallout': '--b3-graph-callout-point',
-        'NodeSuperBlock': '--b3-graph-super-point',
-        'tag': '--b3-graph-tag-point',
-        'textmark tag': '--b3-graph-tag-point',
+        "NodeDocument": "--b3-graph-doc-point",
+        "NodeParagraph": "--b3-graph-p-point",
+        "NodeHeading": "--b3-graph-heading-point",
+        "NodeMathBlock": "--b3-graph-math-point",
+        "NodeCodeBlock": "--b3-graph-code-point",
+        "NodeTable": "--b3-graph-table-point",
+        "NodeList": "--b3-graph-list-point",
+        "NodeListItem": "--b3-graph-listitem-point",
+        "NodeBlockquote": "--b3-graph-bq-point",
+        "NodeCallout": "--b3-graph-callout-point",
+        "NodeSuperBlock": "--b3-graph-super-point",
+        "tag": "--b3-graph-tag-point",
+        "textmark tag": "--b3-graph-tag-point",
     };
     
-    const cssVar = colorMap[nodeType] || '--b3-graph-p-point';
+    const cssVar = colorMap[nodeType] || "--b3-graph-p-point";
     return { background: rootStyle.getPropertyValue(cssVar).trim() };
 }

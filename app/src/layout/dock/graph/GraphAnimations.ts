@@ -3,8 +3,6 @@
  * Handles flow animations and other dynamic effects
  */
 
-declare const vis: any;
-
 /**
  * Flow animation controller for edges
  */
@@ -33,13 +31,13 @@ export class EdgeFlowAnimation {
 
         try {
             this.canvas = this.network.canvas.frame.canvas;
-            this.ctx = this.canvas?.getContext('2d');
+            this.ctx = this.canvas?.getContext("2d");
             
             if (this.ctx) {
                 this.animate();
             }
         } catch (e) {
-            console.warn('EdgeFlowAnimation: Could not access canvas', e);
+            console.warn("EdgeFlowAnimation: Could not access canvas", e);
         }
     }
 
