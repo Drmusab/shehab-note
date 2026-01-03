@@ -1,32 +1,34 @@
 <p align="center">
-<img alt="SiYuan" src="https://b3log.org/images/brand/siyuan-128.png">
+<img alt="Shehab" src="https://b3log.org/images/brand/siyuan-128.png">
 <br>
-<em>Refactor your thinking</em>
+<em>Local-first personal knowledge management</em>
 <br><br>
-<a title="Build Status" target="_blank" href="https://github.com/siyuan-note/siyuan/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/siyuan-note/siyuan/cd.yml?style=flat-square"></a>
-<a title="Releases" target="_blank" href="https://github.com/siyuan-note/siyuan/releases"><img src="https://img.shields.io/github/release/siyuan-note/siyuan.svg?style=flat-square&color=9CF"></a>
-<a title="Downloads" target="_blank" href="https://github.com/siyuan-note/siyuan/releases"><img src="https://img.shields.io/github/downloads/siyuan-note/siyuan/total.svg?style=flat-square&color=blueviolet"></a>
-<br>
-<a title="Docker Pulls" target="_blank" href="https://hub.docker.com/r/b3log/siyuan"><img src="https://img.shields.io/docker/pulls/b3log/siyuan.svg?style=flat-square&color=green"></a>
-<a title="Docker Image Size" target="_blank" href="https://hub.docker.com/r/b3log/siyuan"><img src="https://img.shields.io/docker/image-size/b3log/siyuan.svg?style=flat-square&color=ff96b4"></a>
-<a title="Hits" target="_blank" href="https://github.com/siyuan-note/siyuan"><img src="https://hits.b3log.org/siyuan-note/siyuan.svg"></a>
-<br>
-<a title="AGPLv3" target="_blank" href="https://www.gnu.org/licenses/agpl-3.0.txt"><img src="http://img.shields.io/badge/license-AGPLv3-orange.svg?style=flat-square"></a>
-<a title="Code Size" target="_blank" href="https://github.com/siyuan-note/siyuan"><img src="https://img.shields.io/github/languages/code-size/siyuan-note/siyuan.svg?style=flat-square&color=yellow"></a>
-<a title="GitHub Pull Requests" target="_blank" href="https://github.com/siyuan-note/siyuan/pulls"><img src="https://img.shields.io/github/issues-pr-closed/siyuan-note/siyuan.svg?style=flat-square&color=FF9966"></a>
-<br>
-<a title="GitHub Commits" target="_blank" href="https://github.com/siyuan-note/siyuan/commits/master"><img src="https://img.shields.io/github/commit-activity/m/siyuan-note/siyuan.svg?style=flat-square"></a>
-<a title="Last Commit" target="_blank" href="https://github.com/siyuan-note/siyuan/commits/master"><img src="https://img.shields.io/github/last-commit/siyuan-note/siyuan.svg?style=flat-square&color=FF9900"></a>
-<br><br>
-<a title="Twitter" target="_blank" href="https://twitter.com/b3logos"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/b3logos?label=Follow&style=social"></a>
-<a title="Discord" target="_blank" href="https://discord.gg/dmMbCqVX7G"><img alt="Chat on Discord" src="https://img.shields.io/discord/808152298789666826?label=Discord&logo=Discord&style=social"></a>
-<br><br>
-<a href="https://trendshift.io/repositories/3949" target="_blank"><img src="https://trendshift.io/api/badge/repositories/3949" alt="siyuan-note%2Fsiyuan | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </p>
 
 <p align="center">
 <a href="README_zh_CN.md">中文</a> | <a href="README_ja_JP.md">日本語</a> | <a href="README_tr_TR.md">Türkçe</a>
 </p>
+
+---
+
+## 💡 Introduction
+
+**Shehab** is a fork of [SiYuan](https://github.com/siyuan-note/siyuan) focused on privacy-first, local-first personal knowledge management with fine-grained block-level reference and Markdown WYSIWYG.
+
+This fork removes cloud-dependent features to create a streamlined, local-first experience while maintaining all the powerful features of the original SiYuan project.
+
+### What's Different?
+
+- **No Cloud Sync**: All cloud synchronization features have been removed for a truly local-first experience
+- **Simplified**: Focus on core note-taking functionality without external dependencies
+- **Privacy-First**: Your data stays on your machine
+
+### Original SiYuan Project
+
+This is a fork of the excellent [SiYuan](https://github.com/siyuan-note/siyuan) project. Please visit the original project for:
+- Full feature set including cloud sync
+- Official support and community
+- Original documentation
 
 ---
 
@@ -48,9 +50,9 @@
 * [🏘️ Community](#️-community)
 * [🛠️ Development Guide](#️-development-guide)
 * [❓ FAQ](#-faq)
-  * [How does SiYuan store data?](#how-does-siyuan-store-data)
+  * [How does Shehab store data?](#how-does-siyuan-store-data)
   * [Does it support data synchronization through a third-party sync disk?](#does-it-support-data-synchronization-through-a-third-party-sync-disk)
-  * [Is SiYuan open source?](#is-siyuan-open-source)
+  * [Is Shehab open source?](#is-siyuan-open-source)
   * [How to upgrade to a new version?](#how-to-upgrade-to-a-new-version)
   * [What if some blocks (such as paragraph blocks in list items) cannot find the block icon?](#what-if-some-blocks-such-as-paragraph-blocks-in-list-items-cannot-find-the-block-icon)
   * [What should I do if the data repo key is lost?](#what-should-i-do-if-the-data-repo-key-is-lost)
@@ -62,10 +64,24 @@
 
 ## 💡 Introduction
 
-SiYuan is a privacy-first personal knowledge management system, support fine-grained block-level reference and Markdown
-WYSIWYG.
+**Shehab** is a fork of [SiYuan](https://github.com/siyuan-note/siyuan) focused on privacy-first, local-first personal knowledge management with fine-grained block-level reference and Markdown WYSIWYG.
 
-Welcome to [SiYuan English Discussion Forum](https://liuyun.io) to learn more.
+This fork removes cloud-dependent features to create a streamlined, local-first experience while maintaining all the powerful features of the original SiYuan project.
+
+### What's Different?
+
+- **No Cloud Sync**: All cloud synchronization features have been removed for a truly local-first experience
+- **Simplified**: Focus on core note-taking functionality without external dependencies
+- **Privacy-First**: Your data stays on your machine
+
+### Original SiYuan Project
+
+This is a fork of the excellent [SiYuan](https://github.com/siyuan-note/siyuan) project. Please visit the original project for:
+- Full feature set including cloud sync
+- Official support and community
+- Original documentation
+
+Welcome to explore Shehab's streamlined, local-first approach to knowledge management.
 
 ![feature0.png](https://b3logfile.com/file/2025/11/feature0-GfbhEqf.png)
 
@@ -73,13 +89,13 @@ Welcome to [SiYuan English Discussion Forum](https://liuyun.io) to learn more.
 
 ## 🔮 Features
 
-Most features are free, even for commercial use.
+All features are free for personal and commercial use.
 
 * Content block
   * Block-level reference and two-way links
   * Custom attributes
   * SQL query embed
-  * Protocol `siyuan://`
+  * Protocol `shehab://`
 * Editor
   * Block-style
   * Markdown WYSIWYG
@@ -107,71 +123,39 @@ Most features are free, even for commercial use.
 * [API](https://github.com/siyuan-note/siyuan/blob/master/API.md)
 * Community marketplace
 
-Some features are only available to paid members, for more details please refer to [Pricing](https://b3log.org/siyuan/en/pricing.html).
+**Note:** This is a local-first fork without cloud sync features. For cloud synchronization, please refer to the original [SiYuan project](https://github.com/siyuan-note/siyuan).
 
 ## 🏗️ Architecture and Ecosystem
 
+**Note:** Shehab is a fork of SiYuan. The ecosystem projects below are maintained by the original SiYuan team.
+
 ![SiYuan Arch](https://b3logfile.com/file/2023/05/SiYuan_Arch-Sgu8vXT.png "SiYuan Arch")
 
-| Project                                                  | Description           | Forks                                                                           | Stars                                                                                | 
-|----------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| [lute](https://github.com/88250/lute)                    | Editor engine         | ![GitHub forks](https://img.shields.io/github/forks/88250/lute)                 | ![GitHub Repo stars](https://img.shields.io/github/stars/88250/lute)                 |
-| [chrome](https://github.com/siyuan-note/siyuan-chrome)   | Chrome/Edge extension | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-chrome)  | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-chrome)  |
-| [bazaar](https://github.com/siyuan-note/bazaar)          | Community marketplace | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/bazaar)         | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/bazaar)         |
-| [dejavu](https://github.com/siyuan-note/dejavu)          | Data repo             | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/dejavu)         | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/dejavu)         |
-| [petal](https://github.com/siyuan-note/petal)            | Plugin API            | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/petal)          | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/petal)          |
-| [android](https://github.com/siyuan-note/siyuan-android) | Android App           | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-android) | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-android) |
-| [ios](https://github.com/siyuan-note/siyuan-ios)         | iOS App               | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-ios)     | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-ios)     |
-| [harmony](https://github.com/siyuan-note/siyuan-harmony) | HarmonyOS App         | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-harmony) | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-harmony) |
-| [riff](https://github.com/siyuan-note/riff)              | Spaced repetition     | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/riff)           | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/riff)           |
+| Project                                                  | Description           | Maintained By |
+|----------------------------------------------------------|-----------------------|---------------|
+| [lute](https://github.com/88250/lute)                    | Editor engine         | SiYuan Team   |
+| [chrome](https://github.com/siyuan-note/siyuan-chrome)   | Chrome/Edge extension | SiYuan Team   |
+| [bazaar](https://github.com/siyuan-note/bazaar)          | Community marketplace | SiYuan Team   |
+| [dejavu](https://github.com/siyuan-note/dejavu)          | Data repo             | SiYuan Team   |
+| [petal](https://github.com/siyuan-note/petal)            | Plugin API            | SiYuan Team   |
+| [android](https://github.com/siyuan-note/siyuan-android) | Android App           | SiYuan Team   |
+| [ios](https://github.com/siyuan-note/siyuan-ios)         | iOS App               | SiYuan Team   |
+| [harmony](https://github.com/siyuan-note/siyuan-harmony) | HarmonyOS App         | SiYuan Team   |
+| [riff](https://github.com/siyuan-note/riff)              | Spaced repetition     | SiYuan Team   |
 
-## 🌟 Star History
+## 🚀 Download and Installation
 
-<a href="https://star-history.com/#siyuan-note/siyuan&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=siyuan-note/siyuan&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=siyuan-note/siyuan&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=siyuan-note/siyuan&type=Date" />
- </picture>
-</a>
+This is a source-only distribution. To use Shehab, you need to build it from source:
 
-## 🗺️ Roadmap
+```bash
+# Build the app
+cd app && pnpm install && pnpm run build
 
-* [SiYuan development plan and progress](https://github.com/orgs/siyuan-note/projects/1)
-* [SiYuan changelog](CHANGELOG.md)
+# Build the kernel
+cd kernel && go build --tags fts5
+```
 
-## 🚀 Download Setup
-
-It is recommended to give priority to installing through the application market on the desktop and mobile, so that you can upgrade the version with one click in the future.
-
-### App Market
-
-Mobile:
-
-* [App Store](https://apps.apple.com/us/app/siyuan/id1583226508)
-* [Google Play](https://play.google.com/store/apps/details?id=org.b3log.siyuan)
-* [F-Droid](https://f-droid.org/packages/org.b3log.siyuan)
-
-Desktop:
-
-* [Microsoft Store](https://apps.microsoft.com/detail/9p7hpmxp73k4)
-
-### Installation Package
-
-* [B3log](https://b3log.org/siyuan/en/download.html)
-* [GitHub](https://github.com/siyuan-note/siyuan/releases)
-
-### Package Manager
-
-#### `siyuan`
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/siyuan.svg)](https://repology.org/project/siyuan/versions)
-
-#### `siyuan-note`
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/siyuan-note.svg)](https://repology.org/project/siyuan-note/versions)
-
-### Docker Hosting
+For pre-built binaries and easier installation, please use the original [SiYuan project](https://github.com/siyuan-note/siyuan).
 
 <details>
 <summary>Docker Deployment</summary>
@@ -298,15 +282,15 @@ Use NGINX reverse proxy to hide port 6806, please note:
 <details>
 <summary>Unraid Deployment</summary>
 
-Note: First run `chown -R 1000:1000 /mnt/user/appdata/siyuan` in the terminal
+Note: First run `chown -R 1000:1000 /mnt/user/appdata/shehab` in the terminal
 
 Template reference:
 
 ```
 Web UI: 6806
 Container Port: 6806
-Container Path: /home/siyuan
-Host path: /mnt/user/appdata/siyuan
+Container Path: /home/shehab
+Host path: /mnt/user/appdata/shehab
 PUID: 1000
 PGID: 1000
 Publish parameters: --accessAuthCode=******(Access authorization code)
@@ -319,12 +303,12 @@ Publish parameters: --accessAuthCode=******(Access authorization code)
 <details>
 <summary>TrueNAS Deployment</summary>
 
-Note: First run below commands in the TrueNAS Shell. please update `Pool_1/Apps_Data/siyuan to match your dataset for Apps.
+Note: First run below commands in the TrueNAS Shell. please update `Pool_1/Apps_Data/shehab` to match your dataset for Apps.
 
 ```shell
-zfs create Pool_1/Apps_Data/siyuan
-chown -R 1001:1002 /mnt/Pool_1/Apps_Data/siyuan
-chmod 755 /mnt/Pool_1/Apps_Data/siyuan
+zfs create Pool_1/Apps_Data/shehab
+chown -R 1001:1002 /mnt/Pool_1/Apps_Data/shehab
+chmod 755 /mnt/Pool_1/Apps_Data/shehab
 ```
 
 Navigate to Apps - DiscoverApps - More Options(on top right, besies Custom App) - Install via YAML
@@ -333,14 +317,14 @@ Template reference:
 
 ```yaml
 services:
-  siyuan:
-    image: b3log/siyuan
-    container_name: siyuan
-    command: ['--workspace=/siyuan/workspace/', '--accessAuthCode=2222']
+  shehab:
+    image: shehab:latest
+    container_name: shehab
+    command: ['--workspace=/shehab/workspace/', '--accessAuthCode=2222']
     ports:
       - 6806:6806
     volumes:
-      - /mnt/Pool_1/Apps_Data/siyuan:/siyuan/workspace  # Adjust to your dataset path 
+      - /mnt/Pool_1/Apps_Data/shehab:/shehab/workspace  # Adjust to your dataset path 
     restart: unless-stopped
     environment:
       - TZ=America/Los_Angeles  # Replace with your timezone if needed
@@ -350,11 +334,9 @@ services:
 
 </details>
 
-### Insider Preview
-
-We release insider preview before major updates, please visit [https://github.com/siyuan-note/insider](https://github.com/siyuan-note/insider).
-
 ## 🏘️ Community
+
+This is a fork of SiYuan. For community support, please visit:
 
 * [English Discussion Forum](https://liuyun.io)
 * [User community summary](https://liuyun.io/article/1687779743723)
@@ -366,7 +348,7 @@ See [Development Guide](https://github.com/siyuan-note/siyuan/blob/master/.githu
 
 ## ❓ FAQ
 
-### How does SiYuan store data?
+### How does Shehab store data?
 
 The data is saved in the workspace folder, in the workspace data folder:
 
@@ -391,7 +373,7 @@ In addition, you can also consider manually exporting and importing data to achi
 * Desktop: <kbd>Settings</kbd> - <kbd>Export</kbd> - <kbd>Export Data</kbd> / <kbd>Import Data</kbd>
 * Mobile: <kbd>Right column</kbd> - <kbd>About</kbd> - <kbd>Export Data</kbd> / <kbd>Import Data</kbd>
 
-### Is SiYuan open source?
+### Is Shehab open source?
 
 SiYuan is completely open source, and contributions are welcome:
 
