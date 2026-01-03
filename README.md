@@ -426,22 +426,6 @@ The first sub-block under the list item is the block icon omitted. You can move 
   4. The cloud uses the new synchronization directory, the old synchronization directory is no longer available and can be deleted
   5. The existing cloud snapshots are no longer available and can be deleted
 
-### Do I need to pay for it?
 
-Most features are free, even for commercial use.
 
-Member's privileges can only be used after payment, please refer to [Pricing](https://b3log.org/siyuan/en/pricing.html).
 
-## 🙏 Acknowledgement
-
-The birth of SiYuan is inseparable from many open source projects and contributors, please refer to the project source code kernel/go.mod, app/package.json and project homepage.
-
-The growth of SiYuan is inseparable from user feedback and promotion, thank you for everyone's help to SiYuan ❤️
-
-### Contributors
-
-Welcome to join us and contribute code to SiYuan together.
-
-<a href="https://github.com/siyuan-note/siyuan/graphs/contributors">
-   <img src="https://contrib.rocks/image?repo=siyuan-note/siyuan" />
-</a>
