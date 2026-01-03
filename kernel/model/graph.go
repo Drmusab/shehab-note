@@ -424,8 +424,10 @@ func genTreeNodes(blocks []*Block, nodes *[]*GraphNode, links *[]*GraphLink, loc
 
 func markLinkedNodes(nodes *[]*GraphNode, links *[]*GraphLink, local bool) {
 	nodeSize := Conf.Graph.Local.NodeSize
+	centralitySizing := Conf.Graph.Local.CentralitySizing
 	if !local {
 		nodeSize = Conf.Graph.Global.NodeSize
+		centralitySizing = Conf.Graph.Global.CentralitySizing
 	}
 
 	tmpLinks := (*links)[:0]
@@ -434,14 +436,35 @@ func markLinkedNodes(nodes *[]*GraphNode, links *[]*GraphLink, local bool) {
 		for _, node := range *nodes {
 			if link.To == node.ID {
 				if link.Ref {
-					size := nodeSize
 					node.Defs++
-					size = math.Log2(float64(node.Defs))*nodeSize + nodeSize
-					node.Size = size
+					if centralitySizing {
+						// Centrality-based sizing: size = baseSize * (1 + log2(refs + defs + 1))
+						// Cap at 3x base size
+						totalLinks := float64(node.Refs + node.Defs + 1)
+						sizeFactor := 1.0 + math.Log2(totalLinks)
+						if sizeFactor > 3.0 {
+							sizeFactor = 3.0
+						}
+						node.Size = nodeSize * sizeFactor
+					} else {
+						// Legacy sizing based only on defs
+						size := nodeSize
+						size = math.Log2(float64(node.Defs))*nodeSize + nodeSize
+						node.Size = size
+					}
 				}
 				targetFound = true
 			} else if link.From == node.ID {
 				node.Refs++
+				// Update size for source nodes too when centrality sizing is enabled
+				if centralitySizing && node.Refs > 0 {
+					totalLinks := float64(node.Refs + node.Defs + 1)
+					sizeFactor := 1.0 + math.Log2(totalLinks)
+					if sizeFactor > 3.0 {
+						sizeFactor = 3.0
+					}
+					node.Size = nodeSize * sizeFactor
+				}
 				sourceFound = true
 			}
 			if targetFound && sourceFound {

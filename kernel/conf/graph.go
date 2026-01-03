@@ -84,6 +84,16 @@ type D3 struct {
 	CollideStrength float64 `json:"collideStrength"`
 	LinkDistance    int     `json:"linkDistance"`
 	Arrow           bool    `json:"arrow"`
+	
+	// Phase 1 Visual Enhancements
+	GlowEnabled      bool    `json:"glowEnabled"`
+	GlowIntensity    float64 `json:"glowIntensity"`    // 0.0 - 1.0
+	CurvedEdges      bool    `json:"curvedEdges"`
+	EdgeCurvature    float64 `json:"edgeCurvature"`    // 0.0 - 0.5
+	FlowAnimation    bool    `json:"flowAnimation"`
+	FlowSpeed        float64 `json:"flowSpeed"`        // pixels per second
+	LabelFadeZoom    float64 `json:"labelFadeZoom"`    // zoom threshold
+	CentralitySizing bool    `json:"centralitySizing"`
 }
 
 func newD3() *D3 {
@@ -96,5 +106,15 @@ func newD3() *D3 {
 		CollideStrength: 0.08,
 		LinkDistance:    400,
 		Arrow:           true,
+		
+		// Phase 1 Visual Enhancements - defaults
+		GlowEnabled:      true,
+		GlowIntensity:    0.6,
+		CurvedEdges:      true,
+		EdgeCurvature:    0.2,
+		FlowAnimation:    true,
+		FlowSpeed:        50.0,
+		LabelFadeZoom:    0.5,
+		CentralitySizing: true,
 	}
 }
