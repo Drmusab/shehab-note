@@ -17,34 +17,36 @@
 package util
 
 // Cloud sync disabled in Shehab fork
+// All cloud sync functions have been disabled and return empty/false values
+
 var CurrentCloudRegion = 0
 
 func IsChinaCloud() bool {
-	return false // Cloud disabled in Shehab fork
+	return false
 }
 
 func GetCloudServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 func GetCloudWebSocketServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 func GetCloudSyncServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 func GetCloudAssetsServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 func GetCloudAccountServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 func GetCloudForumAssetsServer() string {
-	return "" // Cloud sync disabled in Shehab fork
+	return ""
 }
 
 const (

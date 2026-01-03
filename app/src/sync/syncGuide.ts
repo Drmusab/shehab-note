@@ -8,26 +8,25 @@ import {confirmDialog} from "../dialog/confirmDialog";
 import {isMobile} from "../util/functions";
 import {App} from "../index";
 
+const CLOUD_SYNC_DISABLED_MESSAGE = "Cloud sync is not available in Shehab. This is a local-first fork. Please use Export/Import Data for manual synchronization.";
+
 export const addCloudName = (cloudPanelElement: Element) => {
-    // Cloud sync disabled in Shehab fork
-    showMessage("Cloud sync is not available in Shehab. This is a local-first fork.");
+    showMessage(CLOUD_SYNC_DISABLED_MESSAGE);
     return;
 };
 
 export const bindSyncCloudListEvent = (cloudPanelElement: Element, cb?: () => void) => {
-    // Cloud sync disabled in Shehab fork
+    // Cloud sync disabled - no event binding needed
     return;
 };
 
 export const getSyncCloudList = (cloudPanelElement: Element, reload = false, cb?: () => void) => {
-    // Cloud sync disabled in Shehab fork
-    cloudPanelElement.innerHTML = `<ul><li style="padding: 0 16px" class="b3-list--empty">Cloud sync is not available in Shehab. This is a local-first fork. Please use Export/Import Data for manual synchronization.</li></ul>`;
+    cloudPanelElement.innerHTML = `<ul><li style="padding: 0 16px" class="b3-list--empty">${CLOUD_SYNC_DISABLED_MESSAGE}</li></ul>`;
     return;
 };
 
 export const syncGuide = (app?: App) => {
-    // Cloud sync disabled in Shehab fork
-    showMessage("Cloud sync is not available in Shehab. This is a local-first fork. Please use Export/Import Data for manual synchronization.");
+    showMessage(CLOUD_SYNC_DISABLED_MESSAGE);
     return;
 };
 
