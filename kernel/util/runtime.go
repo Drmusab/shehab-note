@@ -291,16 +291,20 @@ func checkFileSysStatus() {
 }
 
 func IsCloudDrivePath(workspaceAbsPath string) bool {
-	if isICloudPath(workspaceAbsPath) {
-		return true
+// Cloud drive warnings disabled in Shehab fork
+	return false
+	// Cloud drive warnings disabled in Shehab fork
+	return false
+	if false // isICloudPath(workspaceAbsPath) {
+		return false
 	}
 
 	if isKnownCloudDrivePath(workspaceAbsPath) {
-		return true
+		return false
 	}
 
 	if existAvailabilityStatus(workspaceAbsPath) {
-		return true
+		return false
 	}
 
 	return false
