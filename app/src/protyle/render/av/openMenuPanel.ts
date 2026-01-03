@@ -89,7 +89,7 @@ export const openMenuPanel = (options: {
             avPanelElement.remove();
             return;
         }
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
         const blockID = options.blockElement.getAttribute("data-node-id");
 
         const isCustomAttr = !options.blockElement.classList.contains("av");
@@ -148,7 +148,7 @@ export const openMenuPanel = (options: {
             }
         }
 
-        document.body.insertAdjacentHTML("beforeend", `<div class="av__panel" style="z-index: ${++window.siyuan.zIndex};">
+        document.body.insertAdjacentHTML("beforeend", `<div class="av__panel" style="z-index: ${++window.shehab.zIndex};">
     <div class="b3-dialog__scrim" data-type="close"></div>
     <div class="b3-menu" ${["select", "date", "asset", "relation", "rollup"].includes(options.type) ? `style="min-width: 200px;${isMobile() ? "max-width: 90vw;" : "max-width: 50vw;"}"` : ""}>${html}</div>
 </div>`);
@@ -223,26 +223,26 @@ export const openMenuPanel = (options: {
             options.cb(avPanelElement);
         }
         avPanelElement.addEventListener("dragstart", (event: DragEvent) => {
-            window.siyuan.dragElement = event.target as HTMLElement;
-            window.siyuan.dragElement.style.opacity = ".38";
+            window.shehab.dragElement = event.target as HTMLElement;
+            window.shehab.dragElement.style.opacity = ".38";
             return;
         });
         avPanelElement.addEventListener("drop", (event) => {
             counter = 0;
-            if (!window.siyuan.dragElement) {
+            if (!window.shehab.dragElement) {
                 event.preventDefault();
                 event.stopPropagation();
                 return;
             }
-            window.siyuan.dragElement.style.opacity = "";
-            const sourceElement = window.siyuan.dragElement;
-            window.siyuan.dragElement = undefined;
+            window.shehab.dragElement.style.opacity = "";
+            const sourceElement = window.shehab.dragElement;
+            window.shehab.dragElement = undefined;
             if (options.protyle && options.protyle.disabled) {
                 event.preventDefault();
                 event.stopPropagation();
                 return;
             }
-            if (!options.protyle && window.siyuan.config.readonly) {
+            if (!options.protyle && window.shehab.config.readonly) {
                 event.preventDefault();
                 event.stopPropagation();
                 return;
@@ -541,7 +541,7 @@ export const openMenuPanel = (options: {
             if (!targetElement) {
                 targetElement = hasClosestByAttribute(document.elementFromPoint(event.clientX, event.clientY - 1), "draggable", "true");
             }
-            if (!targetElement || targetElement === window.siyuan.dragElement) {
+            if (!targetElement || targetElement === window.shehab.dragElement) {
                 return;
             }
             event.preventDefault();
@@ -573,9 +573,9 @@ export const openMenuPanel = (options: {
             counter++;
         });
         avPanelElement.addEventListener("dragend", () => {
-            if (window.siyuan.dragElement) {
-                window.siyuan.dragElement.style.opacity = "";
-                window.siyuan.dragElement = undefined;
+            if (window.shehab.dragElement) {
+                window.shehab.dragElement.style.opacity = "";
+                window.shehab.dragElement = undefined;
             }
         });
         avPanelElement.addEventListener("mousedown", (event: MouseEvent & { target: HTMLElement }) => {
@@ -598,7 +598,7 @@ export const openMenuPanel = (options: {
                     if (!options.protyle.toolbar.subElement.classList.contains("fn__none")) {
                         // 优先关闭资源文件搜索
                         hideElements(["util"], options.protyle);
-                    } else if (!window.siyuan.menus.menu.element.classList.contains("fn__none")) {
+                    } else if (!window.shehab.menus.menu.element.classList.contains("fn__none")) {
                         // 过滤面板先关闭过滤条件
                     } else {
                         closeCB?.();
@@ -607,7 +607,7 @@ export const openMenuPanel = (options: {
                             focusBlock(options.blockElement);
                         }, Constants.TIMEOUT_TRANSITION);  // 单选使用 enter 修改选项后会滚动
                     }
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -615,7 +615,7 @@ export const openMenuPanel = (options: {
                     menuElement.innerHTML = getViewHTML(data);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
                     bindViewEvent({protyle: options.protyle, data, menuElement, blockElement: options.blockElement});
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -624,7 +624,7 @@ export const openMenuPanel = (options: {
                     tabRect = options.blockElement.querySelector(".av__views").getBoundingClientRect();
                     menuElement.innerHTML = getPropertiesHTML(fields);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -632,7 +632,7 @@ export const openMenuPanel = (options: {
                     menuElement.innerHTML = getLayoutHTML(data);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
                     bindLayoutEvent({protyle: options.protyle, data, menuElement, blockElement: options.blockElement});
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -640,7 +640,7 @@ export const openMenuPanel = (options: {
                     menuElement.innerHTML = getSortsHTML(fields, data.view.sorts);
                     bindSortsEvent(options.protyle, menuElement, data, blockID);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -704,7 +704,7 @@ export const openMenuPanel = (options: {
                 } else if (type === "goFilters") {
                     menuElement.innerHTML = getFiltersHTML(data);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -723,7 +723,7 @@ export const openMenuPanel = (options: {
                     data.view.filters = [];
                     menuElement.innerHTML = getFiltersHTML(data);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -741,7 +741,7 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "removeFilter") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     const oldFilters = Object.assign([], data.view.filters);
                     data.view.filters.find((item: IAVFilter, index: number) => {
                         if (item.column === target.parentElement.dataset.id && item.value.type === target.parentElement.dataset.filterType) {
@@ -1210,19 +1210,19 @@ export const openMenuPanel = (options: {
                     const isTwoWay = colData.type === "relation" && colData.relation?.isTwoWay;
                     if (isCustomAttr || isTwoWay) {
                         const dialog = new Dialog({
-                            title: isTwoWay ? window.siyuan.languages.removeColConfirm : window.siyuan.languages.deleteOpConfirm,
+                            title: isTwoWay ? window.shehab.languages.removeColConfirm : window.shehab.languages.deleteOpConfirm,
                             content: `<div class="b3-dialog__content">
-    ${isTwoWay ? window.siyuan.languages.confirmRemoveRelationField
-                                    .replace("${x}", menuElement.querySelector("input").value || window.siyuan.languages._kernel[272])
+    ${isTwoWay ? window.shehab.languages.confirmRemoveRelationField
+                                    .replace("${x}", menuElement.querySelector("input").value || window.shehab.languages._kernel[272])
                                     .replace("${y}", menuElement.querySelector('.b3-menu__item[data-type="goSearchAV"] .b3-menu__accelerator').textContent)
-                                    .replace("${z}", (menuElement.querySelector('input[data-type="colName"]') as HTMLInputElement).value || window.siyuan.languages._kernel[272])
-                                : window.siyuan.languages.removeCol.replace("${x}", menuElement.querySelector("input").value || window.siyuan.languages._kernel[272])}
+                                    .replace("${z}", (menuElement.querySelector('input[data-type="colName"]') as HTMLInputElement).value || window.shehab.languages._kernel[272])
+                                : window.shehab.languages.removeCol.replace("${x}", menuElement.querySelector("input").value || window.shehab.languages._kernel[272])}
     <div class="fn__hr--b"></div>
-    <button class="fn__block b3-button b3-button--remove" data-action="delete">${isTwoWay ? window.siyuan.languages.removeBothRelationField : window.siyuan.languages.delete}</button>
+    <button class="fn__block b3-button b3-button--remove" data-action="delete">${isTwoWay ? window.shehab.languages.removeBothRelationField : window.shehab.languages.delete}</button>
     <div class="fn__hr"></div>
-    <button class="fn__block b3-button b3-button--remove${isTwoWay ? "" : " fn__none"}" data-action="keep-relation">${window.siyuan.languages.removeButKeepRelationField}</button>
+    <button class="fn__block b3-button b3-button--remove${isTwoWay ? "" : " fn__none"}" data-action="keep-relation">${window.shehab.languages.removeButKeepRelationField}</button>
     <div class="fn__hr"></div>
-    <button class="fn__block b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button>
+    <button class="fn__block b3-button b3-button--cancel">${window.shehab.languages.cancel}</button>
 </div>`,
                             width: "520px",
                         });
@@ -1306,7 +1306,7 @@ export const openMenuPanel = (options: {
                     } else {
                         addColOptionOrCell(options.protyle, data, options.cellElements, target, menuElement, options.blockElement);
                     }
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.preventDefault();
                     event.stopPropagation();
                     break;
@@ -1348,7 +1348,7 @@ export const openMenuPanel = (options: {
                             addValue: [value],
                             blockElement: options.blockElement
                         });
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     });
                     event.preventDefault();
                     event.stopPropagation();
@@ -1413,7 +1413,7 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "av-add") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     addView(options.protyle, options.blockElement);
                     avPanelElement.remove();
                     event.preventDefault();
@@ -1459,7 +1459,7 @@ export const openMenuPanel = (options: {
                             id: options.blockElement.querySelector(".av__views .item--focus").getAttribute("data-id"),
                             avID,
                         }]);
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                         openViewMenu({
                             protyle: options.protyle,
                             blockElement: options.blockElement as HTMLElement,
@@ -1566,14 +1566,14 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "goGroupsMethod") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     menuElement.innerHTML = getGroupsMethodHTML(fields, data.view.group, data.viewType);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
                     event.preventDefault();
                     event.stopPropagation();
                     break;
                 } else if (type === "getGroupsNumber") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     menuElement.innerHTML = getGroupsNumberHTML(data.view.group);
                     setPosition(menuElement, tabRect.right - menuElement.clientWidth, tabRect.bottom, tabRect.height);
                     closeCB = bindGroupsNumber({
@@ -1586,7 +1586,7 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "hideGroup") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     const useElement = target.firstElementChild;
                     const isHide = useElement.getAttribute("xlink:href") !== "#iconEye";
                     useElement.setAttribute("xlink:href", isHide ? "#iconEye" : "#iconEyeoff");
@@ -1602,7 +1602,7 @@ export const openMenuPanel = (options: {
                         }
                     });
                     target.parentElement.classList[isHide ? "remove" : "add"]("b3-menu__item--hidden");
-                    menuElement.querySelector('[data-type="hideGroups"]').innerHTML = `${window.siyuan.languages[showCount === 0 ? "showAll" : "hideAll"]}
+                    menuElement.querySelector('[data-type="hideGroups"]').innerHTML = `${window.shehab.languages[showCount === 0 ? "showAll" : "hideAll"]}
 <span class="fn__space"></span>
 <svg><use xlink:href="#iconEye${showCount === 0 ? "" : "off"}"></use></svg>`;
                     transaction(options.protyle, [{
@@ -1622,9 +1622,9 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "hideGroups") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     const isShow = target.querySelector("use").getAttribute("xlink:href") === "#iconEyeoff";
-                    target.innerHTML = `${window.siyuan.languages[isShow ? "showAll" : "hideAll"]}
+                    target.innerHTML = `${window.shehab.languages[isShow ? "showAll" : "hideAll"]}
 <span class="fn__space"></span>
 <svg><use xlink:href="#iconEye${isShow ? "" : "off"}"></use></svg>`;
                     data.view.groups.forEach((item) => {
@@ -1648,7 +1648,7 @@ export const openMenuPanel = (options: {
                     event.stopPropagation();
                     break;
                 } else if (type === "removeGroups") {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     transaction(options.protyle, [{
                         action: "removeAttrViewGroup",
                         avID: data.id,
@@ -1707,10 +1707,10 @@ export const getPropertiesHTML = (fields: IAVColumn[]) => {
         hideHTML = `<button class="b3-menu__separator"></button>
 <button class="b3-menu__item" data-type="nobg">
     <span class="b3-menu__label">
-        ${window.siyuan.languages.hideCol} 
+        ${window.shehab.languages.hideCol} 
     </span>
     <span class="block__icon" data-type="showAllCol">
-        ${window.siyuan.languages.showAll}
+        ${window.shehab.languages.showAll}
         <span class="fn__space"></span>
         <svg><use xlink:href="#iconEye"></use></svg>
     </span>
@@ -1722,15 +1722,15 @@ ${hideHTML}`;
     <span class="block__icon" style="padding: 8px;margin-left: -4px;" data-type="go-config">
         <svg><use xlink:href="#iconLeft"></use></svg>
     </span>
-    <span class="b3-menu__label ft__center">${window.siyuan.languages.fields}</span>
+    <span class="b3-menu__label ft__center">${window.shehab.languages.fields}</span>
 </button>
 <button class="b3-menu__separator"></button>
 <button class="b3-menu__item" data-type="nobg">
     <span class="b3-menu__label">
-        ${window.siyuan.languages.showCol} 
+        ${window.shehab.languages.showCol} 
     </span>
     <span class="block__icon" data-type="hideAllCol">
-        ${window.siyuan.languages.hideAll}
+        ${window.shehab.languages.hideAll}
         <span class="fn__space"></span>
         <svg><use xlink:href="#iconEyeoff"></use></svg>
     </span>
@@ -1740,7 +1740,7 @@ ${hideHTML}
 <button class="b3-menu__separator"></button>
 <button class="b3-menu__item" data-type="newCol">
     <svg class="b3-menu__icon"><use xlink:href="#iconAdd"></use></svg>
-    <span class="b3-menu__label">${window.siyuan.languages.new}</span>
+    <span class="b3-menu__label">${window.shehab.languages.new}</span>
 </button>
 </div>`;
 };

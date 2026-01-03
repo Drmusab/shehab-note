@@ -1,7 +1,7 @@
 export const setLute = (options: ILuteOptions) => {
     const lute: Lute = Lute.New();
-    lute.SetSpellcheck(window.siyuan.config.editor.spellcheck);
-    lute.SetProtyleMarkNetImg(window.siyuan.config.editor.displayNetImgMark);
+    lute.SetSpellcheck(window.shehab.config.editor.spellcheck);
+    lute.SetProtyleMarkNetImg(window.shehab.config.editor.displayNetImgMark);
     lute.SetFileAnnotationRef(true);
     lute.SetHTMLTag2TextMark(true);
     lute.SetTextMark(true);
@@ -25,24 +25,24 @@ export const setLute = (options: ILuteOptions) => {
     lute.SetTag(true);
     lute.SetSuperBlock(true);
     lute.SetCallout(true);
-    lute.SetInlineAsterisk(window.siyuan.config.editor.markdown.inlineAsterisk);
-    lute.SetInlineUnderscore(window.siyuan.config.editor.markdown.inlineUnderscore);
-    lute.SetSup(window.siyuan.config.editor.markdown.inlineSup);
-    lute.SetSub(window.siyuan.config.editor.markdown.inlineSub);
-    lute.SetTag(window.siyuan.config.editor.markdown.inlineTag);
-    lute.SetInlineMath(window.siyuan.config.editor.markdown.inlineMath);
+    lute.SetInlineAsterisk(window.shehab.config.editor.markdown.inlineAsterisk);
+    lute.SetInlineUnderscore(window.shehab.config.editor.markdown.inlineUnderscore);
+    lute.SetSup(window.shehab.config.editor.markdown.inlineSup);
+    lute.SetSub(window.shehab.config.editor.markdown.inlineSub);
+    lute.SetTag(window.shehab.config.editor.markdown.inlineTag);
+    lute.SetInlineMath(window.shehab.config.editor.markdown.inlineMath);
     lute.SetGFMStrikethrough1(false);
-    lute.SetGFMStrikethrough(window.siyuan.config.editor.markdown.inlineStrikethrough);
-    lute.SetMark(window.siyuan.config.editor.markdown.inlineMark);
+    lute.SetGFMStrikethrough(window.shehab.config.editor.markdown.inlineStrikethrough);
+    lute.SetMark(window.shehab.config.editor.markdown.inlineMark);
     lute.SetSpin(true);
     lute.SetProtyleWYSIWYG(true);
     if (options.lazyLoadImage) {
         lute.SetImageLazyLoading(options.lazyLoadImage);
     }
     lute.SetBlockRef(true);
-    if (window.siyuan.emojis[0].items.length > 0) {
+    if (window.shehab.emojis[0].items.length > 0) {
         const emojis: IObject = {};
-        window.siyuan.emojis[0].items.forEach(item => {
+        window.shehab.emojis[0].items.forEach(item => {
             emojis[item.keywords] = options.emojiSite + "/" + item.unicode;
         });
         lute.PutEmojis(emojis);

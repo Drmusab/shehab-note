@@ -23,7 +23,7 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
         return;
     }
     // https://github.com/siyuan-note/siyuan/pull/8793
-    const coordinates = window.siyuan.coordinates ?? (window.siyuan.coordinates = {
+    const coordinates = window.shehab.coordinates ?? (window.shehab.coordinates = {
         pageX: 0,
         pageY: 0,
         clientX: 0,
@@ -39,8 +39,8 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
     coordinates.screenY = event.screenY;
 
     // breadcrumb
-    if (window.siyuan.hideBreadcrumb) {
-        window.siyuan.hideBreadcrumb = false;
+    if (window.shehab.hideBreadcrumb) {
+        window.shehab.hideBreadcrumb = false;
         getAllEditor().forEach(item => {
             if (item.protyle.breadcrumb?.element.classList.contains("protyle-breadcrumb__bar--hide")) {
                 item.protyle.breadcrumb.element.classList.remove("protyle-breadcrumb__bar--hide");
@@ -52,12 +52,12 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
     // Dock
     if (!mouseIsEnter &&
         event.buttons === 0 &&  // 鼠标按键被按下时不触发
-        window.siyuan.layout.bottomDock &&
+        window.shehab.layout.bottomDock &&
         !isWindow()) {
         if (event.clientX < Math.max(document.getElementById("dockLeft").clientWidth + 1, 16)) {
-            if (!window.siyuan.layout.leftDock.pin && window.siyuan.layout.leftDock.layout.element.clientWidth > 0 &&
+            if (!window.shehab.layout.leftDock.pin && window.shehab.layout.leftDock.layout.element.clientWidth > 0 &&
                 // 隐藏停靠栏会导致点击两侧内容触发浮动面板弹出，因此需减小鼠标范围
-                (window.siyuan.layout.leftDock.element.clientWidth > 0 || (window.siyuan.layout.leftDock.element.clientWidth === 0 && event.clientX < 8))) {
+                (window.shehab.layout.leftDock.element.clientWidth > 0 || (window.shehab.layout.leftDock.element.clientWidth === 0 && event.clientX < 8))) {
                 if (event.clientY > document.getElementById("toolbar").clientHeight &&
                     event.clientY < window.innerHeight - document.getElementById("status").clientHeight - document.getElementById("dockBottom").clientHeight) {
                     if (!hasClosestByClassName(target, "b3-menu") &&
@@ -65,15 +65,15 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
                         !hasClosestByClassName(target, "protyle-util") &&
                         !hasClosestByClassName(target, "b3-dialog", true) &&
                         !hasClosestByClassName(target, "layout--float")) {
-                        window.siyuan.layout.leftDock.showDock();
+                        window.shehab.layout.leftDock.showDock();
                     }
                 } else {
-                    window.siyuan.layout.leftDock.hideDock();
+                    window.shehab.layout.leftDock.hideDock();
                 }
             }
         } else if (event.clientX > window.innerWidth - Math.max(document.getElementById("dockRight").clientWidth - 2, 16)) {
-            if (!window.siyuan.layout.rightDock.pin && window.siyuan.layout.rightDock.layout.element.clientWidth > 0 &&
-                (window.siyuan.layout.rightDock.element.clientWidth > 0 || (window.siyuan.layout.rightDock.element.clientWidth === 0 && event.clientX > window.innerWidth - 8))) {
+            if (!window.shehab.layout.rightDock.pin && window.shehab.layout.rightDock.layout.element.clientWidth > 0 &&
+                (window.shehab.layout.rightDock.element.clientWidth > 0 || (window.shehab.layout.rightDock.element.clientWidth === 0 && event.clientX > window.innerWidth - 8))) {
                 if (event.clientY > document.getElementById("toolbar").clientHeight &&
                     event.clientY < window.innerHeight - document.getElementById("status").clientHeight - document.getElementById("dockBottom").clientHeight) {
                     if (!hasClosestByClassName(target, "b3-menu") &&
@@ -81,15 +81,15 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
                         !hasClosestByClassName(target, "protyle-toolbar") &&
                         !hasClosestByClassName(target, "protyle-util") &&
                         !hasClosestByClassName(target, "b3-dialog", true)) {
-                        window.siyuan.layout.rightDock.showDock();
+                        window.shehab.layout.rightDock.showDock();
                     }
                 } else {
-                    window.siyuan.layout.rightDock.hideDock();
+                    window.shehab.layout.rightDock.hideDock();
                 }
             }
         }
-        if (event.clientY > Math.min(window.innerHeight - 10, window.innerHeight - (window.siyuan.config.uiLayout.hideDock ? 0 : document.getElementById("dockBottom").clientHeight) - document.querySelector("#status").clientHeight)) {
-            window.siyuan.layout.bottomDock.showDock();
+        if (event.clientY > Math.min(window.innerHeight - 10, window.innerHeight - (window.shehab.config.uiLayout.hideDock ? 0 : document.getElementById("dockBottom").clientHeight) - document.querySelector("#status").clientHeight)) {
+            window.shehab.layout.bottomDock.showDock();
         }
     }
 
@@ -114,7 +114,7 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
                 }
             });
             if (!findNode) {
-                window.siyuan.blockPanels.find(item => {
+                window.shehab.blockPanels.find(item => {
                     item.editors.find(eItem => {
                         if (eItem.protyle.wysiwyg.element.contains(eventPath0)) {
                             eItem.protyle.gutter.render(eItem.protyle, targetBlockElement, mouseElement);
@@ -164,7 +164,7 @@ export const windowMouseMove = (event: MouseEvent, mouseIsEnter: boolean) => {
             }
         });
         if (!findNode) {
-            window.siyuan.blockPanels.find(item => {
+            window.shehab.blockPanels.find(item => {
                 item.editors.find(eItem => {
                     if (eItem.protyle.wysiwyg.element.contains(eventPath0)) {
                         eItem.protyle.gutter.render(eItem.protyle, targetBlockElement);

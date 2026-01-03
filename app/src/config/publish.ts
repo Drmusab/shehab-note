@@ -9,29 +9,29 @@ export const publish = {
         return `
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.publishService}
-        <div class="b3-label__text">${window.siyuan.languages.publishServiceTip}</div>
+        ${window.shehab.languages.publishService}
+        <div class="b3-label__text">${window.shehab.languages.publishServiceTip}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="publishEnable" type="checkbox"${window.siyuan.config.publish.enable ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="publishEnable" type="checkbox"${window.shehab.config.publish.enable ? " checked" : ""}/>
 </label>
 <div class="b3-label">
     ${(()=>{
         if (mobile) {
             return `
-${window.siyuan.languages.publishServicePort}
+${window.shehab.languages.publishServicePort}
 <span class="fn__hr"></span>
-<input class="b3-text-field fn__block" id="publishPort" type="number" min="0" max="65535" value="${window.siyuan.config.publish.port}">
-<div class="b3-label__text">${window.siyuan.languages.publishServicePortTip}</div>`;
+<input class="b3-text-field fn__block" id="publishPort" type="number" min="0" max="65535" value="${window.shehab.config.publish.port}">
+<div class="b3-label__text">${window.shehab.languages.publishServicePortTip}</div>`;
         } else {
             return `
 <div class="fn__flex">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.publishServicePort}
-        <div class="b3-label__text">${window.siyuan.languages.publishServicePortTip}</div>
+        ${window.shehab.languages.publishServicePort}
+        <div class="b3-label__text">${window.shehab.languages.publishServicePortTip}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-text-field fn__flex-center fn__size200" id="publishPort" type="number" min="0" max="65535" value="${window.siyuan.config.publish.port}">
+    <input class="b3-text-field fn__flex-center fn__size200" id="publishPort" type="number" min="0" max="65535" value="${window.shehab.config.publish.port}">
 </div>`;
         }
     })()}
@@ -39,8 +39,8 @@ ${window.siyuan.languages.publishServicePort}
 <div class="b3-label">
     <div class="fn__flex">
         <div class="fn__flex-1">
-            ${window.siyuan.languages.publishServiceAddresses}
-            <div class="b3-label__text">${window.siyuan.languages.publishServiceAddressesTip}</div>
+            ${window.shehab.languages.publishServiceAddresses}
+            <div class="b3-label__text">${window.shehab.languages.publishServiceAddressesTip}</div>
         </div>
         <div class="fn__space"></div>
     </div>
@@ -51,35 +51,35 @@ ${window.siyuan.languages.publishServicePort}
 <div class="b3-label">
     <label class="fn__flex">
         <div class="fn__flex-1">
-            ${window.siyuan.languages.publishServiceAuth}
-            <div class="b3-label__text">${window.siyuan.languages.publishServiceAuthTip}</div>
+            ${window.shehab.languages.publishServiceAuth}
+            <div class="b3-label__text">${window.shehab.languages.publishServiceAuthTip}</div>
         </div>
         <span class="fn__space"></span>
-        <input class="b3-switch fn__flex-center" id="publishAuthEnable" type="checkbox"${window.siyuan.config.publish.auth.enable ? " checked" : ""}/>
+        <input class="b3-switch fn__flex-center" id="publishAuthEnable" type="checkbox"${window.shehab.config.publish.auth.enable ? " checked" : ""}/>
     </label>
 </div>
 <div class="b3-label">
     ${(()=>{
         if (mobile) {
             return `
-${window.siyuan.languages.publishServiceAuthAccounts}
-<div class="b3-label__text">${window.siyuan.languages.publishServiceAuthAccountsTip}</div>
+${window.shehab.languages.publishServiceAuthAccounts}
+<div class="b3-label__text">${window.shehab.languages.publishServiceAuthAccountsTip}</div>
 <div class="b3-label b3-label--inner fn__flex">
     <span class="fn__flex-1"></span>
     <button class="b3-button b3-button--outline fn__size200 fn__flex-center" id="publishAuthAccountAdd">
-        <svg><use xlink:href="#iconAdd"></use></svg>${window.siyuan.languages.publishServiceAuthAccountAdd}
+        <svg><use xlink:href="#iconAdd"></use></svg>${window.shehab.languages.publishServiceAuthAccountAdd}
     </button>
 </div>`;
         } else {
             return `
 <div class="fn__flex">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.publishServiceAuthAccounts}
-        <div class="b3-label__text">${window.siyuan.languages.publishServiceAuthAccountsTip}</div>
+        ${window.shehab.languages.publishServiceAuthAccounts}
+        <div class="b3-label__text">${window.shehab.languages.publishServiceAuthAccountsTip}</div>
     </div>
     <div class="fn__space"></div>
     <button class="b3-button b3-button--outline fn__size200 fn__flex-center" id="publishAuthAccountAdd">
-        <svg><use xlink:href="#iconAdd"></use></svg>${window.siyuan.languages.publishServiceAuthAccountAdd}
+        <svg><use xlink:href="#iconAdd"></use></svg>${window.shehab.languages.publishServiceAuthAccountAdd}
     </button>
 </div>`;
         }
@@ -94,7 +94,7 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
 
         // add account
         publishAuthAccountAdd.addEventListener("click", () => {
-            window.siyuan.config.publish.auth.accounts.push({
+            window.shehab.config.publish.auth.accounts.push({
                 username: "",
                 password: "",
                 memo: "",
@@ -124,7 +124,7 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
             port: publishPort.valueAsNumber,
             auth: {
                 enable: publishAuthEnable.checked,
-                accounts: window.siyuan.config.publish.auth.accounts,
+                accounts: window.shehab.config.publish.auth.accounts,
             } as Config.IPublishAuth,
         } as Config.IPublish, publish._updatePublishConfig.bind(null, reloadAccounts));
     },
@@ -133,7 +133,7 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
         response: IWebSocketData,
     ) => {
         if (response.code === 0) {
-            window.siyuan.config.publish = response.data.publish;
+            window.shehab.config.publish = response.data.publish;
             if (reloadAccounts) {
                 publish._renderPublishAuthAccounts(publish.element);
             }
@@ -144,7 +144,7 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
     },
     _renderPublishAuthAccounts: (
         element: Element,
-        accounts: Config.IPublishAuthAccount[] = window.siyuan.config.publish.auth.accounts,
+        accounts: Config.IPublishAuthAccount[] = window.shehab.config.publish.auth.accounts,
     ) => {
         const mobile = isMobile();
         const publishAuthAccounts = element.querySelector<HTMLDivElement>("#publishAuthAccounts");
@@ -152,20 +152,20 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
             accounts
                 .map((account, index) => `
 <li class="b3-label b3-label--inner fn__flex" data-index="${index}">
-    <input class="b3-text-field fn__block" data-name="username" value="${account.username}" placeholder="${window.siyuan.languages.userName}">
+    <input class="b3-text-field fn__block" data-name="username" value="${account.username}" placeholder="${window.shehab.languages.userName}">
     <span class="fn__space"></span>
     <div class="b3-form__icona fn__block">
-        <input class="b3-text-field fn__block b3-form__icona-input" type="password" data-name="password" value="${account.password}" placeholder="${window.siyuan.languages.password}">
+        <input class="b3-text-field fn__block b3-form__icona-input" type="password" data-name="password" value="${account.password}" placeholder="${window.shehab.languages.password}">
         <svg class="b3-form__icona-icon" data-action="togglePassword"><use xlink:href="#iconEye"></use></svg>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-text-field fn__block" data-name="memo" value="${account.memo}" placeholder="${window.siyuan.languages.memo}">
+    <input class="b3-text-field fn__block" data-name="memo" value="${account.memo}" placeholder="${window.shehab.languages.memo}">
     <span class="fn__space"></span>
     ${(()=>{
         if (mobile) {
             return `
 <button class="b3-button b3-button--outline fn__block" data-action="remove">
-    <svg><use xlink:href="#iconTrashcan"></use></svg>${window.siyuan.languages.delete}
+    <svg><use xlink:href="#iconTrashcan"></use></svg>${window.shehab.languages.delete}
 </button>`;
         } else {
             return `
@@ -188,8 +188,8 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
                     if (li) {
                         const index = parseInt(li.dataset.index);
                         const name = input.dataset.name as keyof Config.IPublishAuthAccount;
-                        if (name in window.siyuan.config.publish.auth.accounts[index]) {
-                            window.siyuan.config.publish.auth.accounts[index][name] = input.value;
+                        if (name in window.shehab.config.publish.auth.accounts[index]) {
+                            window.shehab.config.publish.auth.accounts[index][name] = input.value;
                             publish._savePublish(false);
                         }
                     }
@@ -204,7 +204,7 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
                     const li = hasClosestByTag(remove, "LI");
                     if (li) {
                         const index = parseInt(li.dataset.index);
-                        window.siyuan.config.publish.auth.accounts.splice(index, 1);
+                        window.shehab.config.publish.auth.accounts.splice(index, 1);
                         publish._savePublish();
                     }
                 });
@@ -227,15 +227,15 @@ ${window.siyuan.languages.publishServiceAuthAccounts}
     ) => {
         const publishAddresses = element.querySelector<HTMLDivElement>("#publishAddresses");
         if (port === 0) {
-            publishAddresses.innerText = window.siyuan.languages.publishServiceNotStarted;
+            publishAddresses.innerText = window.shehab.languages.publishServiceNotStarted;
         } else {
             publishAddresses.innerHTML = `<ul class="b3-list fn__flex-1" style="padding: 2px 0;">${
-                window.siyuan.config.localIPs
+                window.shehab.config.localIPs
                     .filter(ip => !(ip.startsWith("[") && ip.endsWith("]")))
                     .map(ip => `<li><code class="fn__code">${ip}:${port}</code></li>`)
                     .join("")
             }${
-                window.siyuan.config.localIPs
+                window.shehab.config.localIPs
                     .filter(ip => (ip.startsWith("[") && ip.endsWith("]")))
                     .map(ip => `<li><code class="fn__code">${ip}:${port}</code></li>`)
                     .join("")

@@ -76,7 +76,7 @@ data-message-id="${messageId || ""}">${message}</div>`);
         messageHTML = messageHTML.replace("<div data-id", `<div data-timeoutid="${timeoutId}" data-id`);
     }
     messagesElement.parentElement.classList.add("b3-snackbars--show");
-    messagesElement.parentElement.style.zIndex = (++window.siyuan.zIndex).toString();
+    messagesElement.parentElement.style.zIndex = (++window.shehab.zIndex).toString();
     messagesElement.insertAdjacentHTML("afterbegin", messageHTML + "</div>");
     setTimeout(() => {
         messagesElement.querySelectorAll(".b3-snackbar--hide").forEach(item => {

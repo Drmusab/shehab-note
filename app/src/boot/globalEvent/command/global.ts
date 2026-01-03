@@ -150,8 +150,8 @@ export const globalCommand = (command: string, app: App) => {
             openRecentDocs();
             return true;
         case "recentClosed":
-            if (window.siyuan.closedTabs.length > 0) {
-                const closeData = window.siyuan.closedTabs.pop();
+            if (window.shehab.closedTabs.length > 0) {
+                const closeData = window.shehab.closedTabs.pop();
                 const childData = closeData.children as ILayoutJSON;
                 if (childData.instance === "Editor") {
                     openFile({
@@ -269,7 +269,7 @@ export const globalCommand = (command: string, app: App) => {
         return true;
     }
     if (command === "unsplitAll") {
-        unsplitWnd(window.siyuan.layout.centerLayout, window.siyuan.layout.centerLayout, false);
+        unsplitWnd(window.shehab.layout.centerLayout, window.shehab.layout.centerLayout, false);
         return true;
     }
     if (command === "unsplit") {
@@ -277,7 +277,7 @@ export const globalCommand = (command: string, app: App) => {
         if (tab) {
             let wndsTemp: Wnd[] = [];
             let layout = tab.parent.parent;
-            while (layout.id !== window.siyuan.layout.centerLayout.id) {
+            while (layout.id !== window.shehab.layout.centerLayout.id) {
                 wndsTemp = [];
                 getAllWnds(layout, wndsTemp);
                 if (wndsTemp.length > 1) {
@@ -313,8 +313,8 @@ export const globalCommand = (command: string, app: App) => {
             return true;
         }
         // https://github.com/siyuan-note/siyuan/issues/14729
-        if (window.siyuan.blockPanels.length > 0) {
-            window.siyuan.blockPanels[window.siyuan.blockPanels.length - 1]?.destroy();
+        if (window.shehab.blockPanels.length > 0) {
+            window.shehab.blockPanels[window.shehab.blockPanels.length - 1]?.destroy();
             return true;
         }
         const noFocusTab = getActiveTab(false);
@@ -400,7 +400,7 @@ export const globalCommand = (command: string, app: App) => {
             openHistory(app);
             return true;
         case "editReadonly":
-            setReadOnly(!window.siyuan.config.editor.readOnly);
+            setReadOnly(!window.shehab.config.editor.readOnly);
             return true;
         case "lockScreen":
             lockScreen(app);

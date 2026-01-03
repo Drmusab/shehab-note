@@ -97,7 +97,7 @@ export class Tab {
                     event.dataTransfer.setData(Constants.SIYUAN_DROP_TAB, JSON.stringify(modeJSON));
                     event.dataTransfer.dropEffect = "move";
                     tabElement.style.opacity = "0.38";
-                    window.siyuan.dragElement = this.headElement;
+                    window.shehab.dragElement = this.headElement;
                 }
                 ipcRenderer.send(Constants.SIYUAN_SEND_WINDOWS, {cmd: "resetTabsStyle", data: "removeRegionStyle"});
             });
@@ -123,7 +123,7 @@ export class Tab {
                     tabItem.remove();
                 });
                 /// #endif
-                window.siyuan.dragElement = undefined;
+                window.shehab.dragElement = undefined;
                 if (event.dataTransfer.dropEffect === "none") {
                     // 按 esc 取消的时候应该还原在 dragover 时交换的 tab
                     this.parent.children.forEach((item, index) => {

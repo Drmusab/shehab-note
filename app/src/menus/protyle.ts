@@ -77,16 +77,16 @@ const renderAssetList = (element: Element, k: string, position: IPosition, exts:
         const listElement = element.querySelector(".b3-list");
         const previewElement = element.querySelector("#preview");
         const inputElement = element.querySelector("input");
-        listElement.innerHTML = searchHTML || `<li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li>`;
+        listElement.innerHTML = searchHTML || `<li class="b3-list--empty">${window.shehab.languages.emptyContent}</li>`;
         if (response.data.length > 0) {
             previewElement.innerHTML = renderAssetsPreview(response.data[0].path);
         } else {
-            previewElement.innerHTML = window.siyuan.languages.emptyContent;
+            previewElement.innerHTML = window.shehab.languages.emptyContent;
         }
         /// #if MOBILE
-        window.siyuan.menus.menu.fullscreen();
+        window.shehab.menus.menu.fullscreen();
         /// #else
-        window.siyuan.menus.menu.popup(position);
+        window.shehab.menus.menu.popup(position);
         /// #endif
         if (!k) {
             inputElement.select();
@@ -148,10 +148,10 @@ export const assetMenu = (protyle: IProtyle, position: IPosition, callback?: (ur
                             callback(currentElement.getAttribute("data-value"), currentElement.textContent);
                         } else {
                             hintRenderAssets(currentElement.getAttribute("data-value"), protyle);
-                            window.siyuan.menus.menu.remove();
+                            window.shehab.menus.menu.remove();
                         }
                     } else if (!callback) {
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                         focusByRange(protyle.toolbar.range);
                     }
                     // 空行处插入 mp3 会多一个空的 mp3 块
@@ -196,7 +196,7 @@ export const assetMenu = (protyle: IProtyle, position: IPosition, callback?: (ur
                         callback(currentURL, listItemElement.textContent);
                     } else {
                         hintRenderAssets(currentURL, protyle);
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     }
                 }
             });
@@ -213,14 +213,14 @@ export const fileAnnotationRefMenu = (protyle: IProtyle, refElement: HTMLElement
     hideElements(["util", "toolbar", "hint"], protyle);
     const id = nodeElement.getAttribute("data-node-id");
     let oldHTML = nodeElement.outerHTML;
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_FILE_ANNOTATION_REF);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_FILE_ANNOTATION_REF);
     let anchorElement: HTMLInputElement;
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "idAndAnchor",
         iconHTML: "",
         type: "readonly",
-        label: `<div>ID</div><textarea spellcheck="false" rows="1" style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-field" readonly>${refElement.getAttribute("data-id") || ""}</textarea><div class="fn__hr"></div><div>${window.siyuan.languages.anchor}</div><textarea rows="1" style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-field"></textarea>`,
+        label: `<div>ID</div><textarea spellcheck="false" rows="1" style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-field" readonly>${refElement.getAttribute("data-id") || ""}</textarea><div class="fn__hr"></div><div>${window.shehab.languages.anchor}</div><textarea rows="1" style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-field"></textarea>`,
         bind(menuItemElement) {
             menuItemElement.style.maxWidth = "none";
             anchorElement = menuItemElement.querySelectorAll(".b3-text-field")[1] as HTMLInputElement;
@@ -251,22 +251,22 @@ export const fileAnnotationRefMenu = (protyle: IProtyle, refElement: HTMLElement
                     return;
                 }
                 if (event.key === "Enter" && !event.isComposing) {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                 } else if (electronUndo(event)) {
                     return;
                 }
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({type: "separator"}).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({type: "separator"}).element);
+    window.shehab.menus.menu.append(new MenuItem({
         id: "turnInto",
-        label: window.siyuan.languages.turnInto,
+        label: window.shehab.languages.turnInto,
         icon: "iconRefresh",
         submenu: [{
             id: "text",
             iconHTML: "",
-            label: window.siyuan.languages.text,
+            label: window.shehab.languages.text,
             click() {
                 nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                 removeInlineType(refElement, "file-annotation-ref", protyle.toolbar.range);
@@ -276,7 +276,7 @@ export const fileAnnotationRefMenu = (protyle: IProtyle, refElement: HTMLElement
         }, {
             id: "text*",
             iconHTML: "",
-            label: window.siyuan.languages.text + " *",
+            label: window.shehab.languages.text + " *",
             click() {
                 refElement.insertAdjacentHTML("beforebegin", refElement.innerHTML + " ");
                 refElement.textContent = "*";
@@ -286,10 +286,10 @@ export const fileAnnotationRefMenu = (protyle: IProtyle, refElement: HTMLElement
             }
         }]
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "remove",
         icon: "iconTrashcan",
-        label: window.siyuan.languages.remove,
+        label: window.shehab.languages.remove,
         click() {
             refElement.insertAdjacentHTML("afterend", "<wbr>");
             refElement.remove();
@@ -312,19 +312,19 @@ export const fileAnnotationRefMenu = (protyle: IProtyle, refElement: HTMLElement
         });
     }
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = refElement.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({
+    window.shehab.menus.menu.popup({
         x: rect.left,
         y: rect.top + 26,
         h: 26
     });
     /// #endif
     const popoverElement = hasTopClosestByClassName(protyle.element, "block__popover", true);
-    window.siyuan.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
+    window.shehab.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
     anchorElement.select();
-    window.siyuan.menus.menu.removeCB = () => {
+    window.shehab.menus.menu.removeCB = () => {
         if (nodeElement.outerHTML !== oldHTML) {
             nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
             updateTransaction(protyle, id, nodeElement.outerHTML, oldHTML);
@@ -348,14 +348,14 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
     const refBlockId = element.getAttribute("data-id");
     const id = nodeElement.getAttribute("data-node-id");
     let oldHTML = nodeElement.outerHTML;
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_REF);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_REF);
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "anchor",
             iconHTML: "",
             type: "readonly",
-            label: `<input style="margin: 4px 0" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.anchor}">`,
+            label: `<input style="margin: 4px 0" class="b3-text-field fn__block" placeholder="${window.shehab.languages.anchor}">`,
             bind(menuItemElement) {
                 const inputElement = menuItemElement.querySelector("input");
                 inputElement.value = element.getAttribute("data-subtype") === "d" ? "" : element.textContent;
@@ -375,24 +375,24 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
                         return;
                     }
                     if (event.key === "Enter" && !event.isComposing) {
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     } else if (electronUndo(event)) {
                         return;
                     }
                 });
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "separator_1",
             type: "separator"
         }).element);
     }
     /// #if !MOBILE
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "openBy",
-        label: window.siyuan.languages.openBy,
+        label: window.shehab.languages.openBy,
         icon: "iconOpen",
-        accelerator: window.siyuan.config.keymap.editor.general.openBy.custom + "/" + window.siyuan.languages.click,
+        accelerator: window.shehab.config.keymap.editor.general.openBy.custom + "/" + window.shehab.languages.click,
         click() {
             checkFold(refBlockId, (zoomIn, action, isRoot) => {
                 if (!isRoot) {
@@ -407,11 +407,11 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "refTab",
-        label: window.siyuan.languages.refTab,
+        label: window.shehab.languages.refTab,
         icon: "iconEyeoff",
-        accelerator: window.siyuan.config.keymap.editor.general.refTab.custom + "/" + updateHotkeyTip("⌘" + window.siyuan.languages.click),
+        accelerator: window.shehab.config.keymap.editor.general.refTab.custom + "/" + updateHotkeyTip("⌘" + window.shehab.languages.click),
         click() {
             checkFold(refBlockId, (zoomIn) => {
                 openFileById({
@@ -424,11 +424,11 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "insertRight",
-        label: window.siyuan.languages.insertRight,
+        label: window.shehab.languages.insertRight,
         icon: "iconLayoutRight",
-        accelerator: window.siyuan.config.keymap.editor.general.insertRight.custom + "/" + updateHotkeyTip("⌥" + window.siyuan.languages.click),
+        accelerator: window.shehab.config.keymap.editor.general.insertRight.custom + "/" + updateHotkeyTip("⌥" + window.shehab.languages.click),
         click() {
             checkFold(refBlockId, (zoomIn, action, isRoot) => {
                 if (!isRoot) {
@@ -444,11 +444,11 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "insertBottom",
-        label: window.siyuan.languages.insertBottom,
+        label: window.shehab.languages.insertBottom,
         icon: "iconLayoutBottom",
-        accelerator: window.siyuan.config.keymap.editor.general.insertBottom.custom + (window.siyuan.config.keymap.editor.general.insertBottom.custom ? "/" : "") + updateHotkeyTip("⇧" + window.siyuan.languages.click),
+        accelerator: window.shehab.config.keymap.editor.general.insertBottom.custom + (window.shehab.config.keymap.editor.general.insertBottom.custom ? "/" : "") + updateHotkeyTip("⇧" + window.shehab.languages.click),
         click() {
             checkFold(refBlockId, (zoomIn, action, isRoot) => {
                 if (!isRoot) {
@@ -465,21 +465,21 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
         }
     }).element);
     /// #if !BROWSER
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "openByNewWindow",
-        label: window.siyuan.languages.openByNewWindow,
+        label: window.shehab.languages.openByNewWindow,
         icon: "iconOpenWindow",
         click() {
             openNewWindowById(refBlockId);
         }
     }).element);
     /// #endif
-    window.siyuan.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
+    window.shehab.menus.menu.append(new MenuItem({
         id: "backlinks",
         icon: "iconLink",
-        label: window.siyuan.languages.backlinks,
-        accelerator: window.siyuan.config.keymap.editor.general.backlinks.custom,
+        label: window.shehab.languages.backlinks,
+        accelerator: window.shehab.config.keymap.editor.general.backlinks.custom,
         click: () => {
             openBacklink({
                 app: protyle.app,
@@ -487,11 +487,11 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "graphView",
         icon: "iconGraph",
-        label: window.siyuan.languages.graphView,
-        accelerator: window.siyuan.config.keymap.editor.general.graphView.custom,
+        label: window.shehab.languages.graphView,
+        accelerator: window.shehab.config.keymap.editor.general.graphView.custom,
         click: () => {
             openGraph({
                 app: protyle.app,
@@ -499,7 +499,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
+    window.shehab.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
     /// #endif
     if (!protyle.disabled) {
         let submenu: IMenu[] = [];
@@ -507,7 +507,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             submenu.push({
                 id: "turnToDynamic",
                 iconHTML: "",
-                label: window.siyuan.languages.turnToDynamic,
+                label: window.shehab.languages.turnToDynamic,
                 click() {
                     element.setAttribute("data-subtype", "d");
                     fetchPost("/api/block/getRefText", {id: refBlockId}, (response) => {
@@ -523,7 +523,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             submenu.push({
                 id: "turnToStatic",
                 iconHTML: "",
-                label: window.siyuan.languages.turnToStatic,
+                label: window.shehab.languages.turnToStatic,
                 click() {
                     element.setAttribute("data-subtype", "s");
                     nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
@@ -536,7 +536,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
         submenu = submenu.concat([{
             id: "text",
             iconHTML: "",
-            label: window.siyuan.languages.text,
+            label: window.shehab.languages.text,
             click() {
                 nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                 removeInlineType(element, "block-ref", protyle.toolbar.range);
@@ -558,7 +558,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
         }, {
             id: "text*",
             iconHTML: "",
-            label: window.siyuan.languages.text + " *",
+            label: window.shehab.languages.text + " *",
             click() {
                 element.insertAdjacentHTML("beforebegin", element.innerHTML + " ");
                 element.setAttribute("data-subtype", "s");
@@ -570,7 +570,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             }
         }, {
             id: "link",
-            label: window.siyuan.languages.link,
+            label: window.shehab.languages.link,
             iconHTML: "",
             click() {
                 element.outerHTML = `<span data-type="a" data-href="siyuan://blocks/${element.getAttribute("data-id")}">${element.innerHTML}</span><wbr>`;
@@ -584,7 +584,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
             submenu.push({
                 id: "blockEmbed",
                 iconHTML: "",
-                label: window.siyuan.languages.blockEmbed,
+                label: window.shehab.languages.blockEmbed,
                 click() {
                     const html = `<div data-content="select * from blocks where id='${refBlockId}'" data-node-id="${id}" data-type="NodeBlockQueryEmbed" class="render-node" updated="${dayjs().format("YYYYMMDDHHmmss")}">${nodeElement.querySelector(".protyle-attr").outerHTML}</div>`;
                     nodeElement.outerHTML = html;
@@ -597,7 +597,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
         submenu.push({
             id: "defBlock",
             iconHTML: "",
-            label: window.siyuan.languages.defBlock,
+            label: window.shehab.languages.defBlock,
             click() {
                 fetchPost("/api/block/swapBlockRef", {
                     refID: id,
@@ -609,7 +609,7 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
         submenu.push({
             id: "defBlockChildren",
             iconHTML: "",
-            label: window.siyuan.languages.defBlockChildren,
+            label: window.shehab.languages.defBlockChildren,
             click() {
                 fetchPost("/api/block/swapBlockRef", {
                     refID: id,
@@ -618,25 +618,25 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
                 });
             }
         });
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "turnInto",
-            label: window.siyuan.languages.turnInto,
+            label: window.shehab.languages.turnInto,
             icon: "iconRefresh",
             submenu
         }).element);
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         icon: "iconCopy",
         click() {
             writeText(protyle.lute.BlockDOM2StdMd(element.outerHTML).trim());
         }
     }).element);
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "cut",
-            label: window.siyuan.languages.cut,
+            label: window.shehab.languages.cut,
             icon: "iconCut",
             click() {
                 writeText(protyle.lute.BlockDOM2StdMd(element.outerHTML));
@@ -649,9 +649,9 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
                 oldHTML = nodeElement.outerHTML;
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "remove",
-            label: window.siyuan.languages.remove,
+            label: window.shehab.languages.remove,
             icon: "iconTrashcan",
             click() {
                 element.insertAdjacentHTML("afterend", "<wbr>");
@@ -676,21 +676,21 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
     }
 
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = element.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({
+    window.shehab.menus.menu.popup({
         x: rect.left,
         y: rect.top + 26,
         h: 26
     });
     /// #endif
     const popoverElement = hasTopClosestByClassName(protyle.element, "block__popover", true);
-    window.siyuan.menus.menu.data = element;
-    window.siyuan.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
+    window.shehab.menus.menu.data = element;
+    window.shehab.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.element.querySelector("input").select();
-        window.siyuan.menus.menu.removeCB = () => {
+        window.shehab.menus.menu.element.querySelector("input").select();
+        window.shehab.menus.menu.removeCB = () => {
             if (nodeElement.outerHTML !== oldHTML) {
                 nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                 updateTransaction(protyle, id, nodeElement.outerHTML, oldHTML);
@@ -707,29 +707,29 @@ export const refMenu = (protyle: IProtyle, element: HTMLElement) => {
 
 export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
     const range = getEditorRange(nodeElement);
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_CONTEXT);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_CONTEXT);
     /// #if MOBILE
     protyle.toolbar.showContent(protyle, range, nodeElement);
     /// #else
     const oldHTML = nodeElement.outerHTML;
     const id = nodeElement.getAttribute("data-node-id");
     if (range.toString() !== "" || (range.cloneContents().childNodes[0] as HTMLElement)?.classList?.contains("emoji")) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "copy",
             icon: "iconCopy",
             accelerator: "⌘C",
-            label: window.siyuan.languages.copy,
+            label: window.shehab.languages.copy,
             click() {
                 // range 需要重新计算 https://ld246.com/article/1644979219025
                 focusByRange(getEditorRange(nodeElement));
                 document.execCommand("copy");
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "copyPlainText",
-            label: window.siyuan.languages.copyPlainText,
-            accelerator: window.siyuan.config.keymap.editor.general.copyPlainText.custom,
+            label: window.shehab.languages.copyPlainText,
+            accelerator: window.shehab.config.keymap.editor.general.copyPlainText.custom,
             click() {
                 focusByRange(getEditorRange(nodeElement));
                 copyPlainText(getSelection().getRangeAt(0).toString());
@@ -738,21 +738,21 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
         if (protyle.disabled) {
             return;
         }
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "cut",
             icon: "iconCut",
             accelerator: "⌘X",
-            label: window.siyuan.languages.cut,
+            label: window.shehab.languages.cut,
             click() {
                 focusByRange(getEditorRange(nodeElement));
                 document.execCommand("cut");
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "delete",
             icon: "iconTrashcan",
             accelerator: "⌫",
-            label: window.siyuan.languages.delete,
+            label: window.shehab.languages.delete,
             click() {
                 const currentRange = getEditorRange(nodeElement);
                 currentRange.insertNode(document.createElement("wbr"));
@@ -768,27 +768,27 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
         if (inlineElement) {
             const inlineTypes = protyle.toolbar.getCurrentType(range);
             if (inlineTypes.includes("code") || inlineTypes.includes("kbd")) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "copy",
-                    label: window.siyuan.languages.copy,
+                    label: window.shehab.languages.copy,
                     icon: "iconCopy",
                     click() {
                         writeText(protyle.lute.BlockDOM2StdMd(inlineElement.outerHTML));
                     }
                 }).element);
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "copyPlainText",
-                    label: window.siyuan.languages.copyPlainText,
+                    label: window.shehab.languages.copyPlainText,
                     click() {
                         copyPlainText(inlineElement.textContent);
                     }
                 }).element);
                 if (!protyle.disabled) {
                     const id = nodeElement.getAttribute("data-node-id");
-                    window.siyuan.menus.menu.append(new MenuItem({
+                    window.shehab.menus.menu.append(new MenuItem({
                         id: "cut",
                         icon: "iconCut",
-                        label: window.siyuan.languages.cut,
+                        label: window.shehab.languages.cut,
                         click() {
                             writeText(protyle.lute.BlockDOM2StdMd(inlineElement.outerHTML));
 
@@ -799,10 +799,10 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
                             focusByWbr(nodeElement, protyle.toolbar.range);
                         }
                     }).element);
-                    window.siyuan.menus.menu.append(new MenuItem({
+                    window.shehab.menus.menu.append(new MenuItem({
                         id: "remove",
                         icon: "iconTrashcan",
-                        label: window.siyuan.languages.remove,
+                        label: window.shehab.languages.remove,
                         click() {
                             inlineElement.insertAdjacentHTML("afterend", "<wbr>");
                             inlineElement.remove();
@@ -812,16 +812,16 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
                         }
                     }).element);
                 }
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     type: "separator",
                 }).element);
             }
         }
     }
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "paste",
-            label: window.siyuan.languages.paste,
+            label: window.shehab.languages.paste,
             icon: "iconPaste",
             accelerator: "⌘V",
             async click() {
@@ -838,27 +838,27 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
                 }
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "pasteAsPlainText",
-            label: window.siyuan.languages.pasteAsPlainText,
+            label: window.shehab.languages.pasteAsPlainText,
             accelerator: "⇧⌘V",
             click() {
                 focusByRange(getEditorRange(nodeElement));
                 pasteAsPlainText(protyle);
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "pasteEscaped",
-            label: window.siyuan.languages.pasteEscaped,
+            label: window.shehab.languages.pasteEscaped,
             click() {
                 focusByRange(getEditorRange(nodeElement));
                 pasteEscaped(protyle, nodeElement);
             }
         }).element);
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "selectAll",
-        label: window.siyuan.languages.selectAll,
+        label: window.shehab.languages.selectAll,
         icon: "iconSelect",
         accelerator: "⌘A",
         click() {
@@ -870,32 +870,32 @@ export const contentMenu = (protyle: IProtyle, nodeElement: Element) => {
         if (cellElement) {
             const tableMenus = tableMenu(protyle, nodeElement, cellElement as HTMLTableCellElement, range);
             if (tableMenus.insertMenus.length > 0) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "separator_1",
                     type: "separator",
                 }).element);
                 tableMenus.insertMenus.forEach((menuItem) => {
-                    window.siyuan.menus.menu.append(new MenuItem(menuItem).element);
+                    window.shehab.menus.menu.append(new MenuItem(menuItem).element);
                 });
             }
             if (tableMenus.removeMenus.length > 0) {
-                window.siyuan.menus.menu.append(new MenuItem({
+                window.shehab.menus.menu.append(new MenuItem({
                     id: "separator_2",
                     type: "separator",
                 }).element);
                 tableMenus.removeMenus.forEach((menuItem) => {
-                    window.siyuan.menus.menu.append(new MenuItem(menuItem).element);
+                    window.shehab.menus.menu.append(new MenuItem(menuItem).element);
                 });
             }
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "separator_3",
                 type: "separator",
             }).element);
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "more",
                 type: "submenu",
                 icon: "iconMore",
-                label: window.siyuan.languages.more,
+                label: window.shehab.languages.more,
                 submenu: tableMenus.otherMenus.concat(tableMenus.other2Menus)
             }).element);
         }
@@ -955,7 +955,7 @@ export const zoomOut = (options: {
     if (blockPanelElement) {
         const pingElement = blockPanelElement.querySelector('[data-type="pin"]');
         if (pingElement && blockPanelElement.getAttribute("data-pin") !== "true") {
-            pingElement.setAttribute("aria-label", window.siyuan.languages.unpin);
+            pingElement.setAttribute("aria-label", window.shehab.languages.unpin);
             pingElement.querySelector("use").setAttribute("xlink:href", "#iconUnpin");
             blockPanelElement.setAttribute("data-pin", "true");
         }
@@ -972,18 +972,18 @@ export const zoomOut = (options: {
             return;
         }
     }
-    if (window.siyuan.mobile?.editor) {
-        window.siyuan.storage[Constants.LOCAL_DOCINFO] = {
+    if (window.shehab.mobile?.editor) {
+        window.shehab.storage[Constants.LOCAL_DOCINFO] = {
             id: options.id,
         };
-        setStorageVal(Constants.LOCAL_DOCINFO, window.siyuan.storage[Constants.LOCAL_DOCINFO]);
+        setStorageVal(Constants.LOCAL_DOCINFO, window.shehab.storage[Constants.LOCAL_DOCINFO]);
         if (options.isPushBack) {
             pushBack();
         }
     }
     fetchPost("/api/filetree/getDoc", {
         id: options.id,
-        size: options.id === options.protyle.block.rootID ? window.siyuan.config.editor.dynamicLoadBlocks : Constants.SIZE_GET_MAX,
+        size: options.id === options.protyle.block.rootID ? window.shehab.config.editor.dynamicLoadBlocks : Constants.SIZE_GET_MAX,
     }, async (getResponse) => {
         if (options.isPushBack) {
             onGet({
@@ -1031,7 +1031,7 @@ export const zoomOut = (options: {
             } else if (!options.focusId) {
                 fetchPost("/api/filetree/getDoc", {
                     id: options.protyle.block.rootID,
-                    size: window.siyuan.config.editor.dynamicLoadBlocks,
+                    size: window.shehab.config.editor.dynamicLoadBlocks,
                 }, getFocusResponse => {
                     onGet({
                         data: getFocusResponse,
@@ -1044,7 +1044,7 @@ export const zoomOut = (options: {
                 fetchPost("/api/filetree/getDoc", {
                     id: options.focusId,
                     mode: 3,
-                    size: window.siyuan.config.editor.dynamicLoadBlocks,
+                    size: window.shehab.config.editor.dynamicLoadBlocks,
                 }, getFocusResponse => {
                     onGet({
                         data: getFocusResponse,
@@ -1078,8 +1078,8 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
     clientX: number,
     clientY: number
 }) => {
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_IMG);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_IMG);
     const nodeElement = hasClosestBlock(assetElement);
     if (!nodeElement) {
         return;
@@ -1094,26 +1094,26 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
         src = "";
     }
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "imageUrlAndTitleAndTooltipText",
             iconHTML: "",
             type: "readonly",
             label: `<div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.imageURL}</span>
+    <span class="fn__flex-center">${window.shehab.languages.imageURL}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea spellcheck="false" style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" rows="1" class="b3-text-field">${src}</textarea><div class="fn__hr"></div><div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.title}</span>
+    <span class="fn__flex-center">${window.shehab.languages.title}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" rows="1" class="b3-text-field"></textarea><div class="fn__hr"></div><div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.tooltipText}</span>
+    <span class="fn__flex-center">${window.shehab.languages.tooltipText}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" rows="1" class="b3-text-field"></textarea>`,
@@ -1129,7 +1129,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                         if (imgNetElement) {
                             imgNetElement.remove();
                         }
-                    } else if (window.siyuan.config.editor.displayNetImgMark) {
+                    } else if (window.shehab.config.editor.displayNetImgMark) {
                         assetElement.querySelector(".protyle-action__drag").insertAdjacentHTML("afterend", '<span class="img__net"><svg><use xlink:href="#iconLanguage"></use></svg></span>');
                     }
                 });
@@ -1146,7 +1146,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                     while (target) {
                         if (target.dataset.action === "copy") {
                             writeText((target.parentElement.nextElementSibling as HTMLTextAreaElement).value);
-                            showMessage(window.siyuan.languages.copied);
+                            showMessage(window.shehab.languages.copied);
                             break;
                         }
                         target = target.parentElement;
@@ -1154,11 +1154,11 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                 });
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         accelerator: "⌘C",
         icon: "iconCopy",
         click() {
@@ -1169,30 +1169,30 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
         }
     }).element);
     if (protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "copyImageURL",
-            label: window.siyuan.languages.copy + " " + window.siyuan.languages.imageURL,
+            label: window.shehab.languages.copy + " " + window.shehab.languages.imageURL,
             icon: "iconLink",
             click() {
                 writeText(imgElement.getAttribute("src"));
             }
         }).element);
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copyAsPNG",
-        label: window.siyuan.languages.copyAsPNG,
-        accelerator: window.siyuan.config.keymap.editor.general.copyBlockRef.custom,
+        label: window.shehab.languages.copyAsPNG,
+        accelerator: window.shehab.config.keymap.editor.general.copyBlockRef.custom,
         icon: "iconImage",
         click() {
             copyPNGByLink(imgElement.getAttribute("src"));
         }
     }).element);
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "cut",
             icon: "iconCut",
             accelerator: "⌘X",
-            label: window.siyuan.languages.cut,
+            label: window.shehab.languages.cut,
             click() {
                 let content = protyle.lute.BlockDOM2StdMd(assetElement.outerHTML);
                 // The file name encoding is abnormal after copying the image and pasting it https://github.com/siyuan-note/siyuan/issues/11246
@@ -1204,11 +1204,11 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                 focusByWbr(protyle.wysiwyg.element, range);
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "delete",
             icon: "iconTrashcan",
             accelerator: "⌫",
-            label: window.siyuan.languages.delete,
+            label: window.shehab.languages.delete,
             click: function () {
                 (assetElement as HTMLElement).outerHTML = "<wbr>";
                 nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
@@ -1216,26 +1216,26 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                 focusByWbr(protyle.wysiwyg.element, range);
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
         const imagePath = imgElement.getAttribute("data-src");
         if (imagePath.startsWith("assets/")) {
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "rename",
-                label: window.siyuan.languages.rename,
+                label: window.shehab.languages.rename,
                 icon: "iconEdit",
                 click() {
                     renameAsset(imagePath);
                 }
             }).element);
         }
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "ocr",
             label: "OCR",
             submenu: [{
                 id: "ocrResult",
                 iconHTML: "",
                 type: "readonly",
-                label: `<textarea spellcheck="false" data-type="ocr" style="margin: 4px 0" rows="1" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.ocrResult}"></textarea>`,
+                label: `<textarea spellcheck="false" data-type="ocr" style="margin: 4px 0" rows="1" class="b3-text-field fn__block" placeholder="${window.shehab.languages.ocrResult}"></textarea>`,
                 bind(element) {
                     element.style.maxWidth = "none";
                     fetchPost("/api/asset/getImageOCRText", {
@@ -1251,7 +1251,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
             }, {
                 id: "reOCR",
                 iconHTML: "",
-                label: window.siyuan.languages.reOCR,
+                label: window.shehab.languages.reOCR,
                 click() {
                     fetchPost("/api/asset/ocr", {
                         path: imgElement.getAttribute("src"),
@@ -1260,38 +1260,38 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                 }
             }],
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "alignCenter",
             icon: "iconAlignCenter",
-            label: window.siyuan.languages.alignCenter,
-            accelerator: window.siyuan.config.keymap.editor.general.alignCenter.custom,
+            label: window.shehab.languages.alignCenter,
+            accelerator: window.shehab.config.keymap.editor.general.alignCenter.custom,
             click() {
                 alignImgCenter(protyle, nodeElement, [assetElement], id, html);
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "alignLeft",
             icon: "iconAlignLeft",
-            label: window.siyuan.languages.alignLeft,
-            accelerator: window.siyuan.config.keymap.editor.general.alignLeft.custom,
+            label: window.shehab.languages.alignLeft,
+            accelerator: window.shehab.config.keymap.editor.general.alignLeft.custom,
             click() {
                 alignImgLeft(protyle, nodeElement, [assetElement], id, html);
             }
         }).element);
         let rangeElement: HTMLInputElement;
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "width",
-            label: window.siyuan.languages.width,
+            label: window.shehab.languages.width,
             submenu: [{
                 id: "widthInput",
                 iconHTML: "",
                 type: "readonly",
-                label: `<div class="fn__flex"><input class="b3-text-field fn__flex-1" style="margin: 4px 8px 4px 0" value="${imgElement.parentElement.style.width.endsWith("px") ? parseInt(imgElement.parentElement.style.width) : ""}" type="number" placeholder="${window.siyuan.languages.width}"><span class="fn__flex-center">px</span></div>`,
+                label: `<div class="fn__flex"><input class="b3-text-field fn__flex-1" style="margin: 4px 8px 4px 0" value="${imgElement.parentElement.style.width.endsWith("px") ? parseInt(imgElement.parentElement.style.width) : ""}" type="number" placeholder="${window.shehab.languages.width}"><span class="fn__flex-center">px</span></div>`,
                 bind(element) {
                     const inputElement = element.querySelector("input");
                     inputElement.addEventListener("input", () => {
                         rangeElement.value = "0";
-                        rangeElement.parentElement.setAttribute("aria-label", inputElement.value ? (inputElement.value + "px") : window.siyuan.languages.default);
+                        rangeElement.parentElement.setAttribute("aria-label", inputElement.value ? (inputElement.value + "px") : window.shehab.languages.default);
 
                         img3115(assetElement);
                         imgElement.parentElement.style.width = inputElement.value ? (inputElement.value + "px") : "";
@@ -1303,7 +1303,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                         }
                         nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                         updateTransaction(protyle, id, nodeElement.outerHTML, html);
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                         focusBlock(nodeElement);
                     });
                 }
@@ -1320,7 +1320,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                     id: "widthDrag",
                     iconHTML: "",
                     type: "readonly",
-                    label: `<div style="margin: 4px 0;" aria-label="${imgElement.parentElement.style.width ? imgElement.parentElement.style.width.replace("vw", "%").replace("calc(", "").replace(" - 8px)", "") : window.siyuan.languages.default}" class="b3-tooltips b3-tooltips__n"><input style="box-sizing: border-box" value="${(imgElement.parentElement.style.width.indexOf("%") > -1 || imgElement.parentElement.style.width.endsWith("vw")) ? parseInt(imgElement.parentElement.style.width.replace("calc(", "")) : 0}" class="b3-slider fn__block" max="100" min="1" step="1" type="range"></div>`,
+                    label: `<div style="margin: 4px 0;" aria-label="${imgElement.parentElement.style.width ? imgElement.parentElement.style.width.replace("vw", "%").replace("calc(", "").replace(" - 8px)", "") : window.shehab.languages.default}" class="b3-tooltips b3-tooltips__n"><input style="box-sizing: border-box" value="${(imgElement.parentElement.style.width.indexOf("%") > -1 || imgElement.parentElement.style.width.endsWith("vw")) ? parseInt(imgElement.parentElement.style.width.replace("calc(", "")) : 0}" class="b3-slider fn__block" max="100" min="1" step="1" type="range"></div>`,
                     bind(element) {
                         rangeElement = element.querySelector("input");
                         rangeElement.addEventListener("input", () => {
@@ -1332,7 +1332,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                         rangeElement.addEventListener("change", () => {
                             nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                             updateTransaction(protyle, id, nodeElement.outerHTML, html);
-                            window.siyuan.menus.menu.remove();
+                            window.shehab.menus.menu.remove();
                             focusBlock(nodeElement);
                         });
                     }
@@ -1340,23 +1340,23 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                     id: "separator_2",
                     type: "separator",
                 },
-                genImageWidthMenu(window.siyuan.languages.default, imgElement, protyle, id, nodeElement, html),
+                genImageWidthMenu(window.shehab.languages.default, imgElement, protyle, id, nodeElement, html),
             ]
         }).element);
         let rangeHeightElement: HTMLInputElement;
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "height",
-            label: window.siyuan.languages.height,
+            label: window.shehab.languages.height,
             submenu: [{
                 id: "heightInput",
                 iconHTML: "",
                 type: "readonly",
-                label: `<div class="fn__flex"><input class="b3-text-field fn__flex-1" value="${imgElement.style.height.endsWith("px") ? parseInt(imgElement.style.height) : ""}" type="number" style="margin: 4px 8px 4px 0" placeholder="${window.siyuan.languages.height}"><span class="fn__flex-center">px</span></div>`,
+                label: `<div class="fn__flex"><input class="b3-text-field fn__flex-1" value="${imgElement.style.height.endsWith("px") ? parseInt(imgElement.style.height) : ""}" type="number" style="margin: 4px 8px 4px 0" placeholder="${window.shehab.languages.height}"><span class="fn__flex-center">px</span></div>`,
                 bind(element) {
                     const inputElement = element.querySelector("input");
                     inputElement.addEventListener("input", () => {
                         rangeHeightElement.value = "0";
-                        rangeHeightElement.parentElement.setAttribute("aria-label", inputElement.value ? (inputElement.value + "px") : window.siyuan.languages.default);
+                        rangeHeightElement.parentElement.setAttribute("aria-label", inputElement.value ? (inputElement.value + "px") : window.shehab.languages.default);
 
                         imgElement.style.height = inputElement.value ? (inputElement.value + "px") : "";
                         img3115(assetElement);
@@ -1368,7 +1368,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                         }
                         nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                         updateTransaction(protyle, id, nodeElement.outerHTML, html);
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                         focusBlock(nodeElement);
                     });
                 }
@@ -1385,7 +1385,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                     id: "heightDrag",
                     iconHTML: "",
                     type: "readonly",
-                    label: `<div style="margin: 4px 0;" aria-label="${imgElement.style.height ? imgElement.style.height.replace("vh", "%") : window.siyuan.languages.default}" class="b3-tooltips b3-tooltips__n"><input style="box-sizing: border-box" value="${imgElement.style.height.endsWith("vh") ? parseInt(imgElement.style.height) : 0}" class="b3-slider fn__block" max="100" min="1" step="1" type="range"></div>`,
+                    label: `<div style="margin: 4px 0;" aria-label="${imgElement.style.height ? imgElement.style.height.replace("vh", "%") : window.shehab.languages.default}" class="b3-tooltips b3-tooltips__n"><input style="box-sizing: border-box" value="${imgElement.style.height.endsWith("vh") ? parseInt(imgElement.style.height) : 0}" class="b3-slider fn__block" max="100" min="1" step="1" type="range"></div>`,
                     bind(element) {
                         rangeHeightElement = element.querySelector("input");
                         rangeHeightElement.addEventListener("input", () => {
@@ -1397,7 +1397,7 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                         rangeHeightElement.addEventListener("change", () => {
                             nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
                             updateTransaction(protyle, id, nodeElement.outerHTML, html);
-                            window.siyuan.menus.menu.remove();
+                            window.shehab.menus.menu.remove();
                             focusBlock(nodeElement);
                         });
                     }
@@ -1405,18 +1405,18 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
                     id: "separator_2",
                     type: "separator",
                 },
-                genImageHeightMenu(window.siyuan.languages.default, imgElement, protyle, id, nodeElement, html),
+                genImageHeightMenu(window.shehab.languages.default, imgElement, protyle, id, nodeElement, html),
             ]
         }).element);
     }
     const imgSrc = imgElement.getAttribute("src");
     if (imgSrc) {
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_3", type: "separator"}).element);
         openMenu(protyle.app, imgSrc, false, false);
     }
     const dataSrc = imgElement.getAttribute("data-src");
     if (dataSrc && dataSrc.startsWith("assets/")) {
-        window.siyuan.menus.menu.append(new MenuItem(exportAsset(dataSrc)).element);
+        window.shehab.menus.menu.append(new MenuItem(exportAsset(dataSrc)).element);
     }
     if (protyle?.app?.plugins) {
         emitOpenMenu({
@@ -1430,21 +1430,21 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
         });
     }
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
-    window.siyuan.menus.menu.popup({x: position.clientX, y: position.clientY});
+    window.shehab.menus.menu.popup({x: position.clientX, y: position.clientY});
     /// #endif
     const popoverElement = hasTopClosestByClassName(protyle.element, "block__popover", true);
-    window.siyuan.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
+    window.shehab.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
     if (!protyle.disabled) {
-        const textElements = window.siyuan.menus.menu.element.querySelectorAll("textarea");
+        const textElements = window.shehab.menus.menu.element.querySelectorAll("textarea");
         if (textElements[0].value) {
             textElements[1].select();
         } else {
             textElements[0].select();
         }
-        window.siyuan.menus.menu.removeCB = () => {
-            const ocrElement = window.siyuan.menus.menu.element.querySelector('[data-type="ocr"]') as HTMLTextAreaElement;
+        window.shehab.menus.menu.removeCB = () => {
+            const ocrElement = window.shehab.menus.menu.element.querySelector('[data-type="ocr"]') as HTMLTextAreaElement;
             if (ocrElement && ocrElement.dataset.ocrText !== ocrElement.value) {
                 fetchPost("/api/asset/setImageOCRText", {
                     path: imgElement.getAttribute("src"),
@@ -1459,8 +1459,8 @@ export const imgMenu = (protyle: IProtyle, range: Range, assetElement: HTMLEleme
 };
 
 export const linkMenu = (protyle: IProtyle, linkElement: HTMLElement, focusText = false) => {
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_A);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_A);
     const nodeElement = hasClosestBlock(linkElement);
     if (!nodeElement) {
         return;
@@ -1472,27 +1472,27 @@ export const linkMenu = (protyle: IProtyle, linkElement: HTMLElement, focusText 
     const linkAddress = linkElement.getAttribute("data-href");
     let inputElements: NodeListOf<HTMLTextAreaElement>;
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "linkAndAnchorAndTitle",
             iconHTML: "",
             type: "readonly",
             label: `<div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.link}</span>
+    <span class="fn__flex-center">${window.shehab.languages.link}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea spellcheck="false" rows="1" 
 style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-field"></textarea><div class="fn__hr"></div><div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.anchor}</span>
+    <span class="fn__flex-center">${window.shehab.languages.anchor}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea style="width: ${isMobile() ? "100%" : "360px"};margin: 4px 0;" rows="1" class="b3-text-field"></textarea><div class="fn__hr"></div><div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.title}</span>
+    <span class="fn__flex-center">${window.shehab.languages.title}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div><textarea style="width: ${isMobile() ? "100%" : "360px"};margin: 4px 0;" rows="1" class="b3-text-field"></textarea>`,
@@ -1504,7 +1504,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                     if ((event.key === "Enter" || event.key === "Escape") && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     } else if (event.key === "Tab" && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -1537,7 +1537,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                     if ((event.key === "Enter" || event.key === "Escape") && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     } else if (event.key === "Tab" && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -1556,7 +1556,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                     if ((event.key === "Enter" || event.key === "Escape") && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
-                        window.siyuan.menus.menu.remove();
+                        window.shehab.menus.menu.remove();
                     } else if (event.key === "Tab" && event.shiftKey && !event.isComposing) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -1571,7 +1571,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                     while (target) {
                         if (target.dataset.action === "copy") {
                             writeText((target.parentElement.nextElementSibling as HTMLTextAreaElement).value);
-                            showMessage(window.siyuan.languages.copied);
+                            showMessage(window.shehab.languages.copied);
                             break;
                         }
                         target = target.parentElement;
@@ -1579,11 +1579,11 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                 });
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         icon: "iconCopy",
         click() {
             const range = document.createRange();
@@ -1593,9 +1593,9 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
         }
     }).element);
     if (protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "copyAHref",
-            label: window.siyuan.languages.copyAHref,
+            label: window.shehab.languages.copyAHref,
             icon: "iconLink",
             click() {
                 writeText(linkAddress);
@@ -1603,10 +1603,10 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
         }).element);
     }
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "cut",
             icon: "iconCut",
-            label: window.siyuan.languages.cut,
+            label: window.shehab.languages.cut,
             click() {
                 const range = document.createRange();
                 range.selectNode(linkElement);
@@ -1614,10 +1614,10 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                 document.execCommand("cut");
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "remove",
             icon: "iconTrashcan",
-            label: window.siyuan.languages.remove,
+            label: window.shehab.languages.remove,
             click() {
                 linkElement.insertAdjacentHTML("afterend", "<wbr>");
                 linkElement.remove();
@@ -1628,9 +1628,9 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
             }
         }).element);
         if (linkAddress?.startsWith("assets/")) {
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "rename",
-                label: window.siyuan.languages.rename,
+                label: window.shehab.languages.rename,
                 icon: "iconEdit",
                 click() {
                     renameAsset(linkAddress);
@@ -1638,9 +1638,9 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
             }).element);
         }
         if (linkAddress?.startsWith("siyuan://blocks/")) {
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 id: "turnIntoRef",
-                label: `${window.siyuan.languages.turnInto} <b>${window.siyuan.languages.ref}</b>`,
+                label: `${window.shehab.languages.turnInto} <b>${window.shehab.languages.ref}</b>`,
                 icon: "iconRef",
                 click() {
                     linkElement.setAttribute("data-subtype", "s");
@@ -1662,9 +1662,9 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
                 }
             }).element);
         }
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "turnIntoText",
-            label: `${window.siyuan.languages.turnInto} <b>${window.siyuan.languages.text}</b>`,
+            label: `${window.shehab.languages.turnInto} <b>${window.shehab.languages.text}</b>`,
             icon: "iconRefresh",
             click() {
                 inputElements[0].value = "";
@@ -1678,10 +1678,10 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
     }
 
     if (linkAddress) {
-        window.siyuan.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
+        window.shehab.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
         openMenu(protyle.app, linkAddress, false, true);
         if (linkAddress?.startsWith("assets/")) {
-            window.siyuan.menus.menu.append(new MenuItem(exportAsset(linkAddress)).element);
+            window.shehab.menus.menu.append(new MenuItem(exportAsset(linkAddress)).element);
         }
     }
 
@@ -1697,10 +1697,10 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
         });
     }
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = linkElement.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({
+    window.shehab.menus.menu.popup({
         x: rect.left,
         y: rect.top + 26,
         h: 26
@@ -1708,7 +1708,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
     /// #endif
 
     const popoverElement = hasTopClosestByClassName(protyle.element, "block__popover", true);
-    window.siyuan.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
+    window.shehab.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
     if (protyle.disabled) {
         return;
     }
@@ -1717,7 +1717,7 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
     } else {
         inputElements[0].select();
     }
-    window.siyuan.menus.menu.removeCB = () => {
+    window.shehab.menus.menu.removeCB = () => {
         if (inputElements[2].value) {
             linkElement.setAttribute("data-title", Lute.EscapeHTMLStr(inputElements[2].value.replace(/\n|\r\n|\r|\u2028|\u2029/g, "")));
         } else {
@@ -1748,8 +1748,8 @@ style="margin:4px 0;width: ${isMobile() ? "100%" : "360px"}" class="b3-text-fiel
 };
 
 export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_TAG);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_TAG);
     const nodeElement = hasClosestBlock(tagElement);
     if (!nodeElement) {
         return;
@@ -1757,11 +1757,11 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
     hideElements(["util", "toolbar", "hint"], protyle);
     const id = nodeElement.getAttribute("data-node-id");
     let html = nodeElement.outerHTML;
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "tag",
         iconHTML: "",
         type: "readonly",
-        label: `<input class="b3-text-field fn__block" style="margin: 4px 0" placeholder="${window.siyuan.languages.tag}">`,
+        label: `<input class="b3-text-field fn__block" style="margin: 4px 0" placeholder="${window.shehab.languages.tag}">`,
         bind(element) {
             const inputElement = element.querySelector("input");
             inputElement.value = tagElement.textContent.replace(Constants.ZWSP, "");
@@ -1794,19 +1794,19 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
                         protyle.toolbar.range.collapse(false);
                         focusByRange(protyle.toolbar.range);
                     }
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                 } else if (electronUndo(event)) {
                     return;
                 }
             });
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
+    window.shehab.menus.menu.append(new MenuItem({id: "separator_1", type: "separator"}).element);
 
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "search",
-        label: window.siyuan.languages.search,
-        accelerator: window.siyuan.languages.click,
+        label: window.shehab.languages.search,
+        accelerator: window.shehab.languages.click,
         icon: "iconSearch",
         click() {
             /// #if !MOBILE
@@ -1824,18 +1824,18 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
             /// #endif
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "rename",
-        label: window.siyuan.languages.rename,
+        label: window.shehab.languages.rename,
         icon: "iconEdit",
         click() {
             renameTag(tagElement.textContent.replace(Constants.ZWSP, ""));
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({id: "separator_2", type: "separator"}).element);
+    window.shehab.menus.menu.append(new MenuItem({
         id: "turnIntoText",
-        label: `${window.siyuan.languages.turnInto} <b>${window.siyuan.languages.text}</b>`,
+        label: `${window.shehab.languages.turnInto} <b>${window.shehab.languages.text}</b>`,
         icon: "iconRefresh",
         click() {
             protyle.toolbar.range.setStart(tagElement.firstChild, 0);
@@ -1843,9 +1843,9 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
             protyle.toolbar.setInlineMark(protyle, "tag", "range");
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         icon: "iconCopy",
         click() {
             const range = document.createRange();
@@ -1854,9 +1854,9 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
             document.execCommand("copy");
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "cut",
-        label: window.siyuan.languages.cut,
+        label: window.shehab.languages.cut,
         icon: "iconCut",
         click() {
             const range = document.createRange();
@@ -1865,10 +1865,10 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
             document.execCommand("cut");
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "remove",
         icon: "iconTrashcan",
-        label: window.siyuan.languages.remove,
+        label: window.shehab.languages.remove,
         click() {
             const oldHTML = nodeElement.outerHTML;
             tagElement.insertAdjacentHTML("afterend", "<wbr>");
@@ -1892,32 +1892,32 @@ export const tagMenu = (protyle: IProtyle, tagElement: HTMLElement) => {
     }
 
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = tagElement.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({
+    window.shehab.menus.menu.popup({
         x: rect.left,
         y: rect.top + 26,
         h: 26
     });
     /// #endif
     const popoverElement = hasTopClosestByClassName(protyle.element, "block__popover", true);
-    window.siyuan.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
-    window.siyuan.menus.menu.element.querySelector("input").select();
+    window.shehab.menus.menu.element.setAttribute("data-from", popoverElement ? popoverElement.dataset.level + "popover" : "app");
+    window.shehab.menus.menu.element.querySelector("input").select();
 };
 
 export const inlineMathMenu = (protyle: IProtyle, element: Element) => {
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_MATH);
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_INLINE_MATH);
     const nodeElement = hasClosestBlock(element);
     if (!nodeElement) {
         return;
     }
     const id = nodeElement.getAttribute("data-node-id");
     const html = nodeElement.outerHTML;
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         icon: "iconCopy",
         click() {
             const range = document.createRange();
@@ -1927,10 +1927,10 @@ export const inlineMathMenu = (protyle: IProtyle, element: Element) => {
         }
     }).element);
     if (!protyle.disabled) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "cut",
             icon: "iconCut",
-            label: window.siyuan.languages.cut,
+            label: window.shehab.languages.cut,
             click() {
                 const range = document.createRange();
                 range.selectNode(element);
@@ -1938,10 +1938,10 @@ export const inlineMathMenu = (protyle: IProtyle, element: Element) => {
                 document.execCommand("cut");
             }
         }).element);
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "remove",
             icon: "iconTrashcan",
-            label: window.siyuan.languages.remove,
+            label: window.shehab.languages.remove,
             click() {
                 element.insertAdjacentHTML("afterend", "<wbr>");
                 element.remove();
@@ -1952,7 +1952,7 @@ export const inlineMathMenu = (protyle: IProtyle, element: Element) => {
         }).element);
     }
     const rect = element.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({
+    window.shehab.menus.menu.popup({
         x: rect.left,
         y: rect.top + 26,
         h: 26
@@ -1961,13 +1961,13 @@ export const inlineMathMenu = (protyle: IProtyle, element: Element) => {
 
 const genImageWidthMenu = (label: string, imgElement: HTMLElement, protyle: IProtyle, id: string, nodeElement: HTMLElement, html: string) => {
     return {
-        id: label === window.siyuan.languages.default ? "default" : "width_" + label,
+        id: label === window.shehab.languages.default ? "default" : "width_" + label,
         iconHTML: "",
         label,
         click() {
             nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
             img3115(imgElement.parentElement.parentElement);
-            imgElement.parentElement.style.width = label === window.siyuan.languages.default ? "" : `calc(${label} - 8px)`;
+            imgElement.parentElement.style.width = label === window.shehab.languages.default ? "" : `calc(${label} - 8px)`;
             imgElement.style.height = "";
             updateTransaction(protyle, id, nodeElement.outerHTML, html);
             focusBlock(nodeElement);
@@ -1977,12 +1977,12 @@ const genImageWidthMenu = (label: string, imgElement: HTMLElement, protyle: IPro
 
 const genImageHeightMenu = (label: string, imgElement: HTMLElement, protyle: IProtyle, id: string, nodeElement: HTMLElement, html: string) => {
     return {
-        id: label === window.siyuan.languages.default ? "default" : "width_" + label,
+        id: label === window.shehab.languages.default ? "default" : "width_" + label,
         iconHTML: "",
         label,
         click() {
             nodeElement.setAttribute("updated", dayjs().format("YYYYMMDDHHmmss"));
-            imgElement.style.height = label === window.siyuan.languages.default ? "" : parseInt(label) + "vh";
+            imgElement.style.height = label === window.shehab.languages.default ? "" : parseInt(label) + "vh";
             img3115(imgElement.parentElement.parentElement);
             imgElement.parentElement.style.width = "";
             updateTransaction(protyle, id, nodeElement.outerHTML, html);
@@ -1999,7 +1999,7 @@ export const iframeMenu = (protyle: IProtyle, nodeElement: Element) => {
         id: "asset",
         iconHTML: "",
         type: "readonly",
-        label: `<textarea spellcheck="false" rows="1" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.link}" style="margin: 4px 0">${iframeElement.getAttribute("src") || ""}</textarea>`,
+        label: `<textarea spellcheck="false" rows="1" class="b3-text-field fn__block" placeholder="${window.shehab.languages.link}" style="margin: 4px 0">${iframeElement.getAttribute("src") || ""}</textarea>`,
         bind(element) {
             element.style.maxWidth = "none";
             element.querySelector("textarea").addEventListener("change", (event) => {
@@ -2070,7 +2070,7 @@ export const videoMenu = (protyle: IProtyle, nodeElement: Element, type: string)
         id: "asset",
         iconHTML: "",
         type: "readonly",
-        label: `<textarea spellcheck="false" rows="1" style="margin: 4px 0" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.link}">${videoElement.getAttribute("src")}</textarea>`,
+        label: `<textarea spellcheck="false" rows="1" style="margin: 4px 0" class="b3-text-field fn__block" placeholder="${window.shehab.languages.link}">${videoElement.getAttribute("src")}</textarea>`,
         bind(element) {
             element.style.maxWidth = "none";
             element.querySelector("textarea").addEventListener("change", (event) => {
@@ -2088,7 +2088,7 @@ export const videoMenu = (protyle: IProtyle, nodeElement: Element, type: string)
         });
         subMenus.push({
             id: "rename",
-            label: window.siyuan.languages.rename,
+            label: window.shehab.languages.rename,
             icon: "iconEdit",
             click() {
                 renameAsset(src);
@@ -2098,7 +2098,7 @@ export const videoMenu = (protyle: IProtyle, nodeElement: Element, type: string)
     if (src) {
         subMenus.push({
             id: "openBy",
-            label: window.siyuan.languages.openBy,
+            label: window.shehab.languages.openBy,
             icon: "iconOpen",
             submenu: openMenu(protyle.app, src, true, false) as IMenu[]
         });
@@ -2115,7 +2115,7 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     if (cellElement.rowSpan > 1 || cellElement.colSpan > 1) {
         otherMenus.push({
             id: "cancelMerged",
-            label: window.siyuan.languages.cancelMerged,
+            label: window.shehab.languages.cancelMerged,
             click: () => {
                 const oldHTML = nodeElement.outerHTML;
                 let rowSpan = cellElement.rowSpan;
@@ -2166,7 +2166,7 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     if (thMatchElement.style.width || thMatchElement.style.minWidth !== "60px") {
         otherMenus.push({
             id: "useDefaultWidth",
-            label: window.siyuan.languages.useDefaultWidth,
+            label: window.shehab.languages.useDefaultWidth,
             click: () => {
                 const html = nodeElement.outerHTML;
                 thMatchElement.style.width = "";
@@ -2179,7 +2179,7 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     otherMenus.push({
         id: isPinHead ? "unpinTableHead" : "pinTableHead",
         icon: isPinHead ? "iconUnpin" : "iconPin",
-        label: isPinHead ? window.siyuan.languages.unpinTableHead : window.siyuan.languages.pinTableHead,
+        label: isPinHead ? window.shehab.languages.unpinTableHead : window.shehab.languages.pinTableHead,
         click: () => {
             const html = nodeElement.outerHTML;
             if (isPinHead) {
@@ -2194,8 +2194,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     otherMenus.push({
         id: "alignLeft",
         icon: "iconAlignLeft",
-        accelerator: window.siyuan.config.keymap.editor.general.alignLeft.custom,
-        label: window.siyuan.languages.alignLeft,
+        accelerator: window.shehab.config.keymap.editor.general.alignLeft.custom,
+        label: window.shehab.languages.alignLeft,
         click: () => {
             setTableAlign(protyle, [cellElement], nodeElement, "left", range);
         }
@@ -2203,8 +2203,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     otherMenus.push({
         id: "alignCenter",
         icon: "iconAlignCenter",
-        label: window.siyuan.languages.alignCenter,
-        accelerator: window.siyuan.config.keymap.editor.general.alignCenter.custom,
+        label: window.shehab.languages.alignCenter,
+        accelerator: window.shehab.config.keymap.editor.general.alignCenter.custom,
         click: () => {
             setTableAlign(protyle, [cellElement], nodeElement, "center", range);
         }
@@ -2212,8 +2212,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     otherMenus.push({
         id: "alignRight",
         icon: "iconAlignRight",
-        label: window.siyuan.languages.alignRight,
-        accelerator: window.siyuan.config.keymap.editor.general.alignRight.custom,
+        label: window.shehab.languages.alignRight,
+        accelerator: window.shehab.config.keymap.editor.general.alignRight.custom,
         click: () => {
             setTableAlign(protyle, [cellElement], nodeElement, "right", range);
         }
@@ -2221,7 +2221,7 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     otherMenus.push({
         id: "useDefaultAlign",
         icon: "",
-        label: window.siyuan.languages.useDefaultAlign,
+        label: window.shehab.languages.useDefaultAlign,
         click: () => {
             setTableAlign(protyle, [cellElement], nodeElement, "", range);
         }
@@ -2307,8 +2307,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
     insertMenus.push({
         id: "insertRowAbove",
         icon: "iconBefore",
-        label: window.siyuan.languages.insertRowAbove,
-        accelerator: window.siyuan.config.keymap.editor.table.insertRowAbove.custom,
+        label: window.shehab.languages.insertRowAbove,
+        accelerator: window.shehab.config.keymap.editor.table.insertRowAbove.custom,
         click: () => {
             insertRowAbove(protyle, range, cellElement, nodeElement);
         }
@@ -2317,8 +2317,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         insertMenus.push({
             id: "insertRowBelow",
             icon: "iconAfter",
-            label: window.siyuan.languages.insertRowBelow,
-            accelerator: window.siyuan.config.keymap.editor.table.insertRowBelow.custom,
+            label: window.shehab.languages.insertRowBelow,
+            accelerator: window.shehab.config.keymap.editor.table.insertRowBelow.custom,
             click: () => {
                 insertRow(protyle, range, cellElement, nodeElement);
             }
@@ -2328,8 +2328,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         insertMenus.push({
             id: "insertColumnLeft",
             icon: "iconInsertLeft",
-            label: window.siyuan.languages.insertColumnLeft,
-            accelerator: window.siyuan.config.keymap.editor.table.insertColumnLeft.custom,
+            label: window.shehab.languages.insertColumnLeft,
+            accelerator: window.shehab.config.keymap.editor.table.insertColumnLeft.custom,
             click: () => {
                 insertColumn(protyle, nodeElement, cellElement, "beforebegin", range);
             }
@@ -2339,8 +2339,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         insertMenus.push({
             id: "insertColumnRight",
             icon: "iconInsertRight",
-            label: window.siyuan.languages.insertColumnRight,
-            accelerator: window.siyuan.config.keymap.editor.table.insertColumnRight.custom,
+            label: window.shehab.languages.insertColumnRight,
+            accelerator: window.shehab.config.keymap.editor.table.insertColumnRight.custom,
             click: () => {
                 insertColumn(protyle, nodeElement, cellElement, "afterend", range);
             }
@@ -2366,8 +2366,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         other2Menus.push({
             id: "moveToUp",
             icon: "iconUp",
-            label: window.siyuan.languages.moveToUp,
-            accelerator: window.siyuan.config.keymap.editor.table.moveToUp.custom,
+            label: window.shehab.languages.moveToUp,
+            accelerator: window.shehab.config.keymap.editor.table.moveToUp.custom,
             click: () => {
                 moveRowToUp(protyle, range, cellElement, nodeElement);
             }
@@ -2378,8 +2378,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         other2Menus.push({
             id: "moveToDown",
             icon: "iconDown",
-            label: window.siyuan.languages.moveToDown,
-            accelerator: window.siyuan.config.keymap.editor.table.moveToDown.custom,
+            label: window.shehab.languages.moveToDown,
+            accelerator: window.shehab.config.keymap.editor.table.moveToDown.custom,
             click: () => {
                 moveRowToDown(protyle, range, cellElement, nodeElement);
             }
@@ -2389,8 +2389,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         other2Menus.push({
             id: "moveToLeft",
             icon: "iconLeft",
-            label: window.siyuan.languages.moveToLeft,
-            accelerator: window.siyuan.config.keymap.editor.table.moveToLeft.custom,
+            label: window.shehab.languages.moveToLeft,
+            accelerator: window.shehab.config.keymap.editor.table.moveToLeft.custom,
             click: () => {
                 moveColumnToLeft(protyle, range, cellElement, nodeElement);
             }
@@ -2400,8 +2400,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         other2Menus.push({
             id: "moveToRight",
             icon: "iconRight",
-            label: window.siyuan.languages.moveToRight,
-            accelerator: window.siyuan.config.keymap.editor.table.moveToRight.custom,
+            label: window.shehab.languages.moveToRight,
+            accelerator: window.shehab.config.keymap.editor.table.moveToRight.custom,
             click: () => {
                 moveColumnToRight(protyle, range, cellElement, nodeElement);
             }
@@ -2420,8 +2420,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         removeMenus.push({
             id: "deleteRow",
             icon: "iconDeleteRow",
-            label: window.siyuan.languages["delete-row"],
-            accelerator: window.siyuan.config.keymap.editor.table["delete-row"].custom,
+            label: window.shehab.languages["delete-row"],
+            accelerator: window.shehab.config.keymap.editor.table["delete-row"].custom,
             click: () => {
                 deleteRow(protyle, range, cellElement, nodeElement);
             }
@@ -2431,8 +2431,8 @@ export const tableMenu = (protyle: IProtyle, nodeElement: Element, cellElement: 
         removeMenus.push({
             id: "deleteColumn",
             icon: "iconDeleteColumn",
-            label: window.siyuan.languages["delete-column"],
-            accelerator: window.siyuan.config.keymap.editor.table["delete-column"].custom,
+            label: window.shehab.languages["delete-column"],
+            accelerator: window.shehab.config.keymap.editor.table["delete-column"].custom,
             click: () => {
                 deleteColumn(protyle, range, nodeElement, cellElement);
             }

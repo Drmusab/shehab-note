@@ -6,114 +6,114 @@ export const fileTree = {
     genHTML: () => {
         return `<label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.selectOpen}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree2}</div>
+        ${window.shehab.languages.selectOpen}
+        <div class="b3-label__text">${window.shehab.languages.fileTree2}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="alwaysSelectOpenedFile" type="checkbox"${window.siyuan.config.fileTree.alwaysSelectOpenedFile ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="alwaysSelectOpenedFile" type="checkbox"${window.shehab.config.fileTree.alwaysSelectOpenedFile ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree7}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree8}</div>
+        ${window.shehab.languages.fileTree7}
+        <div class="b3-label__text">${window.shehab.languages.fileTree8}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="openFilesUseCurrentTab" type="checkbox"${window.siyuan.config.fileTree.openFilesUseCurrentTab ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="openFilesUseCurrentTab" type="checkbox"${window.shehab.config.fileTree.openFilesUseCurrentTab ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree9}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree10}</div>
+        ${window.shehab.languages.fileTree9}
+        <div class="b3-label__text">${window.shehab.languages.fileTree10}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="closeTabsOnStart" type="checkbox"${window.siyuan.config.fileTree.closeTabsOnStart ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="closeTabsOnStart" type="checkbox"${window.shehab.config.fileTree.closeTabsOnStart ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree18}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree19}</div>
+        ${window.shehab.languages.fileTree18}
+        <div class="b3-label__text">${window.shehab.languages.fileTree19}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="allowCreateDeeper" type="checkbox"${window.siyuan.config.fileTree.allowCreateDeeper ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="allowCreateDeeper" type="checkbox"${window.shehab.config.fileTree.allowCreateDeeper ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree3}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree4}</div>
+        ${window.shehab.languages.fileTree3}
+        <div class="b3-label__text">${window.shehab.languages.fileTree4}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="removeDocWithoutConfirm" type="checkbox"${window.siyuan.config.fileTree.removeDocWithoutConfirm ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="removeDocWithoutConfirm" type="checkbox"${window.shehab.config.fileTree.removeDocWithoutConfirm ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree20}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree21}</div>
+        ${window.shehab.languages.fileTree20}
+        <div class="b3-label__text">${window.shehab.languages.fileTree21}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="useSingleLineSave" type="checkbox"${window.siyuan.config.fileTree.useSingleLineSave ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="useSingleLineSave" type="checkbox"${window.shehab.config.fileTree.useSingleLineSave ? " checked" : ""}/>
 </label>
 <label class="fn__flex b3-label">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree24}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree25}</div>
+        ${window.shehab.languages.fileTree24}
+        <div class="b3-label__text">${window.shehab.languages.fileTree25}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-switch fn__flex-center" id="createDocAtTop" type="checkbox"${window.siyuan.config.fileTree.createDocAtTop ? " checked" : ""}/>
+    <input class="b3-switch fn__flex-center" id="createDocAtTop" type="checkbox"${window.shehab.config.fileTree.createDocAtTop ? " checked" : ""}/>
 </label>
 <div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree22}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree23}</div>
+        ${window.shehab.languages.fileTree22}
+        <div class="b3-label__text">${window.shehab.languages.fileTree23}</div>
     </div>
     <span class="fn__space"></span>
     <div class="fn__size200 fn__flex-center fn__flex">
-        <input class="b3-text-field fn__flex-1" id="largeFileWarningSize" type="number" min="2" max="10240" value="${window.siyuan.config.fileTree.largeFileWarningSize}">
+        <input class="b3-text-field fn__flex-1" id="largeFileWarningSize" type="number" min="2" max="10240" value="${window.shehab.config.fileTree.largeFileWarningSize}">
         <span class="fn__space"></span>
         <span class="ft__on-surface fn__flex-center">MB</span>
     </div>
 </div>
 <div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.fileTree16}
-        <div class="b3-label__text">${window.siyuan.languages.fileTree17}</div>
+        ${window.shehab.languages.fileTree16}
+        <div class="b3-label__text">${window.shehab.languages.fileTree17}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-text-field fn__flex-center fn__size200" id="maxListCount" type="number" min="1" max="10240" value="${window.siyuan.config.fileTree.maxListCount}">
+    <input class="b3-text-field fn__flex-center fn__size200" id="maxListCount" type="number" min="1" max="10240" value="${window.shehab.config.fileTree.maxListCount}">
 </div>
 <div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.tabLimit}
-        <div class="b3-label__text">${window.siyuan.languages.tabLimit1}</div>
+        ${window.shehab.languages.tabLimit}
+        <div class="b3-label__text">${window.shehab.languages.tabLimit1}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-text-field fn__flex-center fn__size200" id="maxOpenTabCount" type="number" min="1" max="32" value="${window.siyuan.config.fileTree.maxOpenTabCount}">
+    <input class="b3-text-field fn__flex-center fn__size200" id="maxOpenTabCount" type="number" min="1" max="32" value="${window.shehab.config.fileTree.maxOpenTabCount}">
 </div>
 <div class="fn__flex b3-label config__item">
     <div class="fn__flex-1">
-        ${window.siyuan.languages.recentDocsMaxListCount}
-        <div class="b3-label__text">${window.siyuan.languages.recentDocsMaxListCountTip}</div>
+        ${window.shehab.languages.recentDocsMaxListCount}
+        <div class="b3-label__text">${window.shehab.languages.recentDocsMaxListCountTip}</div>
     </div>
     <span class="fn__space"></span>
-    <input class="b3-text-field fn__flex-center fn__size200" id="recentDocsMaxListCount" type="number" min="32" max="256" value="${window.siyuan.config.fileTree.recentDocsMaxListCount}">
+    <input class="b3-text-field fn__flex-center fn__size200" id="recentDocsMaxListCount" type="number" min="32" max="256" value="${window.shehab.config.fileTree.recentDocsMaxListCount}">
 </div>
 <div class="b3-label config__item">
-    ${window.siyuan.languages.fileTree12}
-    <div class="b3-label__text">${window.siyuan.languages.fileTree13}</div>
+    ${window.shehab.languages.fileTree12}
+    <div class="b3-label__text">${window.shehab.languages.fileTree13}</div>
     <span class="fn__hr"></span>
     <div class="fn__flex">
-        <select style="min-width: 200px" class="b3-select" id="docCreateSaveBox">${genNotebookOption(window.siyuan.config.fileTree.docCreateSaveBox)}</select>
+        <select style="min-width: 200px" class="b3-select" id="docCreateSaveBox">${genNotebookOption(window.shehab.config.fileTree.docCreateSaveBox)}</select>
         <div class="fn__space"></div>
         <input class="b3-text-field fn__flex-1" id="docCreateSavePath" value="">
     </div>
 </div>
 <div class="b3-label config__item">
-    ${window.siyuan.languages.fileTree5}
-    <div class="b3-label__text">${window.siyuan.languages.fileTree6}</div>
+    ${window.shehab.languages.fileTree5}
+    <div class="b3-label__text">${window.shehab.languages.fileTree6}</div>
     <span class="fn__hr"></span>
     <div class="fn__flex">
-        <select style="min-width: 200px" class="b3-select" id="refCreateSaveBox">${genNotebookOption(window.siyuan.config.fileTree.refCreateSaveBox)}</select>
+        <select style="min-width: 200px" class="b3-select" id="refCreateSaveBox">${genNotebookOption(window.shehab.config.fileTree.refCreateSaveBox)}</select>
         <div class="fn__space"></div>
-        <input class="b3-text-field fn__flex-1" id="refCreateSavePath" value="${window.siyuan.config.fileTree.refCreateSavePath}">
+        <input class="b3-text-field fn__flex-1" id="refCreateSavePath" value="${window.shehab.config.fileTree.refCreateSavePath}">
     </div>
 </div>`;
     },
@@ -130,7 +130,7 @@ export const fileTree = {
         }
 
         fetchPost("/api/setting/setFiletree", {
-            sort: window.siyuan.config.fileTree.sort,
+            sort: window.shehab.config.fileTree.sort,
             alwaysSelectOpenedFile: (fileTree.element.querySelector("#alwaysSelectOpenedFile") as HTMLInputElement).checked,
             refCreateSavePath: (fileTree.element.querySelector("#refCreateSavePath") as HTMLInputElement).value,
             refCreateSaveBox: (fileTree.element.querySelector("#refCreateSaveBox") as HTMLInputElement).value,
@@ -147,12 +147,12 @@ export const fileTree = {
             maxOpenTabCount: inputMaxOpenTabCount,
             recentDocsMaxListCount: parseInt((fileTree.element.querySelector("#recentDocsMaxListCount") as HTMLInputElement).value),
         }, response => {
-            window.siyuan.config.fileTree = response.data;
+            window.shehab.config.fileTree = response.data;
         });
     },
     bindEvent: () => {
-        (fileTree.element.querySelector("#docCreateSavePath") as HTMLInputElement).value = window.siyuan.config.fileTree.docCreateSavePath;
-        (fileTree.element.querySelector("#refCreateSavePath") as HTMLInputElement).value = window.siyuan.config.fileTree.refCreateSavePath;
+        (fileTree.element.querySelector("#docCreateSavePath") as HTMLInputElement).value = window.shehab.config.fileTree.docCreateSavePath;
+        (fileTree.element.querySelector("#refCreateSavePath") as HTMLInputElement).value = window.shehab.config.fileTree.refCreateSavePath;
         fileTree.element.querySelectorAll("input, select").forEach((item) => {
             item.addEventListener("change", () => {
                 fileTree._send();

@@ -210,7 +210,7 @@ export const genEmptyBlock = (zwsp = true, wbr = true, string?: string) => {
     if (string) {
         html += string;
     }
-    return `<div data-node-id="${Lute.NewNodeID()}" data-type="NodeParagraph" class="p"><div contenteditable="true" spellcheck="${window.siyuan.config.editor.spellcheck}">${html}</div><div contenteditable="false" class="protyle-attr">${Constants.ZWSP}</div></div>`;
+    return `<div data-node-id="${Lute.NewNodeID()}" data-type="NodeParagraph" class="p"><div contenteditable="true" spellcheck="${window.shehab.config.editor.spellcheck}">${html}</div><div contenteditable="false" class="protyle-attr">${Constants.ZWSP}</div></div>`;
 };
 
 export const genEmptyElement = (zwsp = true, wbr = true, id?: string) => {
@@ -218,7 +218,7 @@ export const genEmptyElement = (zwsp = true, wbr = true, id?: string) => {
     element.setAttribute("data-node-id", id || Lute.NewNodeID());
     element.setAttribute("data-type", "NodeParagraph");
     element.classList.add("p");
-    element.innerHTML = `<div contenteditable="true" spellcheck="${window.siyuan.config.editor.spellcheck}">${zwsp ? Constants.ZWSP : ""}${wbr ? "<wbr>" : ""}</div><div class="protyle-attr" contenteditable="false">${Constants.ZWSP}</div>`;
+    element.innerHTML = `<div contenteditable="true" spellcheck="${window.shehab.config.editor.spellcheck}">${zwsp ? Constants.ZWSP : ""}${wbr ? "<wbr>" : ""}</div><div class="protyle-attr" contenteditable="false">${Constants.ZWSP}</div>`;
     return element;
 };
 
@@ -240,22 +240,22 @@ export const getLangByType = (type: string) => {
             lang = "IFrame";
             break;
         case "NodeAttributeView":
-            lang = window.siyuan.languages.database;
+            lang = window.shehab.languages.database;
             break;
         case "NodeThematicBreak":
-            lang = window.siyuan.languages.line;
+            lang = window.shehab.languages.line;
             break;
         case "NodeWidget":
-            lang = window.siyuan.languages.widget;
+            lang = window.shehab.languages.widget;
             break;
         case "NodeVideo":
-            lang = window.siyuan.languages.video;
+            lang = window.shehab.languages.video;
             break;
         case "NodeAudio":
-            lang = window.siyuan.languages.audio;
+            lang = window.shehab.languages.audio;
             break;
         case "NodeBlockQueryEmbed":
-            lang = window.siyuan.languages.blockEmbed;
+            lang = window.shehab.languages.blockEmbed;
             break;
     }
     return lang;

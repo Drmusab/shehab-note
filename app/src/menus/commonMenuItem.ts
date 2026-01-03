@@ -46,19 +46,19 @@ export const openWechatNotify = (nodeElement: Element) => {
     }
     const dialog = new Dialog({
         width: isMobile() ? "92vw" : "50vw",
-        title: window.siyuan.languages.wechatReminder,
+        title: window.shehab.languages.wechatReminder,
         content: `<div class="b3-dialog__content custom-attr">
     <div class="fn__flex">
-        <span class="ft__on-surface fn__flex-center" style="text-align: right;white-space: nowrap;width: 100px">${window.siyuan.languages.notifyTime}</span>
+        <span class="ft__on-surface fn__flex-center" style="text-align: right;white-space: nowrap;width: 100px">${window.shehab.languages.notifyTime}</span>
         <div class="fn__space"></div>
         <input class="b3-text-field fn__flex-1" type="datetime-local" max="9999-12-31 23:59" value="${reminderFormat}">
     </div>
-    <div class="b3-label__text" style="text-align: center">${window.siyuan.languages.wechatTip}</div>
+    <div class="b3-label__text" style="text-align: center">${window.shehab.languages.wechatTip}</div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.remove}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.remove}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         destroyCallback() {
             focusByRange(range);
@@ -83,7 +83,7 @@ export const openWechatNotify = (nodeElement: Element) => {
         const date = dialog.element.querySelector("input").value;
         if (date) {
             if (new Date(date) <= new Date()) {
-                showMessage(window.siyuan.languages.reminderTip);
+                showMessage(window.shehab.languages.reminderTip);
                 return;
             }
             if (btnsElement[2].getAttribute("disabled")) {
@@ -96,7 +96,7 @@ export const openWechatNotify = (nodeElement: Element) => {
                 dialog.destroy();
             });
         } else {
-            showMessage(window.siyuan.languages.notEmpty);
+            showMessage(window.shehab.languages.notEmpty);
         }
     });
 };
@@ -112,19 +112,19 @@ export const openFileWechatNotify = (protyle: IProtyle) => {
         }
         const dialog = new Dialog({
             width: isMobile() ? "92vw" : "50vw",
-            title: window.siyuan.languages.wechatReminder,
+            title: window.shehab.languages.wechatReminder,
             content: `<div class="b3-dialog__content custom-attr">
     <div class="fn__flex">
-        <span class="ft__on-surface fn__flex-center" style="text-align: right;white-space: nowrap;width: 100px">${window.siyuan.languages.notifyTime}</span>
+        <span class="ft__on-surface fn__flex-center" style="text-align: right;white-space: nowrap;width: 100px">${window.shehab.languages.notifyTime}</span>
         <div class="fn__space"></div>
         <input class="b3-text-field fn__flex-1" type="datetime-local" max="9999-12-31 23:59" value="${reminderFormat}">
     </div>
-    <div class="b3-label__text" style="text-align: center">${window.siyuan.languages.wechatTip}</div>
+    <div class="b3-label__text" style="text-align: center">${window.shehab.languages.wechatTip}</div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.remove}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.remove}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`
         });
         dialog.element.setAttribute("data-key", Constants.DIALOG_WECHATREMINDER);
@@ -141,7 +141,7 @@ export const openFileWechatNotify = (protyle: IProtyle) => {
             const date = dialog.element.querySelector("input").value;
             if (date) {
                 if (new Date(date) <= new Date()) {
-                    showMessage(window.siyuan.languages.reminderTip);
+                    showMessage(window.shehab.languages.reminderTip);
                     return;
                 }
                 fetchPost("/api/block/setBlockReminder", {
@@ -151,7 +151,7 @@ export const openFileWechatNotify = (protyle: IProtyle) => {
                     dialog.destroy();
                 });
             } else {
-                showMessage(window.siyuan.languages.notEmpty);
+                showMessage(window.shehab.languages.notEmpty);
             }
         });
     });
@@ -171,7 +171,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
             }
         });
         if (!protyle) {
-            ghostProtyle = new Protyle(window.siyuan.ws.app, document.createElement("div"), {
+            ghostProtyle = new Protyle(window.shehab.ws.app, document.createElement("div"), {
                 blockId: attrs.id,
             });
         }
@@ -182,7 +182,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
         }
         if (item === Constants.CUSTOM_REMINDER_WECHAT) {
             notifyHTML = `<label class="b3-label b3-label--noborder">
-    ${window.siyuan.languages.wechatReminder}
+    ${window.shehab.languages.wechatReminder}
     <div class="fn__hr"></div>
     <input class="b3-text-field fn__block" type="datetime-local" max="9999-12-31 23:59" readonly data-name="${item}" value="${dayjs(attrs[item]).format("YYYY-MM-DD HH:mm")}">
 </label>`;
@@ -207,17 +207,17 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
     <div class="layout-tab-bar fn__flex" style="flex-shrink:0;border-radius: var(--b3-border-radius-b) var(--b3-border-radius-b) 0 0">
         <div class="item item--full item--focus" data-type="attr">
             <span class="fn__flex-1"></span>
-            <span class="item__text">${window.siyuan.languages.builtIn}</span>
+            <span class="item__text">${window.shehab.languages.builtIn}</span>
             <span class="fn__flex-1"></span>
         </div>
         <div class="item item--full${hasAV ? "" : " fn__none"}" data-type="NodeAttributeView">
             <span class="fn__flex-1"></span>
-            <span class="item__text">${window.siyuan.languages.database}</span>
+            <span class="item__text">${window.shehab.languages.database}</span>
             <span class="fn__flex-1"></span>
         </div>
         <div class="item item--full" data-type="custom">
             <span class="fn__flex-1"></span>
-            <span class="item__text">${window.siyuan.languages.custom}</span>
+            <span class="item__text">${window.shehab.languages.custom}</span>
             <span class="fn__flex-1"></span>
         </div>
     </div>
@@ -225,26 +225,26 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
         <div class="custom-attr" data-type="attr">
             <label class="b3-label b3-label--noborder">
                 <div class="fn__flex">
-                    <span class="fn__flex-1">${window.siyuan.languages.bookmark}</span>
+                    <span class="fn__flex-1">${window.shehab.languages.bookmark}</span>
                     <span data-action="bookmark" class="block__icon block__icon--show"><svg><use xlink:href="#iconDown"></use></svg></span>
                 </div>
                 <div class="fn__hr"></div>
-                <input spellcheck="${window.siyuan.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.attrBookmarkTip}" data-name="bookmark">
+                <input spellcheck="${window.shehab.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.shehab.languages.attrBookmarkTip}" data-name="bookmark">
             </label>
             <label class="b3-label b3-label--noborder">
-                ${window.siyuan.languages.name}
+                ${window.shehab.languages.name}
                 <div class="fn__hr"></div>
-                <input spellcheck="${window.siyuan.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.attrNameTip}" data-name="name">
+                <input spellcheck="${window.shehab.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.shehab.languages.attrNameTip}" data-name="name">
             </label>
             <label class="b3-label b3-label--noborder">
-                ${window.siyuan.languages.alias}
+                ${window.shehab.languages.alias}
                 <div class="fn__hr"></div>
-                <input spellcheck="${window.siyuan.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.attrAliasTip}" data-name="alias">
+                <input spellcheck="${window.shehab.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.shehab.languages.attrAliasTip}" data-name="alias">
             </label>
             <label class="b3-label b3-label--noborder">
-                ${window.siyuan.languages.memo}
+                ${window.shehab.languages.memo}
                 <div class="fn__hr"></div>
-                <textarea style="resize: vertical" spellcheck="${window.siyuan.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.siyuan.languages.attrMemoTip}" rows="2" data-name="memo">${attrs.memo || ""}</textarea>
+                <textarea style="resize: vertical" spellcheck="${window.shehab.config.editor.spellcheck}" class="b3-text-field fn__block" placeholder="${window.shehab.languages.attrMemoTip}" rows="2" data-name="memo">${attrs.memo || ""}</textarea>
             </label>
             ${notifyHTML}
         </div>
@@ -253,7 +253,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
            ${customHTML}
            <div class="b3-label">
                <button data-action="addCustom" class="b3-button b3-button--cancel">
-                   <svg><use xlink:href="#iconAdd"></use></svg>${window.siyuan.languages.addAttr}
+                   <svg><use xlink:href="#iconAdd"></use></svg>${window.shehab.languages.addAttr}
                </button>
            </div>
         </div>
@@ -303,17 +303,17 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
                 break;
             } else if (type === "bookmark") {
                 fetchPost("/api/attr/getBookmarkLabels", {}, (response) => {
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     if (response.data.length === 0) {
-                        window.siyuan.menus.menu.append(new MenuItem({
+                        window.shehab.menus.menu.append(new MenuItem({
                             id: "emptyContent",
                             iconHTML: "",
-                            label: window.siyuan.languages.emptyContent,
+                            label: window.shehab.languages.emptyContent,
                             type: "readonly",
                         }).element);
                     } else {
                         response.data.forEach((item: string) => {
-                            window.siyuan.menus.menu.append(new MenuItem({
+                            window.shehab.menus.menu.append(new MenuItem({
                                 label: item,
                                 click() {
                                     const bookmarkInputElement = target.parentElement.parentElement.querySelector("input");
@@ -323,19 +323,19 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
                             }).element);
                         });
                     }
-                    window.siyuan.menus.menu.element.classList.add("b3-menu--list");
-                    window.siyuan.menus.menu.popup({x: event.clientX, y: event.clientY + 16, w: 16});
+                    window.shehab.menus.menu.element.classList.add("b3-menu--list");
+                    window.shehab.menus.menu.popup({x: event.clientX, y: event.clientY + 16, w: 16});
                 });
                 event.stopPropagation();
                 event.preventDefault();
                 break;
             } else if (type === "addCustom") {
                 const addDialog = new Dialog({
-                    title: window.siyuan.languages.attrName,
+                    title: window.shehab.languages.attrName,
                     content: `<div class="b3-dialog__content"><input spellcheck="false" class="b3-text-field fn__block" value=""></div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
                     width: isMobile() ? "92vw" : "520px",
                 });
@@ -353,7 +353,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
                 btnsElement[1].addEventListener("click", () => {
                     const value = inputElement.value.toLowerCase();
                     if (!isValidCustomAttrName(value)) {
-                        showMessage(window.siyuan.languages._kernel[25]);
+                        showMessage(window.shehab.languages._kernel[25]);
                         return false;
                     }
                     let existElement: HTMLElement | false;
@@ -364,7 +364,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
                         }
                     });
                     if (existElement) {
-                        showMessage(window.siyuan.languages.hasAttrName.replace("${x}", value));
+                        showMessage(window.shehab.languages.hasAttrName.replace("${x}", value));
                     } else {
                         target.parentElement.insertAdjacentHTML("beforebegin", `<div class="b3-label b3-label--noborder">
     <div class="fn__flex">
@@ -372,7 +372,7 @@ export const openFileAttr = (attrs: IObject, focusName = "bookmark", protyle?: I
         <span data-action="remove" class="block__icon block__icon--show"><svg><use xlink:href="#iconMin"></use></svg></span>
     </div>
     <div class="fn__hr"></div>
-    <textarea style="resize: vertical" spellcheck="false" data-name="custom-${value}" class="b3-text-field fn__block" rows="1" placeholder="${window.siyuan.languages.attrValue1}"></textarea>
+    <textarea style="resize: vertical" spellcheck="false" data-name="custom-${value}" class="b3-text-field fn__block" rows="1" placeholder="${window.shehab.languages.attrValue1}"></textarea>
 </div>`);
                         const newInputElement = target.parentElement.previousElementSibling.querySelector(".b3-text-field") as HTMLInputElement;
                         newInputElement.focus();
@@ -415,8 +415,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
     const menuItems = [{
         id: "copyBlockRef",
         iconHTML: "",
-        accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyBlockRef.custom : undefined,
-        label: window.siyuan.languages.copyBlockRef,
+        accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyBlockRef.custom : undefined,
+        label: window.shehab.languages.copyBlockRef,
         click: () => {
             copyTextByType(ids, "ref");
             if (focusElement) {
@@ -426,8 +426,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
     }, {
         id: "copyBlockEmbed",
         iconHTML: "",
-        label: window.siyuan.languages.copyBlockEmbed,
-        accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyBlockEmbed.custom : undefined,
+        label: window.shehab.languages.copyBlockEmbed,
+        accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyBlockEmbed.custom : undefined,
         click: () => {
             copyTextByType(ids, "blockEmbed");
             if (focusElement) {
@@ -437,8 +437,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
     }, {
         id: "copyProtocol",
         iconHTML: "",
-        label: window.siyuan.languages.copyProtocol,
-        accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyProtocol.custom : undefined,
+        label: window.shehab.languages.copyProtocol,
+        accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyProtocol.custom : undefined,
         click: () => {
             copyTextByType(ids, "protocol");
             if (focusElement) {
@@ -448,8 +448,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
     }, {
         id: "copyProtocolInMd",
         iconHTML: "",
-        label: window.siyuan.languages.copyProtocolInMd,
-        accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyProtocolInMd.custom : undefined,
+        label: window.shehab.languages.copyProtocolInMd,
+        accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyProtocolInMd.custom : undefined,
         click: () => {
             copyTextByType(ids, "protocolMd");
             if (focusElement) {
@@ -461,7 +461,7 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
         {
             id: "copyWebURL",
             iconHTML: "",
-            label: window.siyuan.languages.copyWebURL,
+            label: window.shehab.languages.copyWebURL,
             click: () => {
                 copyTextByType(ids, "webURL");
                 if (focusElement) {
@@ -473,8 +473,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
         {
             id: "copyHPath",
             iconHTML: "",
-            label: window.siyuan.languages.copyHPath,
-            accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyHPath.custom : undefined,
+            label: window.shehab.languages.copyHPath,
+            accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyHPath.custom : undefined,
             click: () => {
                 copyTextByType(ids, "hPath");
                 if (focusElement) {
@@ -484,8 +484,8 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
         }, {
             id: "copyID",
             iconHTML: "",
-            label: window.siyuan.languages.copyID,
-            accelerator: accelerator ? window.siyuan.config.keymap.editor.general.copyID.custom : undefined,
+            label: window.shehab.languages.copyID,
+            accelerator: accelerator ? window.shehab.config.keymap.editor.general.copyID.custom : undefined,
             click: () => {
                 copyTextByType(ids, "id");
                 if (focusElement) {
@@ -498,7 +498,7 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
         menuItems.push({
             id: "copyMarkdown",
             iconHTML: "",
-            label: window.siyuan.languages.copyMarkdown,
+            label: window.shehab.languages.copyMarkdown,
             accelerator: undefined,
             click: async () => {
                 const response = await fetchSyncPost("/api/export/exportMdContent", {
@@ -522,28 +522,28 @@ export const copySubMenu = (ids: string[], accelerator = true, focusElement?: El
 };
 
 export const exportMd = (id: string) => {
-    if (window.siyuan.isPublish) {
+    if (window.shehab.isPublish) {
         return;
     }
     return new MenuItem({
         id: "export",
-        label: window.siyuan.languages.export,
+        label: window.shehab.languages.export,
         type: "submenu",
         icon: "iconUpload",
         submenu: [{
             id: "exportTemplate",
-            label: window.siyuan.languages.template,
+            label: window.shehab.languages.template,
             iconClass: "ft__error",
             icon: "iconMarkdown",
             click: async () => {
                 const result = await fetchSyncPost("/api/block/getRefText", {id: id});
 
                 const dialog = new Dialog({
-                    title: window.siyuan.languages.fileName,
+                    title: window.shehab.languages.fileName,
                     content: `<div class="b3-dialog__content"><input class="b3-text-field fn__block" value=""></div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
                     width: isMobile() ? "92vw" : "520px",
                 });
@@ -566,7 +566,7 @@ export const exportMd = (id: string) => {
                 });
                 btnsElement[1].addEventListener("click", () => {
                     if (inputElement.value.trim() === "") {
-                        inputElement.value = window.siyuan.languages.untitled;
+                        inputElement.value = window.shehab.languages.untitled;
                     } else {
                         inputElement.value = replaceFileName(inputElement.value);
                     }
@@ -582,20 +582,20 @@ export const exportMd = (id: string) => {
                     }, response => {
                         if (response.code === 1) {
                             // 重名
-                            confirmDialog(window.siyuan.languages.export, window.siyuan.languages.exportTplTip, () => {
+                            confirmDialog(window.shehab.languages.export, window.shehab.languages.exportTplTip, () => {
                                 fetchPost("/api/template/docSaveAsTemplate", {
                                     id,
                                     name: inputElement.value,
                                     overwrite: true
                                 }, resp => {
                                     if (resp.code === 0) {
-                                        showMessage(window.siyuan.languages.exportTplSucc);
+                                        showMessage(window.shehab.languages.exportTplSucc);
                                     }
                                 });
                             });
                             return;
                         }
-                        showMessage(window.siyuan.languages.exportTplSucc);
+                        showMessage(window.shehab.languages.exportTplSucc);
                     });
                     dialog.destroy();
                 });
@@ -605,7 +605,7 @@ export const exportMd = (id: string) => {
             label: "SiYuan .sy.zip",
             icon: "iconSiYuan",
             click: () => {
-                const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                const msgId = showMessage(window.shehab.languages.exporting, -1);
                 fetchPost("/api/export/exportSY", {
                     id,
                 }, response => {
@@ -618,7 +618,7 @@ export const exportMd = (id: string) => {
             label: "Markdown .zip",
             icon: "iconMarkdown",
             click: () => {
-                const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                const msgId = showMessage(window.shehab.languages.exporting, -1);
                 fetchPost("/api/export/exportMd", {
                     id,
                 }, response => {
@@ -628,7 +628,7 @@ export const exportMd = (id: string) => {
             }
         }, {
             id: "exportImage",
-            label: window.siyuan.languages.image,
+            label: window.shehab.languages.image,
             icon: "iconImage",
             click: () => {
                 exportImage(id);
@@ -666,14 +666,14 @@ export const exportMd = (id: string) => {
                 }
             }, {
                 id: "exportMore",
-                label: window.siyuan.languages.more,
+                label: window.shehab.languages.more,
                 icon: "iconMore",
                 type: "submenu",
                 submenu: [{
                     id: "exportReStructuredText",
                     label: "reStructuredText",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportReStructuredText", {
                             id,
                         }, response => {
@@ -685,7 +685,7 @@ export const exportMd = (id: string) => {
                     id: "exportAsciiDoc",
                     label: "AsciiDoc",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportAsciiDoc", {
                             id,
                         }, response => {
@@ -697,7 +697,7 @@ export const exportMd = (id: string) => {
                     id: "exportTextile",
                     label: "Textile",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportTextile", {
                             id,
                         }, response => {
@@ -709,7 +709,7 @@ export const exportMd = (id: string) => {
                     id: "exportOPML",
                     label: "OPML",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportOPML", {
                             id,
                         }, response => {
@@ -721,7 +721,7 @@ export const exportMd = (id: string) => {
                     id: "exportOrgMode",
                     label: "Org-Mode",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportOrgMode", {
                             id,
                         }, response => {
@@ -733,7 +733,7 @@ export const exportMd = (id: string) => {
                     id: "exportMediaWiki",
                     label: "MediaWiki",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportMediaWiki", {
                             id,
                         }, response => {
@@ -745,7 +745,7 @@ export const exportMd = (id: string) => {
                     id: "exportODT",
                     label: "ODT",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportODT", {
                             id,
                         }, response => {
@@ -757,7 +757,7 @@ export const exportMd = (id: string) => {
                     id: "exportRTF",
                     label: "RTF",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportRTF", {
                             id,
                         }, response => {
@@ -769,7 +769,7 @@ export const exportMd = (id: string) => {
                     id: "exportEPUB",
                     label: "EPUB",
                     click: () => {
-                        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+                        const msgId = showMessage(window.shehab.languages.exporting, -1);
                         fetchPost("/api/export/exportEPUB", {
                             id,
                         }, response => {
@@ -783,12 +783,12 @@ export const exportMd = (id: string) => {
             /// #else
             {
                 id: "exportPDF",
-                label: window.siyuan.languages.print,
+                label: window.shehab.languages.print,
                 icon: "iconPDF",
                 ignore: !isInAndroid() && !isInHarmony() && !isInIOS(),
                 click: () => {
-                    const msgId = showMessage(window.siyuan.languages.exporting);
-                    const localData = window.siyuan.storage[Constants.LOCAL_EXPORTPDF];
+                    const msgId = showMessage(window.shehab.languages.exporting);
+                    const localData = window.shehab.storage[Constants.LOCAL_EXPORTPDF];
                     fetchPost("/api/export/exportPreviewHTML", {
                         id,
                         keepFold: localData.keepFold,
@@ -835,8 +835,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
     /// #if MOBILE
     submenu.push({
         id: isInAndroid() ? "useDefault" : "useBrowserView",
-        label: isInAndroid() ? window.siyuan.languages.useDefault : window.siyuan.languages.useBrowserView,
-        accelerator: showAccelerator ? window.siyuan.languages.click : "",
+        label: isInAndroid() ? window.shehab.languages.useDefault : window.shehab.languages.useBrowserView,
+        accelerator: showAccelerator ? window.shehab.languages.click : "",
         click: () => {
             openByMobile(src);
         }
@@ -850,17 +850,17 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             submenu.push({
                 id: "insertRight",
                 icon: "iconLayoutRight",
-                label: window.siyuan.languages.insertRight,
-                accelerator: showAccelerator ? window.siyuan.languages.click : "",
+                label: window.shehab.languages.insertRight,
+                accelerator: showAccelerator ? window.shehab.languages.click : "",
                 click() {
                     openAsset(app, src.trim(), parseInt(getSearch("page", src)), "right");
                 }
             });
             submenu.push({
                 id: "openBy",
-                label: window.siyuan.languages.openBy,
+                label: window.shehab.languages.openBy,
                 icon: "iconOpen",
-                accelerator: showAccelerator ? "⌥" + window.siyuan.languages.click : "",
+                accelerator: showAccelerator ? "⌥" + window.shehab.languages.click : "",
                 click() {
                     openAsset(app, src.trim(), parseInt(getSearch("page", src)));
                 }
@@ -868,7 +868,7 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             /// #if !BROWSER
             submenu.push({
                 id: "openByNewWindow",
-                label: window.siyuan.languages.openByNewWindow,
+                label: window.shehab.languages.openByNewWindow,
                 icon: "iconOpenWindow",
                 click() {
                     openAssetNewWindow(src.trim());
@@ -877,16 +877,16 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             submenu.push({
                 id: "showInFolder",
                 icon: "iconFolder",
-                label: window.siyuan.languages.showInFolder,
-                accelerator: showAccelerator ? "⌘" + window.siyuan.languages.click : "",
+                label: window.shehab.languages.showInFolder,
+                accelerator: showAccelerator ? "⌘" + window.shehab.languages.click : "",
                 click: () => {
                     openBy(src, "folder");
                 }
             });
             submenu.push({
                 id: "useDefault",
-                label: window.siyuan.languages.useDefault,
-                accelerator: showAccelerator ? "⇧" + window.siyuan.languages.click : "",
+                label: window.shehab.languages.useDefault,
+                accelerator: showAccelerator ? "⇧" + window.shehab.languages.click : "",
                 click() {
                     openBy(src, "app");
                 }
@@ -896,8 +896,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             /// #if !BROWSER
             submenu.push({
                 id: "useDefault",
-                label: window.siyuan.languages.useDefault,
-                accelerator: showAccelerator ? window.siyuan.languages.click : "",
+                label: window.shehab.languages.useDefault,
+                accelerator: showAccelerator ? window.shehab.languages.click : "",
                 click() {
                     openBy(src, "app");
                 }
@@ -905,8 +905,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             submenu.push({
                 id: "showInFolder",
                 icon: "iconFolder",
-                label: window.siyuan.languages.showInFolder,
-                accelerator: showAccelerator ? "⌘" + window.siyuan.languages.click : "",
+                label: window.shehab.languages.showInFolder,
+                accelerator: showAccelerator ? "⌘" + window.shehab.languages.click : "",
                 click: () => {
                     openBy(src, "folder");
                 }
@@ -914,8 +914,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             /// #else
             submenu.push({
                 id: isInAndroid() || isInHarmony() ? "useDefault" : "useBrowserView",
-                label: isInAndroid() || isInHarmony() ? window.siyuan.languages.useDefault : window.siyuan.languages.useBrowserView,
-                accelerator: showAccelerator ? window.siyuan.languages.click : "",
+                label: isInAndroid() || isInHarmony() ? window.shehab.languages.useDefault : window.shehab.languages.useBrowserView,
+                accelerator: showAccelerator ? window.shehab.languages.click : "",
                 click: () => {
                     openByMobile(src);
                 }
@@ -931,8 +931,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
         /// #if !BROWSER
         submenu.push({
             id: "useDefault",
-            label: window.siyuan.languages.useDefault,
-            accelerator: showAccelerator ? window.siyuan.languages.click : "",
+            label: window.shehab.languages.useDefault,
+            accelerator: showAccelerator ? window.shehab.languages.click : "",
             click: () => {
                 shell.openExternal(src).catch((e) => {
                     showMessage(e);
@@ -942,8 +942,8 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
         /// #else
         submenu.push({
             id: isInAndroid() || isInHarmony() ? "useDefault" : "useBrowserView",
-            label: isInAndroid() || isInHarmony() ? window.siyuan.languages.useDefault : window.siyuan.languages.useBrowserView,
-            accelerator: showAccelerator ? window.siyuan.languages.click : "",
+            label: isInAndroid() || isInHarmony() ? window.shehab.languages.useDefault : window.shehab.languages.useBrowserView,
+            accelerator: showAccelerator ? window.shehab.languages.click : "",
             click: () => {
                 openByMobile(src);
             }
@@ -954,9 +954,9 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
     if (onlyMenu) {
         return submenu;
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "openBy",
-        label: window.siyuan.languages.openBy,
+        label: window.shehab.languages.openBy,
         icon: "iconOpen",
         submenu
     }).element);
@@ -970,9 +970,9 @@ export const renameMenu = (options: {
 }) => {
     return new MenuItem({
         id: "rename",
-        accelerator: window.siyuan.config.keymap.editor.general.rename.custom,
+        accelerator: window.shehab.config.keymap.editor.general.rename.custom,
         icon: "iconEdit",
-        label: window.siyuan.languages.rename,
+        label: window.shehab.languages.rename,
         click: () => {
             rename(options);
         }
@@ -982,9 +982,9 @@ export const renameMenu = (options: {
 export const movePathToMenu = (paths: string[]) => {
     return new MenuItem({
         id: "move",
-        label: window.siyuan.languages.move,
+        label: window.shehab.languages.move,
         icon: "iconMove",
-        accelerator: window.siyuan.config.keymap.general.move.custom,
+        accelerator: window.shehab.config.keymap.general.move.custom,
         click() {
             const rootIDs: string[] = [];
             paths.forEach(item => {

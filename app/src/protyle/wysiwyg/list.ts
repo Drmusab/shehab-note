@@ -399,7 +399,7 @@ export const listOutdent = (protyle: IProtyle, liItemElements: Element[], range:
                 previousElement = blockElement;
             });
         });
-        if (!window.siyuan.config.editor.listLogicalOutdent && !nextElement.classList.contains("protyle-attr")) {
+        if (!window.shehab.config.editor.listLogicalOutdent && !nextElement.classList.contains("protyle-attr")) {
             // 传统缩进
             let newId;
             if (lastBlockElement.getAttribute("data-subtype") !== nextElement.getAttribute("data-subtype")) {
@@ -610,7 +610,7 @@ export const listOutdent = (protyle: IProtyle, liItemElements: Element[], range:
             });
         }
     });
-    if (!window.siyuan.config.editor.listLogicalOutdent && !nextElement.classList.contains("protyle-attr")) {
+    if (!window.shehab.config.editor.listLogicalOutdent && !nextElement.classList.contains("protyle-attr")) {
         // 传统缩进
         let newId;
         if (!lastBlockElement.classList.contains("list")) {
@@ -694,7 +694,7 @@ export const listOutdent = (protyle: IProtyle, liItemElements: Element[], range:
             });
         }
     }
-    if (!window.siyuan.config.editor.listLogicalOutdent && liElement.nextElementSibling) {
+    if (!window.shehab.config.editor.listLogicalOutdent && liElement.nextElementSibling) {
         // https://github.com/siyuan-note/siyuan/issues/9226
         nextElement = liElement.nextElementSibling;
         let subBlockPreviousID;

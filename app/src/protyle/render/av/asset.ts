@@ -81,16 +81,16 @@ ${contentHTML}
     ${html}
     <button data-type="addAssetExist" class="b3-menu__item b3-menu__item--current">
         <svg class="b3-menu__icon"><use xlink:href="#iconImage"></use></svg>
-        <span class="b3-menu__label">${window.siyuan.languages.assets}</span>
+        <span class="b3-menu__label">${window.shehab.languages.assets}</span>
     </button>
     <button class="b3-menu__item">
         <svg class="b3-menu__icon"><use xlink:href="#iconDownload"></use></svg>
-        <span class="b3-menu__label">${window.siyuan.languages.insertAsset}</span> 
+        <span class="b3-menu__label">${window.shehab.languages.insertAsset}</span> 
         <input multiple class="b3-form__upload" type="file">
     </button>
     <button data-type="addAssetLink" class="b3-menu__item">
         <svg class="b3-menu__icon"><use xlink:href="#iconLink"></use></svg>
-        <span class="b3-menu__label">${window.siyuan.languages.link}</span>
+        <span class="b3-menu__label">${window.shehab.languages.link}</span>
     </button>
 </div>`;
 };
@@ -227,18 +227,18 @@ export const editAssetItem = (options: {
             iconHTML: "",
             type: "readonly",
             label: `<div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.link}</span>
+    <span class="fn__flex-center">${window.shehab.languages.link}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div>
 <textarea rows="1" style="margin:4px 0;width: ${isMobile() ? "200" : "360"}px;resize: vertical;" class="b3-text-field"></textarea>
 <div class="fn__hr"></div>
 <div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.title}</span>
+    <span class="fn__flex-center">${window.shehab.languages.title}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div>
@@ -249,7 +249,7 @@ export const editAssetItem = (options: {
                     while (target) {
                         if (target.dataset.action === "copy") {
                             writeText((target.parentElement.nextElementSibling as HTMLTextAreaElement).value);
-                            showMessage(window.siyuan.languages.copied);
+                            showMessage(window.shehab.languages.copied);
                             break;
                         }
                         target = target.parentElement;
@@ -260,7 +260,7 @@ export const editAssetItem = (options: {
         menu.addSeparator({id: "separator_1"});
         menu.addItem({
             id: "copy",
-            label: window.siyuan.languages.copy,
+            label: window.shehab.languages.copy,
             icon: "iconCopy",
             click() {
                 writeText(`[${textElements[1].value || textElements[0].value}](${textElements[0].value})`);
@@ -272,9 +272,9 @@ export const editAssetItem = (options: {
             iconHTML: "",
             type: "readonly",
             label: `<div class="fn__flex">
-    <span class="fn__flex-center">${window.siyuan.languages.link}</span>
+    <span class="fn__flex-center">${window.shehab.languages.link}</span>
     <span class="fn__space"></span>
-    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.siyuan.languages.copy}">
+    <span data-action="copy" class="block__icon block__icon--show b3-tooltips b3-tooltips__e fn__flex-center" aria-label="${window.shehab.languages.copy}">
         <svg><use xlink:href="#iconCopy"></use></svg>
     </span>   
 </div>
@@ -285,7 +285,7 @@ export const editAssetItem = (options: {
                     while (target) {
                         if (target.dataset.action === "copy") {
                             writeText((target.parentElement.nextElementSibling as HTMLTextAreaElement).value);
-                            showMessage(window.siyuan.languages.copied);
+                            showMessage(window.shehab.languages.copied);
                             break;
                         }
                         target = target.parentElement;
@@ -296,7 +296,7 @@ export const editAssetItem = (options: {
         menu.addSeparator({id: "separator_1"});
         menu.addItem({
             id: "copy",
-            label: window.siyuan.languages.copy,
+            label: window.shehab.languages.copy,
             icon: "iconCopy",
             click() {
                 writeText(`![](${linkAddress.replace(/%20/g, " ")})`);
@@ -304,7 +304,7 @@ export const editAssetItem = (options: {
         });
         menu.addItem({
             id: "copyAsPNG",
-            label: window.siyuan.languages.copyAsPNG,
+            label: window.shehab.languages.copyAsPNG,
             icon: "iconImage",
             click() {
                 copyPNGByLink(linkAddress);
@@ -314,7 +314,7 @@ export const editAssetItem = (options: {
     menu.addItem({
         id: "delete",
         icon: "iconTrashcan",
-        label: window.siyuan.languages.delete,
+        label: window.shehab.languages.delete,
         click() {
             updateAssetCell({
                 protyle: options.protyle,
@@ -327,7 +327,7 @@ export const editAssetItem = (options: {
     if (linkAddress?.startsWith("assets/")) {
         menu.addItem({
             id: "rename",
-            label: window.siyuan.languages.rename,
+            label: window.shehab.languages.rename,
             icon: "iconEdit",
             click() {
                 renameAsset(linkAddress);
@@ -335,7 +335,7 @@ export const editAssetItem = (options: {
             }
         });
     }
-    const openSubMenu = openMenu(options.protyle ? options.protyle.app : window.siyuan.ws.app, linkAddress, true, false);
+    const openSubMenu = openMenu(options.protyle ? options.protyle.app : window.shehab.ws.app, linkAddress, true, false);
     if (type !== "file" || openSubMenu.length > 0) {
         menu.addSeparator({id: "separator_2"});
     }
@@ -343,7 +343,7 @@ export const editAssetItem = (options: {
         menu.addItem({
             id: "cardPreview",
             icon: "iconPreview",
-            label: window.siyuan.languages.cardPreview,
+            label: window.shehab.languages.cardPreview,
             click() {
                 previewAttrViewImages(
                     linkAddress,
@@ -355,15 +355,15 @@ export const editAssetItem = (options: {
         });
     }
     if (openSubMenu.length > 0) {
-        window.siyuan.menus.menu.append(new MenuItem({
+        window.shehab.menus.menu.append(new MenuItem({
             id: "openBy",
-            label: window.siyuan.languages.openBy,
+            label: window.shehab.languages.openBy,
             icon: "iconOpen",
             submenu: openSubMenu
         }).element);
     }
     if (linkAddress?.startsWith("assets/")) {
-        window.siyuan.menus.menu.append(new MenuItem(exportAsset(linkAddress)).element);
+        window.shehab.menus.menu.append(new MenuItem(exportAsset(linkAddress)).element);
     }
     const rect = options.rect;
     menu.open({
@@ -404,10 +404,10 @@ export const addAssetLink = (protyle: IProtyle, cellElements: HTMLElement[], tar
     menu.addItem({
         iconHTML: "",
         type: "readonly",
-        label: `${window.siyuan.languages.link}
+        label: `${window.shehab.languages.link}
 <textarea rows="1" style="margin:4px 0;width: ${isMobile() ? "200" : "360"}px;resize: vertical;" class="b3-text-field"></textarea>
 <div class="fn__hr"></div>
-${window.siyuan.languages.title}
+${window.shehab.languages.title}
 <textarea style="width: ${isMobile() ? "200" : "360"}px;margin: 4px 0;resize: vertical;" rows="1" class="b3-text-field"></textarea>`,
     });
     const rect = target.getBoundingClientRect();
@@ -421,7 +421,7 @@ ${window.siyuan.languages.title}
 };
 
 export const dragUpload = (files: string[], protyle: IProtyle, cellElement: HTMLElement) => {
-    const msgId = showMessage(window.siyuan.languages.uploading, 0);
+    const msgId = showMessage(window.shehab.languages.uploading, 0);
     fetchPost("/api/asset/insertLocalAssets", {
         assetPaths: files,
         isUpload: true,

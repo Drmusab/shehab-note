@@ -15,7 +15,7 @@ import {checkFold} from "../util/noRelyPCFunction";
 export const exportAsset = (src: string) => {
     return {
         id: "export",
-        label: window.siyuan.languages.export,
+        label: window.shehab.languages.export,
         icon: "iconUpload",
         async click() {
             /// #if BROWSER
@@ -39,8 +39,8 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     const openSubmenus: IMenu[] = [{
         id: "insertRight",
         icon: "iconLayoutRight",
-        label: window.siyuan.languages.insertRight,
-        accelerator: ids.length === 1 ? `${updateHotkeyTip(window.siyuan.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.siyuan.languages.click)}` : undefined,
+        label: window.shehab.languages.insertRight,
+        accelerator: ids.length === 1 ? `${updateHotkeyTip(window.shehab.config.keymap.editor.general.insertRight.custom)}/${updateHotkeyTip("⌥" + window.shehab.languages.click)}` : undefined,
         click: () => {
             if (notebookId) {
                 openFileById({
@@ -66,8 +66,8 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     }, {
         id: "insertBottom",
         icon: "iconLayoutBottom",
-        label: window.siyuan.languages.insertBottom,
-        accelerator: ids.length === 1 ? "⇧⌘" + window.siyuan.languages.click : "",
+        label: window.shehab.languages.insertBottom,
+        accelerator: ids.length === 1 ? "⇧⌘" + window.shehab.languages.click : "",
         click: () => {
             if (notebookId) {
                 openFileById({
@@ -91,11 +91,11 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
             }
         }
     }];
-    if (window.siyuan.config.fileTree.openFilesUseCurrentTab) {
+    if (window.shehab.config.fileTree.openFilesUseCurrentTab) {
         openSubmenus.push({
             id: "openInNewTab",
-            label: window.siyuan.languages.openInNewTab,
-            accelerator: ids.length === 1 ? "⌥⌘" + window.siyuan.languages.click : undefined,
+            label: window.shehab.languages.openInNewTab,
+            accelerator: ids.length === 1 ? "⌥⌘" + window.shehab.languages.click : undefined,
             click: () => {
                 if (notebookId) {
                     openFileById({
@@ -123,7 +123,7 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     /// #if !BROWSER
     openSubmenus.push({
         id: "openByNewWindow",
-        label: window.siyuan.languages.openByNewWindow,
+        label: window.shehab.languages.openByNewWindow,
         icon: "iconOpenWindow",
         click() {
             openNewWindowById(ids);
@@ -134,7 +134,7 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     openSubmenus.push({
         id: "preview",
         icon: "iconPreview",
-        label: window.siyuan.languages.preview,
+        label: window.shehab.languages.preview,
         click: () => {
             ids.forEach((id) => {
                 openFileById({app, id, mode: "preview"});
@@ -146,14 +146,14 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     openSubmenus.push({
         id: "showInFolder",
         icon: "iconFolder",
-        label: window.siyuan.languages.showInFolder,
+        label: window.shehab.languages.showInFolder,
         click: () => {
             if (notebookId) {
-                useShell("showItemInFolder", path.join(window.siyuan.config.system.dataDir, notebookId, pathString));
+                useShell("showItemInFolder", path.join(window.shehab.config.system.dataDir, notebookId, pathString));
             } else {
                 ids.forEach((id) => {
                     fetchPost("/api/block/getBlockInfo", {id}, (response) => {
-                        useShell("showItemInFolder", path.join(window.siyuan.config.system.dataDir, response.data.box, response.data.path));
+                        useShell("showItemInFolder", path.join(window.shehab.config.system.dataDir, response.data.box, response.data.path));
                     });
                 });
             }
@@ -163,9 +163,9 @@ export const openEditorTab = (app: App, ids: string[], notebookId?: string, path
     if (onlyGetMenus) {
         return openSubmenus;
     }
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         id: "openBy",
-        label: window.siyuan.languages.openBy,
+        label: window.shehab.languages.openBy,
         icon: "iconOpen",
         submenu: openSubmenus,
     }).element);

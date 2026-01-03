@@ -51,17 +51,17 @@ export const getNewFilePath = (useSavePath: boolean) => {
         }
     }
     /// #else
-    if (window.siyuan.mobile.editor && document.getElementById("empty").classList.contains("fn__none")) {
-        notebookId = window.siyuan.mobile.editor.protyle.notebookId;
+    if (window.shehab.mobile.editor && document.getElementById("empty").classList.contains("fn__none")) {
+        notebookId = window.shehab.mobile.editor.protyle.notebookId;
         if (useSavePath) {
-            currentPath = window.siyuan.mobile.editor.protyle.path;
+            currentPath = window.shehab.mobile.editor.protyle.path;
         } else {
-            currentPath = pathPosix().dirname(window.siyuan.mobile.editor.protyle.path);
+            currentPath = pathPosix().dirname(window.shehab.mobile.editor.protyle.path);
         }
     }
     /// #endif
     if (!notebookId) {
-        window.siyuan.notebooks.find(item => {
+        window.shehab.notebooks.find(item => {
             if (!item.closed) {
                 notebookId = item.id;
                 currentPath = "/";
@@ -83,7 +83,7 @@ export const newFile = (optios: {
     listDocTree?: boolean
 }) => {
     if (getOpenNotebookCount() === 0) {
-        showMessage(window.siyuan.languages.newFileTip);
+        showMessage(window.shehab.languages.newFileTip);
         return;
     }
     if (!optios.notebookId) {
@@ -97,7 +97,7 @@ export const newFile = (optios: {
         }
         if ((data.data.path.indexOf("/") > -1 && optios.useSavePath) || optios.name) {
             if (data.data.path.startsWith("/") || optios.currentPath === "/") {
-                const createPath = pathPosix().join(data.data.path, optios.name || (data.data.path.endsWith("/") ? window.siyuan.languages.untitled : ""));
+                const createPath = pathPosix().join(data.data.path, optios.name || (data.data.path.endsWith("/") ? window.shehab.languages.untitled : ""));
                 fetchPost("/api/filetree/createDocWithMd", {
                     notebook: data.data.box,
                     path: createPath,
@@ -123,7 +123,7 @@ export const newFile = (optios: {
                     notebook: data.data.box,
                     path: optios.notebookId === data.data.box ? (optios.currentPath.endsWith(".sy") ? optios.currentPath : optios.currentPath + ".sy") : (data.data.path || "/")
                 }, (responseHPath) => {
-                    const createPath = pathPosix().join(responseHPath.data, data.data.path, optios.name || (data.data.path.endsWith("/") ? window.siyuan.languages.untitled : ""));
+                    const createPath = pathPosix().join(responseHPath.data, data.data.path, optios.name || (data.data.path.endsWith("/") ? window.shehab.languages.untitled : ""));
                     fetchPost("/api/filetree/createDocWithMd", {
                         notebook: data.data.box,
                         path: createPath,
@@ -147,12 +147,12 @@ export const newFile = (optios: {
                 });
             }
         } else {
-            const title = pathPosix().basename(data.data.path || window.siyuan.languages.untitled);
+            const title = pathPosix().basename(data.data.path || window.shehab.languages.untitled);
             if (!validateName(title)) {
                 return;
             }
             if (optios.notebookId !== data.data.box) {
-                const createPath = pathPosix().join(data.data.path || "/", optios.name || (data.data.path.endsWith("/") ? window.siyuan.languages.untitled : ""));
+                const createPath = pathPosix().join(data.data.path || "/", optios.name || (data.data.path.endsWith("/") ? window.shehab.languages.untitled : ""));
                 fetchPost("/api/filetree/createDocWithMd", {
                     notebook: data.data.box,
                     path: createPath,
@@ -236,18 +236,18 @@ export const newFileByName = (app: App, value: string) => {
     newFile({
         app,
         useSavePath: true,
-        name: replaceFileName(value.trim()) || window.siyuan.languages.untitled
+        name: replaceFileName(value.trim()) || window.shehab.languages.untitled
     });
 };
 
 export const newFileBySelect = (protyle: IProtyle, selectText: string, nodeElement: HTMLElement, pathDir: string, targetNotebookId: string) => {
-    const newFileName = replaceFileName(selectText.trim() ? selectText.trim() : protyle.lute.BlockDOM2Content(nodeElement.outerHTML).replace(/\n/g, "").trim()) || window.siyuan.languages.untitled;
+    const newFileName = replaceFileName(selectText.trim() ? selectText.trim() : protyle.lute.BlockDOM2Content(nodeElement.outerHTML).replace(/\n/g, "").trim()) || window.shehab.languages.untitled;
     const hPath = pathPosix().join(pathDir, newFileName);
     fetchPost("/api/filetree/getIDsByHPath", {
         path: hPath,
         notebook: targetNotebookId
     }, (idResponse) => {
-        const refText = newFileName.substring(0, window.siyuan.config.editor.blockRefDynamicAnchorTextMaxLen);
+        const refText = newFileName.substring(0, window.shehab.config.editor.blockRefDynamicAnchorTextMaxLen);
         if (idResponse.data && idResponse.data.length > 0) {
             const refElement = protyle.toolbar.setInlineMark(protyle, "block-ref", "range", {
                 type: "id",

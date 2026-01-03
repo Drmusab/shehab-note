@@ -15,9 +15,9 @@ import {useShell} from "../../util/pathName";
 
 export const afterExport = (exportPath: string, msgId: string) => {
     /// #if !BROWSER
-    showMessage(`${window.siyuan.languages.exported} ${escapeHtml(exportPath)}
+    showMessage(`${window.shehab.languages.exported} ${escapeHtml(exportPath)}
 <div class="fn__space"></div>
-<button class="b3-button b3-button--white">${window.siyuan.languages.showInFolder}</button>`, 6000, "info", msgId);
+<button class="b3-button b3-button--white">${window.shehab.languages.showInFolder}</button>`, 6000, "info", msgId);
     document.querySelector(`#message [data-id="${msgId}"] button`).addEventListener("click", () => {
         useShell("showItemInFolder", path.join(exportPath));
         hideMessage(msgId);
@@ -27,27 +27,27 @@ export const afterExport = (exportPath: string, msgId: string) => {
 
 export const exportImage = (id: string) => {
     const exportDialog = new Dialog({
-        title: window.siyuan.languages.exportAsImage,
+        title: window.shehab.languages.exportAsImage,
         content: `<div class="b3-dialog__content" style="${isMobile() ? "padding:8px;" : ""};background-color: var(--b3-theme-background)">
     <div style="${isMobile() ? "margin: 8px 0" : "padding: 48px;margin: 8px 0"}" class="export-img">
-        <div ${isMobile() ? 'style="padding:8px"' : ""} class="protyle-wysiwyg${window.siyuan.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : ""}"></div>
+        <div ${isMobile() ? 'style="padding:8px"' : ""} class="protyle-wysiwyg${window.shehab.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : ""}"></div>
         <div class="export-img__watermark"></div>
     </div>
 </div>
 <div class="b3-dialog__action">
     <label class="fn__flex">
-        ${window.siyuan.languages.exportPDF5}
+        ${window.shehab.languages.exportPDF5}
         <span class="fn__space"></span>
-        <input id="keepFold" class="b3-switch fn__flex-center" type="checkbox" ${window.siyuan.storage[Constants.LOCAL_EXPORTIMG].keepFold ? "checked" : ""}>
+        <input id="keepFold" class="b3-switch fn__flex-center" type="checkbox" ${window.shehab.storage[Constants.LOCAL_EXPORTIMG].keepFold ? "checked" : ""}>
     </label>
     <label class="fn__flex" style="margin-left: 24px">
-        ${window.siyuan.languages.export30}
+        ${window.shehab.languages.export30}
         <span class="fn__space"></span>
-        <input id="watermark" class="b3-switch fn__flex-center" type="checkbox" ${window.siyuan.storage[Constants.LOCAL_EXPORTIMG].watermark ? "checked" : ""}>
+        <input id="watermark" class="b3-switch fn__flex-center" type="checkbox" ${window.shehab.storage[Constants.LOCAL_EXPORTIMG].watermark ? "checked" : ""}>
     </label>
     <span class="fn__flex-1 export-img__space"></span>
-    <button disabled class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button disabled class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button disabled class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button disabled class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>
  <div class="fn__loading"><img height="128px" width="128px" src="stage/loading-pure.svg"></div>`,
         width: isMobile() ? "92vw" : "990px",
@@ -59,7 +59,7 @@ export const exportImage = (id: string) => {
         exportDialog.destroy();
     });
     btnsElement[1].addEventListener("click", async () => {
-        const msgId = showMessage(window.siyuan.languages.exporting, 0);
+        const msgId = showMessage(window.shehab.languages.exporting, 0);
         const containerElement = exportDialog.element.querySelector(".b3-dialog__container") as HTMLElement;
         containerElement.style.height = "";
         /// #if MOBILE
@@ -67,7 +67,7 @@ export const exportImage = (id: string) => {
         /// #endif
         const contentElement = exportDialog.element.querySelector(".b3-dialog__content") as HTMLElement;
         contentElement.style.overflow = "hidden";
-        setStorageVal(Constants.LOCAL_EXPORTIMG, window.siyuan.storage[Constants.LOCAL_EXPORTIMG]);
+        setStorageVal(Constants.LOCAL_EXPORTIMG, window.shehab.storage[Constants.LOCAL_EXPORTIMG]);
         const plantumlElements = previewElement.querySelectorAll("[data-subtype='plantuml']");
         for (let i = 0; i < plantumlElements.length; i++) {
             const objectElement = plantumlElements[i].querySelector("object");
@@ -107,7 +107,7 @@ export const exportImage = (id: string) => {
         btnsElement[0].setAttribute("disabled", "disabled");
         btnsElement[1].setAttribute("disabled", "disabled");
         btnsElement[1].parentElement.insertAdjacentHTML("afterend", '<div class="fn__loading"><img height="128px" width="128px" src="stage/loading-pure.svg"></div>');
-        window.siyuan.storage[Constants.LOCAL_EXPORTIMG].keepFold = foldElement.checked;
+        window.shehab.storage[Constants.LOCAL_EXPORTIMG].keepFold = foldElement.checked;
         fetchPost("/api/export/exportPreviewHTML", {
             id,
             keepFold: foldElement.checked,
@@ -118,23 +118,23 @@ export const exportImage = (id: string) => {
     });
     const watermarkElement = (exportDialog.element.querySelector("#watermark") as HTMLInputElement);
     watermarkElement.addEventListener("change", () => {
-        window.siyuan.storage[Constants.LOCAL_EXPORTIMG].watermark = watermarkElement.checked;
+        window.shehab.storage[Constants.LOCAL_EXPORTIMG].watermark = watermarkElement.checked;
         updateWatermark();
     });
     const updateWatermark = () => {
         const watermarkPreviewElement = exportDialog.element.querySelector(".export-img__watermark") as HTMLElement;
         watermarkPreviewElement.innerHTML = "";
         if (watermarkElement.checked) {
-            if (window.siyuan.config.export.imageWatermarkDesc) {
-                watermarkPreviewElement.innerHTML = window.siyuan.config.export.imageWatermarkDesc;
-            } else if (window.siyuan.config.export.imageWatermarkStr) {
-                if (window.siyuan.config.export.imageWatermarkStr.startsWith("http")) {
-                    watermarkPreviewElement.setAttribute("style", `background-image: url(${window.siyuan.config.export.imageWatermarkStr});background-repeat: repeat;position: absolute;top: 0;left: 0;width: 100%;height: 100%;border-radius: var(--b3-border-radius-b);`);
+            if (window.shehab.config.export.imageWatermarkDesc) {
+                watermarkPreviewElement.innerHTML = window.shehab.config.export.imageWatermarkDesc;
+            } else if (window.shehab.config.export.imageWatermarkStr) {
+                if (window.shehab.config.export.imageWatermarkStr.startsWith("http")) {
+                    watermarkPreviewElement.setAttribute("style", `background-image: url(${window.shehab.config.export.imageWatermarkStr});background-repeat: repeat;position: absolute;top: 0;left: 0;width: 100%;height: 100%;border-radius: var(--b3-border-radius-b);`);
                 } else {
                     addScript("/stage/protyle/js/html-to-image.min.js?v=1.11.13", "protyleHtml2image").then(() => {
                         const width = Math.max(exportDialog.element.querySelector(".export-img").clientWidth / 3, 150);
                         watermarkPreviewElement.setAttribute("style", `width: ${width}px;height: ${width}px;display: flex;justify-content: center;align-items: center;color: var(--b3-border-color);font-size: 14px;`);
-                        watermarkPreviewElement.innerHTML = `<div style="transform: rotate(-45deg)">${window.siyuan.config.export.imageWatermarkStr}</div>`;
+                        watermarkPreviewElement.innerHTML = `<div style="transform: rotate(-45deg)">${window.shehab.config.export.imageWatermarkStr}</div>`;
                         window.htmlToImage.toCanvas(watermarkPreviewElement).then((canvas) => {
                             watermarkPreviewElement.innerHTML = "";
                             watermarkPreviewElement.setAttribute("style", `background-image: url(${canvas.toDataURL("image/png")});background-repeat: repeat;position: absolute;top: 0;left: 0;width: 100%;height: 100%;border-radius: var(--b3-border-radius-b);`);

@@ -12,13 +12,13 @@ export const openTopBarMenu = (app: App, target?: Element) => {
     menu.addItem({
         id: "manage",
         icon: "iconSettings",
-        label: window.siyuan.languages.manage,
-        ignore: isHuawei() || window.siyuan.config.readonly,
+        label: window.shehab.languages.manage,
+        ignore: isHuawei() || window.shehab.config.readonly,
         click() {
             openSetting(app).element.querySelector('.b3-tab-bar [data-name="bazaar"]').dispatchEvent(new CustomEvent("click"));
         }
     });
-    menu.addSeparator({id: "separator_1", ignore: isHuawei() || window.siyuan.config.readonly});
+    menu.addSeparator({id: "separator_1", ignore: isHuawei() || window.shehab.config.readonly});
     /// #endif
     let hasPlugin = false;
     app.plugins.forEach((plugin) => {
@@ -32,28 +32,28 @@ export const openTopBarMenu = (app: App, target?: Element) => {
                 i--;
                 continue;
             }
-            const hasUnpin = window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(item.id);
+            const hasUnpin = window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(item.id);
             const submenu = [{
                 id: hasUnpin ? "pin" : "unpin",
                 icon: hasUnpin ? "iconPin" : "iconUnpin",
-                label: hasUnpin ? window.siyuan.languages.pin : window.siyuan.languages.unpin,
+                label: hasUnpin ? window.shehab.languages.pin : window.shehab.languages.unpin,
                 click() {
                     if (hasUnpin) {
-                        window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].splice(window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].indexOf(item.id), 1);
+                        window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].splice(window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].indexOf(item.id), 1);
                         item.classList.remove("fn__none");
                     } else {
-                        window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].push(item.id);
-                        window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN] = Array.from(new Set(window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN]));
+                        window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].push(item.id);
+                        window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN] = Array.from(new Set(window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN]));
                         item.classList.add("fn__none");
                     }
-                    setStorageVal(Constants.LOCAL_PLUGINTOPUNPIN, window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN]);
+                    setStorageVal(Constants.LOCAL_PLUGINTOPUNPIN, window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN]);
                 }
             }];
             if (hasSetting) {
                 submenu.push({
                     id: "config",
                     icon: "iconSettings",
-                    label: window.siyuan.languages.config,
+                    label: window.shehab.languages.config,
                     click() {
                         plugin.openSetting();
                     },
@@ -106,13 +106,13 @@ export const openTopBarMenu = (app: App, target?: Element) => {
     });
     if (!hasPlugin) {
         if (target) {
-            window.siyuan.menus.menu.element.querySelector(".b3-menu__separator")?.remove();
+            window.shehab.menus.menu.element.querySelector(".b3-menu__separator")?.remove();
         } else {
             menu.addItem({
                 id: "emptyContent",
                 iconHTML: "",
                 type: "readonly",
-                label: window.siyuan.languages.emptyContent,
+                label: window.shehab.languages.emptyContent,
             });
         }
     }

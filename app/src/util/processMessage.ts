@@ -34,8 +34,8 @@ export const processMessage = (response: IWebSocketData) => {
     }
     if ("reloadui" === response.cmd) {
         if (response.data?.resetScroll) {
-            window.siyuan.storage[Constants.LOCAL_FILEPOSITION] = {};
-            setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION], () => {
+            window.shehab.storage[Constants.LOCAL_FILEPOSITION] = {};
+            setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION], () => {
                 /// #if MOBILE
                 window.location.reload();
                 /// #else

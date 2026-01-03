@@ -50,7 +50,7 @@ export class App {
         addBaseURL();
 
         this.appId = Constants.SIYUAN_APPID;
-        window.siyuan = {
+        window.shehab = {
             zIndex: 10,
             transactions: [],
             reqIds: {},
@@ -75,7 +75,7 @@ export class App {
                                 updateAppearance(data.data);
                                 break;
                             case "setSnippet":
-                                window.siyuan.config.snippet = data.data;
+                                window.shehab.config.snippet = data.data;
                                 renderSnippet();
                                 break;
                             case "setDefRefCount":
@@ -107,18 +107,18 @@ export class App {
                                 reloadSync(this, {upsertRootIDs: [data.data], removeRootIDs: []}, false, false, true);
                                 break;
                             case "readonly":
-                                window.siyuan.config.editor.readOnly = data.data;
+                                window.shehab.config.editor.readOnly = data.data;
                                 hideAllElements(["util"]);
                                 break;
                             case "setConf":
-                                window.siyuan.config = data.data;
+                                window.shehab.config = data.data;
                                 updateControlAlt();
                                 break;
                             case "progress":
                                 progressLoading(data);
                                 break;
                             case "setLocalStorageVal":
-                                window.siyuan.storage[data.data.key] = data.data.val;
+                                window.shehab.storage[data.data.key] = data.data.val;
                                 break;
                             case "rename":
                                 getAllTabs().forEach((tab) => {
@@ -175,7 +175,7 @@ export class App {
                                 progressBackgroundTask(data.data.tasks);
                                 break;
                             case "refreshtheme":
-                                if ((window.siyuan.config.appearance.mode === 1 && window.siyuan.config.appearance.themeDark !== "midnight") || (window.siyuan.config.appearance.mode === 0 && window.siyuan.config.appearance.themeLight !== "daylight")) {
+                                if ((window.shehab.config.appearance.mode === 1 && window.shehab.config.appearance.themeDark !== "midnight") || (window.shehab.config.appearance.mode === 0 && window.shehab.config.appearance.themeLight !== "daylight")) {
                                     (document.getElementById("themeStyle") as HTMLLinkElement).href = data.data.theme;
                                 } else {
                                     (document.getElementById("themeDefaultStyle") as HTMLLinkElement).href = data.data.theme;
@@ -193,20 +193,20 @@ export class App {
         fetchPost("/api/system/getConf", {}, async (response) => {
             addScriptSync(`${Constants.PROTYLE_CDN}/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}`, "protyleLuteScript");
             addScript(`${Constants.PROTYLE_CDN}/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}`, "protyleWcHtmlScript");
-            window.siyuan.config = response.data.conf;
+            window.shehab.config = response.data.conf;
             updateControlAlt();
-            window.siyuan.isPublish = response.data.isPublish;
+            window.shehab.isPublish = response.data.isPublish;
             await loadPlugins(this);
             getLocalStorage(() => {
-                fetchGet(`/appearance/langs/${window.siyuan.config.appearance.lang}.json?v=${Constants.SIYUAN_VERSION}`, (lauguages: IObject) => {
-                    window.siyuan.languages = lauguages;
-                    window.siyuan.menus = new Menus(this);
+                fetchGet(`/appearance/langs/${window.shehab.config.appearance.lang}.json?v=${Constants.SIYUAN_VERSION}`, (lauguages: IObject) => {
+                    window.shehab.languages = lauguages;
+                    window.shehab.menus = new Menus(this);
                     bootSync();
                     fetchPost("/api/setting/getCloudUser", {}, userResponse => {
-                        window.siyuan.user = userResponse.data;
+                        window.shehab.user = userResponse.data;
                         onGetConfig(response.data.start, this);
                         account.onSetaccount();
-                        setTitle(window.siyuan.languages.siyuanNote);
+                        setTitle(window.shehab.languages.siyuanNote);
                         initMessage();
                     });
                 });

@@ -60,7 +60,7 @@ const filterSelectHTML = (key: string, options: {
         <span class="fn__ellipsis">${escapeHtml(key)}</span>
     </span>
 </div>
-<span class="b3-menu__accelerator b3-menu__accelerator--hotkey">${window.siyuan.languages.enterKey}</span>
+<span class="b3-menu__accelerator b3-menu__accelerator--hotkey">${window.shehab.languages.enterKey}</span>
 </button>${html}`;
     } else if (html.indexOf("b3-menu__item--current") === -1) {
         html = html.replace('class="b3-menu__item"', 'class="b3-menu__item b3-menu__item--current"');
@@ -247,11 +247,11 @@ export const setColOption = (protyle: IProtyle, data: IAV, target: HTMLElement, 
         label: `<div class="fn__hr"></div>
 <div class="b3-form__icona fn__block">
     <input class="b3-text-field b3-form__icona-input" type="text" size="16">
-    <svg data-position="north" class="b3-form__icona-icon ariaLabel" aria-label="${desc ? escapeAriaLabel(desc) : window.siyuan.languages.addDesc}"><use xlink:href="#iconInfo"></use></svg>
+    <svg data-position="north" class="b3-form__icona-icon ariaLabel" aria-label="${desc ? escapeAriaLabel(desc) : window.shehab.languages.addDesc}"><use xlink:href="#iconInfo"></use></svg>
 </div>
 <div class="fn__none">
     <div class="fn__hr"></div>
-    <textarea rows="1" placeholder="${window.siyuan.languages.addDesc}" class="b3-text-field fn__block" type="text" data-value="${escapeAttr(desc)}">${desc}</textarea>
+    <textarea rows="1" placeholder="${window.shehab.languages.addDesc}" class="b3-text-field fn__block" type="text" data-value="${escapeAttr(desc)}">${desc}</textarea>
 </div>
 <div class="fn__hr--small"></div>`,
         bind(element) {
@@ -282,16 +282,16 @@ export const setColOption = (protyle: IProtyle, data: IAV, target: HTMLElement, 
                 }
             });
             descElement.addEventListener("input", () => {
-                inputElement.nextElementSibling.setAttribute("aria-label", descElement.value ? escapeHtml(descElement.value) : window.siyuan.languages.addDesc);
+                inputElement.nextElementSibling.setAttribute("aria-label", descElement.value ? escapeHtml(descElement.value) : window.shehab.languages.addDesc);
             });
         }
     });
     menu.addItem({
         id: "delete",
-        label: window.siyuan.languages.delete,
+        label: window.shehab.languages.delete,
         icon: "iconTrashcan",
         click() {
-            confirmDialog(window.siyuan.languages.deleteOpConfirm, window.siyuan.languages.confirmDelete, () => {
+            confirmDialog(window.shehab.languages.deleteOpConfirm, window.shehab.languages.confirmDelete, () => {
                 let colOptions: { name: string, color: string }[] = [];
                 fields.find(column => {
                     if (column.id === colId) {
@@ -457,9 +457,9 @@ export const setColOption = (protyle: IProtyle, data: IAV, target: HTMLElement, 
         w: rect.width,
         h: rect.height,
     });
-    const inputElement = window.siyuan.menus.menu.element.querySelector("input");
+    const inputElement = window.shehab.menus.menu.element.querySelector("input");
     inputElement.select();
-    const descElement = window.siyuan.menus.menu.element.querySelector("textarea");
+    const descElement = window.shehab.menus.menu.element.querySelector("textarea");
 };
 
 export const bindSelectEvent = (protyle: IProtyle, data: IAV, menuElement: HTMLElement, cellElements: HTMLElement[], blockElement: Element) => {

@@ -11,8 +11,8 @@ export const htmlRender = (element: Element) => {
     }
     if (htmlElements.length > 0) {
         htmlElements.forEach((e: HTMLDivElement) => {
-           e.firstElementChild.firstElementChild.setAttribute("aria-label", window.siyuan.languages.edit);
-           e.firstElementChild.lastElementChild.setAttribute("aria-label", window.siyuan.languages.more);
+           e.firstElementChild.firstElementChild.setAttribute("aria-label", window.shehab.languages.edit);
+           e.firstElementChild.lastElementChild.setAttribute("aria-label", window.shehab.languages.more);
         });
     }
 };

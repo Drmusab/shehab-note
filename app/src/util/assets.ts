@@ -10,17 +10,17 @@ import {isInAndroid, isInHarmony, isInIOS, isIPad, isIPhone, isMac, isWin11} fro
 
 export const loadAssets = (data: Config.IAppearance) => {
     const htmlElement = document.getElementsByTagName("html")[0];
-    htmlElement.setAttribute("lang", window.siyuan.config.appearance.lang);
+    htmlElement.setAttribute("lang", window.shehab.config.appearance.lang);
     htmlElement.setAttribute("data-theme-mode", getThemeMode());
-    htmlElement.setAttribute("data-light-theme", window.siyuan.config.appearance.themeLight);
-    htmlElement.setAttribute("data-dark-theme", window.siyuan.config.appearance.themeDark);
+    htmlElement.setAttribute("data-light-theme", window.shehab.config.appearance.themeLight);
+    htmlElement.setAttribute("data-dark-theme", window.shehab.config.appearance.themeDark);
     const OSTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    if (window.siyuan.config.appearance.modeOS && (
-        (window.siyuan.config.appearance.mode === 1 && OSTheme === "light") ||
-        (window.siyuan.config.appearance.mode === 0 && OSTheme === "dark")
+    if (window.shehab.config.appearance.modeOS && (
+        (window.shehab.config.appearance.mode === 1 && OSTheme === "light") ||
+        (window.shehab.config.appearance.mode === 0 && OSTheme === "dark")
     )) {
         fetchPost("/api/system/setAppearanceMode", {mode: OSTheme === "light" ? 0 : 1});
-        window.siyuan.config.appearance.mode = (OSTheme === "light" ? 0 : 1);
+        window.shehab.config.appearance.mode = (OSTheme === "light" ? 0 : 1);
     }
     const defaultStyleElement = document.getElementById("themeDefaultStyle");
     const defaultThemeAddress = `/appearance/themes/${data.mode === 1 ? "midnight" : "daylight"}/theme.css?v=${Constants.SIYUAN_VERSION}`;
@@ -58,8 +58,8 @@ export const loadAssets = (data: Config.IAppearance) => {
     getAllModels().graph.forEach(item => {
         item.searchGraph(false);
     });
-    const pdfTheme = window.siyuan.config.appearance.mode === 0 ? window.siyuan.storage[Constants.LOCAL_PDFTHEME].light :
-        window.siyuan.storage[Constants.LOCAL_PDFTHEME].dark;
+    const pdfTheme = window.shehab.config.appearance.mode === 0 ? window.shehab.storage[Constants.LOCAL_PDFTHEME].light :
+        window.shehab.storage[Constants.LOCAL_PDFTHEME].dark;
     document.querySelectorAll(".pdf__outer").forEach(item => {
         const darkElement = item.querySelector("#pdfDark");
         const lightElement = item.querySelector("#pdfLight");
@@ -157,17 +157,17 @@ export const initAssets = () => {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
         const OSTheme = event.matches ? "dark" : "light";
         updateMobileTheme(OSTheme);
-        if (!window.siyuan.config.appearance.modeOS) {
+        if (!window.shehab.config.appearance.modeOS) {
             return;
         }
-        if ((window.siyuan.config.appearance.mode === 0 && OSTheme === "light") ||
-            (window.siyuan.config.appearance.mode === 1 && OSTheme === "dark")) {
+        if ((window.shehab.config.appearance.mode === 0 && OSTheme === "light") ||
+            (window.shehab.config.appearance.mode === 1 && OSTheme === "dark")) {
             return;
         }
         fetchPost("/api/system/setAppearanceMode", {
             mode: OSTheme === "light" ? 0 : 1
         }, async response => {
-            if (window.siyuan.config.appearance.themeJS) {
+            if (window.shehab.config.appearance.themeJS) {
                 if (window.destroyTheme) {
                     try {
                         await window.destroyTheme();
@@ -190,7 +190,7 @@ export const initAssets = () => {
                     return;
                 }
             }
-            window.siyuan.config.appearance = response.data.appearance;
+            window.shehab.config.appearance = response.data.appearance;
             loadAssets(response.data.appearance);
         });
     });
@@ -274,9 +274,9 @@ export const setInlineStyle = async (set = true, servePath = "../../../") => {
   size-adjust: 92%;
 }`;
     }
-    style += `\n:root { --b3-font-size-editor: ${window.siyuan.config.editor.fontSize}px }
-.b3-typography code:not(.hljs), .protyle-wysiwyg span[data-type~=code] { font-variant-ligatures: ${window.siyuan.config.editor.codeLigatures ? "normal" : "none"} }${window.siyuan.config.editor.justify ? "\n.protyle-wysiwyg [data-node-id] { text-align: justify }" : ""}`;
-    if (window.siyuan.config.editor.rtl) {
+    style += `\n:root { --b3-font-size-editor: ${window.shehab.config.editor.fontSize}px }
+.b3-typography code:not(.hljs), .protyle-wysiwyg span[data-type~=code] { font-variant-ligatures: ${window.shehab.config.editor.codeLigatures ? "normal" : "none"} }${window.shehab.config.editor.justify ? "\n.protyle-wysiwyg [data-node-id] { text-align: justify }" : ""}`;
+    if (window.shehab.config.editor.rtl) {
         style += `\n.protyle-title__input,
 .protyle-wysiwyg .p,
 .protyle-wysiwyg .code-block .hljs,
@@ -301,8 +301,8 @@ export const setInlineStyle = async (set = true, servePath = "../../../") => {
   margin-left: auto;
 }`;
     }
-    if (window.siyuan.config.editor.fontFamily) {
-        style += `\n.b3-typography:not(.b3-typography--default), .protyle-wysiwyg, .protyle-title {font-family: "Emojis Additional", "Emojis Reset", "${window.siyuan.config.editor.fontFamily}", var(--b3-font-family)}`;
+    if (window.shehab.config.editor.fontFamily) {
+        style += `\n.b3-typography:not(.b3-typography--default), .protyle-wysiwyg, .protyle-title {font-family: "Emojis Additional", "Emojis Reset", "${window.shehab.config.editor.fontFamily}", var(--b3-font-family)}`;
     }
     // pad 端菜单移除显示，如工作空间
     if ("ontouchend" in document) {
@@ -322,13 +322,13 @@ export const setInlineStyle = async (set = true, servePath = "../../../") => {
 export const setCodeTheme = (cdn = Constants.PROTYLE_CDN) => {
     const protyleHljsStyle = document.getElementById("protyleHljsStyle") as HTMLLinkElement;
     let css;
-    if (window.siyuan.config.appearance.mode === 0) {
-        css = window.siyuan.config.appearance.codeBlockThemeLight;
+    if (window.shehab.config.appearance.mode === 0) {
+        css = window.shehab.config.appearance.codeBlockThemeLight;
         if (!Constants.SIYUAN_CONFIG_APPEARANCE_LIGHT_CODE.includes(css)) {
             css = "default";
         }
     } else {
-        css = window.siyuan.config.appearance.codeBlockThemeDark;
+        css = window.shehab.config.appearance.codeBlockThemeDark;
         if (!Constants.SIYUAN_CONFIG_APPEARANCE_DARK_CODE.includes(css)) {
             css = "github-dark";
         }
@@ -352,7 +352,7 @@ export const setMode = (modeElementValue: number) => {
             mode = 0;
         }
     }
-    fetchPost("/api/setting/setAppearance", Object.assign({}, window.siyuan.config.appearance, {
+    fetchPost("/api/setting/setAppearance", Object.assign({}, window.shehab.config.appearance, {
         mode,
         modeOS: modeElementValue === 2,
     }));
@@ -385,8 +385,8 @@ const updateMobileTheme = (OSTheme: string) => {
     if (isInIOS() || isInAndroid() || isInHarmony()) {
         setTimeout(() => {
             const backgroundColor = rgba2hex(getComputedStyle(document.body).getPropertyValue("--b3-theme-background").trim());
-            let mode = window.siyuan.config.appearance.mode;
-            if (window.siyuan.config.appearance.modeOS) {
+            let mode = window.shehab.config.appearance.mode;
+            if (window.shehab.config.appearance.modeOS) {
                 if (OSTheme === "dark") {
                     mode = 1;
                 } else {
@@ -406,9 +406,9 @@ const updateMobileTheme = (OSTheme: string) => {
 
 export const getThemeMode = () => {
     const OSTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    if (window.siyuan.config.appearance.modeOS) {
+    if (window.shehab.config.appearance.modeOS) {
         return OSTheme;
     } else {
-        return window.siyuan.config.appearance.mode === 0 ? "light" : "dark";
+        return window.shehab.config.appearance.mode === 0 ? "light" : "dark";
     }
 };

@@ -36,23 +36,23 @@ export const onGetConfig = (isStart: boolean, app: App) => {
     correctHotkey(app);
     /// #if !BROWSER
     ipcRenderer.invoke(Constants.SIYUAN_INIT, {
-        languages: window.siyuan.languages["_trayMenu"],
-        workspaceDir: window.siyuan.config.system.workspaceDir,
+        languages: window.shehab.languages["_trayMenu"],
+        workspaceDir: window.shehab.config.system.workspaceDir,
         port: location.port
     });
-    webFrame.setZoomFactor(window.siyuan.storage[Constants.LOCAL_ZOOM]);
+    webFrame.setZoomFactor(window.shehab.storage[Constants.LOCAL_ZOOM]);
     ipcRenderer.send(Constants.SIYUAN_CMD, {
         cmd: "setTrafficLightPosition",
-        zoom: window.siyuan.storage[Constants.LOCAL_ZOOM],
-        position: Constants.SIZE_ZOOM.find((item) => item.zoom === window.siyuan.storage[Constants.LOCAL_ZOOM]).position
+        zoom: window.shehab.storage[Constants.LOCAL_ZOOM],
+        position: Constants.SIZE_ZOOM.find((item) => item.zoom === window.shehab.storage[Constants.LOCAL_ZOOM]).position
     });
     /// #endif
-    if (!window.siyuan.config.uiLayout || (window.siyuan.config.uiLayout && !window.siyuan.config.uiLayout.left)) {
-        window.siyuan.config.uiLayout = Constants.SIYUAN_EMPTY_LAYOUT;
+    if (!window.shehab.config.uiLayout || (window.shehab.config.uiLayout && !window.shehab.config.uiLayout.left)) {
+        window.shehab.config.uiLayout = Constants.SIYUAN_EMPTY_LAYOUT;
     }
     initWindowEvent(app);
     fetchPost("/api/system/getEmojiConf", {}, response => {
-        window.siyuan.emojis = response.data as IEmoji[];
+        window.shehab.emojis = response.data as IEmoji[];
         try {
             JSONToLayout(app, isStart);
             setTimeout(() => {
@@ -72,7 +72,7 @@ export const onGetConfig = (isStart: boolean, app: App) => {
     /// #if !BROWSER
     initFocusFix();
     /// #endif
-    appearance.onSetAppearance(window.siyuan.config.appearance);
+    appearance.onSetAppearance(window.shehab.config.appearance);
     initAssets();
     setInlineStyle();
     renderSnippet();
@@ -125,16 +125,16 @@ export const initWindow = async (app: App) => {
     /// #if !BROWSER
     ipcRenderer.send(Constants.SIYUAN_CMD, {
         cmd: "setSpellCheckerLanguages",
-        languages: window.siyuan.config.editor.spellcheckLanguages
+        languages: window.shehab.config.editor.spellcheckLanguages
     });
     const winOnClose = (close = false) => {
         exportLayout({
             cb() {
-                if (window.siyuan.config.appearance.closeButtonBehavior === 1 && !close) {
+                if (window.shehab.config.appearance.closeButtonBehavior === 1 && !close) {
                     // 最小化
-                    if ("windows" === window.siyuan.config.system.os) {
+                    if ("windows" === window.shehab.config.system.os) {
                         ipcRenderer.send(Constants.SIYUAN_CONFIG_TRAY, {
-                            languages: window.siyuan.languages["_trayMenu"],
+                            languages: window.shehab.languages["_trayMenu"],
                         });
                     } else {
                         ipcRenderer.send(Constants.SIYUAN_CMD, "closeButtonBehavior");
@@ -151,14 +151,14 @@ export const initWindow = async (app: App) => {
     ipcRenderer.on(Constants.SIYUAN_EVENT, (event, cmd) => {
         if (cmd === "focus") {
             // 由于 https://github.com/siyuan-note/siyuan/issues/10060 和新版 electron 应用切出再切进会保持光标，故移除 focus
-            window.siyuan.altIsPressed = false;
-            window.siyuan.ctrlIsPressed = false;
-            window.siyuan.shiftIsPressed = false;
+            window.shehab.altIsPressed = false;
+            window.shehab.ctrlIsPressed = false;
+            window.shehab.shiftIsPressed = false;
             document.body.classList.remove("body--blur");
         } else if (cmd === "blur") {
             document.body.classList.add("body--blur");
         } else if (cmd === "enter-full-screen") {
-            if ("darwin" === window.siyuan.config.system.os) {
+            if ("darwin" === window.shehab.config.system.os) {
                 if (isWindow()) {
                     setTabPosition();
                 } else {
@@ -168,7 +168,7 @@ export const initWindow = async (app: App) => {
                 winOnMaxRestore();
             }
         } else if (cmd === "leave-full-screen") {
-            if ("darwin" === window.siyuan.config.system.os) {
+            if ("darwin" === window.shehab.config.system.os) {
                 if (isWindow()) {
                     setTabPosition();
                 } else {
@@ -220,8 +220,8 @@ export const initWindow = async (app: App) => {
         });
     });
     ipcRenderer.on(Constants.SIYUAN_EXPORT_PDF, async (e, ipcData) => {
-        const msgId = showMessage(window.siyuan.languages.exporting, -1);
-        window.siyuan.storage[Constants.LOCAL_EXPORTPDF] = {
+        const msgId = showMessage(window.shehab.languages.exporting, -1);
+        window.shehab.storage[Constants.LOCAL_EXPORTPDF] = {
             removeAssets: ipcData.removeAssets,
             keepFold: ipcData.keepFold,
             mergeSubdocs: ipcData.mergeSubdocs,
@@ -236,10 +236,10 @@ export const initWindow = async (app: App) => {
             marginLeft: ipcData.pdfOptions.margins.left,
             paged: ipcData.paged,
         };
-        setStorageVal(Constants.LOCAL_EXPORTPDF, window.siyuan.storage[Constants.LOCAL_EXPORTPDF]);
+        setStorageVal(Constants.LOCAL_EXPORTPDF, window.shehab.storage[Constants.LOCAL_EXPORTPDF]);
         try {
-            if (window.siyuan.config.export.pdfFooter.trim()) {
-                const response = await fetchSyncPost("/api/template/renderSprig", {template: window.siyuan.config.export.pdfFooter});
+            if (window.shehab.config.export.pdfFooter.trim()) {
+                const response = await fetchSyncPost("/api/template/renderSprig", {template: window.shehab.config.export.pdfFooter});
                 ipcData.pdfOptions.displayHeaderFooter = true;
                 ipcData.pdfOptions.headerTemplate = "<span></span>";
                 ipcData.pdfOptions.footerTemplate = `<div style="text-align:center;width:100%;font-size:10px;line-height:12px;">
@@ -304,7 +304,7 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
             });
         } catch (e) {
             console.error(e);
-            showMessage(window.siyuan.languages.exportPDFLowMemory, 0, "error", msgId);
+            showMessage(window.shehab.languages.exportPDFLowMemory, 0, "error", msgId);
             ipcRenderer.send(Constants.SIYUAN_CMD, {cmd: "destroy", webContentsId: ipcData.webContentsId});
         }
         ipcRenderer.send(Constants.SIYUAN_CMD, {cmd: "hide", webContentsId: ipcData.webContentsId});
@@ -312,44 +312,44 @@ ${response.data.replace("%pages", "<span class=totalPages></span>").replace("%pa
 
     if (isWindow()) {
         document.body.insertAdjacentHTML("beforeend", `<div class="toolbar__window">
-<div class="toolbar__item ariaLabel" aria-label="${window.siyuan.languages.pin}" id="pinWindow">
+<div class="toolbar__item ariaLabel" aria-label="${window.shehab.languages.pin}" id="pinWindow">
     <svg>
         <use xlink:href="#iconPin"></use>
     </svg>
 </div></div>`);
         const pinElement = document.getElementById("pinWindow");
         pinElement.addEventListener("click", () => {
-            if (pinElement.getAttribute("aria-label") === window.siyuan.languages.pin) {
+            if (pinElement.getAttribute("aria-label") === window.shehab.languages.pin) {
                 pinElement.querySelector("use").setAttribute("xlink:href", "#iconUnpin");
-                pinElement.setAttribute("aria-label", window.siyuan.languages.unpin);
+                pinElement.setAttribute("aria-label", window.shehab.languages.unpin);
                 ipcRenderer.send(Constants.SIYUAN_CMD, "setAlwaysOnTopTrue");
             } else {
                 pinElement.querySelector("use").setAttribute("xlink:href", "#iconPin");
-                pinElement.setAttribute("aria-label", window.siyuan.languages.pin);
+                pinElement.setAttribute("aria-label", window.shehab.languages.pin);
                 ipcRenderer.send(Constants.SIYUAN_CMD, "setAlwaysOnTopFalse");
             }
         });
     }
-    if ("darwin" !== window.siyuan.config.system.os) {
+    if ("darwin" !== window.shehab.config.system.os) {
         document.body.classList.add("body--win32");
 
         // 添加窗口控件
-        const controlsHTML = `<div class="toolbar__item ariaLabel toolbar__item--win" aria-label="${window.siyuan.languages.min}" id="minWindow">
+        const controlsHTML = `<div class="toolbar__item ariaLabel toolbar__item--win" aria-label="${window.shehab.languages.min}" id="minWindow">
     <svg>
         <use xlink:href="#iconMin"></use>
     </svg>
 </div>
-<div aria-label="${window.siyuan.languages.max}" class="ariaLabel toolbar__item toolbar__item--win" id="maxWindow">
+<div aria-label="${window.shehab.languages.max}" class="ariaLabel toolbar__item toolbar__item--win" id="maxWindow">
     <svg>
         <use xlink:href="#iconMax"></use>
     </svg>
 </div>
-<div aria-label="${window.siyuan.languages.restore}" class="ariaLabel toolbar__item toolbar__item--win" id="restoreWindow">
+<div aria-label="${window.shehab.languages.restore}" class="ariaLabel toolbar__item toolbar__item--win" id="restoreWindow">
     <svg>
         <use xlink:href="#iconRestore"></use>
     </svg>
 </div>
-<div aria-label="${window.siyuan.languages.close}" class="ariaLabel toolbar__item toolbar__item--close" id="closeWindow">
+<div aria-label="${window.shehab.languages.close}" class="ariaLabel toolbar__item toolbar__item--close" id="closeWindow">
     <svg>
         <use xlink:href="#iconClose"></use>
     </svg>

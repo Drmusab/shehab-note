@@ -38,7 +38,7 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
         "var(--b3-font-color13)"].forEach((item, index) => {
         colorHTML += `<button class="keyboard__slash-item" data-type="color">
     <span class="keyboard__slash-icon" ${item ? `style="color:${item}"` : ""}>A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages.colorFont} ${item ? index + 1 : window.siyuan.languages.default}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.colorFont} ${item ? index + 1 : window.shehab.languages.default}</span>
 </button>`;
     });
     let bgHTML = "";
@@ -48,7 +48,7 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
         "var(--b3-font-background13)"].forEach((item, index) => {
         bgHTML += `<button class="keyboard__slash-item" data-type="backgroundColor">
     <span class="keyboard__slash-icon" ${item ? `style="background-color:${item}"` : ""}>A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages.colorPrimary} ${item ? index + 1 : window.siyuan.languages.default}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.colorPrimary} ${item ? index + 1 : window.shehab.languages.default}</span>
 </button>`;
     });
 
@@ -62,10 +62,10 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
     });
 
     let lastColorHTML = "";
-    const lastFonts = window.siyuan.storage[Constants.LOCAL_FONTSTYLES];
+    const lastFonts = window.shehab.storage[Constants.LOCAL_FONTSTYLES];
     if (lastFonts.length > 0) {
         lastColorHTML = `<div data-id="lastUsed" class="keyboard__slash-title">
-    ${window.siyuan.languages.lastUsed}
+    ${window.shehab.languages.lastUsed}
 </div>
 <div data-id="lastUsedWrap" class="keyboard__slash-block">`;
         lastFonts.forEach((item: string) => {
@@ -74,23 +74,23 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
                 case "color":
                     lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
     <span class="keyboard__slash-icon" ${lastFontStatus[1] ? `style="color:${lastFontStatus[1]}"` : ""} >A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages.colorFont} ${lastFontStatus[1] ? parseInt(lastFontStatus[1].replace("var(--b3-font-color", "")) + 1 : window.siyuan.languages.default}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.colorFont} ${lastFontStatus[1] ? parseInt(lastFontStatus[1].replace("var(--b3-font-color", "")) + 1 : window.shehab.languages.default}</span>
 </button>`;
                     break;
                 case "backgroundColor":
                     lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
     <span class="keyboard__slash-icon" ${lastFontStatus[1] ? `style="background-color:${lastFontStatus[1]}"` : ""}>A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages.colorPrimary} ${lastFontStatus[1] ? parseInt(lastFontStatus[1].replace("var(--b3-font-background", "")) + 1 : window.siyuan.languages.default}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.colorPrimary} ${lastFontStatus[1] ? parseInt(lastFontStatus[1].replace("var(--b3-font-background", "")) + 1 : window.shehab.languages.default}</span>
 </button>`;
                     break;
                 case "style2":
                     lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
-    <span class="keyboard__slash-text" style="-webkit-text-stroke: 0.2px var(--b3-theme-on-background);-webkit-text-fill-color : transparent;">${window.siyuan.languages.hollow}</span>
+    <span class="keyboard__slash-text" style="-webkit-text-stroke: 0.2px var(--b3-theme-on-background);-webkit-text-fill-color : transparent;">${window.shehab.languages.hollow}</span>
 </button>`;
                     break;
                 case "style4":
                     lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
-    <span class="keyboard__slash-text" style="text-shadow: 1px 1px var(--b3-theme-surface-lighter), 2px 2px var(--b3-theme-surface-lighter), 3px 3px var(--b3-theme-surface-lighter), 4px 4px var(--b3-theme-surface-lighter)">${window.siyuan.languages.shadow}</span>
+    <span class="keyboard__slash-text" style="text-shadow: 1px 1px var(--b3-theme-surface-lighter), 2px 2px var(--b3-theme-surface-lighter), 3px 3px var(--b3-theme-surface-lighter), 4px 4px var(--b3-theme-surface-lighter)">${window.shehab.languages.shadow}</span>
 </button>`;
                     break;
                 case "fontSize":
@@ -104,18 +104,18 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
                     if (lastFontStatus[1]) {
                         lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
     <span class="keyboard__slash-icon" style="background-color:${lastFontStatus[1]};color:${lastFontStatus[2]}">A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages[lastFontStatus[2].replace("var(--b3-card-", "").replace("-color)", "") + "Style"]}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages[lastFontStatus[2].replace("var(--b3-card-", "").replace("-color)", "") + "Style"]}</span>
 </button>`;
                     } else {
                         lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
     <span class="keyboard__slash-icon">A</span>
-    <span class="keyboard__slash-text">${window.siyuan.languages.color} ${window.siyuan.languages.default}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.color} ${window.shehab.languages.default}</span>
 </button>`;
                     }
                     break;
                 case "clear":
                     lastColorHTML += `<button class="keyboard__slash-item" data-type="${lastFontStatus[0]}">
-    <span class="keyboard__slash-text">${window.siyuan.languages.clearFontStyle}</span>
+    <span class="keyboard__slash-text">${window.shehab.languages.clearFontStyle}</span>
 </button>`;
                     break;
             }
@@ -137,51 +137,51 @@ export const renderTextMenu = (protyle: IProtyle, toolbarElement: Element) => {
     }
     const utilElement = toolbarElement.querySelector(".keyboard__util") as HTMLElement;
     utilElement.innerHTML = `${lastColorHTML}
-<div data-id="color" class="keyboard__slash-title">${window.siyuan.languages.color}</div>
+<div data-id="color" class="keyboard__slash-title">${window.shehab.languages.color}</div>
 <div data-id="colorWrap" class="keyboard__slash-block">
     <button class="keyboard__slash-item" data-type="style1">
         <span class="keyboard__slash-icon">A</span>
-        <span class="keyboard__slash-text">${window.siyuan.languages.color} ${window.siyuan.languages.default}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.color} ${window.shehab.languages.default}</span>
     </button>
     <button class="keyboard__slash-item" data-type="style1">
         <span class="keyboard__slash-icon" style="color: var(--b3-card-error-color);background-color: var(--b3-card-error-background);">A</span>
-        <span class="keyboard__slash-text">${window.siyuan.languages.errorStyle}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.errorStyle}</span>
     </button>
     <button class="keyboard__slash-item" data-type="style1">
         <span class="keyboard__slash-icon" style="color: var(--b3-card-warning-color);background-color: var(--b3-card-warning-background);">A</span>
-        <span class="keyboard__slash-text">${window.siyuan.languages.warningStyle}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.warningStyle}</span>
     </button>
     <button class="keyboard__slash-item" data-type="style1">
         <span class="keyboard__slash-icon" style="color: var(--b3-card-info-color);background-color: var(--b3-card-info-background);">A</span>
-        <span class="keyboard__slash-text">${window.siyuan.languages.infoStyle}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.infoStyle}</span>
     </button>
     <button class="keyboard__slash-item" data-type="style1">
         <span class="keyboard__slash-icon" style="color: var(--b3-card-success-color);background-color: var(--b3-card-success-background);">A</span>
-        <span class="keyboard__slash-text">${window.siyuan.languages.successStyle}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.successStyle}</span>
     </button>
 </div>
-<div data-id="colorFont" class="keyboard__slash-title">${window.siyuan.languages.colorFont}</div>
+<div data-id="colorFont" class="keyboard__slash-title">${window.shehab.languages.colorFont}</div>
 <div data-id="colorFontWrap" class="keyboard__slash-block">
     ${colorHTML}
 </div>
-<div data-id="colorPrimary" class="keyboard__slash-title">${window.siyuan.languages.colorPrimary}</div>
+<div data-id="colorPrimary" class="keyboard__slash-title">${window.shehab.languages.colorPrimary}</div>
 <div data-id="colorPrimaryWrap" class="keyboard__slash-block">
     ${bgHTML}
 </div>
-<div data-id="fontStyle" class="keyboard__slash-title">${window.siyuan.languages.fontStyle}</div>
+<div data-id="fontStyle" class="keyboard__slash-title">${window.shehab.languages.fontStyle}</div>
 <div data-id="fontStyleWrap" class="keyboard__slash-block">
     <button class="keyboard__slash-item" data-type="style2">
-        <span class="keyboard__slash-text" style="-webkit-text-stroke: 0.2px var(--b3-theme-on-background);-webkit-text-fill-color : transparent;">${window.siyuan.languages.hollow}</span>
+        <span class="keyboard__slash-text" style="-webkit-text-stroke: 0.2px var(--b3-theme-on-background);-webkit-text-fill-color : transparent;">${window.shehab.languages.hollow}</span>
     </button>
     <button class="keyboard__slash-item" data-type="style4">
-        <span class="keyboard__slash-text" style="text-shadow: 1px 1px var(--b3-theme-surface-lighter), 2px 2px var(--b3-theme-surface-lighter), 3px 3px var(--b3-theme-surface-lighter), 4px 4px var(--b3-theme-surface-lighter)">${window.siyuan.languages.shadow}</span>
+        <span class="keyboard__slash-text" style="text-shadow: 1px 1px var(--b3-theme-surface-lighter), 2px 2px var(--b3-theme-surface-lighter), 3px 3px var(--b3-theme-surface-lighter), 4px 4px var(--b3-theme-surface-lighter)">${window.shehab.languages.shadow}</span>
     </button>
     <button class="keyboard__slash-item" data-type="clear">
         <svg class="keyboard__slash-icon"><use xlink:href="#iconTrashcan"></use></svg>
-        <span class="keyboard__slash-text">${window.siyuan.languages.clearFontStyle}</span>
+        <span class="keyboard__slash-text">${window.shehab.languages.clearFontStyle}</span>
     </button>
 </div>
-<div data-id="fontSize" class="keyboard__slash-title${disableFont ? " fn__none" : ""}">${window.siyuan.languages.fontSize}</div>
+<div data-id="fontSize" class="keyboard__slash-title${disableFont ? " fn__none" : ""}">${window.shehab.languages.fontSize}</div>
 <div data-id="fontSizeWrap" class="keyboard__slash-block${disableFont ? " fn__none" : ""}">
     <select class="b3-select fn__block" style="width: calc(50% - 8px);margin: 4px 0 8px 0;">
         <option ${fontSize === "12px" ? "selected" : ""} value="12px">12px</option>
@@ -219,71 +219,71 @@ const renderSlashMenu = (protyle: IProtyle, toolbarElement: Element) => {
     const utilElement = toolbarElement.querySelector(".keyboard__util") as HTMLElement;
     utilElement.innerHTML = `<div class="keyboard__slash-title"></div>
 <div class="keyboard__slash-block">
-    ${getSlashItem(Constants.ZWSP, "iconMarkdown", window.siyuan.languages.template)}
-    ${getSlashItem(Constants.ZWSP + 1, "iconBoth", window.siyuan.languages.widget)}
-    ${getSlashItem(Constants.ZWSP + 2, "iconImage", window.siyuan.languages.assets)}
-    ${getSlashItem("((", "iconRef", window.siyuan.languages.ref, "true")}
-    ${getSlashItem("{{", "iconSQL", window.siyuan.languages.blockEmbed, "true")}
-    ${getSlashItem(Constants.ZWSP + 5, "iconSparkles", window.siyuan.languages.aiWriting)}
-    ${getSlashItem('<div data-type="NodeAttributeView" data-av-type="table"></div>', "iconDatabase", window.siyuan.languages.database, "true")}
-    ${getSlashItem(Constants.ZWSP + 4, "iconFile", window.siyuan.languages.newSubDocRef)}
+    ${getSlashItem(Constants.ZWSP, "iconMarkdown", window.shehab.languages.template)}
+    ${getSlashItem(Constants.ZWSP + 1, "iconBoth", window.shehab.languages.widget)}
+    ${getSlashItem(Constants.ZWSP + 2, "iconImage", window.shehab.languages.assets)}
+    ${getSlashItem("((", "iconRef", window.shehab.languages.ref, "true")}
+    ${getSlashItem("{{", "iconSQL", window.shehab.languages.blockEmbed, "true")}
+    ${getSlashItem(Constants.ZWSP + 5, "iconSparkles", window.shehab.languages.aiWriting)}
+    ${getSlashItem('<div data-type="NodeAttributeView" data-av-type="table"></div>', "iconDatabase", window.shehab.languages.database, "true")}
+    ${getSlashItem(Constants.ZWSP + 4, "iconFile", window.shehab.languages.newSubDocRef)}
 </div>
 <div class="keyboard__slash-title"></div>
 <div class="keyboard__slash-block">
-    ${getSlashItem(Constants.ZWSP + 3, "iconDownload", window.siyuan.languages.insertAsset + '<input class="b3-form__upload" type="file"' + (protyle.options.upload.accept ? (' multiple="' + protyle.options.upload.accept + '"') : "") + "/>", "true")}
-    ${isInAndroid() ? getSlashItem(Constants.ZWSP + 3, "iconCamera", window.siyuan.languages.insertPhoto + '<input class="b3-form__upload" capture="user" type="file"' + (protyle.options.upload.accept ? (' multiple="' + protyle.options.upload.accept + '"') : "") + "/>", "true") : ""}
-    ${getSlashItem('<iframe sandbox="allow-forms allow-presentation allow-same-origin allow-scripts allow-modals allow-popups" src="" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>', "iconLanguage", window.siyuan.languages.insertIframeURL, "true")}
-    ${getSlashItem("![]()", "iconImage", window.siyuan.languages.insertImgURL, "true")}
-    ${getSlashItem('<video controls="controls" src=""></video>', "iconVideo", window.siyuan.languages.insertVideoURL, "true")}
-    ${getSlashItem('<audio controls="controls" src=""></audio>', "iconRecord", window.siyuan.languages.insertAudioURL, "true")}
-    ${getSlashItem("emoji", "iconEmoji", window.siyuan.languages.emoji, "true")}
+    ${getSlashItem(Constants.ZWSP + 3, "iconDownload", window.shehab.languages.insertAsset + '<input class="b3-form__upload" type="file"' + (protyle.options.upload.accept ? (' multiple="' + protyle.options.upload.accept + '"') : "") + "/>", "true")}
+    ${isInAndroid() ? getSlashItem(Constants.ZWSP + 3, "iconCamera", window.shehab.languages.insertPhoto + '<input class="b3-form__upload" capture="user" type="file"' + (protyle.options.upload.accept ? (' multiple="' + protyle.options.upload.accept + '"') : "") + "/>", "true") : ""}
+    ${getSlashItem('<iframe sandbox="allow-forms allow-presentation allow-same-origin allow-scripts allow-modals allow-popups" src="" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>', "iconLanguage", window.shehab.languages.insertIframeURL, "true")}
+    ${getSlashItem("![]()", "iconImage", window.shehab.languages.insertImgURL, "true")}
+    ${getSlashItem('<video controls="controls" src=""></video>', "iconVideo", window.shehab.languages.insertVideoURL, "true")}
+    ${getSlashItem('<audio controls="controls" src=""></audio>', "iconRecord", window.shehab.languages.insertAudioURL, "true")}
+    ${getSlashItem("emoji", "iconEmoji", window.shehab.languages.emoji, "true")}
 </div>
 <div class="keyboard__slash-title"></div>
 <div class="keyboard__slash-block">
-    ${getSlashItem("# " + Lute.Caret, "iconH1", window.siyuan.languages.heading1, "true")}
-    ${getSlashItem("## " + Lute.Caret, "iconH2", window.siyuan.languages.heading2, "true")}
-    ${getSlashItem("### " + Lute.Caret, "iconH3", window.siyuan.languages.heading3, "true")}
-    ${getSlashItem("#### " + Lute.Caret, "iconH4", window.siyuan.languages.heading4, "true")}
-    ${getSlashItem("##### " + Lute.Caret, "iconH5", window.siyuan.languages.heading5, "true")}
-    ${getSlashItem("###### " + Lute.Caret, "iconH6", window.siyuan.languages.heading6, "true")}
-    ${getSlashItem("- " + Lute.Caret, "iconList", window.siyuan.languages.list, "true")}
-    ${getSlashItem("1. " + Lute.Caret, "iconOrderedList", window.siyuan.languages["ordered-list"], "true")}
-    ${getSlashItem("- [ ] " + Lute.Caret, "iconCheck", window.siyuan.languages.check, "true")}
-    ${getSlashItem("> " + Lute.Caret, "iconQuote", window.siyuan.languages.quote, "true")}
-    ${getSlashItem(`> [!NOTE]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">✏️</span>', `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-note)">Note</span>`, "true")}
-    ${getSlashItem(`> [!TIP]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">💡</span>', `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-tip)">Tip</span>`, "true")}
-    ${getSlashItem(`> [!IMPORTANT]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">❗</span>', `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-important)">Important</span>`, "true")}
-    ${getSlashItem(`> [!WARNING]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">⚠️</span>', `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-warning)">Warning</span>`, "true")}
-    ${getSlashItem(`> [!CAUTION]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">🚨</span>', `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-caution)">Caution</span>`, "true")}
-    ${getSlashItem("```", "iconCode", window.siyuan.languages.code, "true")}
-    ${getSlashItem(`| ${Lute.Caret} |  |  |\n| --- | --- | --- |\n|  |  |  |\n|  |  |  |`, "iconTable", window.siyuan.languages.table, "true")}
-    ${getSlashItem("---", "iconLine", window.siyuan.languages.line, "true")}
-    ${getSlashItem("$$", "iconMath", window.siyuan.languages.math)}
+    ${getSlashItem("# " + Lute.Caret, "iconH1", window.shehab.languages.heading1, "true")}
+    ${getSlashItem("## " + Lute.Caret, "iconH2", window.shehab.languages.heading2, "true")}
+    ${getSlashItem("### " + Lute.Caret, "iconH3", window.shehab.languages.heading3, "true")}
+    ${getSlashItem("#### " + Lute.Caret, "iconH4", window.shehab.languages.heading4, "true")}
+    ${getSlashItem("##### " + Lute.Caret, "iconH5", window.shehab.languages.heading5, "true")}
+    ${getSlashItem("###### " + Lute.Caret, "iconH6", window.shehab.languages.heading6, "true")}
+    ${getSlashItem("- " + Lute.Caret, "iconList", window.shehab.languages.list, "true")}
+    ${getSlashItem("1. " + Lute.Caret, "iconOrderedList", window.shehab.languages["ordered-list"], "true")}
+    ${getSlashItem("- [ ] " + Lute.Caret, "iconCheck", window.shehab.languages.check, "true")}
+    ${getSlashItem("> " + Lute.Caret, "iconQuote", window.shehab.languages.quote, "true")}
+    ${getSlashItem(`> [!NOTE]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">✏️</span>', `${window.shehab.languages.callout} - <span style="color: var(--b3-callout-note)">Note</span>`, "true")}
+    ${getSlashItem(`> [!TIP]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">💡</span>', `${window.shehab.languages.callout} - <span style="color: var(--b3-callout-tip)">Tip</span>`, "true")}
+    ${getSlashItem(`> [!IMPORTANT]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">❗</span>', `${window.shehab.languages.callout} - <span style="color: var(--b3-callout-important)">Important</span>`, "true")}
+    ${getSlashItem(`> [!WARNING]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">⚠️</span>', `${window.shehab.languages.callout} - <span style="color: var(--b3-callout-warning)">Warning</span>`, "true")}
+    ${getSlashItem(`> [!CAUTION]\n> ${Lute.Caret}`, '<span class="keyboard__slash-icon">🚨</span>', `${window.shehab.languages.callout} - <span style="color: var(--b3-callout-caution)">Caution</span>`, "true")}
+    ${getSlashItem("```", "iconCode", window.shehab.languages.code, "true")}
+    ${getSlashItem(`| ${Lute.Caret} |  |  |\n| --- | --- | --- |\n|  |  |  |\n|  |  |  |`, "iconTable", window.shehab.languages.table, "true")}
+    ${getSlashItem("---", "iconLine", window.shehab.languages.line, "true")}
+    ${getSlashItem("$$", "iconMath", window.shehab.languages.math)}
     ${getSlashItem("<div>", "iconHTML5", "HTML")}
 </div>
 <div class="keyboard__slash-title"></div>
 <div class="keyboard__slash-block">
-    ${getSlashItem("```abc\n```", "", window.siyuan.languages.staff, "true")}
-    ${getSlashItem("```echarts\n```", "", window.siyuan.languages.chart, "true")}
+    ${getSlashItem("```abc\n```", "", window.shehab.languages.staff, "true")}
+    ${getSlashItem("```echarts\n```", "", window.shehab.languages.chart, "true")}
     ${getSlashItem("```flowchart\n```", "", "Flow Chart", "true")}
     ${getSlashItem("```graphviz\n```", "", "Graph", "true")}
     ${getSlashItem("```mermaid\n```", "", "Mermaid", "true")}
-    ${getSlashItem("```mindmap\n```", "", window.siyuan.languages.mindmap, "true")}
+    ${getSlashItem("```mindmap\n```", "", window.shehab.languages.mindmap, "true")}
     ${getSlashItem("```plantuml\n```", "", "UML", "true")}
 </div>
 <div class="keyboard__slash-title"></div>
 <div class="keyboard__slash-block">
-    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-info-color);background-color: var(--b3-card-info-background);`, '<div style="color: var(--b3-card-info-color);background-color: var(--b3-card-info-background);" class="keyboard__slash-icon">A</div>', window.siyuan.languages.infoStyle, "true")}
-    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-success-color);background-color: var(--b3-card-success-background);`, '<div style="color: var(--b3-card-success-color);background-color: var(--b3-card-success-background);" class="keyboard__slash-icon">A</div>', window.siyuan.languages.successStyle, "true")}
-    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-warning-color);background-color: var(--b3-card-warning-background);`, '<div style="color: var(--b3-card-warning-color);background-color: var(--b3-card-warning-background);" class="keyboard__slash-icon">A</div>', window.siyuan.languages.warningStyle, "true")}
-    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-error-color);background-color: var(--b3-card-error-background);`, '<div style="color: var(--b3-card-error-color);background-color: var(--b3-card-error-background);" class="keyboard__slash-icon">A</div>', window.siyuan.languages.errorStyle, "true")}
-    ${getSlashItem(`style${Constants.ZWSP}`, '<div class="keyboard__slash-icon">A</div>', window.siyuan.languages.clearFontStyle, "true")}
+    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-info-color);background-color: var(--b3-card-info-background);`, '<div style="color: var(--b3-card-info-color);background-color: var(--b3-card-info-background);" class="keyboard__slash-icon">A</div>', window.shehab.languages.infoStyle, "true")}
+    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-success-color);background-color: var(--b3-card-success-background);`, '<div style="color: var(--b3-card-success-color);background-color: var(--b3-card-success-background);" class="keyboard__slash-icon">A</div>', window.shehab.languages.successStyle, "true")}
+    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-warning-color);background-color: var(--b3-card-warning-background);`, '<div style="color: var(--b3-card-warning-color);background-color: var(--b3-card-warning-background);" class="keyboard__slash-icon">A</div>', window.shehab.languages.warningStyle, "true")}
+    ${getSlashItem(`style${Constants.ZWSP}color: var(--b3-card-error-color);background-color: var(--b3-card-error-background);`, '<div style="color: var(--b3-card-error-color);background-color: var(--b3-card-error-background);" class="keyboard__slash-icon">A</div>', window.shehab.languages.errorStyle, "true")}
+    ${getSlashItem(`style${Constants.ZWSP}`, '<div class="keyboard__slash-icon">A</div>', window.shehab.languages.clearFontStyle, "true")}
 </div>${pluginHTML}`;
     protyle.hint.bindUploadEvent(protyle, utilElement);
 };
 
 export const showKeyboardToolbarUtil = (oldScrollTop: number) => {
-    window.siyuan.menus.menu.remove();
+    window.shehab.menus.menu.remove();
     showUtil = true;
 
     const toolbarElement = document.getElementById("keyboardToolbar");
@@ -318,7 +318,7 @@ const renderKeyboardToolbar = () => {
     clearTimeout(renderKeyboardToolbarTimeout);
     renderKeyboardToolbarTimeout = window.setTimeout(() => {
         if (getSelection().rangeCount === 0 ||
-            window.siyuan.config.readonly ||
+            window.shehab.config.readonly ||
             document.getElementById("toolbarName").getAttribute("readonly") === "readonly" ||
             window.screen.height - window.innerHeight < 160 ||  // reloadSync 会导致 selectionchange，从而导致键盘没有弹起的情况下出现工具栏
             !document.activeElement || (
@@ -415,7 +415,7 @@ export const showKeyboardToolbar = () => {
         return;
     }
     toolbarElement.classList.remove("fn__none");
-    toolbarElement.style.zIndex = (++window.siyuan.zIndex).toString();
+    toolbarElement.style.zIndex = (++window.shehab.zIndex).toString();
     const modelElement = document.getElementById("model");
     if (modelElement.style.transform === "translateY(0px)") {
         modelElement.style.paddingBottom = "42px";
@@ -597,7 +597,7 @@ export const initKeyboardToolbar = () => {
             }
             return;
         }
-        if (window.siyuan.config.readonly || !protyle || protyle.disabled) {
+        if (window.shehab.config.readonly || !protyle || protyle.disabled) {
             return;
         }
         if (type === "undo") {
@@ -689,7 +689,7 @@ export const initKeyboardToolbar = () => {
             return;
         } else if (type === "block") {
             protyle.gutter.renderMenu(protyle, nodeElement);
-            window.siyuan.menus.menu.fullscreen();
+            window.shehab.menus.menu.fullscreen();
             activeBlur();
             return;
         } else if (type === "outdent") {

@@ -83,7 +83,7 @@ export const updateHeader = (rowElement: HTMLElement) => {
         return;
     }
     counterElement.classList.remove("fn__none");
-    counterElement.innerHTML = `${allCount} ${window.siyuan.languages.selected}`;
+    counterElement.innerHTML = `${allCount} ${window.shehab.languages.selected}`;
 };
 
 export const setPage = (blockElement: Element) => {
@@ -335,7 +335,7 @@ export const setPageSize = (options: {
     menu.addItem({
         iconHTML: "",
         checked: currentPageSize === Constants.SIZE_DATABASE_MAZ_SIZE.toString(),
-        label: window.siyuan.languages.all,
+        label: window.shehab.languages.all,
         click() {
             updatePageSize({
                 currentPageSize,

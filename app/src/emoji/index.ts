@@ -13,7 +13,7 @@ import {setStorageVal} from "../protyle/util/compatibility";
 import * as dayjs from "dayjs";
 
 export const getRandomEmoji = () => {
-    const emojis = window.siyuan.emojis[getRandom(0, window.siyuan.emojis.length - 1)];
+    const emojis = window.shehab.emojis[getRandom(0, window.shehab.emojis.length - 1)];
     if (typeof emojis.items[getRandom(0, emojis.items.length - 1)] === "undefined") {
         return "1f600";
     }
@@ -55,7 +55,7 @@ export const lazyLoadEmoji = (element: HTMLElement) => {
             const index = entrie.target.getAttribute("data-index");
             if ((typeof entrie.isIntersecting === "undefined" ? entrie.intersectionRatio !== 0 : entrie.isIntersecting) && index) {
                 let html = "";
-                window.siyuan.emojis[parseInt(index)].items.forEach(emoji => {
+                window.shehab.emojis[parseInt(index)].items.forEach(emoji => {
                     html += `<button data-unicode="${emoji.unicode}" class="emojis__item ariaLabel" aria-label="${getEmojiDesc(emoji)}">
 ${unicode2Emoji(emoji.unicode)}</button>`;
                 });
@@ -89,22 +89,22 @@ export const filterEmoji = (key = "", max?: number) => {
     let html = "";
     const recentEmojis: IEmojiItem[] = [];
     if (key) {
-        html = `<div class="emojis__title">${window.siyuan.languages.emoji}</div><div class="emojis__content">`;
+        html = `<div class="emojis__title">${window.shehab.languages.emoji}</div><div class="emojis__content">`;
     }
     let maxCount = 0;
     let keyHTML = "";
     const customStore: IEmojiItem[] = [];
-    window.siyuan.emojis.forEach((category, index) => {
+    window.shehab.emojis.forEach((category, index) => {
         if (!key) {
             html += `<div class="emojis__title" data-type="${index + 1}">${getEmojiTitle(index)}</div><div style="min-height:${index === 0 ? "30px" : "300px"}" class="emojis__content"${index > 1 ? ' data-index="' + index + '"' : ""}>`;
         }
         if (category.items.length === 0 && index === 0 && !key) {
-            html += `<div style="margin-left: 4px">${window.siyuan.languages.setEmojiTip}</div>`;
+            html += `<div style="margin-left: 4px">${window.shehab.languages.setEmojiTip}</div>`;
         }
 
         category.items.forEach(emoji => {
             if (key) {
-                if (window.siyuan.config.editor.emoji.includes(emoji.unicode) &&
+                if (window.shehab.config.editor.emoji.includes(emoji.unicode) &&
                     (unicode2Emoji(emoji.unicode) === key ||
                         emoji.keywords.toLowerCase().indexOf(key.toLowerCase()) > -1 ||
                         emoji.description.toLowerCase().indexOf(key.toLowerCase()) > -1 ||
@@ -130,7 +130,7 @@ ${unicode2Emoji(emoji.unicode, undefined, false, true)}</button>`;
                     maxCount++;
                 }
             } else {
-                if (window.siyuan.config.editor.emoji.includes(emoji.unicode)) {
+                if (window.shehab.config.editor.emoji.includes(emoji.unicode)) {
                     recentEmojis.push(emoji);
                 }
                 if (index < 2) {
@@ -166,8 +166,8 @@ ${unicode2Emoji(item.unicode, undefined, false, true)}</button>`;
     }
     let recentHTML = "";
     if (recentEmojis.length > 0) {
-        recentHTML = `<div class="emojis__title" data-type="0">${window.siyuan.languages.recentEmoji}</div><div class="emojis__content">`;
-        window.siyuan.config.editor.emoji.forEach(emojiUnicode => {
+        recentHTML = `<div class="emojis__title" data-type="0">${window.shehab.languages.recentEmoji}</div><div class="emojis__content">`;
+        window.shehab.config.editor.emoji.forEach(emojiUnicode => {
             const emoji = recentEmojis.filter((item) => item.unicode === emojiUnicode);
             if (emoji[0]) {
                 recentHTML += `<button data-unicode="${emoji[0].unicode}" class="emojis__item ariaLabel" aria-label="${getEmojiDesc(emoji[0])}">
@@ -179,19 +179,19 @@ ${unicode2Emoji(emoji[0].unicode, undefined, false, true)}
     }
 
     if (recentHTML + html === "") {
-        return `<div class="emojis__title">${window.siyuan.languages.emptyContent}</div>`;
+        return `<div class="emojis__title">${window.shehab.languages.emptyContent}</div>`;
     }
     return recentHTML + html;
 };
 
 export const addEmoji = (unicode: string) => {
-    window.siyuan.config.editor.emoji.unshift(unicode);
-    if (window.siyuan.config.editor.emoji.length > Constants.SIZE_UNDO) {
-        window.siyuan.config.editor.emoji.pop();
+    window.shehab.config.editor.emoji.unshift(unicode);
+    if (window.shehab.config.editor.emoji.length > Constants.SIZE_UNDO) {
+        window.shehab.config.editor.emoji.pop();
     }
-    window.siyuan.config.editor.emoji = Array.from(new Set(window.siyuan.config.editor.emoji));
+    window.shehab.config.editor.emoji = Array.from(new Set(window.shehab.config.editor.emoji));
 
-    fetchPost("/api/setting/setEmoji", {emoji: window.siyuan.config.editor.emoji});
+    fetchPost("/api/setting/setEmoji", {emoji: window.shehab.config.editor.emoji});
 };
 
 const genWeekdayOptions = (lang: string, weekdayType: string) => {
@@ -203,7 +203,7 @@ const genWeekdayOptions = (lang: string, weekdayType: string) => {
     };
     let currentLang = 0;
     if (lang === "") {
-        lang = window.siyuan.config.lang;
+        lang = window.shehab.config.lang;
     }
     if (lang === "zh_CN") {
         currentLang = 1;
@@ -221,7 +221,7 @@ const renderEmojiContent = (previousIndex: string, previousContentElement: Eleme
         return;
     }
     let html = "";
-    window.siyuan.emojis[parseInt(previousIndex)].items.forEach(emoji => {
+    window.shehab.emojis[parseInt(previousIndex)].items.forEach(emoji => {
         html += `<button data-unicode="${emoji.unicode}" class="emojis__item ariaLabel" aria-label="${getEmojiDesc(emoji)}">${unicode2Emoji(emoji.unicode)}</button>`;
     });
     previousContentElement.innerHTML = html;
@@ -236,9 +236,9 @@ export const openEmojiPanel = (
     callback?: (emoji: string) => void,
     dynamicImgElement?: HTMLElement) => {
     if (type !== "av") {
-        window.siyuan.menus.menu.remove();
+        window.shehab.menus.menu.remove();
     } else {
-        window.siyuan.menus.menu.removeScrollEvent();
+        window.shehab.menus.menu.removeScrollEvent();
     }
 
     const dynamicURL = "api/icon/getDynamicIcon?";
@@ -271,11 +271,11 @@ export const openEmojiPanel = (
         height: "50vh",
         content: `<div class="emojis">
     <div class="emojis__tabheader">
-        <div data-type="tab-emoji" class="ariaLabel block__icon block__icon--show" aria-label="${window.siyuan.languages.emoji}"><svg><use xlink:href="#iconEmoji"></use></svg></div>
+        <div data-type="tab-emoji" class="ariaLabel block__icon block__icon--show" aria-label="${window.shehab.languages.emoji}"><svg><use xlink:href="#iconEmoji"></use></svg></div>
         <div class="fn__space"></div>
-        <div data-type="tab-dynamic" class="ariaLabel block__icon block__icon--show" aria-label="${window.siyuan.languages.dynamicIcon}"><svg><use xlink:href="#iconCalendar"></use></svg></div>
+        <div data-type="tab-dynamic" class="ariaLabel block__icon block__icon--show" aria-label="${window.shehab.languages.dynamicIcon}"><svg><use xlink:href="#iconCalendar"></use></svg></div>
         <div class="fn__flex-1"></div>
-        <span class="block__icon block__icon--show fn__flex-center ariaLabel" data-action="remove" aria-label="${window.siyuan.languages.remove}"><svg><use xlink:href="#iconTrashcan"></use></svg></span>
+        <span class="block__icon block__icon--show fn__flex-center ariaLabel" data-action="remove" aria-label="${window.shehab.languages.remove}"><svg><use xlink:href="#iconTrashcan"></use></svg></span>
     </div>
     <div class="emojis__tabbody">
         <div class="fn__none" data-type="tab-emoji">
@@ -284,16 +284,16 @@ export const openEmojiPanel = (
                 <span class="fn__space"></span>
                 <label class="b3-form__icon fn__flex-1" style="overflow:initial;">
                     <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                    <input class="b3-form__icon-input b3-text-field fn__block" placeholder="${window.siyuan.languages.search}">
+                    <input class="b3-form__icon-input b3-text-field fn__block" placeholder="${window.shehab.languages.search}">
                 </label>
                 <span class="fn__space"></span>
-                <span class="block__icon block__icon--show fn__flex-center ariaLabel" data-action="random" aria-label="${window.siyuan.languages.random}"><svg><use xlink:href="#iconRefresh"></use></svg></span>
+                <span class="block__icon block__icon--show fn__flex-center ariaLabel" data-action="random" aria-label="${window.shehab.languages.random}"><svg><use xlink:href="#iconRefresh"></use></svg></span>
                 <span class="fn__space"></span>
             </div>
             <div class="emojis__panel">${filterEmoji()}</div>
             <div class="fn__flex">
                 ${[
-            ["2b50", window.siyuan.languages.recentEmoji],
+            ["2b50", window.shehab.languages.recentEmoji],
             ["1f527", getEmojiTitle(0)],
             ["1f60d", getEmojiTitle(1)],
             ["1f433", getEmojiTitle(2)],
@@ -323,10 +323,10 @@ export const openEmojiPanel = (
             </div>
             <div class="fn__flex">
                 <span class="fn__space"></span>
-                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.siyuan.languages.language}</span>
+                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.shehab.languages.language}</span>
                 <span class="fn__space--small"></span>
                 <select class="b3-select fn__flex-1">
-                    <option value="" ${dynamicCurrentObj.lang === "" ? " selected" : ""}>${window.siyuan.languages.themeOS}</option>
+                    <option value="" ${dynamicCurrentObj.lang === "" ? " selected" : ""}>${window.shehab.languages.themeOS}</option>
                     <option value="en_US" ${dynamicCurrentObj.lang === "en_US" ? " selected" : ""}>English (en_US)</option>
                     <option value="zh_CHT" ${dynamicCurrentObj.lang === "zh_CHT" ? " selected" : ""}>繁體中文 (zh_CHT)</option>
                     <option value="zh_CN" ${dynamicCurrentObj.lang === "zh_CN" ? " selected" : ""}>简体中文 (zh_CN)</option>
@@ -336,17 +336,17 @@ export const openEmojiPanel = (
             <div class="fn__hr"></div>
             <div class="fn__flex">
                 <span class="fn__space"></span>
-                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.siyuan.languages.date}</span>
+                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.shehab.languages.date}</span>
                 <span class="fn__space--small"></span>
                 <input type="date" max="9999-12-31" class="b3-text-field fn__flex-1" value="${dynamicCurrentObj.date}"/>
                 <span class="fn__space--small"></span>
-                <span data-action="clearDate" class="ariaLabel block__icon block__icon--show" aria-label="${window.siyuan.languages.dynamicIconDateEmptyInfo}"><svg><use xlink:href="#iconTrashcan"></use></svg></span>
+                <span data-action="clearDate" class="ariaLabel block__icon block__icon--show" aria-label="${window.shehab.languages.dynamicIconDateEmptyInfo}"><svg><use xlink:href="#iconTrashcan"></use></svg></span>
                 <span class="fn__space"></span>
             </div>
             <div class="fn__hr"></div>
             <div class="fn__flex">
                 <span class="fn__space"></span>
-                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.siyuan.languages.format}</span>
+                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.shehab.languages.format}</span>
                 <span class="fn__space--small"></span>
                 <select class="b3-select fn__flex-1">
                     ${genWeekdayOptions(dynamicCurrentObj.lang, dynamicCurrentObj.weekdayType)}
@@ -365,7 +365,7 @@ export const openEmojiPanel = (
             <div class="fn__hr"></div>
             <div class="fn__flex">
                 <span class="fn__space"></span>
-                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.siyuan.languages.custom}</span>
+                <span class="fn__flex-center ft__on-surface" style="width: 89px">${window.shehab.languages.custom}</span>
                 <span class="fn__space--small"></span>
                 <input type="text" class="b3-text-field fn__flex-1" value="">
                 <span class="fn__space"></span>
@@ -382,7 +382,7 @@ export const openEmojiPanel = (
     const dialogElement = dialog.element.querySelector(".b3-dialog") as HTMLElement;
     dialogElement.style.justifyContent = "inherit";
     dialogElement.style.alignItems = "inherit";
-    const currentTab = window.siyuan.storage[Constants.LOCAL_EMOJIS].currentTab;
+    const currentTab = window.shehab.storage[Constants.LOCAL_EMOJIS].currentTab;
     dialog.element.querySelector(`.emojis__tabheader [data-type="tab-${currentTab}"]`).classList.add("block__icon--active");
     dialog.element.querySelector(`.emojis__tabbody [data-type="tab-${currentTab}"]`).classList.remove("fn__none");
     setPosition(dialog.element.querySelector(".b3-dialog__container"), position.x, position.y, position.h, position.w);
@@ -628,8 +628,8 @@ export const openEmojiPanel = (
                         item.classList.add("fn__none");
                     }
                 });
-                window.siyuan.storage[Constants.LOCAL_EMOJIS].currentTab = target.dataset.type.replace("tab-", "");
-                setStorageVal(Constants.LOCAL_EMOJIS, window.siyuan.storage[Constants.LOCAL_EMOJIS]);
+                window.shehab.storage[Constants.LOCAL_EMOJIS].currentTab = target.dataset.type.replace("tab-", "");
+                setStorageVal(Constants.LOCAL_EMOJIS, window.shehab.storage[Constants.LOCAL_EMOJIS]);
                 break;
             } else if (target.classList.contains("color__square")) {
                 dynamicTextElements[0].value = target.getAttribute("style").replace("background-color:", "");
@@ -702,7 +702,7 @@ export const updateOutlineEmoji = (unicode: string, id: string) => {
     /// #if !MOBILE
     getAllModels().outline.forEach(model => {
         if (model.blockId === id) {
-            model.headerElement.nextElementSibling.firstElementChild.outerHTML = unicode2Emoji(unicode || window.siyuan.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true);
+            model.headerElement.nextElementSibling.firstElementChild.outerHTML = unicode2Emoji(unicode || window.shehab.storage[Constants.LOCAL_IMAGES].file, "b3-list-item__graphic", true);
         }
     });
     /// #endif
@@ -724,7 +724,7 @@ export const updateFileTreeEmoji = (unicode: string, id: string, icon = "iconFil
     }
     /// #endif
     if (emojiElement) {
-        emojiElement.innerHTML = unicode2Emoji(unicode || (icon === "iconFile" ? (emojiElement.previousElementSibling.classList.contains("fn__hidden") ? window.siyuan.storage[Constants.LOCAL_IMAGES].file : window.siyuan.storage[Constants.LOCAL_IMAGES].folder) : window.siyuan.storage[Constants.LOCAL_IMAGES].note));
+        emojiElement.innerHTML = unicode2Emoji(unicode || (icon === "iconFile" ? (emojiElement.previousElementSibling.classList.contains("fn__hidden") ? window.shehab.storage[Constants.LOCAL_IMAGES].file : window.shehab.storage[Constants.LOCAL_IMAGES].folder) : window.shehab.storage[Constants.LOCAL_IMAGES].note));
     }
     if (icon !== "iconFile") {
         setNoteBook();
@@ -732,29 +732,29 @@ export const updateFileTreeEmoji = (unicode: string, id: string, icon = "iconFil
 };
 
 export const getEmojiDesc = (emoji: IEmojiItem) => {
-    if (window.siyuan.config.lang === "zh_CN") {
+    if (window.shehab.config.lang === "zh_CN") {
         return emoji.description_zh_cn;
     }
-    if (window.siyuan.config.lang === "ja_JP") {
+    if (window.shehab.config.lang === "ja_JP") {
         return emoji.description_ja_jp;
     }
     return emoji.description;
 };
 
 export const getEmojiTitle = (index: number) => {
-    if (window.siyuan.config.lang === "zh_CN") {
-        return window.siyuan.emojis[index].title_zh_cn;
+    if (window.shehab.config.lang === "zh_CN") {
+        return window.shehab.emojis[index].title_zh_cn;
     }
-    if (window.siyuan.config.lang === "ja_JP") {
-        return window.siyuan.emojis[index].title_ja_jp;
+    if (window.shehab.config.lang === "ja_JP") {
+        return window.shehab.emojis[index].title_ja_jp;
     }
-    return window.siyuan.emojis[index].title;
+    return window.shehab.emojis[index].title;
 };
 
 const putEmojis = (protyle: IProtyle) => {
-    if (window.siyuan.emojis[0].items.length > 0) {
+    if (window.shehab.emojis[0].items.length > 0) {
         const emojis: IObject = {};
-        window.siyuan.emojis[0].items.forEach(emojiITem => {
+        window.shehab.emojis[0].items.forEach(emojiITem => {
             emojis[emojiITem.keywords] = protyle.options.hint.emojiPath + "/" + emojiITem.unicode;
         });
         protyle.lute.PutEmojis(emojis);
@@ -763,7 +763,7 @@ const putEmojis = (protyle: IProtyle) => {
 
 export const reloadEmoji = () => {
     fetchPost("/api/system/getEmojiConf", {}, response => {
-        window.siyuan.emojis = response.data as IEmoji[];
+        window.shehab.emojis = response.data as IEmoji[];
         getAllEditor().forEach(item => {
             putEmojis(item.protyle);
         });

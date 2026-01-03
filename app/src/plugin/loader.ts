@@ -123,11 +123,11 @@ const updateDock = (dockItem: Config.IUILayoutDockTab[], index: number, plugin: 
             plugin.docks[tabItem.type].config.index = tabIndex;
             plugin.docks[tabItem.type].config.show = tabItem.show;
             plugin.docks[tabItem.type].config.size = tabItem.size;
-            if (!window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name]) {
-                window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name] = {};
+            if (!window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name]) {
+                window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name] = {};
             }
-            window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][tabItem.type] = plugin.docks[tabItem.type].config;
-            setStorageVal(Constants.LOCAL_PLUGIN_DOCKS, window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS]);
+            window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][tabItem.type] = plugin.docks[tabItem.type].config;
+            setStorageVal(Constants.LOCAL_PLUGIN_DOCKS, window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS]);
         }
     });
 };
@@ -145,11 +145,11 @@ export const afterLoadPlugin = (plugin: Plugin) => {
                 return;
             }
             if (isMobile()) {
-                if (!window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(element.id)) {
+                if (!window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(element.id)) {
                     document.querySelector("#menuAbout").after(element);
                 }
             } else if (!isWindow()) {
-                if (window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(element.id)) {
+                if (window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].includes(element.id)) {
                     element.classList.add("fn__none");
                 }
                 document.querySelector("#" + (element.getAttribute("data-location") === "right" ? "barPlugins" : "drag")).before(element);
@@ -175,23 +175,23 @@ export const afterLoadPlugin = (plugin: Plugin) => {
     }
 
     /// #if !MOBILE
-    window.siyuan.config.uiLayout.left.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
+    window.shehab.config.uiLayout.left.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
         updateDock(dockItem, index, plugin, "Left");
     });
-    window.siyuan.config.uiLayout.right.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
+    window.shehab.config.uiLayout.right.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
         updateDock(dockItem, index, plugin, "Right");
     });
-    window.siyuan.config.uiLayout.bottom.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
+    window.shehab.config.uiLayout.bottom.data.forEach((dockItem: Config.IUILayoutDockTab[], index: number) => {
         updateDock(dockItem, index, plugin, "Bottom");
     });
     Object.keys(plugin.docks).forEach(key => {
-        if (window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name] && window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][key]) {
-            plugin.docks[key].config = window.siyuan.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][key];
+        if (window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name] && window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][key]) {
+            plugin.docks[key].config = window.shehab.storage[Constants.LOCAL_PLUGIN_DOCKS][plugin.name][key];
         }
         const dock = plugin.docks[key];
-        const hotkey = window.siyuan.config.keymap.plugin[plugin.name] ? window.siyuan.config.keymap.plugin[plugin.name][key]?.custom : undefined;
+        const hotkey = window.shehab.config.keymap.plugin[plugin.name] ? window.shehab.config.keymap.plugin[plugin.name][key]?.custom : undefined;
         if (dock.config.position.startsWith("Left")) {
-            window.siyuan.layout.leftDock.genButton([{
+            window.shehab.layout.leftDock.genButton([{
                 type: key,
                 size: dock.config.size,
                 show: dock.config.show,
@@ -200,7 +200,7 @@ export const afterLoadPlugin = (plugin: Plugin) => {
                 hotkey
             }], dock.config.position === "LeftBottom" ? 1 : 0, dock.config.index);
         } else if (dock.config.position.startsWith("Bottom")) {
-            window.siyuan.layout.bottomDock.genButton([{
+            window.shehab.layout.bottomDock.genButton([{
                 type: key,
                 size: dock.config.size,
                 show: dock.config.show,
@@ -209,7 +209,7 @@ export const afterLoadPlugin = (plugin: Plugin) => {
                 hotkey
             }], dock.config.position === "BottomRight" ? 1 : 0, dock.config.index);
         } else if (dock.config.position.startsWith("Right")) {
-            window.siyuan.layout.rightDock.genButton([{
+            window.shehab.layout.rightDock.genButton([{
                 type: key,
                 size: dock.config.size,
                 show: dock.config.show,

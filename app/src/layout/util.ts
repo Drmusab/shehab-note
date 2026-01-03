@@ -36,7 +36,7 @@ import {setStorageVal} from "../protyle/util/compatibility";
 
 export const setPanelFocus = (element: Element, isSaveLayout = true) => {
     if (element.getAttribute("data-type") === "wnd") {
-        setTitle(element.querySelector('.layout-tab-bar .item--focus[data-type="tab-header"] .item__text')?.textContent || window.siyuan.languages.siyuanNote);
+        setTitle(element.querySelector('.layout-tab-bar .item--focus[data-type="tab-header"] .item__text')?.textContent || window.shehab.languages.siyuanNote);
     }
     if (element.classList.contains("layout__tab--active") || element.classList.contains("layout__wnd--active")) {
         return;
@@ -164,14 +164,14 @@ const dockToJSON = (dock: Dock) => {
 };
 
 export const resetLayout = () => {
-    if (window.siyuan.config.readonly) {
+    if (window.shehab.config.readonly) {
         window.location.reload();
     } else {
         fetchPost("/api/system/setUILayout", {layout: {}}, () => {
-            window.siyuan.storage[Constants.LOCAL_FILEPOSITION] = {};
-            setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION]);
-            window.siyuan.storage[Constants.LOCAL_DIALOGPOSITION] = {};
-            setStorageVal(Constants.LOCAL_DIALOGPOSITION, window.siyuan.storage[Constants.LOCAL_DIALOGPOSITION]);
+            window.shehab.storage[Constants.LOCAL_FILEPOSITION] = {};
+            setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION]);
+            window.shehab.storage[Constants.LOCAL_DIALOGPOSITION] = {};
+            setStorageVal(Constants.LOCAL_DIALOGPOSITION, window.shehab.storage[Constants.LOCAL_DIALOGPOSITION]);
             window.location.reload();
         });
     }
@@ -185,19 +185,19 @@ export const saveLayout = () => {
         layoutJSON = {
             layout: {},
         };
-        layoutToJSON(window.siyuan.layout.layout, layoutJSON.layout, breakObj);
+        layoutToJSON(window.shehab.layout.layout, layoutJSON.layout, breakObj);
     } else {
         const useElement = document.querySelector("#barDock use");
         if (useElement) {
             layoutJSON = {
                 hideDock: useElement.getAttribute("xlink:href") === "#iconDock",
                 layout: {},
-                bottom: dockToJSON(window.siyuan.layout.bottomDock),
-                left: dockToJSON(window.siyuan.layout.leftDock),
-                right: dockToJSON(window.siyuan.layout.rightDock),
+                bottom: dockToJSON(window.shehab.layout.bottomDock),
+                left: dockToJSON(window.shehab.layout.leftDock),
+                right: dockToJSON(window.shehab.layout.rightDock),
             };
-            layoutToJSON(window.siyuan.layout.layout, layoutJSON.layout, breakObj);
-            window.siyuan.config.uiLayout = layoutJSON;
+            layoutToJSON(window.shehab.layout.layout, layoutJSON.layout, breakObj);
+            window.shehab.config.uiLayout = layoutJSON;
         }
     }
     if (Object.keys(breakObj).length > 0 && saveCount < 10) {
@@ -210,7 +210,7 @@ export const saveLayout = () => {
         if (isWindow()) {
             sessionStorage.setItem("layout", JSON.stringify(layoutJSON));
         } else {
-            if (!window.siyuan.config.readonly) {
+            if (!window.shehab.config.readonly) {
                 fetchPost("/api/system/setUILayout", {
                     layout: layoutJSON,
                     errorExit: false    // 后台不接受该参数，用于请求发生错误时退出程序
@@ -232,7 +232,7 @@ export const exportLayout = async (options: {
         const layoutJSON: any = {
             layout: {},
         };
-        layoutToJSON(window.siyuan.layout.layout, layoutJSON.layout);
+        layoutToJSON(window.shehab.layout.layout, layoutJSON.layout);
         sessionStorage.setItem("layout", JSON.stringify(layoutJSON));
         options.cb();
         return;
@@ -244,12 +244,12 @@ export const exportLayout = async (options: {
     const layoutJSON: any = {
         hideDock: useElement.getAttribute("xlink:href") === "#iconDock",
         layout: {},
-        bottom: dockToJSON(window.siyuan.layout.bottomDock),
-        left: dockToJSON(window.siyuan.layout.leftDock),
-        right: dockToJSON(window.siyuan.layout.rightDock),
+        bottom: dockToJSON(window.shehab.layout.bottomDock),
+        left: dockToJSON(window.shehab.layout.leftDock),
+        right: dockToJSON(window.shehab.layout.rightDock),
     };
-    layoutToJSON(window.siyuan.layout.layout, layoutJSON.layout);
-    if (window.siyuan.config.readonly) {
+    layoutToJSON(window.shehab.layout.layout, layoutJSON.layout);
+    if (window.shehab.config.readonly) {
         options.cb();
     } else {
         fetchPost("/api/system/setUILayout", {
@@ -265,19 +265,19 @@ export const getAllLayout = () => {
     const layoutJSON: any = {
         hideDock: document.querySelector("#barDock use").getAttribute("xlink:href") === "#iconDock",
         layout: {},
-        bottom: dockToJSON(window.siyuan.layout.bottomDock),
-        left: dockToJSON(window.siyuan.layout.leftDock),
-        right: dockToJSON(window.siyuan.layout.rightDock),
+        bottom: dockToJSON(window.shehab.layout.bottomDock),
+        left: dockToJSON(window.shehab.layout.leftDock),
+        right: dockToJSON(window.shehab.layout.rightDock),
     };
-    layoutToJSON(window.siyuan.layout.layout, layoutJSON.layout);
+    layoutToJSON(window.shehab.layout.layout, layoutJSON.layout);
     return layoutJSON;
 };
 
 const initInternalDock = (dockItem: Config.IUILayoutDockTab[]) => {
     dockItem.forEach((existSubItem) => {
         if (existSubItem.hotkeyLangId) {
-            existSubItem.title = window.siyuan.languages[existSubItem.hotkeyLangId];
-            existSubItem.hotkey = window.siyuan.config.keymap.general[existSubItem.hotkeyLangId].custom;
+            existSubItem.title = window.shehab.languages[existSubItem.hotkeyLangId];
+            existSubItem.hotkey = window.shehab.config.keymap.general[existSubItem.hotkeyLangId].custom;
         }
     });
 };
@@ -292,10 +292,10 @@ const JSONToDock = (json: any, app: App) => {
     json.bottom.data.forEach((existItem: Config.IUILayoutDockTab[]) => {
         initInternalDock(existItem);
     });
-    window.siyuan.layout.centerLayout = window.siyuan.layout.layout.children[0].children[1] as Layout;
-    window.siyuan.layout.leftDock = new Dock({position: "Left", data: json.left, app});
-    window.siyuan.layout.rightDock = new Dock({position: "Right", data: json.right, app});
-    window.siyuan.layout.bottomDock = new Dock({position: "Bottom", data: json.bottom, app});
+    window.shehab.layout.centerLayout = window.shehab.layout.layout.children[0].children[1] as Layout;
+    window.shehab.layout.leftDock = new Dock({position: "Left", data: json.left, app});
+    window.shehab.layout.rightDock = new Dock({position: "Right", data: json.right, app});
+    window.shehab.layout.bottomDock = new Dock({position: "Bottom", data: json.bottom, app});
 };
 
 const removedTabs: Tab[] = [];
@@ -313,7 +313,7 @@ export const JSONToCenter = (
             json.children = json.children[0].children;
         }
         if (!layout) {
-            window.siyuan.layout.layout = new Layout({
+            window.shehab.layout.layout = new Layout({
                 element: document.getElementById("layouts"),
                 direction: json.direction,
                 size: json.size,
@@ -346,7 +346,7 @@ export const JSONToCenter = (
         } else {
             let title = json.title;
             if (json.lang) {
-                title = window.siyuan.languages[json.lang];
+                title = window.shehab.languages[json.lang];
             }
             child = new Tab({
                 icon: json.icon,
@@ -365,7 +365,7 @@ export const JSONToCenter = (
         }
         (layout as Wnd).addTab(child, false, false, json.activeTime);
     } else if (json.instance === "Editor" && json.blockId) {
-        if (window.siyuan.config.fileTree.openFilesUseCurrentTab) {
+        if (window.shehab.config.fileTree.openFilesUseCurrentTab) {
             (layout as Tab).headElement.classList.add("item--unupdate");
         }
         (layout as Tab).headElement.setAttribute("data-initdata", JSON.stringify(json));
@@ -416,7 +416,7 @@ export const JSONToCenter = (
             config: json.config
         }));
     } else if (json.instance === "Custom") {
-        if (window.siyuan.config.fileTree.openFilesUseCurrentTab) {
+        if (window.shehab.config.fileTree.openFilesUseCurrentTab) {
             (layout as Tab).headElement.classList.add("item--unupdate");
         }
         (layout as Tab).headElement.setAttribute("data-initdata", JSON.stringify(json));
@@ -424,7 +424,7 @@ export const JSONToCenter = (
     if ("children" in json) {
         if (Array.isArray(json.children)) {
             json.children.forEach((item: any) => {
-                JSONToCenter(app, item, layout ? child : window.siyuan.layout.layout);
+                JSONToCenter(app, item, layout ? child : window.shehab.layout.layout);
             });
         } else if (json.children && Object.keys(json.children).length > 0) {
             JSONToCenter(app, json.children, child);
@@ -435,10 +435,10 @@ export const JSONToCenter = (
 };
 
 export const JSONToLayout = (app: App, isStart: boolean) => {
-    JSONToCenter(app, window.siyuan.config.uiLayout.layout, undefined);
-    JSONToDock(window.siyuan.config.uiLayout, app);
+    JSONToCenter(app, window.shehab.config.uiLayout.layout, undefined);
+    JSONToDock(window.shehab.config.uiLayout, app);
     // 启动时不打开页签，需要移除没有钉住的页签
-    if (window.siyuan.config.fileTree.closeTabsOnStart) {
+    if (window.shehab.config.fileTree.closeTabsOnStart) {
         /// #if BROWSER
         if (!sessionStorage.getItem(Constants.LOCAL_SESSION_FIRSTLOAD)) {
             getAllTabs().forEach(item => {
@@ -710,7 +710,7 @@ export const resizeTopBar = () => {
     } else if (left < right && right - left < width / 3) {
         dragElement.style.paddingLeft = (right - left) + "px";
     }
-    window.siyuan.storage[Constants.LOCAL_PLUGINTOPUNPIN].forEach((id: string) => {
+    window.shehab.storage[Constants.LOCAL_PLUGINTOPUNPIN].forEach((id: string) => {
         toolbarElement.querySelector("#" + id)?.classList.add("fn__none");
     });
 };
@@ -760,12 +760,12 @@ export const newModelByInitData = (app: App, tab: Tab, json: any) => {
 export const pdfIsLoading = (element: HTMLElement) => {
     const isLoading = element.querySelector('.layout-tab-container > [data-loading="true"]') ? true : false;
     if (isLoading) {
-        showMessage(window.siyuan.languages.pdfIsLoading);
+        showMessage(window.shehab.languages.pdfIsLoading);
     }
     return isLoading;
 };
 
-export const getInstanceById = (id: string, layout = window.siyuan.layout.centerLayout) => {
+export const getInstanceById = (id: string, layout = window.shehab.layout.centerLayout) => {
     const _getInstanceById = (item: Layout | Wnd, id: string) => {
         if (item.id === id) {
             return item;
@@ -860,17 +860,17 @@ export const addResize = (obj: Layout | Wnd) => {
                 if (previousNowSize < 8 || nextNowSize < 8) {
                     return;
                 }
-                if (window.siyuan.layout.leftDock && window.siyuan.layout.leftDock.layout.element === previousElement &&
+                if (window.shehab.layout.leftDock && window.shehab.layout.leftDock.layout.element === previousElement &&
                     previousNowSize < getMinSize(previousElement) &&
                     // https://github.com/siyuan-note/siyuan/issues/10506
                     previousNowSize < previousSize) {
                     return;
                 }
-                if (window.siyuan.layout.rightDock && window.siyuan.layout.rightDock.layout.element === nextElement &&
+                if (window.shehab.layout.rightDock && window.shehab.layout.rightDock.layout.element === nextElement &&
                     nextNowSize < getMinSize(nextElement) && nextNowSize < nextSize) {
                     return;
                 }
-                if (window.siyuan.layout.bottomDock && window.siyuan.layout.bottomDock.layout.element === nextElement &&
+                if (window.shehab.layout.bottomDock && window.shehab.layout.bottomDock.layout.element === nextElement &&
                     nextNowSize < 64 && nextNowSize < nextSize) {
                     return;
                 }
@@ -888,12 +888,12 @@ export const addResize = (obj: Layout | Wnd) => {
                 documentSelf.ondragstart = null;
                 documentSelf.onselectstart = null;
                 documentSelf.onselect = null;
-                adjustLayout(isWindow() ? window.siyuan.layout.centerLayout : undefined);
+                adjustLayout(isWindow() ? window.shehab.layout.centerLayout : undefined);
                 resizeTabs();
                 if (!isWindow()) {
-                    window.siyuan.layout.leftDock.setSize();
-                    window.siyuan.layout.bottomDock.setSize();
-                    window.siyuan.layout.rightDock.setSize();
+                    window.shehab.layout.leftDock.setSize();
+                    window.shehab.layout.bottomDock.setSize();
+                    window.shehab.layout.rightDock.setSize();
                 }
                 if (range) {
                     focusByRange(range);
@@ -930,7 +930,7 @@ export const addResize = (obj: Layout | Wnd) => {
                         }
                     });
                     previousElement.style.width = size + "px";
-                    window.siyuan.layout.leftDock.setSize();
+                    window.shehab.layout.leftDock.setSize();
                 } else if (nextElement.classList.contains("layout__dockr")) {
                     document.querySelectorAll("#dockRight .dock__item--active").forEach(item => {
                         if (bigType.includes(item.getAttribute("data-type"))) {
@@ -938,29 +938,29 @@ export const addResize = (obj: Layout | Wnd) => {
                         }
                     });
                     nextElement.style.width = size + "px";
-                    window.siyuan.layout.rightDock.setSize();
+                    window.shehab.layout.rightDock.setSize();
                 } else {
                     previousElement.style.width = "";
                     nextElement.style.width = "";
                     previousElement.classList.add("fn__flex-1");
                     nextElement.classList.add("fn__flex-1");
                     if (resizeElement.parentElement.classList.contains("layout__dockb")) {
-                        window.siyuan.layout.bottomDock.setSize();
+                        window.shehab.layout.bottomDock.setSize();
                     }
                 }
             } else {
                 if (nextElement.classList.contains("layout__dockb")) {
                     nextElement.style.height = "232px";
-                    window.siyuan.layout.bottomDock.setSize();
+                    window.shehab.layout.bottomDock.setSize();
                 } else {
                     previousElement.style.height = "";
                     nextElement.style.height = "";
                     previousElement.classList.add("fn__flex-1");
                     nextElement.classList.add("fn__flex-1");
                     if (resizeElement.parentElement.classList.contains("layout__dockl")) {
-                        window.siyuan.layout.leftDock.setSize();
+                        window.shehab.layout.leftDock.setSize();
                     } else if (resizeElement.parentElement.classList.contains("layout__dockr")) {
-                        window.siyuan.layout.rightDock.setSize();
+                        window.shehab.layout.rightDock.setSize();
                     }
                 }
             }
@@ -971,7 +971,7 @@ export const addResize = (obj: Layout | Wnd) => {
     });
 };
 
-export const adjustLayout = (layout: Layout = window.siyuan.layout.centerLayout.parent) => {
+export const adjustLayout = (layout: Layout = window.shehab.layout.centerLayout.parent) => {
     layout.children.forEach((item: Layout | Wnd) => {
         item.element.style.maxWidth = "";
         if (!item.element.style.width && !item.element.classList.contains("layout__center")) {

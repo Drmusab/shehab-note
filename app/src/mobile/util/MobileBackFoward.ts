@@ -21,10 +21,10 @@ const focusStack = (backStack: IBackStack) => {
     // 前进后快速后退会导致滚动错位 https://ld246.com/article/1734018624070
     protyle.observerLoad?.disconnect();
 
-    window.siyuan.storage[Constants.LOCAL_DOCINFO] = {
+    window.shehab.storage[Constants.LOCAL_DOCINFO] = {
         id: backStack.id,
     };
-    setStorageVal(Constants.LOCAL_DOCINFO, window.siyuan.storage[Constants.LOCAL_DOCINFO]);
+    setStorageVal(Constants.LOCAL_DOCINFO, window.shehab.storage[Constants.LOCAL_DOCINFO]);
     hideElements(["toolbar", "hint", "util"], protyle);
     if (protyle.contentElement.classList.contains("fn__none")) {
         setEditMode(protyle, "wysiwyg");
@@ -115,7 +115,7 @@ const focusStack = (backStack: IBackStack) => {
 export const pushBack = () => {
     const protyle = getCurrentEditor().protyle;
     if (protyle.wysiwyg.element.firstElementChild) {
-        window.siyuan.backStack.push({
+        window.shehab.backStack.push({
             id: protyle.block.showAll ? protyle.block.id : protyle.block.rootID,
             data: {
                 startId: protyle.wysiwyg.element.firstElementChild.getAttribute("data-node-id"),
@@ -132,9 +132,9 @@ export const pushBack = () => {
 
 export const goBack = () => {
     const editor = getCurrentEditor();
-    if (window.siyuan.menus.menu.element.classList.contains("b3-menu--fullscreen") &&
-        !window.siyuan.menus.menu.element.classList.contains("fn__none")) {
-        window.siyuan.menus.menu.element.dispatchEvent(new CustomEvent("click", {detail: "back"}));
+    if (window.shehab.menus.menu.element.classList.contains("b3-menu--fullscreen") &&
+        !window.shehab.menus.menu.element.classList.contains("fn__none")) {
+        window.shehab.menus.menu.element.dispatchEvent(new CustomEvent("click", {detail: "back"}));
         return;
     } else if (document.getElementById("model").style.transform === "translateY(0px)") {
         const searchAssetsPanelElement = document.getElementById("searchAssetsPanel");
@@ -144,8 +144,8 @@ export const goBack = () => {
             searchAssetsPanelElement.classList.add("fn__none");
         }
         return;
-    } else if (window.siyuan.viewer && !window.siyuan.viewer.destroyed) {
-        window.siyuan.viewer.destroy();
+    } else if (window.shehab.viewer && !window.shehab.viewer.destroyed) {
+        window.shehab.viewer.destroy();
         return;
     } else if (document.getElementById("menu").style.transform === "translateX(0px)" ||
         document.getElementById("sidebar").style.transform === "translateX(0px)") {
@@ -155,12 +155,12 @@ export const goBack = () => {
         hideElements(["util"], editor.protyle);
         closePanel();
         return;
-    } else if (window.siyuan.dialogs.length !== 0) {
+    } else if (window.shehab.dialogs.length !== 0) {
         hideElements(["dialog"]);
         closePanel();
         return;
     }
-    if ((window.JSAndroid || window.JSHarmony) && window.siyuan.backStack.length < 1) {
+    if ((window.JSAndroid || window.JSHarmony) && window.shehab.backStack.length < 1) {
         if (document.querySelector('#message [data-id="exitTip"]')) {
             if (window.JSAndroid) {
                 window.JSAndroid.returnDesktop();
@@ -168,11 +168,11 @@ export const goBack = () => {
                 window.JSHarmony.returnDesktop();
             }
         } else {
-            showMessage(window.siyuan.languages.returnDesktop, 3000, "info", "exitTip");
+            showMessage(window.shehab.languages.returnDesktop, 3000, "info", "exitTip");
         }
         return;
     }
-    if (window.siyuan.backStack.length < 1) {
+    if (window.shehab.backStack.length < 1) {
         return;
     }
     if (forwardStack.length === 0 && editor) {
@@ -190,7 +190,7 @@ export const goBack = () => {
             zoomId: protyle.block.showAll ? protyle.block.id : undefined
         });
     }
-    const item = window.siyuan.backStack.pop();
+    const item = window.shehab.backStack.pop();
     forwardStack.push(item);
     focusStack(item);
 };

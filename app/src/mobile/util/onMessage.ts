@@ -20,7 +20,7 @@ export const onMessage = (app: App, data: IWebSocketData) => {
         switch (data.cmd) {
             case "backgroundtask":
                 if (!document.querySelector("#keyboardToolbar").classList.contains("fn__none") ||
-                    window.siyuan.config.appearance.hideStatusBar) {
+                    window.shehab.config.appearance.hideStatusBar) {
                     return;
                 }
                 if (data.data.tasks.length === 0) {
@@ -35,14 +35,14 @@ export const onMessage = (app: App, data: IWebSocketData) => {
                 window.location.reload();
                 break;
             case "setSnippet":
-                window.siyuan.config.snippet = data.data;
+                window.shehab.config.snippet = data.data;
                 renderSnippet();
                 break;
             case "setDefRefCount":
                 setDefRefCount(data.data);
                 break;
             case "reloadTag":
-                window.siyuan.mobile.docks.tag?.update();
+                window.shehab.mobile.docks.tag?.update();
                 break;
             case "setLocalShorthandCount":
                 setLocalShorthandCount();
@@ -60,14 +60,14 @@ export const onMessage = (app: App, data: IWebSocketData) => {
                 reloadSync(app, data.data);
                 break;
             case "setConf":
-                window.siyuan.config = data.data;
+                window.shehab.config = data.data;
                 updateControlAlt();
                 break;
             case "reloaddoc":
                 reloadSync(this, {upsertRootIDs: [data.data], removeRootIDs: []}, false, false, true);
                 break;
             case "readonly":
-                window.siyuan.config.editor.readOnly = data.data;
+                window.shehab.config.editor.readOnly = data.data;
                 break;
             case"progress":
                 progressLoading(data);
@@ -86,7 +86,7 @@ export const onMessage = (app: App, data: IWebSocketData) => {
                 break;
             case"statusbar":
                 if (!document.querySelector("#keyboardToolbar").classList.contains("fn__none") ||
-                    window.siyuan.config.appearance.hideStatusBar) {
+                    window.shehab.config.appearance.hideStatusBar) {
                     return;
                 }
                 clearTimeout(statusTimeout);

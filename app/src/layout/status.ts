@@ -16,9 +16,9 @@ export const initStatus = (isWindow = false) => {
     /// #if !MOBILE
     let barDockHTML = "";
     if (!isWindow) {
-        barDockHTML = `<div id="barDock" class="toolbar__item ariaLabel${window.siyuan.config.readonly || isWindow ? " fn__none" : ""}" aria-label="${window.siyuan.languages.toggleDock} ${updateHotkeyTip(window.siyuan.config.keymap.general.toggleDock.custom)}">
+        barDockHTML = `<div id="barDock" class="toolbar__item ariaLabel${window.shehab.config.readonly || isWindow ? " fn__none" : ""}" aria-label="${window.shehab.languages.toggleDock} ${updateHotkeyTip(window.shehab.config.keymap.general.toggleDock.custom)}">
     <svg>
-        <use xlink:href="#${window.siyuan.config.uiLayout.hideDock ? "iconDock" : "iconHideDock"}"></use>
+        <use xlink:href="#${window.shehab.config.uiLayout.hideDock ? "iconDock" : "iconHideDock"}"></use>
     </svg>
 </div>`;
     }
@@ -27,7 +27,7 @@ export const initStatus = (isWindow = false) => {
 <div class="fn__flex-1"></div>
 <div class="status__backgroundtask fn__none"></div>
 <div class="status__counter"></div>
-<div id="statusHelp" class="toolbar__item ariaLabel" aria-label="${window.siyuan.languages.help}">
+<div id="statusHelp" class="toolbar__item ariaLabel" aria-label="${window.shehab.languages.help}">
     <svg><use xlink:href="#iconHelp"></use></svg>
 </div>`;
     document.querySelector("#status").addEventListener("click", (event) => {
@@ -38,45 +38,45 @@ export const initStatus = (isWindow = false) => {
                 event.stopPropagation();
                 break;
             } else if (target.classList.contains("status__backgroundtask")) {
-                if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-                    window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_BACKGROUND_TASK) {
-                    window.siyuan.menus.menu.remove();
+                if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+                    window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_BACKGROUND_TASK) {
+                    window.shehab.menus.menu.remove();
                     return;
                 }
-                window.siyuan.menus.menu.remove();
-                window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_STATUS_BACKGROUND_TASK);
+                window.shehab.menus.menu.remove();
+                window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_STATUS_BACKGROUND_TASK);
                 JSON.parse(target.getAttribute("data-tasks")).forEach((item: { action: string }) => {
-                    window.siyuan.menus.menu.append(new MenuItem({
+                    window.shehab.menus.menu.append(new MenuItem({
                         type: "readonly",
                         iconHTML: "",
                         label: item.action
                     }).element);
                 });
                 const rect = target.getBoundingClientRect();
-                window.siyuan.menus.menu.popup({x: rect.right, y: rect.top, isLeft: true});
+                window.shehab.menus.menu.popup({x: rect.right, y: rect.top, isLeft: true});
                 event.stopPropagation();
                 break;
             } else if (target.id === "statusHelp") {
-                if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-                    window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_HELP) {
-                    window.siyuan.menus.menu.remove();
+                if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+                    window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_STATUS_HELP) {
+                    window.shehab.menus.menu.remove();
                     return;
                 }
-                window.siyuan.menus.menu.remove();
-                window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_STATUS_HELP);
-                window.siyuan.menus.menu.append(new MenuItem({
-                    label: window.siyuan.languages.userGuide,
+                window.shehab.menus.menu.remove();
+                window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_STATUS_HELP);
+                window.shehab.menus.menu.append(new MenuItem({
+                    label: window.shehab.languages.userGuide,
                     icon: "iconHelp",
-                    ignore: isIPad() || window.siyuan.config.readonly,
+                    ignore: isIPad() || window.shehab.config.readonly,
                     click: () => {
                         mountHelp();
                     }
                 }).element);
-                window.siyuan.menus.menu.append(new MenuItem({
-                    label: window.siyuan.languages.feedback,
+                window.shehab.menus.menu.append(new MenuItem({
+                    label: window.shehab.languages.feedback,
                     icon: "iconFeedback",
                     click: () => {
-                        if ("zh_CN" === window.siyuan.config.lang || "zh_CHT" === window.siyuan.config.lang) {
+                        if ("zh_CN" === window.shehab.config.lang || "zh_CHT" === window.shehab.config.lang) {
                             window.open("https://ld246.com/article/1649901726096");
                         } else {
                             window.open("https://liuyun.io/article/1686530886208");
@@ -84,30 +84,30 @@ export const initStatus = (isWindow = false) => {
                     }
                 }).element);
                 /// #if !BROWSER
-                window.siyuan.menus.menu.append(new MenuItem({
-                    label: window.siyuan.languages.debug,
+                window.shehab.menus.menu.append(new MenuItem({
+                    label: window.shehab.languages.debug,
                     icon: "iconBug",
                     click: () => {
                         ipcRenderer.send(Constants.SIYUAN_CMD, "openDevTools");
                     }
                 }).element);
                 /// #endif
-                window.siyuan.menus.menu.append(new MenuItem({
-                    label: window.siyuan.languages["_trayMenu"].officialWebsite,
+                window.shehab.menus.menu.append(new MenuItem({
+                    label: window.shehab.languages["_trayMenu"].officialWebsite,
                     icon: "iconSiYuan",
                     click: () => {
                         window.open("https://b3log.org/siyuan");
                     }
                 }).element);
-                window.siyuan.menus.menu.append(new MenuItem({
-                    label: window.siyuan.languages["_trayMenu"].openSource,
+                window.shehab.menus.menu.append(new MenuItem({
+                    label: window.shehab.languages["_trayMenu"].openSource,
                     icon: "iconGithub",
                     click: () => {
                         window.open("https://github.com/siyuan-note/siyuan");
                     }
                 }).element);
                 const rect = target.getBoundingClientRect();
-                window.siyuan.menus.menu.popup({x: rect.right, y: rect.top, isLeft: true});
+                window.shehab.menus.menu.popup({x: rect.right, y: rect.top, isLeft: true});
                 event.stopPropagation();
                 break;
             } else if (target.classList.contains("b3-menu__item")) {
@@ -127,7 +127,7 @@ export const initStatus = (isWindow = false) => {
             target = target.parentElement;
         }
     });
-    if (window.siyuan.config.appearance.hideStatusBar) {
+    if (window.shehab.config.appearance.hideStatusBar) {
         document.getElementById("status").classList.add("fn__none");
     }
     /// #endif
@@ -204,19 +204,19 @@ export const renderStatusbarCounter = (stat: {
     if (!stat) {
         return;
     }
-    let html = `<span class="ft__on-surface">${window.siyuan.languages.runeCount}</span>&nbsp;${stat.runeCount}<span class="fn__space"></span>
-<span class="ft__on-surface">${window.siyuan.languages.wordCount}</span>&nbsp;${stat.wordCount}<span class="fn__space"></span>`;
+    let html = `<span class="ft__on-surface">${window.shehab.languages.runeCount}</span>&nbsp;${stat.runeCount}<span class="fn__space"></span>
+<span class="ft__on-surface">${window.shehab.languages.wordCount}</span>&nbsp;${stat.wordCount}<span class="fn__space"></span>`;
     if (0 < stat.linkCount) {
-        html += `<span class="ft__on-surface">${window.siyuan.languages.linkCount}</span>&nbsp;${stat.linkCount}<span class="fn__space"></span>`;
+        html += `<span class="ft__on-surface">${window.shehab.languages.linkCount}</span>&nbsp;${stat.linkCount}<span class="fn__space"></span>`;
     }
     if (0 < stat.imageCount) {
-        html += `<span class="ft__on-surface">${window.siyuan.languages.imgCount}</span>&nbsp;${stat.imageCount}<span class="fn__space"></span>`;
+        html += `<span class="ft__on-surface">${window.shehab.languages.imgCount}</span>&nbsp;${stat.imageCount}<span class="fn__space"></span>`;
     }
     if (0 < stat.refCount) {
-        html += `<span class="ft__on-surface">${window.siyuan.languages.refCount}</span>&nbsp;${stat.refCount}<span class="fn__space"></span>`;
+        html += `<span class="ft__on-surface">${window.shehab.languages.refCount}</span>&nbsp;${stat.refCount}<span class="fn__space"></span>`;
     }
     if (0 < stat.blockCount) {
-        html += `<span class="ft__on-surface">${window.siyuan.languages.blockCount}</span>&nbsp;${stat.blockCount}<span class="fn__space"></span>`;
+        html += `<span class="ft__on-surface">${window.shehab.languages.blockCount}</span>&nbsp;${stat.blockCount}<span class="fn__space"></span>`;
     }
     document.querySelector("#status .status__counter").innerHTML = html;
 };

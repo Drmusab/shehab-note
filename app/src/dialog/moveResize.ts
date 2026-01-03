@@ -122,10 +122,10 @@ export const moveResize = (element: HTMLElement, afterCB?: (type: string) => voi
             if (!element) {
                 return;
             }
-            if (window.siyuan.dragElement) {
+            if (window.shehab.dragElement) {
                 // 反向链接拖拽 https://ld246.com/article/1632915506502
-                window.siyuan.dragElement.style.opacity = "";
-                window.siyuan.dragElement = undefined;
+                window.shehab.dragElement.style.opacity = "";
+                window.shehab.dragElement = undefined;
             }
             element.style.userSelect = "auto";
             documentSelf.onmousemove = null;
@@ -138,13 +138,13 @@ export const moveResize = (element: HTMLElement, afterCB?: (type: string) => voi
             if (dialogElement) {
                 const dialogId = dialogElement.dataset.key;
                 if (dialogId && element.offsetWidth) {
-                    window.siyuan.storage[Constants.LOCAL_DIALOGPOSITION][dialogId] = {
+                    window.shehab.storage[Constants.LOCAL_DIALOGPOSITION][dialogId] = {
                         width: element.offsetWidth,
                         height: element.offsetHeight,
                         left: parseInt(element.style.left),
                         top: parseInt(element.style.top),
                     };
-                    setStorageVal(Constants.LOCAL_DIALOGPOSITION, window.siyuan.storage[Constants.LOCAL_DIALOGPOSITION]);
+                    setStorageVal(Constants.LOCAL_DIALOGPOSITION, window.shehab.storage[Constants.LOCAL_DIALOGPOSITION]);
                 }
             }
             if (hasMove && afterCB) {

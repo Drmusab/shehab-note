@@ -49,7 +49,7 @@ let resetWindowStateOnRestart = false;
 
 remote.initialize();
 
-app.setPath("userData", app.getPath("userData") + "-Electron"); // `~/.config` 下 Electron 相关文件夹名称改为 `SiYuan-Electron` https://github.com/siyuan-note/siyuan/issues/3349
+app.setPath("userData", app.getPath("userData") + "-Electron"); // `~/.config` 下 Electron 相关文件夹名称改为 `Shehab-Electron` https://github.com/siyuan-note/siyuan/issues/3349
 fs.rmSync(app.getPath("appData") + "/" + app.name, {recursive: true}); // 删除自动创建的应用目录 https://github.com/siyuan-note/siyuan/issues/13150
 
 if (!app.requestSingleInstanceLock()) {
@@ -64,7 +64,7 @@ try {
     }
 } catch (e) {
     console.error(e);
-    require("electron").dialog.showErrorBox("创建配置目录失败 Failed to create config directory", "思源需要在用户家目录下创建配置文件夹（~/.config/siyuan），请确保该路径具有写入权限。\n\nSiYuan needs to create a configuration folder (~/.config/siyuan) in the user's home directory. Please make sure that the path has write permissions.");
+    require("electron").dialog.showErrorBox("创建配置目录失败 Failed to create config directory", "思源需要在用户家目录下创建配置文件夹（~/.config/shehab），请确保该路径具有写入权限。\n\nSiYuan needs to create a configuration folder (~/.config/shehab) in the user's home directory. Please make sure that the path has write permissions.");
     app.exit();
 }
 

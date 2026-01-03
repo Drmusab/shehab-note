@@ -14,14 +14,14 @@ import {getCloudURL} from "../config/util/about";
 
 export const addCloudName = (cloudPanelElement: Element) => {
     const dialog = new Dialog({
-        title: window.siyuan.languages.cloudSyncDir,
+        title: window.shehab.languages.cloudSyncDir,
         content: `<div class="b3-dialog__content">
     <input class="b3-text-field fn__block" value="main">
-    <div class="b3-label__text">${window.siyuan.languages.reposTip}</div>
+    <div class="b3-label__text">${window.shehab.languages.reposTip}</div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         width: isMobile() ? "92vw" : "520px",
     });
@@ -56,10 +56,10 @@ export const bindSyncCloudListEvent = (cloudPanelElement: Element, cb?: () => vo
                         addCloudName(cloudPanelElement);
                         break;
                     case "removeCloud":
-                        confirmDialog(window.siyuan.languages.deleteOpConfirm, `${window.siyuan.languages.confirmDeleteCloudDir} <i>${target.parentElement.getAttribute("data-name")}</i>`, () => {
+                        confirmDialog(window.shehab.languages.deleteOpConfirm, `${window.shehab.languages.confirmDeleteCloudDir} <i>${target.parentElement.getAttribute("data-name")}</i>`, () => {
                             cloudPanelElement.innerHTML = '<img style="margin: 0 auto;display: block;width: 64px;height: 100%" src="/stage/loading-pure.svg">';
                             fetchPost("/api/sync/removeCloudSyncDir", {name: target.parentElement.getAttribute("data-name")}, (response) => {
-                                window.siyuan.config.sync.cloudName = response.data;
+                                window.shehab.config.sync.cloudName = response.data;
                                 getSyncCloudList(cloudPanelElement, true, cb);
                             });
                         }, undefined, true);
@@ -67,7 +67,7 @@ export const bindSyncCloudListEvent = (cloudPanelElement: Element, cb?: () => vo
                     case "selectCloud":
                         cloudPanelElement.innerHTML = '<img style="margin: 0 auto;display: block;width: 64px;height: 100%" src="/stage/loading-pure.svg">';
                         fetchPost("/api/sync/setCloudSyncDir", {name: target.getAttribute("data-name")}, () => {
-                            window.siyuan.config.sync.cloudName = target.getAttribute("data-name");
+                            window.shehab.config.sync.cloudName = target.getAttribute("data-name");
                             getSyncCloudList(cloudPanelElement, true, cb);
                         });
                         break;
@@ -86,14 +86,14 @@ export const getSyncCloudList = (cloudPanelElement: Element, reload = false, cb?
         return;
     }
     fetchPost("/api/sync/listCloudSyncDir", {}, (response) => {
-        let syncListHTML = `<ul><li style="padding: 0 16px" class="b3-list--empty">${window.siyuan.languages.emptyCloudSyncList}</li></ul>`;
+        let syncListHTML = `<ul><li style="padding: 0 16px" class="b3-list--empty">${window.shehab.languages.emptyCloudSyncList}</li></ul>`;
         if (response.code === 1) {
             syncListHTML = `<ul>
     <li class="b3-list--empty ft__error">
         ${response.msg}
     </li>
     <li class="b3-list--empty">
-        ${window.siyuan.languages.cloudConfigTip}
+        ${window.shehab.languages.cloudConfigTip}
     </li>
 </ul>`;
         } else if (response.code !== 1) {
@@ -125,7 +125,7 @@ export const getSyncCloudList = (cloudPanelElement: Element, reload = false, cb?
 <span class="ft__on-surface">${item.hSize}</span>
 <span class="b3-list-item__meta">${item.updated}</span>
 <span class="fn__flex-1 fn__space"></span>
-<span data-type="removeCloud" class="b3-tooltips b3-tooltips__w b3-list-item__action${(window.siyuan.config.sync.provider === 2 || window.siyuan.config.sync.provider === 3) ? " fn__none":""}" aria-label="${window.siyuan.languages.delete}">
+<span data-type="removeCloud" class="b3-tooltips b3-tooltips__w b3-list-item__action${(window.shehab.config.sync.provider === 2 || window.shehab.config.sync.provider === 3) ? " fn__none":""}" aria-label="${window.shehab.languages.delete}">
     <svg><use xlink:href="#iconTrashcan"></use></svg>
 </span></li>`;
                 /// #endif
@@ -134,7 +134,7 @@ export const getSyncCloudList = (cloudPanelElement: Element, reload = false, cb?
 <div class="fn__hr"></div>
 <div class="fn__flex">
     <div class="fn__flex-1"></div>
-    <button class="b3-button b3-button--outline${(window.siyuan.config.sync.provider === 2 || window.siyuan.config.sync.provider === 3) ? " fn__none":""}" data-type="addCloud"><svg><use xlink:href="#iconAdd"></use></svg>${window.siyuan.languages.addAttr}</button>
+    <button class="b3-button b3-button--outline${(window.shehab.config.sync.provider === 2 || window.shehab.config.sync.provider === 3) ? " fn__none":""}" data-type="addCloud"><svg><use xlink:href="#iconAdd"></use></svg>${window.shehab.languages.addAttr}</button>
 </div>`;
         }
         cloudPanelElement.innerHTML = syncListHTML;
@@ -145,25 +145,25 @@ export const getSyncCloudList = (cloudPanelElement: Element, reload = false, cb?
 };
 
 export const syncGuide = (app?: App) => {
-    if (window.siyuan.config.readonly) {
+    if (window.shehab.config.readonly) {
         return;
     }
     /// #if MOBILE
-    if (0 === window.siyuan.config.sync.provider) {
+    if (0 === window.shehab.config.sync.provider) {
         if (needSubscribe()) {
             return;
         }
     } else if (!isPaidUser()) {
-        showMessage(window.siyuan.languages["_kernel"][214].replaceAll("${accountServer}", getCloudURL("")));
+        showMessage(window.shehab.languages["_kernel"][214].replaceAll("${accountServer}", getCloudURL("")));
         return;
     }
     /// #else
     if (document.querySelector("#barSync")?.classList.contains("toolbar__item--active")) {
         return;
     }
-    if (0 === window.siyuan.config.sync.provider && needSubscribe("") && app) {
+    if (0 === window.shehab.config.sync.provider && needSubscribe("") && app) {
         const dialogSetting = openSetting(app);
-        if (window.siyuan.user) {
+        if (window.shehab.user) {
             dialogSetting.element.querySelector('.b3-tab-bar [data-name="repos"]').dispatchEvent(new CustomEvent("click"));
         } else {
             dialogSetting.element.querySelector('.b3-tab-bar [data-name="account"]').dispatchEvent(new CustomEvent("click"));
@@ -171,16 +171,16 @@ export const syncGuide = (app?: App) => {
         }
         return;
     }
-    if (0 !== window.siyuan.config.sync.provider && !isPaidUser() && app) {
-        showMessage(window.siyuan.languages["_kernel"][214].replaceAll("${accountServer}", getCloudURL("")));
+    if (0 !== window.shehab.config.sync.provider && !isPaidUser() && app) {
+        showMessage(window.shehab.languages["_kernel"][214].replaceAll("${accountServer}", getCloudURL("")));
         return;
     }
     /// #endif
-    if (!window.siyuan.config.repo.key) {
+    if (!window.shehab.config.repo.key) {
         setKey(true);
         return;
     }
-    if (!window.siyuan.config.sync.enabled) {
+    if (!window.shehab.config.sync.enabled) {
         setSync();
         return;
     }
@@ -188,33 +188,33 @@ export const syncGuide = (app?: App) => {
 };
 
 const syncNow = () => {
-    if (window.siyuan.config.sync.mode !== 3) {
+    if (window.shehab.config.sync.mode !== 3) {
         fetchPost("/api/sync/performSync", {});
         return;
     }
     const manualDialog = new Dialog({
-        title: window.siyuan.languages.chooseSyncDirection,
+        title: window.shehab.languages.chooseSyncDirection,
         content: `<div class="b3-dialog__content">
     <label class="fn__flex b3-label">
         <input type="radio" name="upload" value="true">
         <span class="fn__space"></span>
         <div>
-            ${window.siyuan.languages.uploadData2Cloud}
-            <div class="b3-label__text">${window.siyuan.languages.uploadData2CloudTip}</div>
+            ${window.shehab.languages.uploadData2Cloud}
+            <div class="b3-label__text">${window.shehab.languages.uploadData2CloudTip}</div>
         </div>
     </label>
     <label class="fn__flex b3-label">
         <input type="radio" name="upload" value="false">
         <span class="fn__space"></span>
         <div>
-            ${window.siyuan.languages.downloadDataFromCloud}
-            <div class="b3-label__text">${window.siyuan.languages.downloadDataFromCloudTip}</div>
+            ${window.shehab.languages.downloadDataFromCloud}
+            <div class="b3-label__text">${window.shehab.languages.downloadDataFromCloudTip}</div>
         </div>
     </label>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         width: isMobile() ? "92vw" : "520px",
     });
@@ -226,7 +226,7 @@ const syncNow = () => {
     btnsElement[1].addEventListener("click", () => {
         const uploadElement = manualDialog.element.querySelector("input[name=upload]:checked") as HTMLInputElement;
         if (!uploadElement) {
-            showMessage(window.siyuan.languages.plsChoose);
+            showMessage(window.shehab.languages.plsChoose);
             return;
         }
         fetchPost("/api/sync/performSync", {upload: uploadElement.value === "true"});
@@ -236,25 +236,25 @@ const syncNow = () => {
 
 const setSync = (key?: string, dialog?: Dialog) => {
     if (key) {
-        window.siyuan.config.repo.key = key;
+        window.shehab.config.repo.key = key;
     }
-    if (!window.siyuan.config.sync.enabled) {
+    if (!window.shehab.config.sync.enabled) {
         const listHTML = `<div class="b3-dialog__content">
-    <div class="ft__on-surface">${window.siyuan.languages.syncConfGuide3}</div>
+    <div class="ft__on-surface">${window.shehab.languages.syncConfGuide3}</div>
     <div class="fn__hr--b"></div>
     <div style="display: flex;flex-direction: column;height: 40vh;">
         <img style="margin: 0 auto;display: block;width: 64px;height: 100%" src="/stage/loading-pure.svg">
     </div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button" disabled="disabled">${window.siyuan.languages.openSyncTip1}</button>
+    <button class="b3-button" disabled="disabled">${window.shehab.languages.openSyncTip1}</button>
 </div>`;
         if (dialog) {
-            dialog.element.querySelector(".b3-dialog__header").innerHTML = "🗂️ " + window.siyuan.languages.cloudSyncDir;
+            dialog.element.querySelector(".b3-dialog__header").innerHTML = "🗂️ " + window.shehab.languages.cloudSyncDir;
             dialog.element.querySelector(".b3-dialog__body").innerHTML = listHTML;
         } else {
             dialog = new Dialog({
-                title: "🗂️ " + window.siyuan.languages.cloudSyncDir,
+                title: "🗂️ " + window.shehab.languages.cloudSyncDir,
                 content: listHTML,
                 width: isMobile() ? "92vw" : "520px",
             });
@@ -279,9 +279,9 @@ const setSync = (key?: string, dialog?: Dialog) => {
         btnElement.addEventListener("click", () => {
             dialog.destroy();
             fetchPost("/api/sync/setSyncEnable", {enabled: true}, () => {
-                window.siyuan.config.sync.enabled = true;
+                window.shehab.config.sync.enabled = true;
                 processSync();
-                confirmDialog("🔄 " + window.siyuan.languages.syncConfGuide4, window.siyuan.languages.syncConfGuide5, () => {
+                confirmDialog("🔄 " + window.shehab.languages.syncConfGuide4, window.shehab.languages.syncConfGuide5, () => {
                     syncNow();
                 });
             });
@@ -290,7 +290,7 @@ const setSync = (key?: string, dialog?: Dialog) => {
         if (dialog) {
             dialog.destroy();
         }
-        confirmDialog("🔄 " + window.siyuan.languages.syncConfGuide4, window.siyuan.languages.syncConfGuide5, () => {
+        confirmDialog("🔄 " + window.shehab.languages.syncConfGuide4, window.shehab.languages.syncConfGuide5, () => {
             syncNow();
         });
     }
@@ -298,27 +298,27 @@ const setSync = (key?: string, dialog?: Dialog) => {
 
 export const setKey = (isSync: boolean, cb?: () => void) => {
     const dialog = new Dialog({
-        title: "🔑 " + window.siyuan.languages.syncConfGuide1,
+        title: "🔑 " + window.shehab.languages.syncConfGuide1,
         content: `<div class="b3-dialog__content ft__center">
     <img style="width: 260px" src="/stage/images/sync-guide.svg"/>
     <div class="fn__hr--b"></div>
-    <div class="ft__on-surface">${window.siyuan.languages.syncConfGuide2}</div>
+    <div class="ft__on-surface">${window.shehab.languages.syncConfGuide2}</div>
     <div class="fn__hr--b"></div>
-    <input class="b3-text-field fn__block ft__center" placeholder="${window.siyuan.languages.passphrase}">
+    <input class="b3-text-field fn__block ft__center" placeholder="${window.shehab.languages.passphrase}">
     <div class="fn__hr"></div>
-    <input class="b3-text-field fn__block ft__center" placeholder="${window.siyuan.languages.reEnterPassphrase}">
+    <input class="b3-text-field fn__block ft__center" placeholder="${window.shehab.languages.reEnterPassphrase}">
 </div>
 <div class="b3-dialog__action">
     <label class="fn__flex">
         <input type="checkbox" class="b3-switch fn__flex-center">
         <span class="fn__space"></span>
-        ${window.siyuan.languages.confirmPassword}
+        ${window.shehab.languages.confirmPassword}
     </label>
     <span class="fn__flex-1"></span>
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button>
     <span class="fn__space"></span>
     <button class="b3-button b3-button--text" id="initKeyByPW" disabled>
-        ${window.siyuan.languages.confirm}
+        ${window.shehab.languages.confirm}
     </button>
 </div>`,
         width: isMobile() ? "92vw" : "520px",
@@ -338,19 +338,19 @@ export const setKey = (isSync: boolean, cb?: () => void) => {
     const inputElements = dialog.element.querySelectorAll(".b3-text-field") as NodeListOf<HTMLInputElement>;
     genBtnElement.addEventListener("click", () => {
         if (!inputElements[0].value || !inputElements[1].value) {
-            showMessage(window.siyuan.languages._kernel[142]);
+            showMessage(window.shehab.languages._kernel[142]);
             return;
         }
         if (inputElements[0].value !== inputElements[1].value) {
-            showMessage(window.siyuan.languages.passwordNoMatch);
+            showMessage(window.shehab.languages.passwordNoMatch);
             return;
         }
-        confirmDialog("🔑 " + window.siyuan.languages.genKeyByPW, window.siyuan.languages.initRepoKeyTip, () => {
+        confirmDialog("🔑 " + window.shehab.languages.genKeyByPW, window.shehab.languages.initRepoKeyTip, () => {
             if (!isSync) {
                 dialog.destroy();
             }
             fetchPost("/api/repo/initRepoKeyFromPassphrase", {pass: inputElements[0].value}, (response) => {
-                window.siyuan.config.repo.key = response.data.key;
+                window.shehab.config.repo.key = response.data.key;
                 if (cb) {
                     cb();
                 }

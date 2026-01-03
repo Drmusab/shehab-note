@@ -77,9 +77,9 @@ export class Wnd {
         <ul class="fn__flex layout-tab-bar"></ul>
         <ul class="layout-tab-bar layout-tab-bar--readonly fn__flex-1">
             <li class="item item--readonly">
-                <span data-type="new" class="block__icon block__icon--show ariaLabel${window.siyuan.config.readonly ? " fn__none" : ""}" aria-label="${window.siyuan.languages.newFile}"><svg><use xlink:href="#iconAdd"></use></svg></span>
+                <span data-type="new" class="block__icon block__icon--show ariaLabel${window.shehab.config.readonly ? " fn__none" : ""}" aria-label="${window.shehab.languages.newFile}"><svg><use xlink:href="#iconAdd"></use></svg></span>
                 <span class="fn__flex-1"></span>
-                <span data-type="more" data-menu="true" class="block__icon block__icon--show ariaLabel" aria-label="${window.siyuan.languages.switchTab}"><svg><use xlink:href="#iconDown"></use></svg></span>
+                <span data-type="more" data-menu="true" class="block__icon block__icon--show ariaLabel" aria-label="${window.shehab.languages.switchTab}"><svg><use xlink:href="#iconDown"></use></svg></span>
             </li>
         </ul>
     </div>
@@ -99,11 +99,11 @@ export class Wnd {
             while (target && !target.isEqualNode(this.headersElement)) {
                 if (target.tagName === "LI") {
                     this.removeTab(target.getAttribute("data-id"));
-                    window.siyuan.menus.menu.remove();
+                    window.shehab.menus.menu.remove();
                     event.stopPropagation();
                     event.preventDefault();
                     const frontend = getFrontend();
-                    if ((["desktop", "desktop-window"].includes(frontend) && window.siyuan.config.system.os === "linux") ||
+                    if ((["desktop", "desktop-window"].includes(frontend) && window.shehab.config.system.os === "linux") ||
                         (frontend === "browser-desktop" && navigator.userAgent.indexOf("Linux") !== -1)) {
                         const activeElement = document.activeElement;
                         window.addEventListener("paste", this.#preventPast, {
@@ -157,7 +157,7 @@ export class Wnd {
         this.headersElement.parentElement.addEventListener("dblclick", (event) => {
             let target = event.target as HTMLElement;
             while (target && !target.isEqualNode(this.headersElement)) {
-                if (window.siyuan.config.fileTree.openFilesUseCurrentTab && target.getAttribute("data-type") === "tab-header") {
+                if (window.shehab.config.fileTree.openFilesUseCurrentTab && target.getAttribute("data-type") === "tab-header") {
                     target.classList.remove("item--unupdate");
                     break;
                 }
@@ -168,15 +168,15 @@ export class Wnd {
             target: HTMLElement
         }) {
             const it = this as HTMLElement;
-            if (!window.siyuan.currentDragOverTabHeadersElement) {
-                window.siyuan.currentDragOverTabHeadersElement = it;
+            if (!window.shehab.currentDragOverTabHeadersElement) {
+                window.shehab.currentDragOverTabHeadersElement = it;
             } else {
-                if (window.siyuan.currentDragOverTabHeadersElement !== it) {
-                    window.siyuan.currentDragOverTabHeadersElement.classList.remove("layout-tab-bars--drag");
-                    window.siyuan.currentDragOverTabHeadersElement.querySelectorAll(".layout-tab-bar li[data-clone='true']").forEach(item => {
+                if (window.shehab.currentDragOverTabHeadersElement !== it) {
+                    window.shehab.currentDragOverTabHeadersElement.classList.remove("layout-tab-bars--drag");
+                    window.shehab.currentDragOverTabHeadersElement.querySelectorAll(".layout-tab-bar li[data-clone='true']").forEach(item => {
                         item.remove();
                     });
-                    window.siyuan.currentDragOverTabHeadersElement = it;
+                    window.shehab.currentDragOverTabHeadersElement = it;
                 }
             }
             if (event.dataTransfer.types.includes(Constants.SIYUAN_DROP_FILE)) {
@@ -184,12 +184,12 @@ export class Wnd {
                 it.classList.add("layout-tab-bars--drag");
                 return;
             }
-            // 不能使用 !window.siyuan.dragElement，因为移动页签到新窗口后，再把主窗口页签拖拽新窗口页签上时，该值为空
+            // 不能使用 !window.shehab.dragElement，因为移动页签到新窗口后，再把主窗口页签拖拽新窗口页签上时，该值为空
             if (!event.dataTransfer.types.includes(Constants.SIYUAN_DROP_TAB)) {
                 return;
             }
             event.preventDefault();
-            let oldTabHeaderElement = window.siyuan.dragElement;
+            let oldTabHeaderElement = window.shehab.dragElement;
             let exitDrag = false;
             Array.from(it.firstElementChild.childNodes).find((item: HTMLElement) => {
                 if (item.style?.opacity === "0.38") {
@@ -251,7 +251,7 @@ export class Wnd {
                         });
                     }
                 });
-                window.siyuan.dragElement = undefined;
+                window.shehab.dragElement = undefined;
                 return;
             }
             const tabData = JSON.parse(event.dataTransfer.getData(Constants.SIYUAN_DROP_TAB));
@@ -569,7 +569,7 @@ export class Wnd {
                     resize,
                 });
             }
-            if (window.siyuan.editorIsFullscreen && !currentTab.model.editor.protyle.element.className.includes("fullscreen")) {
+            if (window.shehab.editorIsFullscreen && !currentTab.model.editor.protyle.element.className.includes("fullscreen")) {
                 fullscreen(currentTab.model.editor.protyle.element);
                 setPadding(currentTab.model.editor.protyle);
             }
@@ -617,7 +617,7 @@ export class Wnd {
                 } else {
                     tab.parent.removeTab(tab.id);
                 }
-                window.siyuan.menus.menu.remove();
+                window.shehab.menus.menu.remove();
                 event.stopPropagation();
                 event.preventDefault();
             });
@@ -642,7 +642,7 @@ export class Wnd {
         // 移除 centerLayout 中的 empty
         if (this.parent.type === "center" && this.children.length === 2 && !this.children[0].headElement) {
             this.removeTab(this.children[0].id);
-        } else if (this.children.length > window.siyuan.config.fileTree.maxOpenTabCount) {
+        } else if (this.children.length > window.shehab.config.fileTree.maxOpenTabCount) {
             this.removeOverCounter(isSaveLayout);
         }
         /// #if !BROWSER
@@ -660,13 +660,13 @@ export class Wnd {
     }
 
     private renderTabList(target: HTMLElement) {
-        if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-            window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_TAB_LIST) {
-            window.siyuan.menus.menu.remove();
+        if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+            window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_TAB_LIST) {
+            window.shehab.menus.menu.remove();
             return;
         }
-        window.siyuan.menus.menu.remove();
-        window.siyuan.menus.menu.element.classList.add("b3-menu--list");
+        window.shehab.menus.menu.remove();
+        window.shehab.menus.menu.element.classList.add("b3-menu--list");
         Array.from(this.headersElement.children).forEach((item: HTMLElement) => {
             const iconElement = item.querySelector(".item__icon");
             const graphicElement = item.querySelector(".item__graphic");
@@ -681,9 +681,9 @@ export class Wnd {
                 }
             } else if (!graphicElement) {
                 // 没有图标的文档
-                iconHTML = unicode2Emoji(window.siyuan.storage[Constants.LOCAL_IMAGES].file, "b3-menu__icon", true);
+                iconHTML = unicode2Emoji(window.shehab.storage[Constants.LOCAL_IMAGES].file, "b3-menu__icon", true);
             }
-            window.siyuan.menus.menu.append(new MenuItem({
+            window.shehab.menus.menu.append(new MenuItem({
                 label: escapeHtml(item.querySelector(".item__text").textContent),
                 action: "iconCloseRound",
                 iconHTML,
@@ -694,14 +694,14 @@ export class Wnd {
                             this.removeTab(item.getAttribute("data-id"));
                             if (element.previousElementSibling || element.nextElementSibling) {
                                 element.remove();
-                                setPosition(window.siyuan.menus.menu.element, rect.left + rect.width - window.siyuan.menus.menu.element.clientWidth, rect.top + rect.height);
+                                setPosition(window.shehab.menus.menu.element, rect.left + rect.width - window.shehab.menus.menu.element.clientWidth, rect.top + rect.height);
                             } else {
-                                window.siyuan.menus.menu.remove();
+                                window.shehab.menus.menu.remove();
                             }
                         } else {
                             this.switchTab(item, true);
                             this.showHeading();
-                            window.siyuan.menus.menu.remove();
+                            window.shehab.menus.menu.remove();
                         }
                         itemEvent.preventDefault();
                         itemEvent.stopPropagation();
@@ -710,9 +710,9 @@ export class Wnd {
                 current: item.classList.contains("item--focus")
             }).element);
         });
-        window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_TAB_LIST);
+        window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_TAB_LIST);
         const rect = target.getBoundingClientRect();
-        window.siyuan.menus.menu.popup({
+        window.shehab.menus.menu.popup({
             x: rect.left + rect.width,
             y: rect.top + rect.height,
             isLeft: true
@@ -743,7 +743,7 @@ export class Wnd {
             this.removeTab(removeId, false, false, isSaveLayout);
             removeCount--;
         }
-        if (removeCount > 0 && this.children.length > window.siyuan.config.fileTree.maxOpenTabCount) {
+        if (removeCount > 0 && this.children.length > window.shehab.config.fileTree.maxOpenTabCount) {
             this.removeOverCounter(isSaveLayout);
         }
     }
@@ -753,7 +753,7 @@ export class Wnd {
             return;
         }
         if (model instanceof Editor && model.editor) {
-            window.siyuan.blockPanels.forEach((item) => {
+            window.shehab.blockPanels.forEach((item) => {
                 if (item.element && model.editor.protyle.wysiwyg.element.contains(item.element)) {
                     item.destroy();
                 }
@@ -783,12 +783,12 @@ export class Wnd {
         clearCounter();
         this.children.find((item, index) => {
             if (item.id === id) {
-                if (window.siyuan.closedTabs.length > Constants.SIZE_UNDO) {
-                    window.siyuan.closedTabs.pop();
+                if (window.shehab.closedTabs.length > Constants.SIZE_UNDO) {
+                    window.shehab.closedTabs.pop();
                 }
                 const tabJSON = {};
                 layoutToJSON(item, tabJSON);
-                window.siyuan.closedTabs.push(tabJSON);
+                window.shehab.closedTabs.push(tabJSON);
 
                 if (item.model instanceof Custom && item.model.beforeDestroy) {
                     item.model.beforeDestroy();
@@ -864,8 +864,8 @@ export class Wnd {
             }
         });
         // 初始化移除窗口，但 centerLayout 还没有赋值 https://ld246.com/article/1658718634416
-        if (window.siyuan.layout.centerLayout) {
-            const wnd = getWndByLayout(window.siyuan.layout.centerLayout);
+        if (window.shehab.layout.centerLayout) {
+            const wnd = getWndByLayout(window.shehab.layout.centerLayout);
             if (!wnd) {
                 /// #if !BROWSER
                 if (isWindow()) {
@@ -874,9 +874,9 @@ export class Wnd {
                 }
                 /// #endif
                 const wnd = new Wnd(this.app);
-                window.siyuan.layout.centerLayout.addWnd(wnd);
+                window.shehab.layout.centerLayout.addWnd(wnd);
                 wnd.addTab(newCenterEmptyTab(this.app), false, false);
-                setTitle(window.siyuan.languages.siyuanNote);
+                setTitle(window.shehab.languages.siyuanNote);
             }
         }
         if (isSaveLayout) {
@@ -896,7 +896,7 @@ export class Wnd {
             if (item.id === id) {
                 if ((item.model instanceof Editor) && item.model.editor?.protyle) {
                     if (item.model.editor.protyle.upload.isUploading) {
-                        showMessage(window.siyuan.languages.uploading);
+                        showMessage(window.shehab.languages.uploading);
                         return;
                     }
                     this.removeTabAction(id, closeAll, animate, isSaveLayout);
@@ -944,7 +944,7 @@ export class Wnd {
         } else {
             this.children.push(tab);
         }
-        if (this.children.length > window.siyuan.config.fileTree.maxOpenTabCount) {
+        if (this.children.length > window.shehab.config.fileTree.maxOpenTabCount) {
             this.removeOverCounter();
         }
 

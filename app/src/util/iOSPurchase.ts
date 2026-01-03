@@ -73,32 +73,32 @@ export const processIOSPurchaseResponse = (code: number) => {
 };
 
 export const iOSPurchase = (productType: string) => {
-    if (window.siyuan.user) {
+    if (window.shehab.user) {
         fetchPost("/api/setting/getCloudUser", {
-            token: window.siyuan.user.userToken,
+            token: window.shehab.user.userToken,
         }, response => {
-            if (window.siyuan.user.userSiYuanOneTimePayStatus !== response.data.userSiYuanOneTimePayStatus ||
-                window.siyuan.user.userSiYuanProExpireTime !== response.data.userSiYuanProExpireTime ||
-                window.siyuan.user.userSiYuanSubscriptionPlan !== response.data.userSiYuanSubscriptionPlan ||
-                window.siyuan.user.userSiYuanSubscriptionType !== response.data.userSiYuanSubscriptionType ||
-                window.siyuan.user.userSiYuanSubscriptionStatus !== response.data.userSiYuanSubscriptionStatus) {
-                showMessage(window.siyuan.languages["_kernel"][19]);
+            if (window.shehab.user.userSiYuanOneTimePayStatus !== response.data.userSiYuanOneTimePayStatus ||
+                window.shehab.user.userSiYuanProExpireTime !== response.data.userSiYuanProExpireTime ||
+                window.shehab.user.userSiYuanSubscriptionPlan !== response.data.userSiYuanSubscriptionPlan ||
+                window.shehab.user.userSiYuanSubscriptionType !== response.data.userSiYuanSubscriptionType ||
+                window.shehab.user.userSiYuanSubscriptionStatus !== response.data.userSiYuanSubscriptionStatus) {
+                showMessage(window.shehab.languages["_kernel"][19]);
                 return;
             }
-            window.siyuan.user = response.data;
+            window.shehab.user = response.data;
             let productID;
-            if (window.siyuan.config.cloudRegion === 0) {
+            if (window.shehab.config.cloudRegion === 0) {
                 productID = productType === "function" ? "china00" : "china02";
             } else {
                 productID = productType === "function" ? "00" : "02";
             }
-            window.webkit.messageHandlers.purchase.postMessage(`${productID} ${genUUID().substring(0, 19)}${window.siyuan.config.cloudRegion}00${window.siyuan.user.userId.substring(0, 1)}-${window.siyuan.user.userId.substring(1)}`);
+            window.webkit.messageHandlers.purchase.postMessage(`${productID} ${genUUID().substring(0, 19)}${window.shehab.config.cloudRegion}00${window.shehab.user.userId.substring(0, 1)}-${window.shehab.user.userId.substring(1)}`);
             progressLoading({
                 code: 1,
                 msg: ""
             });
         });
     } else {
-        showMessage(window.siyuan.languages.needLogin);
+        showMessage(window.shehab.languages.needLogin);
     }
 };

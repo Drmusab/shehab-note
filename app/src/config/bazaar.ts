@@ -20,86 +20,86 @@ import {useShell} from "../util/pathName";
 export const bazaar = {
     element: undefined as Element,
     genHTML() {
-        if (!window.siyuan.config.bazaar.trust) {
+        if (!window.shehab.config.bazaar.trust) {
             return `<div class="fn__flex-column">
 <div class="fn__flex-1"></div>
 <div class="b3-label">
-    <div>${window.siyuan.languages.bazaarTrust}</div>
+    <div>${window.shehab.languages.bazaarTrust}</div>
     <div class="fn__hr--b"></div>
-    <div>${window.siyuan.languages.bazaarTrust3}</div>
+    <div>${window.shehab.languages.bazaarTrust3}</div>
 </div>
 <div class="fn__flex b3-label">
     <svg class="b3-label__icon"><use xlink:href="#iconEye"></use></svg>
     <div>
-        ${window.siyuan.languages.bazaarTrustCodeReview}
-        <div class="b3-label__text">${window.siyuan.languages.bazaarTrustCodeReviewTip}</div>
+        ${window.shehab.languages.bazaarTrustCodeReview}
+        <div class="b3-label__text">${window.shehab.languages.bazaarTrustCodeReviewTip}</div>
     </div>
 </div>
 <div class="fn__flex b3-label">
     <svg class="b3-label__icon"><use xlink:href="#iconGithub"></use></svg>
     <div>
-        ${window.siyuan.languages.bazaarTrustOpenSource}
-        <div class="b3-label__text">${window.siyuan.languages.bazaarTrustOpenSourceTip}</div>
+        ${window.shehab.languages.bazaarTrustOpenSource}
+        <div class="b3-label__text">${window.shehab.languages.bazaarTrustOpenSourceTip}</div>
     </div>
 </div>
 <div class="fn__flex b3-label">
     <svg class="b3-label__icon"><use xlink:href="#iconUsers"></use></svg>
     <div>
-        ${window.siyuan.languages.bazaarCommunityReview}
-        <div class="b3-label__text">${window.siyuan.languages.bazaarPeerReviewTip}</div>
+        ${window.shehab.languages.bazaarCommunityReview}
+        <div class="b3-label__text">${window.shehab.languages.bazaarPeerReviewTip}</div>
     </div>
 </div>
 <div class="fn__flex b3-label">
     <svg class="b3-label__icon"><use xlink:href="#iconInfo"></use></svg>
     <div>
-        ${window.siyuan.languages.bazaarUserReport}
-        <div class="b3-label__text">${window.siyuan.languages.bazaarUserReportTip}</div>
+        ${window.shehab.languages.bazaarUserReport}
+        <div class="b3-label__text">${window.shehab.languages.bazaarUserReportTip}</div>
     </div>
 </div>
 <div class="b3-label b3-label--noborder">
-    <div>${window.siyuan.languages.bazaarTrust1}</div>
+    <div>${window.shehab.languages.bazaarTrust1}</div>
     <div class="fn__hr--b"></div>
-    <diiv>${window.siyuan.languages.bazaarTrust2}</diiv>
+    <diiv>${window.shehab.languages.bazaarTrust2}</diiv>
 </div>
 <div class="ft__center b3-label b3-label--noborder">
-    <button class="b3-button fn__size200">${window.siyuan.languages.trust}</button>
+    <button class="b3-button fn__size200">${window.shehab.languages.trust}</button>
 </div>
 <div class="fn__flex-1"></div>
 </div>`;
         }
-        const localSort = window.siyuan.storage[Constants.LOCAL_BAZAAR];
+        const localSort = window.shehab.storage[Constants.LOCAL_BAZAAR];
         const loadingHTML = `<div style="height: ${bazaar.element.clientHeight - 80}px;display: flex;align-items: center;justify-content: center;"><img src="/stage/loading-pure.svg"></div>`;
         return `<div class="fn__flex-column" style="height: 100%">
 <div class="layout-tab-bar fn__flex">
-    <div data-type="downloaded" class="item item--full item--focus"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.downloaded}</span><span class="fn__flex-1"></span></div>
-    <div data-type="plugin" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.plugin}</span><span class="fn__flex-1"></span></div>
-    <div data-type="theme" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.theme}</span><span class="fn__flex-1"></span></div>
-    <div data-type="icon" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.icon}</span><span class="fn__flex-1"></span></div>
-    <div data-type="template" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.template}</span><span class="fn__flex-1"></span></div>
-    <div data-type="widget" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.siyuan.languages.widget}</span><span class="fn__flex-1"></span></div>
+    <div data-type="downloaded" class="item item--full item--focus"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.downloaded}</span><span class="fn__flex-1"></span></div>
+    <div data-type="plugin" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.plugin}</span><span class="fn__flex-1"></span></div>
+    <div data-type="theme" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.theme}</span><span class="fn__flex-1"></span></div>
+    <div data-type="icon" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.icon}</span><span class="fn__flex-1"></span></div>
+    <div data-type="template" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.template}</span><span class="fn__flex-1"></span></div>
+    <div data-type="widget" class="item item--full"><span class="fn__flex-1"></span><span class="item__text">${window.shehab.languages.widget}</span><span class="fn__flex-1"></span></div>
 </div>
 <div class="fn__flex-1">
     <div class="config-bazaar__panel" data-type="downloaded" data-init="true">
         <div data-type="downloaded-update"></div>
         <div class="fn__flex config-bazaar__title">
-            <button data-type="myPlugin" class="b3-button">${window.siyuan.languages.plugin}</button>
+            <button data-type="myPlugin" class="b3-button">${window.shehab.languages.plugin}</button>
             <div class="fn__space"></div>
-            <button data-type="myTheme" class="b3-button b3-button--outline">${window.siyuan.languages.theme}</button>
+            <button data-type="myTheme" class="b3-button b3-button--outline">${window.shehab.languages.theme}</button>
             <div class="fn__space"></div>
-            <button data-type="myIcon" class="b3-button b3-button--outline">${window.siyuan.languages.icon}</button>
+            <button data-type="myIcon" class="b3-button b3-button--outline">${window.shehab.languages.icon}</button>
             <div class="fn__space"></div>
-            <button data-type="myTemplate" class="b3-button b3-button--outline">${window.siyuan.languages.template}</button>
+            <button data-type="myTemplate" class="b3-button b3-button--outline">${window.shehab.languages.template}</button>
             <div class="fn__space"></div>
-            <button data-type="myWidget" class="b3-button b3-button--outline">${window.siyuan.languages.widget}</button>
+            <button data-type="myWidget" class="b3-button b3-button--outline">${window.shehab.languages.widget}</button>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <input ${window.siyuan.config.bazaar.petalDisabled ? "" : " checked"} data-type="plugins-enable" type="checkbox" class="b3-switch fn__flex-center" style="margin-right: 8px">
-            <div class="counter counter--bg fn__none fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <input ${window.shehab.config.bazaar.petalDisabled ? "" : " checked"} data-type="plugins-enable" type="checkbox" class="b3-switch fn__flex-center" style="margin-right: 8px">
+            <div class="counter counter--bg fn__none fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarDownloaded" class="config-bazaar__content">
             ${loadingHTML}
@@ -110,25 +110,25 @@ export const bazaar = {
             <svg class="svg ft__on-surface fn__flex-center"><use xlink:href="#iconSort"></use></svg>
             <div class="fn__space"></div>
             <select class="b3-select">
-                <option ${localSort.theme === "0" ? "selected" : ""} value="0">${window.siyuan.languages.sortByUpdateTimeDesc}</option>
-                <option ${localSort.theme === "1" ? "selected" : ""} value="1">${window.siyuan.languages.sortByUpdateTimeAsc}</option>
-                <option ${localSort.theme === "2" ? "selected" : ""} value="2">${window.siyuan.languages.sortByDownloadsDesc}</option>
-                <option ${localSort.theme === "3" ? "selected" : ""} value="3">${window.siyuan.languages.sortByDownloadsAsc}</option>
+                <option ${localSort.theme === "0" ? "selected" : ""} value="0">${window.shehab.languages.sortByUpdateTimeDesc}</option>
+                <option ${localSort.theme === "1" ? "selected" : ""} value="1">${window.shehab.languages.sortByUpdateTimeAsc}</option>
+                <option ${localSort.theme === "2" ? "selected" : ""} value="2">${window.shehab.languages.sortByDownloadsDesc}</option>
+                <option ${localSort.theme === "3" ? "selected" : ""} value="3">${window.shehab.languages.sortByDownloadsAsc}</option>
             </select>
             <div class="fn__space"></div>
             <select id="bazaarSelect" class="b3-select">
-                <option selected value="2">${window.siyuan.languages.all}</option>
-                <option value="0">${window.siyuan.languages.themeLight}</option>
-                <option value="1">${window.siyuan.languages.themeDark}</option>
+                <option selected value="2">${window.shehab.languages.all}</option>
+                <option value="0">${window.shehab.languages.themeLight}</option>
+                <option value="1">${window.shehab.languages.themeDark}</option>
             </select>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarTheme" class="config-bazaar__content">
             ${loadingHTML}
@@ -139,19 +139,19 @@ export const bazaar = {
             <svg class="svg ft__on-surface fn__flex-center"><use xlink:href="#iconSort"></use></svg>
             <div class="fn__space"></div>
             <select class="b3-select">
-                <option ${localSort.template === "0" ? "selected" : ""} value="0">${window.siyuan.languages.sortByUpdateTimeDesc}</option>
-                <option ${localSort.template === "1" ? "selected" : ""} value="1">${window.siyuan.languages.sortByUpdateTimeAsc}</option>
-                <option ${localSort.template === "2" ? "selected" : ""} value="2">${window.siyuan.languages.sortByDownloadsDesc}</option>
-                <option ${localSort.template === "3" ? "selected" : ""} value="3">${window.siyuan.languages.sortByDownloadsAsc}</option>
+                <option ${localSort.template === "0" ? "selected" : ""} value="0">${window.shehab.languages.sortByUpdateTimeDesc}</option>
+                <option ${localSort.template === "1" ? "selected" : ""} value="1">${window.shehab.languages.sortByUpdateTimeAsc}</option>
+                <option ${localSort.template === "2" ? "selected" : ""} value="2">${window.shehab.languages.sortByDownloadsDesc}</option>
+                <option ${localSort.template === "3" ? "selected" : ""} value="3">${window.shehab.languages.sortByDownloadsAsc}</option>
             </select>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarTemplate" class="config-bazaar__content">
             ${loadingHTML}
@@ -162,19 +162,19 @@ export const bazaar = {
             <svg class="svg ft__on-surface fn__flex-center"><use xlink:href="#iconSort"></use></svg>
             <div class="fn__space"></div>
             <select class="b3-select">
-                <option ${localSort.plugin === "0" ? "selected" : ""} value="0">${window.siyuan.languages.sortByUpdateTimeDesc}</option>
-                <option ${localSort.plugin === "1" ? "selected" : ""} value="1">${window.siyuan.languages.sortByUpdateTimeAsc}</option>
-                <option ${localSort.plugin === "2" ? "selected" : ""} value="2">${window.siyuan.languages.sortByDownloadsDesc}</option>
-                <option ${localSort.plugin === "3" ? "selected" : ""} value="3">${window.siyuan.languages.sortByDownloadsAsc}</option>
+                <option ${localSort.plugin === "0" ? "selected" : ""} value="0">${window.shehab.languages.sortByUpdateTimeDesc}</option>
+                <option ${localSort.plugin === "1" ? "selected" : ""} value="1">${window.shehab.languages.sortByUpdateTimeAsc}</option>
+                <option ${localSort.plugin === "2" ? "selected" : ""} value="2">${window.shehab.languages.sortByDownloadsDesc}</option>
+                <option ${localSort.plugin === "3" ? "selected" : ""} value="3">${window.shehab.languages.sortByDownloadsAsc}</option>
             </select>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarPlugin" class="config-bazaar__content">
             ${loadingHTML}
@@ -185,19 +185,19 @@ export const bazaar = {
             <svg class="svg ft__on-surface fn__flex-center"><use xlink:href="#iconSort"></use></svg>
             <div class="fn__space"></div>
             <select class="b3-select">
-                <option ${localSort.icon === "0" ? "selected" : ""} value="0">${window.siyuan.languages.sortByUpdateTimeDesc}</option>
-                <option ${localSort.icon === "1" ? "selected" : ""} value="1">${window.siyuan.languages.sortByUpdateTimeAsc}</option>
-                <option ${localSort.icon === "2" ? "selected" : ""} value="2">${window.siyuan.languages.sortByDownloadsDesc}</option>
-                <option ${localSort.icon === "3" ? "selected" : ""} value="3">${window.siyuan.languages.sortByDownloadsAsc}</option>
+                <option ${localSort.icon === "0" ? "selected" : ""} value="0">${window.shehab.languages.sortByUpdateTimeDesc}</option>
+                <option ${localSort.icon === "1" ? "selected" : ""} value="1">${window.shehab.languages.sortByUpdateTimeAsc}</option>
+                <option ${localSort.icon === "2" ? "selected" : ""} value="2">${window.shehab.languages.sortByDownloadsDesc}</option>
+                <option ${localSort.icon === "3" ? "selected" : ""} value="3">${window.shehab.languages.sortByDownloadsAsc}</option>
             </select>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarIcon" class="config-bazaar__content">
             ${loadingHTML}
@@ -208,19 +208,19 @@ export const bazaar = {
             <svg class="svg ft__on-surface fn__flex-center"><use xlink:href="#iconSort"></use></svg>
             <div class="fn__space"></div>
             <select class="b3-select">
-                <option ${localSort.widget === "0" ? "selected" : ""} value="0">${window.siyuan.languages.sortByUpdateTimeDesc}</option>
-                <option ${localSort.widget === "1" ? "selected" : ""} value="1">${window.siyuan.languages.sortByUpdateTimeAsc}</option>
-                <option ${localSort.widget === "2" ? "selected" : ""} value="2">${window.siyuan.languages.sortByDownloadsDesc}</option>
-                <option ${localSort.widget === "3" ? "selected" : ""} value="3">${window.siyuan.languages.sortByDownloadsAsc}</option>
+                <option ${localSort.widget === "0" ? "selected" : ""} value="0">${window.shehab.languages.sortByUpdateTimeDesc}</option>
+                <option ${localSort.widget === "1" ? "selected" : ""} value="1">${window.shehab.languages.sortByUpdateTimeAsc}</option>
+                <option ${localSort.widget === "2" ? "selected" : ""} value="2">${window.shehab.languages.sortByDownloadsDesc}</option>
+                <option ${localSort.widget === "3" ? "selected" : ""} value="3">${window.shehab.languages.sortByDownloadsAsc}</option>
             </select>
             <div class="fn__space"></div>
             <div class="b3-form__icon">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.siyuan.languages.enterKey} ${window.siyuan.languages.search}">
+                <input class="b3-text-field b3-form__icon-input fn__block" placeholder="${window.shehab.languages.enterKey} ${window.shehab.languages.search}">
             </div>
             <div class="fn__space"></div>
             <div class="fn__flex-1"></div>
-            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}"></div>
+            <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}"></div>
         </div>
         <div id="configBazaarWidget" class="config-bazaar__content">
             ${loadingHTML}
@@ -236,9 +236,9 @@ export const bazaar = {
         }
         try {
             new URL(funding);
-            return `<a target="_blank" href="${escapeAttr(funding)}" class="block__icon block__icon--show ariaLabel" data-position="north" aria-label="${window.siyuan.languages.sponsor} ${escapeAttr(funding)}"><svg class="ft__pink"><use xlink:href="#iconHeart"></use></svg></a>`;
+            return `<a target="_blank" href="${escapeAttr(funding)}" class="block__icon block__icon--show ariaLabel" data-position="north" aria-label="${window.shehab.languages.sponsor} ${escapeAttr(funding)}"><svg class="ft__pink"><use xlink:href="#iconHeart"></use></svg></a>`;
         } catch (e) {
-            return `<span data-type="copy-funding" data-funding="${escapeAttr(funding)}" class="block__icon block__icon--show ariaLabel" data-position="north" aria-label="${window.siyuan.languages.sponsor} ${escapeAttr(funding)}"><svg class="ft__pink"><use xlink:href="#iconHeart"></use></svg></span>`;
+            return `<span data-type="copy-funding" data-funding="${escapeAttr(funding)}" class="block__icon block__icon--show ariaLabel" data-position="north" aria-label="${window.shehab.languages.sponsor} ${escapeAttr(funding)}"><svg class="ft__pink"><use xlink:href="#iconHeart"></use></svg></span>`;
         }
     },
     _genCardHTML(item: IBazaarItem, bazaarType: TBazaarType) {
@@ -287,15 +287,15 @@ export const bazaar = {
             ${bazaar._genFundingHTML(item.preferredFunding)}
             <span class="fn__space"></span>
             <div class="fn__flex-1"></div>
-            <span data-position="north" class="ariaLabel block__icon block__icon--show${item.installed ? "" : " fn__none"}" data-type="uninstall" aria-label="${window.siyuan.languages.uninstall}">
+            <span data-position="north" class="ariaLabel block__icon block__icon--show${item.installed ? "" : " fn__none"}" data-type="uninstall" aria-label="${window.shehab.languages.uninstall}">
                 <svg><use xlink:href="#iconTrashcan"></use></svg>
             </span>
             <div class="fn__space${!item.current && item.installed && showSwitch ? "" : " fn__none"}"></div>
-            <span data-position="north" class="ariaLabel block__icon block__icon--show${!item.current && item.installed && showSwitch ? "" : " fn__none"}" data-type="switch" aria-label="${window.siyuan.languages.use}">
+            <span data-position="north" class="ariaLabel block__icon block__icon--show${!item.current && item.installed && showSwitch ? "" : " fn__none"}" data-type="switch" aria-label="${window.shehab.languages.use}">
                 <svg><use xlink:href="#iconSelect"></use></svg>
             </span>
             <div class="fn__space${item.outdated ? "" : " fn__none"}"></div>
-            <span data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.siyuan.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.siyuan.languages.update}" data-position="north" class="ariaLabel block__icon block__icon--show${item.outdated ? "" : " fn__none"}">
+            <span data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.shehab.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.shehab.languages.update}" data-position="north" class="ariaLabel block__icon block__icon--show${item.outdated ? "" : " fn__none"}">
                 <svg class="ft__primary"><use xlink:href="#iconRefresh"></use></svg>
             </span>
         </div>
@@ -321,12 +321,12 @@ export const bazaar = {
         </div>
     </div>
     <div class="b3-card__actions b3-card__actions--right">
-        ${item.incompatible ? `<span class="fn__space"></span><span data-position="north" class="fn__flex-center ariaLabel b3-chip b3-chip--error b3-chip--small" aria-label="${window.siyuan.languages.incompatiblePluginTip}">${window.siyuan.languages.incompatible}</span>` : ""}
+        ${item.incompatible ? `<span class="fn__space"></span><span data-position="north" class="fn__flex-center ariaLabel b3-chip b3-chip--error b3-chip--small" aria-label="${window.shehab.languages.incompatiblePluginTip}">${window.shehab.languages.incompatible}</span>` : ""}
         ${bazaar._genFundingHTML(item.preferredFunding)}
-        <span data-position="north" class="ariaLabel block__icon block__icon--show${isBrowser() ? " fn__none" : ""}" data-type="open" aria-label="${window.siyuan.languages.showInFolder}">
+        <span data-position="north" class="ariaLabel block__icon block__icon--show${isBrowser() ? " fn__none" : ""}" data-type="open" aria-label="${window.shehab.languages.showInFolder}">
             <svg><use xlink:href="#iconFolder"></use></svg>
         </span>
-        <span data-position="north" data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.siyuan.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.siyuan.languages.update}" class="ariaLabel block__icon block__icon--show">
+        <span data-position="north" data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.shehab.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.shehab.languages.update}" class="ariaLabel block__icon block__icon--show">
             <svg class="ft__primary"><use xlink:href="#iconRefresh"></use></svg>
         </span>
     </div>
@@ -358,9 +358,9 @@ export const bazaar = {
             }
             this.element.querySelector('[data-type="downloaded-update"]').innerHTML = `<div class="fn__flex config-bazaar__title">
     <div class="fn__flex-1"></div>
-    <button class="b3-button" data-type="install-all">${window.siyuan.languages.updateAll}</button>
+    <button class="b3-button" data-type="install-all">${window.shehab.languages.updateAll}</button>
     <span class="fn__space"></span>
-    <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.siyuan.languages.total}">${allCount}</div>
+    <div class="counter counter--bg fn__flex-center ariaLabel" data-position="north" aria-label="${window.shehab.languages.total}">${allCount}</div>
 </div>
 <div class="config-bazaar__content">${html}</div>`;
         });
@@ -421,7 +421,7 @@ export const bazaar = {
                             }
                         });
                     }
-                    html += `<div data-obj='${JSON.stringify(dataObj)}' class="b3-card${item.current ? " b3-card--current" : ""}${(window.siyuan.config.bazaar.petalDisabled && bazaarType === "plugins") ? " b3-card--disabled" : ""}">
+                    html += `<div data-obj='${JSON.stringify(dataObj)}' class="b3-card${item.current ? " b3-card--current" : ""}${(window.shehab.config.bazaar.petalDisabled && bazaarType === "plugins") ? " b3-card--disabled" : ""}">
     <div class="b3-card__img"><img src="${item.iconURL}" onerror="this.src='/stage/images/icon.png'"/></div>
     <div class="fn__flex-1 fn__flex-column">
         <div class="b3-card__info b3-card__info--left fn__flex-1">
@@ -430,31 +430,31 @@ export const bazaar = {
         </div>
     </div>
     <div class="b3-card__actions b3-card__actions--right">
-        ${item.incompatible ? `<span class="fn__space"></span><span data-position="north" class="fn__flex-center ariaLabel b3-chip b3-chip--error b3-chip--small" aria-label="${window.siyuan.languages.incompatiblePluginTip}">${window.siyuan.languages.incompatible}</span>` : ""}
+        ${item.incompatible ? `<span class="fn__space"></span><span data-position="north" class="fn__flex-center ariaLabel b3-chip b3-chip--error b3-chip--small" aria-label="${window.shehab.languages.incompatiblePluginTip}">${window.shehab.languages.incompatible}</span>` : ""}
         ${bazaar._genFundingHTML(item.preferredFunding)}
-        <span data-position="north" class="ariaLabel block__icon block__icon--show${hasSetting ? "" : " fn__none"}" data-type="setting" aria-label="${window.siyuan.languages.config}">
+        <span data-position="north" class="ariaLabel block__icon block__icon--show${hasSetting ? "" : " fn__none"}" data-type="setting" aria-label="${window.shehab.languages.config}">
             <svg><use xlink:href="#iconSettings"></use></svg>
         </span>
-        <span data-position="north" class="ariaLabel block__icon block__icon--show" data-type="uninstall" aria-label="${window.siyuan.languages.uninstall}">
+        <span data-position="north" class="ariaLabel block__icon block__icon--show" data-type="uninstall" aria-label="${window.shehab.languages.uninstall}">
             <svg><use xlink:href="#iconTrashcan"></use></svg>
         </span>
-        <span data-position="north" class="ariaLabel block__icon block__icon--show${isBrowser() ? " fn__none" : ""}" data-type="open" aria-label="${window.siyuan.languages.showInFolder}">
+        <span data-position="north" class="ariaLabel block__icon block__icon--show${isBrowser() ? " fn__none" : ""}" data-type="open" aria-label="${window.shehab.languages.showInFolder}">
             <svg><use xlink:href="#iconFolder"></use></svg>
         </span>
-        <span data-position="north" class="ariaLabel block__icon block__icon--show${!item.current && showSwitch ? "" : " fn__none"}" data-type="switch" aria-label="${window.siyuan.languages.use}">
+        <span data-position="north" class="ariaLabel block__icon block__icon--show${!item.current && showSwitch ? "" : " fn__none"}" data-type="switch" aria-label="${window.shehab.languages.use}">
             <svg><use xlink:href="#iconSelect"></use></svg>
         </span>
-        <span data-position="north" data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.siyuan.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.siyuan.languages.update}" class="ariaLabel block__icon block__icon--show${item.outdated ? "" : " fn__none"}">
+        <span data-position="north" data-type="install-t" ${item.disallowUpdate ? "disabled" : ""} aria-label="${item.disallowUpdate ? window.shehab.languages.bazaarNeedVersion.replace("${x}", item.updateRequiredMinAppVer) : window.shehab.languages.update}" class="ariaLabel block__icon block__icon--show${item.outdated ? "" : " fn__none"}">
             <svg class="ft__primary"><use xlink:href="#iconRefresh"></use></svg>
         </span>
         <span class="fn__space${bazaarType === "plugins" ? "" : " fn__none"}"></span>
         <span class="fn__space${bazaarType === "plugins" ? "" : " fn__none"}"></span>
         <input ${((item.disallowInstall && !item.enabled) || item.incompatible) ? "disabled" : ""} 
-aria-label="${(item.disallowInstall && !item.enabled) ? window.siyuan.languages.bazaarNeedVersion.replace("${x}", item.minAppVersion) : ""}" 
+aria-label="${(item.disallowInstall && !item.enabled) ? window.shehab.languages.bazaarNeedVersion.replace("${x}", item.minAppVersion) : ""}" 
 data-position="north" class="ariaLabel b3-switch fn__flex-center${bazaarType === "plugins" ? "" : " fn__none"}" 
 ${item.enabled ? "checked" : ""} 
 data-type="plugin-enable" 
-data-disabletip="${item.disallowInstall ? window.siyuan.languages.bazaarNeedVersion.replace("${x}", item.minAppVersion) : ""}"
+data-disabletip="${item.disallowInstall ? window.shehab.languages.bazaarNeedVersion.replace("${x}", item.minAppVersion) : ""}"
 type="checkbox">
     </div>
 </div>`;
@@ -467,7 +467,7 @@ type="checkbox">
             } else {
                 checkElement.classList.add("fn__none");
             }
-            contentElement.innerHTML = html ? html : `<div class="fn__hr"></div><ul class="b3-list b3-list--background"><li class="b3-list--empty">${window.siyuan.languages.emptyContent}</li></ul>`;
+            contentElement.innerHTML = html ? html : `<div class="fn__hr"></div><ul class="b3-list b3-list--background"><li class="b3-list--empty">${window.shehab.languages.emptyContent}</li></ul>`;
         });
     },
     _data: {
@@ -489,15 +489,15 @@ type="checkbox">
         const readmeElement = bazaar.element.querySelector("#configBazaarReadme") as HTMLElement;
         const urls = data.repoURL.split("/");
         urls.pop();
-        let navTitle = window.siyuan.languages.icon;
+        let navTitle = window.shehab.languages.icon;
         if (bazaarType === "themes") {
-            navTitle = window.siyuan.languages.theme;
+            navTitle = window.shehab.languages.theme;
         } else if (bazaarType === "widgets") {
-            navTitle = window.siyuan.languages.widget;
+            navTitle = window.shehab.languages.widget;
         } else if (bazaarType === "templates") {
-            navTitle = window.siyuan.languages.template;
+            navTitle = window.shehab.languages.template;
         } else if (bazaarType === "plugins") {
-            navTitle = window.siyuan.languages.plugin;
+            navTitle = window.shehab.languages.plugin;
         }
         const dataObj1 = {
             bazaarType,
@@ -509,7 +509,7 @@ type="checkbox">
         };
         readmeElement.innerHTML = ` <div class="item__side" data-obj='${JSON.stringify(dataObj1)}'>
     <div class="fn__flex">
-        <div style="padding-right: 8px" class="block__icon block__icon--show ariaLabel" data-position="north" data-type="goBack" aria-label="${window.siyuan.languages.back}">
+        <div style="padding-right: 8px" class="block__icon block__icon--show ariaLabel" data-position="north" data-type="goBack" aria-label="${window.shehab.languages.back}">
             <svg><use xlink:href="#iconLeft"></use></svg>
             <span class="fn__space"></span>
             ${navTitle}
@@ -527,7 +527,7 @@ type="checkbox">
         <span class="fn__flex-1"></span>
         ${data.preferredFunding ?
             bazaar._genFundingHTML(data.preferredFunding) :
-            `<span data-position="north" class="ariaLabel block__icon block__icon--show ft__primary" aria-label="${window.siyuan.languages.author}" style="cursor: default"><svg><use xlink:href="#iconAccount"></use></svg></span>`
+            `<span data-position="north" class="ariaLabel block__icon block__icon--show ft__primary" aria-label="${window.shehab.languages.author}" style="cursor: default"><svg><use xlink:href="#iconAccount"></use></svg></span>`
         }
         <span class="fn__space"></span>
         <a href="${urls.join("/")}" target="_blank" title="Creator">${data.author}</a>
@@ -535,24 +535,24 @@ type="checkbox">
     </div>
     <div class="fn__hr--b"></div>
     <div class="fn__hr--b"></div>
-    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${window.siyuan.languages.currentVer}<br>v${data.version}</div>
+    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${window.shehab.languages.currentVer}<br>v${data.version}</div>
     <div class="fn__hr"></div>
-    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${downloaded ? window.siyuan.languages.installDate : window.siyuan.languages.releaseDate}<br>${downloaded ? data.hInstallDate : data.hUpdated}</div>
+    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${downloaded ? window.shehab.languages.installDate : window.shehab.languages.releaseDate}<br>${downloaded ? data.hInstallDate : data.hUpdated}</div>
     <div class="fn__hr${downloaded ? " fn__none" : ""}"></div>
-    <div class="ft__on-surface ft__smaller${downloaded ? " fn__none" : ""}" style="line-height: 20px;">${window.siyuan.languages.pkgSize}<br>${data.hSize}</div>
+    <div class="ft__on-surface ft__smaller${downloaded ? " fn__none" : ""}" style="line-height: 20px;">${window.shehab.languages.pkgSize}<br>${data.hSize}</div>
     <div class="fn__hr"></div>
-    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${window.siyuan.languages.installSize}<br>${data.hInstallSize}</div>
+    <div class="ft__on-surface ft__smaller" style="line-height: 20px;">${window.shehab.languages.installSize}<br>${data.hInstallSize}</div>
     <div class="fn__hr--b"></div>
     <div class="fn__hr--b"></div>
     <div${(data.installed || downloaded) ? ' class="fn__none"' : ""}>
-        <button ${data.disallowInstall ? `disabled aria-label="${window.siyuan.languages.bazaarNeedVersion.replace("${x}", data.minAppVersion)}" data-position="north"` : ""} class="b3-button ariaLabel" style="width: 168px"  data-type="install">${window.siyuan.languages.download}</button>
+        <button ${data.disallowInstall ? `disabled aria-label="${window.shehab.languages.bazaarNeedVersion.replace("${x}", data.minAppVersion)}" data-position="north"` : ""} class="b3-button ariaLabel" style="width: 168px"  data-type="install">${window.shehab.languages.download}</button>
     </div>
     <div${(data.outdated && (data.installed || downloaded)) ? "" : ' class="fn__none"'}>
-        <button ${data.disallowUpdate ? `disabled aria-label="${window.siyuan.languages.bazaarNeedVersion.replace("${x}", data.updateRequiredMinAppVer)}" data-position="north"` : ""} class="b3-button ariaLabel" style="width: 168px" data-type="install-t">${window.siyuan.languages.update}</button>
+        <button ${data.disallowUpdate ? `disabled aria-label="${window.shehab.languages.bazaarNeedVersion.replace("${x}", data.updateRequiredMinAppVer)}" data-position="north"` : ""} class="b3-button ariaLabel" style="width: 168px" data-type="install-t">${window.shehab.languages.update}</button>
     </div>
     <div class="fn__hr--b"></div>
     <div>
-        <a href="${data.repoURL}/issues" target="_blank" title="Feedback via GitHub Issues" class="b3-button b3-button--success" style="width: 168px" data-type="feedback">${window.siyuan.languages.feedback}</a>
+        <a href="${data.repoURL}/issues" target="_blank" title="Feedback via GitHub Issues" class="b3-button b3-button--success" style="width: 168px" data-type="feedback">${window.shehab.languages.feedback}</a>
     </div>
     <div class="fn__hr--b${downloaded ? " fn__none" : ""}"></div>
     <div class="fn__hr--b${downloaded ? " fn__none" : ""}"></div>
@@ -611,13 +611,13 @@ type="checkbox">
         readmeElement.classList.add("config-bazaar__readme--show");
     },
     bindEvent(app: App) {
-        if (!window.siyuan.config.bazaar.trust) {
+        if (!window.shehab.config.bazaar.trust) {
             bazaar.element.querySelector("button").addEventListener("click", () => {
                 fetchPost("/api/setting/setBazaar", {
                     trust: true,
-                    petalDisabled: window.siyuan.config.bazaar.petalDisabled
+                    petalDisabled: window.shehab.config.bazaar.petalDisabled
                 }, () => {
-                    window.siyuan.config.bazaar.trust = true;
+                    window.shehab.config.bazaar.trust = true;
                     bazaar.element.innerHTML = bazaar.genHTML();
                     bazaar.bindEvent(app);
                 });
@@ -641,7 +641,7 @@ type="checkbox">
                     const funding = target.getAttribute("data-funding");
                     if (funding) {
                         writeText(funding);
-                        showMessage(window.siyuan.languages.copied);
+                        showMessage(window.shehab.languages.copied);
                     }
                     event.preventDefault();
                     event.stopPropagation();
@@ -650,9 +650,9 @@ type="checkbox">
                     /// #if !BROWSER
                     const dirName = dataObj.bazaarType;
                     if (dirName === "icons" || dirName === "themes") {
-                        useShell("openPath", path.join(window.siyuan.config.system.confDir, "appearance", dirName, dataObj.name));
+                        useShell("openPath", path.join(window.shehab.config.system.confDir, "appearance", dirName, dataObj.name));
                     } else {
-                        useShell("openPath", path.join(window.siyuan.config.system.dataDir, dirName, dataObj.name));
+                        useShell("openPath", path.join(window.shehab.config.system.dataDir, dirName, dataObj.name));
                     }
                     /// #endif
                     event.preventDefault();
@@ -701,10 +701,10 @@ type="checkbox">
                             bazaar._onBazaar(response, bazaarType);
                             bazaar._genMyHTML(bazaarType, app, false);
                             if (bazaarType === "plugins") {
-                                if (window.siyuan.config.bazaar.petalDisabled) {
-                                    confirmDialog(window.siyuan.languages.confirm, window.siyuan.languages.enablePluginTip2);
+                                if (window.shehab.config.bazaar.petalDisabled) {
+                                    confirmDialog(window.shehab.languages.confirm, window.shehab.languages.enablePluginTip2);
                                 } else {
-                                    confirmDialog("💡 " + window.siyuan.languages.enablePlugin, window.siyuan.languages.enablePluginTip, () => {
+                                    confirmDialog("💡 " + window.shehab.languages.enablePlugin, window.shehab.languages.enablePluginTip, () => {
                                         fetchPost("/api/petal/setPetalEnabled", {
                                             packageName: dataObj.name,
                                             enabled: true,
@@ -723,7 +723,7 @@ type="checkbox">
                     event.stopPropagation();
                     break;
                 } else if (type === "install-all") {
-                    confirmDialog("⬆️ " + window.siyuan.languages.updateAll, window.siyuan.languages.confirmUpdateAll, () => {
+                    confirmDialog("⬆️ " + window.shehab.languages.updateAll, window.shehab.languages.confirmUpdateAll, () => {
                         fetchPost("/api/bazaar/batchUpdatePackage", {frontend: getFrontend()});
                     });
                     event.preventDefault();
@@ -735,7 +735,7 @@ type="checkbox">
                     break;
                 } else if (type === "install-t") {
                     if (!target.classList.contains("b3-button--progress") && !target.hasAttribute("disabled")) {
-                        confirmDialog("⬆️ " + window.siyuan.languages.update, window.siyuan.languages.confirmUpdate, () => {
+                        confirmDialog("⬆️ " + window.shehab.languages.update, window.shehab.languages.confirmUpdate, () => {
                             const bazaarType = dataObj.bazaarType as TBazaarType;
                             let url = "/api/bazaar/installBazaarTemplate";
                             if (bazaarType === "themes") {
@@ -763,7 +763,7 @@ type="checkbox">
                                 bazaar._onBazaar(response, bazaarType);
                                 // https://github.com/siyuan-note/siyuan/issues/15177
                                 if (bazaarType === "themes" && response.data.appearance?.themeVer) {
-                                    window.siyuan.config.appearance.themeVer = response.data.appearance.themeVer;
+                                    window.shehab.config.appearance.themeVer = response.data.appearance.themeVer;
                                 }
                                 // 更新主题后不需要对该主题进行切换 https://github.com/siyuan-note/siyuan/issues/4966
                                 // https://github.com/siyuan-note/siyuan/issues/5411
@@ -797,12 +797,12 @@ type="checkbox">
                     }
 
                     const packageName = dataObj.name;
-                    if (window.siyuan.config.appearance.themeDark === packageName ||
-                        window.siyuan.config.appearance.themeLight === packageName ||
-                        window.siyuan.config.appearance.icon === packageName) {
-                        showMessage(window.siyuan.languages.uninstallTip);
+                    if (window.shehab.config.appearance.themeDark === packageName ||
+                        window.shehab.config.appearance.themeLight === packageName ||
+                        window.shehab.config.appearance.icon === packageName) {
+                        showMessage(window.shehab.languages.uninstallTip);
                     } else {
-                        confirmDialog("⚠️ " + window.siyuan.languages.uninstall, window.siyuan.languages.confirmUninstall.replace("${name}", packageName), () => {
+                        confirmDialog("⚠️ " + window.shehab.languages.uninstall, window.shehab.languages.confirmUninstall.replace("${name}", packageName), () => {
                             fetchPost(url, {
                                 packageName,
                                 keyword: (bazaar.element.querySelector(".config-bazaar__panel:not(.fn__none) .b3-form__icon-input") as HTMLInputElement).value,
@@ -821,7 +821,7 @@ type="checkbox">
                     const packageName = dataObj.name;
                     const mode = dataObj.themeMode === "dark" ? 1 : 0;
                     if (bazaarType === "icons") {
-                        fetchPost("/api/setting/setAppearance", Object.assign({}, window.siyuan.config.appearance, {
+                        fetchPost("/api/setting/setAppearance", Object.assign({}, window.shehab.config.appearance, {
                             icon: packageName,
                         }), (appearanceResponse) => {
                             this._genMyHTML(bazaarType, app, false);
@@ -832,11 +832,11 @@ type="checkbox">
                             });
                         });
                     } else if (bazaarType === "themes") {
-                        fetchPost("/api/setting/setAppearance", Object.assign({}, window.siyuan.config.appearance, {
+                        fetchPost("/api/setting/setAppearance", Object.assign({}, window.shehab.config.appearance, {
                             mode,
                             modeOS: false,
-                            themeDark: mode === 1 ? packageName : window.siyuan.config.appearance.themeDark,
-                            themeLight: mode === 0 ? packageName : window.siyuan.config.appearance.themeLight,
+                            themeDark: mode === 1 ? packageName : window.shehab.config.appearance.themeDark,
+                            themeLight: mode === 0 ? packageName : window.shehab.config.appearance.themeLight,
                         }), async (appearanceResponse) => {
                             this._genMyHTML("themes", app, false);
                             fetchPost("/api/bazaar/getBazaarTheme", {}, response => {
@@ -862,10 +862,10 @@ type="checkbox">
                 } else if (type === "plugins-enable") {
                     if (!target.getAttribute("disabled")) {
                         target.setAttribute("disabled", "disabled");
-                        window.siyuan.config.bazaar.petalDisabled = !(target as HTMLInputElement).checked;
-                        fetchPost("/api/setting/setBazaar", window.siyuan.config.bazaar, () => {
+                        window.shehab.config.bazaar.petalDisabled = !(target as HTMLInputElement).checked;
+                        fetchPost("/api/setting/setBazaar", window.shehab.config.bazaar, () => {
                             target.removeAttribute("disabled");
-                            if (window.siyuan.config.bazaar.petalDisabled) {
+                            if (window.shehab.config.bazaar.petalDisabled) {
                                 bazaar.element.querySelectorAll("#configBazaarDownloaded .b3-card").forEach(item => {
                                     item.classList.add("b3-card--disabled");
                                     uninstall(app, JSON.parse(item.getAttribute("data-obj")).name, true);
@@ -1059,7 +1059,7 @@ type="checkbox">
                     (event.target as HTMLElement).parentElement.querySelector(".counter").textContent = bazaar.element.querySelectorAll("#configBazaarTheme .b3-card:not(.fn__none)").length.toString();
                 } else {
                     // sort
-                    const localSort = window.siyuan.storage[Constants.LOCAL_BAZAAR];
+                    const localSort = window.shehab.storage[Constants.LOCAL_BAZAAR];
                     const panelElement = selectElement.parentElement.parentElement;
                     let html = "";
                     const cardElements = Array.from(panelElement.querySelectorAll(".b3-card"));
@@ -1089,7 +1089,7 @@ type="checkbox">
                         });
                     }
                     localSort[selectElement.parentElement.parentElement.getAttribute("data-type")] = selectElement.value;
-                    setStorageVal(Constants.LOCAL_BAZAAR, window.siyuan.storage[Constants.LOCAL_BAZAAR]);
+                    setStorageVal(Constants.LOCAL_BAZAAR, window.shehab.storage[Constants.LOCAL_BAZAAR]);
                     if (cardElements.length > 1) {
                         html += '<div class="fn__flex-1" style="margin-left: 15px;min-width: 342px;"></div><div class="fn__flex-1" style="margin-left: 15px;min-width: 342px;"></div>';
                     }
@@ -1129,7 +1129,7 @@ type="checkbox">
         bazaar._data[bazaarType] = response.data.packages;
         element.innerHTML = `<div class="b3-cards">${html}</div>`;
         element.parentElement.querySelector(".counter").textContent = element.querySelectorAll(".b3-card:not(.fn__none)").length.toString();
-        const localSort = window.siyuan.storage[Constants.LOCAL_BAZAAR];
+        const localSort = window.shehab.storage[Constants.LOCAL_BAZAAR];
         if (localSort[bazaarType.replace("s", "")] === "1") {
             html = "";
             Array.from(element.querySelectorAll(".b3-card")).sort((a, b) => {

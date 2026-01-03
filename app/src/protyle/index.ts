@@ -164,7 +164,7 @@ export class Protyle {
                             this.onTransaction(data);
                             break;
                         case "readonly":
-                            window.siyuan.config.editor.readOnly = data.data;
+                            window.shehab.config.editor.readOnly = data.data;
                             setReadonlyByConfig(this.protyle, true);
                             break;
                         case "heading2doc":
@@ -173,7 +173,7 @@ export class Protyle {
                                 if (this.protyle.block.showAll && data.cmd === "heading2doc" && !this.protyle.options.backlinkData) {
                                     fetchPost("/api/filetree/getDoc", {
                                         id: this.protyle.block.rootID,
-                                        size: window.siyuan.config.editor.dynamicLoadBlocks,
+                                        size: window.shehab.config.editor.dynamicLoadBlocks,
                                     }, getResponse => {
                                         onGet({data: getResponse, protyle: this.protyle});
                                     });
@@ -245,8 +245,8 @@ export class Protyle {
                                     this.protyle.model.parent.parent.removeTab(this.protyle.model.parent.id, false);
                                 }
                                 /// #endif
-                                delete window.siyuan.storage[Constants.LOCAL_FILEPOSITION][this.protyle.block.rootID];
-                                setStorageVal(Constants.LOCAL_FILEPOSITION, window.siyuan.storage[Constants.LOCAL_FILEPOSITION]);
+                                delete window.shehab.storage[Constants.LOCAL_FILEPOSITION][this.protyle.block.rootID];
+                                setStorageVal(Constants.LOCAL_FILEPOSITION, window.shehab.storage[Constants.LOCAL_FILEPOSITION]);
                             }
                             break;
                     }
@@ -266,7 +266,7 @@ export class Protyle {
             }
 
             if (this.protyle.options.mode !== "preview" &&
-                options.rootId && window.siyuan.storage[Constants.LOCAL_FILEPOSITION][options.rootId] &&
+                options.rootId && window.shehab.storage[Constants.LOCAL_FILEPOSITION][options.rootId] &&
                 (
                     mergedOptions.action.includes(Constants.CB_GET_SCROLL) ||
                     (mergedOptions.action.includes(Constants.CB_GET_ROOTSCROLL) && options.rootId === options.blockId)
@@ -274,7 +274,7 @@ export class Protyle {
             ) {
                 getDocByScroll({
                     protyle: this.protyle,
-                    scrollAttr: window.siyuan.storage[Constants.LOCAL_FILEPOSITION][options.rootId],
+                    scrollAttr: window.shehab.storage[Constants.LOCAL_FILEPOSITION][options.rootId],
                     mergedOptions,
                     cb: () => {
                         this.afterOnGet(mergedOptions);
@@ -341,7 +341,7 @@ export class Protyle {
             originalRefBlockIDs: mergedOptions.originalRefBlockIDs,
             // 0: 仅当前 ID（默认值），1：向上 2：向下，3：上下都加载，4：加载最后
             mode: (mergedOptions.action && mergedOptions.action.includes(Constants.CB_GET_CONTEXT)) ? 3 : 0,
-            size: mergedOptions.action?.includes(Constants.CB_GET_ALL) ? Constants.SIZE_GET_MAX : window.siyuan.config.editor.dynamicLoadBlocks,
+            size: mergedOptions.action?.includes(Constants.CB_GET_ALL) ? Constants.SIZE_GET_MAX : window.shehab.config.editor.dynamicLoadBlocks,
         }, getResponse => {
             onGet({
                 data: getResponse,

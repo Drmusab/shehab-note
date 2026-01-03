@@ -2,13 +2,13 @@ import {MenuItem} from "./Menu";
 import {copySubMenu} from "./commonMenuItem";
 
 export const initSearchMenu = (id: string) => {
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.append(new MenuItem({
         id: "copy",
         icon: "iconCopy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         type: "submenu",
         submenu: copySubMenu([id])
     }).element);
-    return window.siyuan.menus.menu;
+    return window.shehab.menus.menu;
 };

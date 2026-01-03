@@ -44,19 +44,19 @@ export class Dock {
     }) {
         switch (options.position) {
             case "Left":
-                this.layout = window.siyuan.layout.layout.children[0].children[0] as Layout;
+                this.layout = window.shehab.layout.layout.children[0].children[0] as Layout;
                 this.resizeElement = this.layout.element.nextElementSibling as HTMLElement;
                 this.layout.element.classList.add("layout__dockl");
                 this.layout.element.insertAdjacentHTML("beforeend", '<div class="layout__dockresize layout__dockresize--lr"></div>');
                 break;
             case "Right":
-                this.layout = window.siyuan.layout.layout.children[0].children[2] as Layout;
+                this.layout = window.shehab.layout.layout.children[0].children[2] as Layout;
                 this.resizeElement = this.layout.element.previousElementSibling as HTMLElement;
                 this.layout.element.classList.add("layout__dockr");
                 this.layout.element.insertAdjacentHTML("beforeend", '<div class="layout__dockresize layout__dockresize--lr"></div>');
                 break;
             case "Bottom":
-                this.layout = window.siyuan.layout.layout.children[1] as Layout;
+                this.layout = window.shehab.layout.layout.children[1] as Layout;
                 this.resizeElement = this.layout.element.previousElementSibling as HTMLElement;
                 this.layout.element.classList.add("layout__dockb");
                 this.layout.element.insertAdjacentHTML("beforeend", '<div class="layout__dockresize"></div>');
@@ -89,7 +89,7 @@ export class Dock {
             }
         }
         if (!showDock) {
-            this.element.firstElementChild.innerHTML = `<span class="dock__item dock__item--pin ariaLabel" aria-label="${this.pin ? window.siyuan.languages.unpin : window.siyuan.languages.pin}">
+            this.element.firstElementChild.innerHTML = `<span class="dock__item dock__item--pin ariaLabel" aria-label="${this.pin ? window.shehab.languages.unpin : window.shehab.languages.pin}">
     <svg><use xlink:href="#icon${this.pin ? "Unpin" : "Pin"}"></use></svg>
 </span>`;
             this.element.classList.add("fn__none");
@@ -134,7 +134,7 @@ export class Dock {
                     break;
                 } else if (target.classList.contains("dock__item")) {
                     this.togglePin();
-                    target.setAttribute("aria-label", this.pin ? window.siyuan.languages.unpin : window.siyuan.languages.pin);
+                    target.setAttribute("aria-label", this.pin ? window.shehab.languages.unpin : window.shehab.languages.pin);
                     target.querySelector("use").setAttribute("xlink:href", this.pin ? "#iconUnpin" : "#iconPin");
                     event.preventDefault();
                     break;
@@ -158,7 +158,7 @@ export class Dock {
             moveItem.innerHTML = "<svg></svg>";
             moveItem.id = "dockMoveItem";
             documentSelf.onmousemove = (moveEvent: MouseEvent) => {
-                if (window.siyuan.config.readonly ||
+                if (window.shehab.config.readonly ||
                     Math.abs(moveEvent.clientY - event.clientY) < 3 && Math.abs(moveEvent.clientX - event.clientX) < 3) {
                     return;
                 }
@@ -296,11 +296,11 @@ export class Dock {
                 if (!moveItem.classList.contains("fn__none")) {
                     let dock;
                     if (moveItem.parentElement.parentElement.id === "dockBottom") {
-                        dock = window.siyuan.layout.bottomDock;
+                        dock = window.shehab.layout.bottomDock;
                     } else if (moveItem.parentElement.parentElement.id === "dockLeft") {
-                        dock = window.siyuan.layout.leftDock;
+                        dock = window.shehab.layout.leftDock;
                     } else if (moveItem.parentElement.parentElement.id === "dockRight") {
-                        dock = window.siyuan.layout.rightDock;
+                        dock = window.shehab.layout.rightDock;
                     }
                     dock.add(moveItem.parentElement === dock.element.firstElementChild ? 0 : 1, item, moveItem.previousElementSibling?.getAttribute("data-type"));
                 }
@@ -376,7 +376,7 @@ export class Dock {
             };
         });
 
-        if (window.siyuan.config.uiLayout.hideDock) {
+        if (window.shehab.config.uiLayout.hideDock) {
             this.element.classList.add("fn__none");
         }
         if (!this.pin) {
@@ -439,9 +439,9 @@ export class Dock {
             document.querySelector(".block__popover") ||
             document.querySelector("#commonMenu:not(.fn__none)")
         ) && (
-            window.siyuan.layout.leftDock?.layout.element.style.opacity === "1" ||
-            window.siyuan.layout.rightDock?.layout.element.style.opacity === "1" ||
-            window.siyuan.layout.bottomDock?.layout.element.style.opacity === "1"
+            window.shehab.layout.leftDock?.layout.element.style.opacity === "1" ||
+            window.shehab.layout.rightDock?.layout.element.style.opacity === "1" ||
+            window.shehab.layout.bottomDock?.layout.element.style.opacity === "1"
         )) {
             return;
         }
@@ -450,7 +450,7 @@ export class Dock {
             this.layout.element.style.opacity = "1";
         }
         this.layout.element.style.transform = "";
-        this.layout.element.style.zIndex = (++window.siyuan.zIndex).toString();
+        this.layout.element.style.zIndex = (++window.shehab.zIndex).toString();
         if (this.position === "Left") {
             this.layout.element.style.left = `${this.element.clientWidth}px`;
         } else if (this.position === "Right") {
@@ -869,7 +869,7 @@ export class Dock {
             if (typeof tabIndex === "undefined" && !TYPES.includes(item.type)) {
                 return;
             }
-            html += `<span data-height="${item.size.height}" data-width="${item.size.width}" data-type="${item.type}" data-index="${index}" data-hotkey="${item.hotkey || ""}" data-hotkeylangid="${item.hotkeyLangId || ""}" data-title="${item.title}" class="dock__item${item.show ? " dock__item--active" : ""} ariaLabel" aria-label="<span style='white-space:pre'>${item.title} ${item.hotkey ? updateHotkeyTip(item.hotkey) : ""}${window.siyuan.languages.dockTip}</span>">
+            html += `<span data-height="${item.size.height}" data-width="${item.size.width}" data-type="${item.type}" data-index="${index}" data-hotkey="${item.hotkey || ""}" data-hotkeylangid="${item.hotkeyLangId || ""}" data-title="${item.title}" class="dock__item${item.show ? " dock__item--active" : ""} ariaLabel" aria-label="<span style='white-space:pre'>${item.title} ${item.hotkey ? updateHotkeyTip(item.hotkey) : ""}${window.shehab.languages.dockTip}</span>">
     <svg><use xlink:href="#${item.icon}"></use></svg>
 </span>`;
             this.data[item.type] = true;
@@ -882,7 +882,7 @@ export class Dock {
                     this.element.firstElementChild.lastElementChild.insertAdjacentHTML("beforebegin", html);
                 }
             } else {
-                this.element.firstElementChild.innerHTML = `${html}<span class="dock__item dock__item--pin ariaLabel" aria-label="${this.pin ? window.siyuan.languages.unpin : window.siyuan.languages.pin}">
+                this.element.firstElementChild.innerHTML = `${html}<span class="dock__item dock__item--pin ariaLabel" aria-label="${this.pin ? window.shehab.languages.unpin : window.shehab.languages.pin}">
     <svg><use xlink:href="#icon${this.pin ? "Unpin" : "Pin"}"></use></svg>
 </span>`;
             }
@@ -900,7 +900,7 @@ export class Dock {
 
         if (typeof tabIndex === "number") {
             // https://github.com/siyuan-note/siyuan/issues/8614
-            if (!window.siyuan.config.uiLayout.hideDock) {
+            if (!window.shehab.config.uiLayout.hideDock) {
                 this.element.classList.remove("fn__none");
             }
             if (data[0].show) {

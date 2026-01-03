@@ -106,7 +106,7 @@ export const avClick = (protyle: IProtyle, event: MouseEvent & { target: HTMLEle
             event.stopPropagation();
             return true;
         } else if (type === "block-more" && !protyle.disabled) {
-            window.siyuan.menus.menu.remove();
+            window.shehab.menus.menu.remove();
             protyle.toolbar.range = document.createRange();
             protyle.toolbar.range.selectNodeContents(target);
             focusByRange(protyle.toolbar.range);
@@ -205,7 +205,7 @@ export const avClick = (protyle: IProtyle, event: MouseEvent & { target: HTMLEle
                 h: rect.height,
                 w: rect.width,
             }, (unicode) => {
-                target.innerHTML = unicode2Emoji(unicode || window.siyuan.storage[Constants.LOCAL_IMAGES].file);
+                target.innerHTML = unicode2Emoji(unicode || window.shehab.storage[Constants.LOCAL_IMAGES].file);
             }, target.querySelector("img"));
             event.preventDefault();
             event.stopPropagation();
@@ -269,7 +269,7 @@ export const avClick = (protyle: IProtyle, event: MouseEvent & { target: HTMLEle
             event.stopPropagation();
             return true;
         } else if (target.classList.contains("av__firstcol")) {
-            window.siyuan.menus.menu.remove();
+            window.shehab.menus.menu.remove();
             selectRow(target, "toggle");
             event.preventDefault();
             event.stopPropagation();
@@ -310,7 +310,7 @@ export const avClick = (protyle: IProtyle, event: MouseEvent & { target: HTMLEle
             return true;
         } else if (type === "copy") {
             writeText(getCellText(hasClosestByClassName(target, "av__cell")));
-            showMessage(window.siyuan.languages.copied);
+            showMessage(window.shehab.languages.copied);
             event.preventDefault();
             event.stopPropagation();
             return true;
@@ -371,7 +371,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         openSubmenus.push({
             id: "attr",
             icon: "iconAttr",
-            label: window.siyuan.languages.attr,
+            label: window.shehab.languages.attr,
             click: () => {
                 fetchPost("/api/attr/getBlockAttrs", {id: blockId}, (response) => {
                     openFileAttr(response.data, "av", protyle);
@@ -380,7 +380,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         });
         menu.addItem({
             id: "openBy",
-            label: window.siyuan.languages.openBy,
+            label: window.shehab.languages.openBy,
             icon: "iconOpen",
             submenu: openSubmenus,
         });
@@ -395,7 +395,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
     const copyMenu: IMenu[] = [{
         id: "copyKeyContent",
         iconHTML: "",
-        label: window.siyuan.languages.copyKeyContent,
+        label: window.shehab.languages.copyKeyContent,
         click() {
             let text = "";
             rowElements.forEach((item, i) => {
@@ -414,7 +414,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         copyMenu.splice(1, 0, {
             id: "copyBlockRef",
             iconHTML: "",
-            label: window.siyuan.languages.copyBlockRef,
+            label: window.shehab.languages.copyBlockRef,
             click: () => {
                 let text = "";
                 for (let i = 0; i < ids.length; i++) {
@@ -439,7 +439,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         }, {
             id: "copyBlockEmbed",
             iconHTML: "",
-            label: window.siyuan.languages.copyBlockEmbed,
+            label: window.shehab.languages.copyBlockEmbed,
             click: () => {
                 let text = "";
                 ids.forEach((id, index) => {
@@ -461,7 +461,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         }, {
             id: "copyProtocol",
             iconHTML: "",
-            label: window.siyuan.languages.copyProtocol,
+            label: window.shehab.languages.copyProtocol,
             click: () => {
                 let text = "";
                 ids.forEach((id, index) => {
@@ -483,7 +483,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         }, {
             id: "copyProtocolInMd",
             iconHTML: "",
-            label: window.siyuan.languages.copyProtocolInMd,
+            label: window.shehab.languages.copyProtocolInMd,
             click: () => {
                 let text = "";
                 for (let i = 0; i < ids.length; i++) {
@@ -508,7 +508,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         }, {
             id: "copyHPath",
             iconHTML: "",
-            label: window.siyuan.languages.copyHPath,
+            label: window.shehab.languages.copyHPath,
             click: async () => {
                 let text = "";
                 for (let i = 0; i < ids.length; i++) {
@@ -535,7 +535,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
         }, {
             id: "copyID",
             iconHTML: "",
-            label: window.siyuan.languages.copyID,
+            label: window.shehab.languages.copyID,
             click: () => {
                 let text = "";
                 ids.forEach((id, index) => {
@@ -559,7 +559,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
 
     menu.addItem({
         id: "copy",
-        label: window.siyuan.languages.copy,
+        label: window.shehab.languages.copy,
         icon: "iconCopy",
         type: "submenu",
         submenu: copyMenu
@@ -567,7 +567,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
     if (!protyle.disabled) {
         menu.addItem({
             id: "addToDatabase",
-            label: window.siyuan.languages.addToDatabase,
+            label: window.shehab.languages.addToDatabase,
             icon: "iconDatabase",
             click() {
                 openSearchAV(blockElement.getAttribute("data-av-id"), rowElements[0] as HTMLElement, (listItemElement) => {
@@ -615,7 +615,7 @@ export const avContextmenu = (protyle: IProtyle, rowElement: HTMLElement, positi
                 id: avType === "table" ? "insertRowBefore" : "insertItemBefore",
                 icon: "iconBefore",
                 label: `<div class="fn__flex" style="align-items: center;">
-${window.siyuan.languages[avType === "table" ? "insertRowBefore" : "insertItemBefore"].replace("${x}", `<span class="fn__space"></span><input style="width:64px" type="number" step="1" min="1" value="1" placeholder="${window.siyuan.languages.enterKey}" class="b3-text-field"><span class="fn__space"></span>`)}
+${window.shehab.languages[avType === "table" ? "insertRowBefore" : "insertItemBefore"].replace("${x}", `<span class="fn__space"></span><input style="width:64px" type="number" step="1" min="1" value="1" placeholder="${window.shehab.languages.enterKey}" class="b3-text-field"><span class="fn__space"></span>`)}
 </div>`,
                 bind(element) {
                     const inputElement = element.querySelector("input");
@@ -650,7 +650,7 @@ ${window.siyuan.languages[avType === "table" ? "insertRowBefore" : "insertItemBe
                 id: avType === "table" ? "insertRowAfter" : "insertItemAfter",
                 icon: "iconAfter",
                 label: `<div class="fn__flex" style="align-items: center;">
-${window.siyuan.languages[avType === "table" ? "insertRowAfter" : "insertItemAfter"].replace("${x}", `<span class="fn__space"></span><input style="width:64px" type="number" step="1" min="1" placeholder="${window.siyuan.languages.enterKey}" class="b3-text-field" value="1"><span class="fn__space"></span>`)}
+${window.shehab.languages[avType === "table" ? "insertRowAfter" : "insertItemAfter"].replace("${x}", `<span class="fn__space"></span><input style="width:64px" type="number" step="1" min="1" placeholder="${window.shehab.languages.enterKey}" class="b3-text-field" value="1"><span class="fn__space"></span>`)}
 </div>`,
                 bind(element) {
                     const inputElement = element.querySelector("input");
@@ -685,7 +685,7 @@ ${window.siyuan.languages[avType === "table" ? "insertRowAfter" : "insertItemAft
             if (keyCellElement.getAttribute("data-detached") !== "true") {
                 menu.addItem({
                     id: "unbindBlock",
-                    label: window.siyuan.languages.unbindBlock,
+                    label: window.shehab.languages.unbindBlock,
                     icon: "iconLinkOff",
                     click() {
                         updateCellsValue(protyle, blockElement, {
@@ -698,7 +698,7 @@ ${window.siyuan.languages[avType === "table" ? "insertRowAfter" : "insertItemAft
         menu.addItem({
             id: "delete",
             icon: "iconTrashcan",
-            label: window.siyuan.languages.delete,
+            label: window.shehab.languages.delete,
             click() {
                 deleteRow(blockElement, protyle);
             }
@@ -731,7 +731,7 @@ ${window.siyuan.languages[avType === "table" ? "insertRowAfter" : "insertItemAft
                         label: escapeHtml(cellElement.getAttribute("aria-label").split('<div class="ft__on-surface">')[0]),
                         click() {
                             rowElement.querySelector(".av__gallery-fields").classList.add("av__gallery-fields--edit");
-                            rowElement.querySelector('[data-type="av-gallery-edit"]').setAttribute("aria-label", window.siyuan.languages.hideEmptyFields);
+                            rowElement.querySelector('[data-type="av-gallery-edit"]').setAttribute("aria-label", window.shehab.languages.hideEmptyFields);
                             popTextCell(protyle, selectElements);
                         }
                     });
@@ -741,7 +741,7 @@ ${window.siyuan.languages[avType === "table" ? "insertRowAfter" : "insertItemAft
         menu.addItem({
             id: "fields",
             icon: "iconAttr",
-            label: window.siyuan.languages.fields,
+            label: window.shehab.languages.fields,
             type: "submenu",
             submenu: editAttrSubmenu
         });
@@ -777,7 +777,7 @@ export const updateAVName = (protyle: IProtyle, blockElement: Element) => {
         return;
     }
     if (newData.length > Constants.SIZE_TITLE) {
-        showMessage(window.siyuan.languages["_kernel"]["106"]);
+        showMessage(window.shehab.languages["_kernel"]["106"]);
         return false;
     }
     const newUpdated = dayjs().format("YYYYMMDDHHmmss");

@@ -9,12 +9,12 @@ import {showMessage} from "../../dialog/message";
 import {cancelDrag} from "./dragover";
 
 export const globalClickHideMenu = (element: HTMLElement) => {
-    if (!window.siyuan.menus.menu.element.contains(element) && !hasClosestByAttribute(element, "data-menu", "true")) {
-        if (getSelection().rangeCount > 0 && window.siyuan.menus.menu.element.contains(getSelection().getRangeAt(0).startContainer) &&
-            window.siyuan.menus.menu.element.contains(document.activeElement)) {
+    if (!window.shehab.menus.menu.element.contains(element) && !hasClosestByAttribute(element, "data-menu", "true")) {
+        if (getSelection().rangeCount > 0 && window.shehab.menus.menu.element.contains(getSelection().getRangeAt(0).startContainer) &&
+            window.shehab.menus.menu.element.contains(document.activeElement)) {
             // https://ld246.com/article/1654567749834/comment/1654589171218#comments
         } else {
-            window.siyuan.menus.menu.remove();
+            window.shehab.menus.menu.remove();
         }
     }
 };
@@ -44,23 +44,23 @@ export const globalClick = (event: MouseEvent & { target: HTMLElement }) => {
         let text = copyElement.parentElement.nextElementSibling.textContent.replace(/\n$/, "");
         text = text.replace(/\u00A0/g, " "); // Replace non-breaking spaces with normal spaces when copying https://github.com/siyuan-note/siyuan/issues/9382
         writeText(text);
-        showMessage(window.siyuan.languages.copied, 2000);
+        showMessage(window.shehab.languages.copied, 2000);
         event.preventDefault();
         return;
     }
 
     /// #if !MOBILE
     // dock float 时，点击空白处，隐藏 dock。场景：文档树上重命名后
-    if (!isWindow() && window.siyuan.layout.leftDock &&
+    if (!isWindow() && window.shehab.layout.leftDock &&
         !hasClosestByClassName(event.target, "b3-dialog--open", true) &&
         !hasClosestByClassName(event.target, "b3-menu") &&
         !hasClosestByClassName(event.target, "block__popover") &&
         !hasClosestByClassName(event.target, "dock") &&
         !hasClosestByClassName(event.target, "layout--float", true)
     ) {
-        window.siyuan.layout.bottomDock.hideDock();
-        window.siyuan.layout.leftDock.hideDock();
-        window.siyuan.layout.rightDock.hideDock();
+        window.shehab.layout.bottomDock.hideDock();
+        window.shehab.layout.leftDock.hideDock();
+        window.shehab.layout.rightDock.hideDock();
     }
 
     if (!hasClosestByClassName(event.target, "pdf__outer")) {

@@ -7,7 +7,7 @@ import {isPhablet} from "../protyle/util/compatibility";
 const getLang = (keys: string[]) => {
     const langArray: string[] = [];
     keys.forEach((key) => {
-        langArray.push(window.siyuan.languages[key]);
+        langArray.push(window.shehab.languages[key]);
     });
     return langArray;
 };

@@ -50,7 +50,7 @@ export const fullscreen = (element: Element, btnElement?: Element) => {
         // 编辑器全屏
         /// #if !MOBILE
         const wndsTemp: Wnd[] = [];
-        getAllWnds(window.siyuan.layout.layout, wndsTemp);
+        getAllWnds(window.shehab.layout.layout, wndsTemp);
         wndsTemp.find(async item => {
             const headerElement = item.headersElement.parentElement;
             if (headerElement.getBoundingClientRect().top <= 0) {
@@ -62,13 +62,13 @@ export const fullscreen = (element: Element, btnElement?: Element) => {
         /// #endif
     }
     /// #if !MOBILE
-    if ("darwin" !== window.siyuan.config.system.os && !isWindow()) {
+    if ("darwin" !== window.shehab.config.system.os && !isWindow()) {
         const windowControlsElement = document.getElementById("windowControls");
         if (isFullscreen) {
             windowControlsElement.style.zIndex = "";
         } else {
-            window.siyuan.zIndex++;
-            windowControlsElement.style.zIndex = window.siyuan.zIndex.toString();
+            window.shehab.zIndex++;
+            windowControlsElement.style.zIndex = window.shehab.zIndex.toString();
         }
     }
     /// #endif
@@ -92,11 +92,11 @@ export const fullscreen = (element: Element, btnElement?: Element) => {
     }
     /// #if !MOBILE
     if (element.classList.contains("protyle")) {
-        window.siyuan.editorIsFullscreen = !isFullscreen;
+        window.shehab.editorIsFullscreen = !isFullscreen;
     }
     getAllModels().editor.forEach(item => {
         if (element !== item.element) {
-            if (window.siyuan.editorIsFullscreen) {
+            if (window.shehab.editorIsFullscreen) {
                 if (item.element.classList.contains("fullscreen")) {
                     item.element.classList.remove("fullscreen");
                     resize(item.editor.protyle);
@@ -111,9 +111,9 @@ export const fullscreen = (element: Element, btnElement?: Element) => {
 };
 
 export const updateReadonly = (target: Element, protyle: IProtyle) => {
-    if (!window.siyuan.config.readonly) {
+    if (!window.shehab.config.readonly) {
         const isReadonly = target.querySelector("use").getAttribute("xlink:href") !== "#iconUnlock";
-        if (window.siyuan.config.editor.readOnly) {
+        if (window.shehab.config.editor.readOnly) {
             if (isReadonly) {
                 enableProtyle(protyle);
             } else {

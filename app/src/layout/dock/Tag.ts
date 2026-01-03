@@ -54,25 +54,25 @@ export class Tag extends Model {
 
         this.element.innerHTML = `<div class="block__icons">
     <div class="block__logo">
-        <svg class="block__logoicon"><use xlink:href="#iconTags"></use></svg>${window.siyuan.languages.tag}
+        <svg class="block__logoicon"><use xlink:href="#iconTags"></use></svg>${window.shehab.languages.tag}
     </div>
     <span class="fn__flex-1"></span>
     <span class="fn__space"></span>
-    <span data-type="refresh" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.refresh}"><svg><use xlink:href='#iconRefresh'></use></svg></span>
+    <span data-type="refresh" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.refresh}"><svg><use xlink:href='#iconRefresh'></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="sort" class="block__icon b3-tooltips b3-tooltips__sw${window.siyuan.config.readonly ? " fn__none" : ""}" aria-label="${window.siyuan.languages.sort}">
+    <span data-type="sort" class="block__icon b3-tooltips b3-tooltips__sw${window.shehab.config.readonly ? " fn__none" : ""}" aria-label="${window.shehab.languages.sort}">
         <svg><use xlink:href="#iconSort"></use></svg>
     </span>
-    <span class="fn__space${window.siyuan.config.readonly ? " fn__none" : ""}"></span>
-    <span data-type="expand" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.expand}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.expand.custom)}">
+    <span class="fn__space${window.shehab.config.readonly ? " fn__none" : ""}"></span>
+    <span data-type="expand" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.expand}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.expand.custom)}">
         <svg><use xlink:href="#iconExpand"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="collapse" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.collapse}${updateHotkeyAfterTip(window.siyuan.config.keymap.editor.general.collapse.custom)}">
+    <span data-type="collapse" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.collapse}${updateHotkeyAfterTip(window.shehab.config.keymap.editor.general.collapse.custom)}">
         <svg><use xlink:href="#iconContract"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.siyuan.languages.min}${updateHotkeyAfterTip(window.siyuan.config.keymap.general.closeTab.custom)}"><svg><use xlink:href='#iconMin'></use></svg></span>
+    <span data-type="min" class="block__icon b3-tooltips b3-tooltips__sw" aria-label="${window.shehab.languages.min}${updateHotkeyAfterTip(window.shehab.config.keymap.general.closeTab.custom)}"><svg><use xlink:href='#iconMin'></use></svg></span>
 </div>
 <div class="fn__flex-1" style="margin-bottom: 8px"></div>`;
 
@@ -88,13 +88,13 @@ export class Tag extends Model {
                         return;
                     }
                 }
-                openGlobalSearch(app, `#${element.getAttribute("data-label")}#`, !window.siyuan.ctrlIsPressed, {method: 0});
+                openGlobalSearch(app, `#${element.getAttribute("data-label")}#`, !window.shehab.ctrlIsPressed, {method: 0});
             },
             rightClick: (element: HTMLElement, event: MouseEvent) => {
                 openTagMenu(element, event, element.getAttribute("data-label"));
             },
-            blockExtHTML: window.siyuan.config.readonly ? undefined : '<span class="b3-list-item__action"><svg><use xlink:href="#iconMore"></use></svg></span>',
-            topExtHTML: window.siyuan.config.readonly ? undefined : '<span class="b3-list-item__action"><svg><use xlink:href="#iconMore"></use></svg></span>'
+            blockExtHTML: window.shehab.config.readonly ? undefined : '<span class="b3-list-item__action"><svg><use xlink:href="#iconMore"></use></svg></span>',
+            topExtHTML: window.shehab.config.readonly ? undefined : '<span class="b3-list-item__action"><svg><use xlink:href="#iconMore"></use></svg></span>'
         });
         // 为了快捷键的 dispatch
         this.element.querySelector('[data-type="collapse"]').addEventListener("click", () => {
@@ -114,56 +114,56 @@ export class Tag extends Model {
                             getDockByType("tag").toggleModel("tag", false, true);
                             break;
                         case "sort":
-                            window.siyuan.menus.menu.remove();
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 0 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.fileNameASC,
+                            window.shehab.menus.menu.remove();
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 0 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.fileNameASC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 0;
+                                    window.shehab.config.tag.sort = 0;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 1 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.fileNameDESC,
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 1 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.fileNameDESC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 1;
+                                    window.shehab.config.tag.sort = 1;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 4 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.fileNameNatASC,
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 4 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.fileNameNatASC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 4;
+                                    window.shehab.config.tag.sort = 4;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 5 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.fileNameNatDESC,
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 5 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.fileNameNatDESC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 5;
+                                    window.shehab.config.tag.sort = 5;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 7 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.refCountASC,
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 7 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.refCountASC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 7;
+                                    window.shehab.config.tag.sort = 7;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.append(new MenuItem({
-                                icon: window.siyuan.config.tag.sort === 8 ? "iconSelect" : undefined,
-                                label: window.siyuan.languages.refCountDESC,
+                            window.shehab.menus.menu.append(new MenuItem({
+                                icon: window.shehab.config.tag.sort === 8 ? "iconSelect" : undefined,
+                                label: window.shehab.languages.refCountDESC,
                                 click: () => {
-                                    window.siyuan.config.tag.sort = 8;
+                                    window.shehab.config.tag.sort = 8;
                                     this.update();
                                 },
                             }).element);
-                            window.siyuan.menus.menu.popup({x: event.clientX, y: event.clientY});
+                            window.shehab.menus.menu.popup({x: event.clientX, y: event.clientY});
                             event.preventDefault();
                             event.stopPropagation();
                             break;
@@ -185,7 +185,7 @@ export class Tag extends Model {
         }
         element.classList.add("fn__rotate");
         fetchPost("/api/tag/getTag", {
-            sort: window.siyuan.config.tag.sort,
+            sort: window.shehab.config.tag.sort,
             app: Constants.SIYUAN_APPID,
             ignoreMaxListHint
         }, response => {

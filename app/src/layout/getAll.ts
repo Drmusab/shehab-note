@@ -18,11 +18,11 @@ import {Wnd} from "./Wnd";
 export const getAllEditor = () => {
     const editors: Protyle[] = [];
     /// #if MOBILE
-    if (window.siyuan.mobile.editor) {
-        editors.push(window.siyuan.mobile.editor);
+    if (window.shehab.mobile.editor) {
+        editors.push(window.shehab.mobile.editor);
     }
-    if (window.siyuan.mobile.popEditor) {
-        editors.push(window.siyuan.mobile.popEditor);
+    if (window.shehab.mobile.popEditor) {
+        editors.push(window.shehab.mobile.popEditor);
     }
     /// #else
     const models = getAllModels();
@@ -43,14 +43,14 @@ export const getAllEditor = () => {
             editors.push(editorItem);
         });
     });
-    window.siyuan.dialogs.forEach(item => {
+    window.shehab.dialogs.forEach(item => {
         if (item.editors) {
             Object.keys(item.editors).forEach(key => {
                 editors.push(item.editors[key]);
             });
         }
     });
-    window.siyuan.blockPanels.forEach(item => {
+    window.shehab.blockPanels.forEach(item => {
         item.editors.forEach(editorItem => {
             editors.push(editorItem);
         });
@@ -106,8 +106,8 @@ export const getAllModels = () => {
         }
     };
 
-    if (window.siyuan.layout.layout) {
-        getTabs(window.siyuan.layout.layout);
+    if (window.shehab.layout.layout) {
+        getTabs(window.shehab.layout.layout);
     }
     return models;
 };
@@ -136,25 +136,25 @@ export const getAllTabs = () => {
         }
     };
 
-    if (window.siyuan.layout.centerLayout) {
-        getTabs(window.siyuan.layout.centerLayout);
+    if (window.shehab.layout.centerLayout) {
+        getTabs(window.shehab.layout.centerLayout);
     }
     return tabs;
 };
 
 export const getAllDocks = () => {
     const docks: Config.IUILayoutDockTab[] = [];
-    window.siyuan.config.uiLayout.left.data.forEach((item) => {
+    window.shehab.config.uiLayout.left.data.forEach((item) => {
         item.forEach((dock) => {
             docks.push(dock);
         });
     });
-    window.siyuan.config.uiLayout.right.data.forEach((item) => {
+    window.shehab.config.uiLayout.right.data.forEach((item) => {
         item.forEach((dock) => {
             docks.push(dock);
         });
     });
-    window.siyuan.config.uiLayout.bottom.data.forEach((item) => {
+    window.shehab.config.uiLayout.bottom.data.forEach((item) => {
         item.forEach((dock) => {
             docks.push(dock);
         });

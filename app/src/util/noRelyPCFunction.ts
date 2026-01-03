@@ -16,7 +16,7 @@ import {isNotCtrl} from "../protyle/util/compatibility";
 // 需独立出来，否则移动端引用的时候会引入 pc 端大量无用代码
 export const renameTag = (labelName: string) => {
     const dialog = new Dialog({
-        title: window.siyuan.languages.rename,
+        title: window.shehab.languages.rename,
         content: `<div class="b3-dialog__content">
     <input class="b3-text-field fn__block">
     <div class="b3-list fn__flex-1 b3-list--background fn__none protyle-hint" style="    position: absolute;
@@ -25,8 +25,8 @@ export const renameTag = (labelName: string) => {
     </div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         width: isMobile() ? "92vw" : "520px",
     });
@@ -39,7 +39,7 @@ export const renameTag = (labelName: string) => {
         fetchPost("/api/tag/renameTag", {oldLabel: labelName, newLabel: inputElement.value}, () => {
             dialog.destroy();
             /// #if MOBILE
-            window.siyuan.mobile.docks.tag.update();
+            window.shehab.mobile.docks.tag.update();
             /// #else
             const dockTag = getDockByType("tag");
             (dockTag.data.tag as Tag).update();
@@ -92,7 +92,7 @@ export const renameTag = (labelName: string) => {
                 }
             });
             if (!hasKey && response.data.k) {
-                searchHTML = `<div data-type="new" class="b3-list-item${searchHTML ? "" : " b3-list-item--focus"}"><div class="fn__flex-1">${window.siyuan.languages.new} <mark>${escapeHtml(response.data.k)}</mark></div></div>` + searchHTML;
+                searchHTML = `<div data-type="new" class="b3-list-item${searchHTML ? "" : " b3-list-item--focus"}"><div class="fn__flex-1">${window.shehab.languages.new} <mark>${escapeHtml(response.data.k)}</mark></div></div>` + searchHTML;
             }
             listElement.innerHTML = searchHTML;
         });
@@ -109,7 +109,7 @@ export const renameTag = (labelName: string) => {
 };
 
 export const getWorkspaceName = () => {
-    return pathPosix().basename(window.siyuan.config.system.workspaceDir.replace(/\\/g, "/"));
+    return pathPosix().basename(window.shehab.config.system.workspaceDir.replace(/\\/g, "/"));
 };
 
 export const checkFold = (id: string, cb: (zoomIn: boolean, action: TProtyleAction[], isRoot: boolean) => void) => {
@@ -126,7 +126,7 @@ export const checkFold = (id: string, cb: (zoomIn: boolean, action: TProtyleActi
 export const setLocalShorthandCount = () => {
     let fileElement;
     /// #if MOBILE
-    fileElement = window.siyuan.mobile.docks.file.element;
+    fileElement = window.shehab.mobile.docks.file.element;
     /// #else
     const dockFile = getDockByType("file");
     if (!dockFile) {

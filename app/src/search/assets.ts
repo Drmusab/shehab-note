@@ -12,32 +12,32 @@ import {saveAssetKeyList} from "./toggleHistory";
 
 export const openSearchAsset = (element: HTMLElement, isStick: boolean) => {
     /// #if !MOBILE
-    window.siyuan.menus.menu.remove();
+    window.shehab.menus.menu.remove();
     element.previousElementSibling.classList.add("fn__none");
     element.classList.remove("fn__none");
     if (element.innerHTML) {
         (element.querySelector("#searchAssetInput") as HTMLInputElement).select();
         return;
     }
-    const localSearch = window.siyuan.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
+    const localSearch = window.shehab.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
     element.parentElement.querySelector(".fn__loading--top").classList.remove("fn__none");
     let enterTip = "";
     /// #if !BROWSER
-    enterTip = `<kbd>${window.siyuan.languages.enterKey}/${window.siyuan.languages.doubleClick}</kbd> ${window.siyuan.languages.showInFolder}`;
+    enterTip = `<kbd>${window.shehab.languages.enterKey}/${window.shehab.languages.doubleClick}</kbd> ${window.shehab.languages.showInFolder}`;
     /// #endif
     element.innerHTML = `<div class="block__icons">
-    <span data-type="assetPrevious" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.siyuan.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
+    <span data-type="assetPrevious" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.shehab.languages.previousLabel}"><svg><use xlink:href='#iconLeft'></use></svg></span>
     <span class="fn__space"></span>
-    <span data-type="assetNext" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.siyuan.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
+    <span data-type="assetNext" class="block__icon block__icon--show ariaLabel" data-position="9south" disabled="disabled" aria-label="${window.shehab.languages.nextLabel}"><svg><use xlink:href='#iconRight'></use></svg></span>
     <span class="fn__space"></span>
     <span id="searchAssetResult" class="ft__selectnone"></span>
     <span class="fn__flex-1${!isStick ? " resize__move" : ""}" style="min-height: 100%"></span>
     <span class="fn__space"></span>
-    <span id="assetMore" aria-label="${window.siyuan.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+    <span id="assetMore" aria-label="${window.shehab.languages.more}" class="block__icon block__icon--show ariaLabel" data-position="9south">
         <svg><use xlink:href="#iconMore"></use></svg>
     </span>
     <span class="fn__space"></span>
-    <span id="searchAssetClose" aria-label="${isStick ? window.siyuan.languages.stickSearch : window.siyuan.languages.globalSearch}" class="block__icon block__icon--show ariaLabel" data-position="9south">
+    <span id="searchAssetClose" aria-label="${isStick ? window.shehab.languages.stickSearch : window.shehab.languages.globalSearch}" class="block__icon block__icon--show ariaLabel" data-position="9south">
         <svg><use xlink:href="#iconBack"></use></svg>
     </span>
 </div>
@@ -47,16 +47,16 @@ export const openSearchAsset = (element: HTMLElement, isStick: boolean) => {
             <svg data-menu="true" class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
             <svg class="search__arrowdown"><use xlink:href="#iconDown"></use></svg>
         </span>
-        <input id="searchAssetInput" value="${localSearch.k}" class="b3-text-field b3-text-field--text" placeholder="${window.siyuan.languages.keyword}">
+        <input id="searchAssetInput" value="${localSearch.k}" class="b3-text-field b3-text-field--text" placeholder="${window.shehab.languages.keyword}">
     </div>
     <div class="block__icons">
-        <span data-type="assetRefresh" aria-label="${window.siyuan.languages.refresh}" class="block__icon ariaLabel" data-position="9south">
+        <span data-type="assetRefresh" aria-label="${window.shehab.languages.refresh}" class="block__icon ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconRefresh"></use></svg>
         </span>
         <span class="fn__space"></span>
         ${genQueryHTML(localSearch.method, "assetSyntaxCheck")}
         <span class="fn__space"></span>
-        <span id="assetFilter" aria-label="${window.siyuan.languages.type}" class="block__icon ariaLabel" data-position="9south">
+        <span id="assetFilter" aria-label="${window.shehab.languages.type}" class="block__icon ariaLabel" data-position="9south">
             <svg><use xlink:href="#iconFilter"></use></svg>
         </span>
     </div>
@@ -67,10 +67,10 @@ export const openSearchAsset = (element: HTMLElement, isStick: boolean) => {
     <div id="searchAssetPreview" class="fn__flex-1 search__preview b3-typography" style="padding: 8px;box-sizing: border-box;"></div>
 </div>
 <div class="search__tip${isStick ? " fn__none" : ""}">
-    <kbd>↑/↓/PageUp/PageDown</kbd> ${window.siyuan.languages.searchTip1}
+    <kbd>↑/↓/PageUp/PageDown</kbd> ${window.shehab.languages.searchTip1}
     ${enterTip}
-    <kbd>${window.siyuan.languages.click}</kbd> ${window.siyuan.languages.searchTip3}
-    <kbd>Esc</kbd> ${window.siyuan.languages.searchTip5}
+    <kbd>${window.shehab.languages.click}</kbd> ${window.shehab.languages.searchTip3}
+    <kbd>Esc</kbd> ${window.shehab.languages.searchTip5}
 </div>`;
     if (element.querySelector("#searchAssetList").innerHTML !== "") {
         return;
@@ -145,16 +145,16 @@ export const openSearchAsset = (element: HTMLElement, isStick: boolean) => {
             documentSelf.ondragstart = null;
             documentSelf.onselectstart = null;
             documentSelf.onselect = null;
-            window.siyuan.storage[Constants.LOCAL_SEARCHASSET][direction === "lr" ? "col" : "row"] = previewElement[direction === "lr" ? "offsetWidth" : "offsetHeight"] + "px";
-            setStorageVal(Constants.LOCAL_SEARCHASSET, window.siyuan.storage[Constants.LOCAL_SEARCHASSET]);
+            window.shehab.storage[Constants.LOCAL_SEARCHASSET][direction === "lr" ? "col" : "row"] = previewElement[direction === "lr" ? "offsetWidth" : "offsetHeight"] + "px";
+            setStorageVal(Constants.LOCAL_SEARCHASSET, window.shehab.storage[Constants.LOCAL_SEARCHASSET]);
         };
     });
     dragElement.addEventListener("dblclick", () => {
         previewElement.style[localSearch.layout === 1 ? "width" : "height"] = "";
         previewElement.classList.add("fn__flex-1");
         const direction = localSearch.layout === 1 ? "lr" : "tb";
-        window.siyuan.storage[Constants.LOCAL_SEARCHASSET][direction === "lr" ? "col" : "row"] = "";
-        setStorageVal(Constants.LOCAL_SEARCHASSET, window.siyuan.storage[Constants.LOCAL_SEARCHASSET]);
+        window.shehab.storage[Constants.LOCAL_SEARCHASSET][direction === "lr" ? "col" : "row"] = "";
+        setStorageVal(Constants.LOCAL_SEARCHASSET, window.shehab.storage[Constants.LOCAL_SEARCHASSET]);
     });
     /// #endif
 };
@@ -166,7 +166,7 @@ export const assetInputEvent = (element: Element, localSearch?: ISearchAssetOpti
     clearTimeout(inputTimeout);
     inputTimeout = window.setTimeout(() => {
         if (!localSearch) {
-            localSearch = window.siyuan.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
+            localSearch = window.shehab.storage[Constants.LOCAL_SEARCHASSET] as ISearchAssetOption;
         }
         const previousElement = element.querySelector('[data-type="assetPrevious"]');
         if (page > 1) {
@@ -216,9 +216,9 @@ export const assetInputEvent = (element: Element, localSearch?: ISearchAssetOpti
                 element.querySelector(".search__drag")?.classList.add("fn__none");
             }
             element.querySelector("#searchAssetResult").innerHTML = `<span class="fn__flex-center">${page}/${response.data.pageCount || 1}</span><span class="fn__space"></span>
-<span class="ft__on-surface">${window.siyuan.languages.total} ${response.data.matchedAssetCount}</span>`;
+<span class="ft__on-surface">${window.shehab.languages.total} ${response.data.matchedAssetCount}</span>`;
             element.querySelector("#searchAssetList").innerHTML = resultHTML || `<div class="search__empty">
-    ${window.siyuan.languages.emptyContent}
+    ${window.shehab.languages.emptyContent}
 </div>`;
         });
     }, Constants.TIMEOUT_INPUT);
@@ -257,46 +257,46 @@ export const renderNextAssetMark = (element: Element) => {
 };
 
 export const assetMethodMenu = (target: HTMLElement, cb: () => void) => {
-    const method = window.siyuan.storage[Constants.LOCAL_SEARCHASSET].method;
-    if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-        window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_SEARCH_ASSET_METHOD) {
-        window.siyuan.menus.menu.remove();
+    const method = window.shehab.storage[Constants.LOCAL_SEARCHASSET].method;
+    if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+        window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_SEARCH_ASSET_METHOD) {
+        window.shehab.menus.menu.remove();
         return;
     }
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_SEARCH_ASSET_METHOD);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_SEARCH_ASSET_METHOD);
+    window.shehab.menus.menu.append(new MenuItem({
         icon: "iconExact",
-        label: window.siyuan.languages.keyword,
+        label: window.shehab.languages.keyword,
         current: method === 0,
         click() {
-            window.siyuan.storage[Constants.LOCAL_SEARCHASSET].method = 0;
+            window.shehab.storage[Constants.LOCAL_SEARCHASSET].method = 0;
             cb();
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         icon: "iconQuote",
-        label: window.siyuan.languages.querySyntax,
+        label: window.shehab.languages.querySyntax,
         current: method === 1,
         click() {
-            window.siyuan.storage[Constants.LOCAL_SEARCHASSET].method = 1;
+            window.shehab.storage[Constants.LOCAL_SEARCHASSET].method = 1;
             cb();
         }
     }).element);
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         icon: "iconRegex",
-        label: window.siyuan.languages.regex,
+        label: window.shehab.languages.regex,
         current: method === 3,
         click() {
-            window.siyuan.storage[Constants.LOCAL_SEARCHASSET].method = 3;
+            window.shehab.storage[Constants.LOCAL_SEARCHASSET].method = 3;
             cb();
         }
     }).element);
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = target.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
+    window.shehab.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
     /// #endif
 };
 
@@ -317,13 +317,13 @@ const filterTypesHTML = (types: IObject) => {
 };
 
 export const assetFilterMenu = (assetsElement: Element) => {
-    const localData = window.siyuan.storage[Constants.LOCAL_SEARCHASSET].types;
+    const localData = window.shehab.storage[Constants.LOCAL_SEARCHASSET].types;
     const filterDialog = new Dialog({
-        title: window.siyuan.languages.type,
+        title: window.shehab.languages.type,
         content: `<div class="b3-dialog__content">${filterTypesHTML(localData)}</div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         width: "520px",
         height: "70vh",
@@ -338,23 +338,23 @@ export const assetFilterMenu = (assetsElement: Element) => {
             localData[item.getAttribute("data-type")] = item.checked;
         });
         assetInputEvent(assetsElement);
-        setStorageVal(Constants.LOCAL_SEARCHASSET, window.siyuan.storage[Constants.LOCAL_SEARCHASSET]);
+        setStorageVal(Constants.LOCAL_SEARCHASSET, window.shehab.storage[Constants.LOCAL_SEARCHASSET]);
         filterDialog.destroy();
     });
 };
 
 export const assetMoreMenu = (target: Element, element: Element, cb: () => void) => {
-    if (!window.siyuan.menus.menu.element.classList.contains("fn__none") &&
-        window.siyuan.menus.menu.element.getAttribute("data-name") === Constants.MENU_SEARCH_ASSET_MORE) {
-        window.siyuan.menus.menu.remove();
+    if (!window.shehab.menus.menu.element.classList.contains("fn__none") &&
+        window.shehab.menus.menu.element.getAttribute("data-name") === Constants.MENU_SEARCH_ASSET_MORE) {
+        window.shehab.menus.menu.remove();
         return;
     }
-    window.siyuan.menus.menu.remove();
-    window.siyuan.menus.menu.element.setAttribute("data-name", Constants.MENU_SEARCH_ASSET_MORE);
-    const localData = window.siyuan.storage[Constants.LOCAL_SEARCHASSET];
+    window.shehab.menus.menu.remove();
+    window.shehab.menus.menu.element.setAttribute("data-name", Constants.MENU_SEARCH_ASSET_MORE);
+    const localData = window.shehab.storage[Constants.LOCAL_SEARCHASSET];
     const sortMenu = [{
         iconHTML: "",
-        label: window.siyuan.languages.sortByRankAsc,
+        label: window.shehab.languages.sortByRankAsc,
         current: localData.sort === 1,
         click() {
             localData.sort = 1;
@@ -362,7 +362,7 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
         }
     }, {
         iconHTML: "",
-        label: window.siyuan.languages.sortByRankDesc,
+        label: window.shehab.languages.sortByRankDesc,
         current: localData.sort === 0,
         click() {
             localData.sort = 0;
@@ -370,7 +370,7 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
         }
     }, {
         iconHTML: "",
-        label: window.siyuan.languages.modifiedASC,
+        label: window.shehab.languages.modifiedASC,
         current: localData.sort === 3,
         click() {
             localData.sort = 3;
@@ -378,27 +378,27 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
         }
     }, {
         iconHTML: "",
-        label: window.siyuan.languages.modifiedDESC,
+        label: window.shehab.languages.modifiedDESC,
         current: localData.sort === 2,
         click() {
             localData.sort = 2;
             cb();
         }
     }];
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         iconHTML: "",
-        label: window.siyuan.languages.sort,
+        label: window.shehab.languages.sort,
         type: "submenu",
         submenu: sortMenu,
     }).element);
     /// #if !MOBILE
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         iconHTML: "",
-        label: window.siyuan.languages.layout,
+        label: window.shehab.languages.layout,
         type: "submenu",
         submenu: [{
             iconHTML: "",
-            label: window.siyuan.languages.topBottomLayout,
+            label: window.shehab.languages.topBottomLayout,
             current: localData.layout === 0,
             click() {
                 element.querySelector(".search__layout").classList.remove("search__layout--row");
@@ -411,11 +411,11 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
                     previewElement.classList.add("fn__flex-1");
                 }
                 localData.layout = 0;
-                setStorageVal(Constants.LOCAL_SEARCHASSET, window.siyuan.storage[Constants.LOCAL_SEARCHASSET]);
+                setStorageVal(Constants.LOCAL_SEARCHASSET, window.shehab.storage[Constants.LOCAL_SEARCHASSET]);
             }
         }, {
             iconHTML: "",
-            label: window.siyuan.languages.leftRightLayout,
+            label: window.shehab.languages.leftRightLayout,
             current: localData.layout === 1,
             click() {
                 const previewElement = element.querySelector("#searchAssetPreview") as HTMLElement;
@@ -428,14 +428,14 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
                     previewElement.classList.add("fn__flex-1");
                 }
                 localData.layout = 1;
-                setStorageVal(Constants.LOCAL_SEARCHASSET, window.siyuan.storage[Constants.LOCAL_SEARCHASSET]);
+                setStorageVal(Constants.LOCAL_SEARCHASSET, window.shehab.storage[Constants.LOCAL_SEARCHASSET]);
             }
         }]
     }).element);
     /// #endif
-    window.siyuan.menus.menu.append(new MenuItem({
+    window.shehab.menus.menu.append(new MenuItem({
         iconHTML: "",
-        label: window.siyuan.languages.rebuildIndex,
+        label: window.shehab.languages.rebuildIndex,
         click() {
             element.parentElement.querySelector(".fn__loading--top").classList.remove("fn__none");
             fetchPost("/api/asset/fullReindexAssetContent", {}, () => {
@@ -444,9 +444,9 @@ export const assetMoreMenu = (target: Element, element: Element, cb: () => void)
         },
     }).element);
     /// #if MOBILE
-    window.siyuan.menus.menu.fullscreen();
+    window.shehab.menus.menu.fullscreen();
     /// #else
     const rect = target.getBoundingClientRect();
-    window.siyuan.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
+    window.shehab.menus.menu.popup({x: rect.right, y: rect.bottom, isLeft: true});
     /// #endif
 };

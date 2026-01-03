@@ -9,8 +9,8 @@ export const renderSnippet = () => {
         response.data.snippets.forEach((item: ISnippet) => {
             const id = `snippet${item.type === "css" ? "CSS" : "JS"}${item.id}`;
             let exitElement = document.getElementById(id) as HTMLScriptElement;
-            if ((!window.siyuan.config.snippet.enabledCSS && item.type === "css") ||
-                (!window.siyuan.config.snippet.enabledJS && item.type === "js")) {
+            if ((!window.shehab.config.snippet.enabledCSS && item.type === "css") ||
+                (!window.shehab.config.snippet.enabledJS && item.type === "js")) {
                 if (exitElement) {
                     exitElement.remove();
                 }
@@ -64,14 +64,14 @@ export const openSnippets = () => {
         <div class="fn__flex">
             <div class="b3-form__icon fn__flex-1">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input data-type="css" data-action="search" type="text" placeholder="${window.siyuan.languages.search}" class="b3-text-field b3-form__icon-input fn__block">
+                <input data-type="css" data-action="search" type="text" placeholder="${window.shehab.languages.search}" class="b3-text-field b3-form__icon-input fn__block">
             </div>
             <div class="fn__space"></div>
-            <span aria-label="${window.siyuan.languages.addAttr} CSS" id="addCodeSnippetCSS" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
+            <span aria-label="${window.shehab.languages.addAttr} CSS" id="addCodeSnippetCSS" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
                 <svg><use xlink:href="#iconAdd"></use></svg>
             </span>
             <div class="fn__space"></div>
-            <input data-action="toggleCSS" class="b3-switch fn__flex-center" type="checkbox"${window.siyuan.config.snippet.enabledCSS ? " checked" : ""}>
+            <input data-action="toggleCSS" class="b3-switch fn__flex-center" type="checkbox"${window.shehab.config.snippet.enabledCSS ? " checked" : ""}>
         </div>
         ${cssHTML}
     </div>
@@ -79,21 +79,21 @@ export const openSnippets = () => {
         <div class="fn__flex">
              <div class="b3-form__icon fn__flex-1">
                 <svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg>
-                <input data-type="js" data-action="search" type="text" placeholder="${window.siyuan.languages.search}" class="b3-text-field b3-form__icon-input fn__block">
+                <input data-type="js" data-action="search" type="text" placeholder="${window.shehab.languages.search}" class="b3-text-field b3-form__icon-input fn__block">
             </div>
             <div class="fn__space"></div>
-            <span aria-label="${window.siyuan.languages.addAttr} JS" id="addCodeSnippetJS" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
+            <span aria-label="${window.shehab.languages.addAttr} JS" id="addCodeSnippetJS" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
                 <svg><use xlink:href="#iconAdd"></use></svg>
             </span>
             <div class="fn__space"></div>
-            <input data-action="toggleJS" class="b3-switch fn__flex-center" type="checkbox"${window.siyuan.config.snippet.enabledJS ? " checked" : ""}>
+            <input data-action="toggleJS" class="b3-switch fn__flex-center" type="checkbox"${window.shehab.config.snippet.enabledJS ? " checked" : ""}>
         </div>
         ${jsHTML}
     </div>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
             destroyCallback: (options) => {
                 if (options?.cancel === "true") {
@@ -193,23 +193,23 @@ const genSnippet = (options: ISnippet) => {
     return `<div data-id="${options.id || ""}" data-type="${options.type}">
     <div class="fn__hr--b"></div>
     <div class="fn__flex">
-        <input type="text" class="fn__size200 b3-text-field" placeholder="${window.siyuan.languages.title}">
+        <input type="text" class="fn__size200 b3-text-field" placeholder="${window.shehab.languages.title}">
         <div class="fn__space"></div>
-        <label class="fn__flex${window.siyuan.config.publish.enable ? "" : " fn__none"}">
+        <label class="fn__flex${window.shehab.config.publish.enable ? "" : " fn__none"}">
             <input data-type="disabledInPublish" type="checkbox" class="b3-switch fn__flex-center" ${options.disabledInPublish ? "" : " checked"}>
             <div class="fn__space"></div>
-            <span class="fn__flex-center">${window.siyuan.languages.publishService}</span>
+            <span class="fn__flex-center">${window.shehab.languages.publishService}</span>
         </label>
         <div class="fn__flex-1"></div>
         <div class="fn__space"></div>
-        <span aria-label="${window.siyuan.languages.remove}" data-action="remove" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
+        <span aria-label="${window.shehab.languages.remove}" data-action="remove" class="b3-tooltips b3-tooltips__sw block__icon block__icon--show">
             <svg><use xlink:href="#iconTrashcan"></use></svg>
         </span>
         <div class="fn__space"></div>
         <input data-type="snippet" class="b3-switch fn__flex-center" type="checkbox"${options.enabled ? " checked" : ""}>
     </div>
     <div class="fn__hr"></div>
-    <textarea class="fn__block b3-text-field" placeholder="${window.siyuan.languages.codeSnippet}" style="resize: vertical;font-family:var(--b3-font-family-code)" spellcheck="false"></textarea>
+    <textarea class="fn__block b3-text-field" placeholder="${window.shehab.languages.codeSnippet}" style="resize: vertical;font-family:var(--b3-font-family-code)" spellcheck="false"></textarea>
     <div class="fn__hr--b"></div>
 </div>`;
 };
@@ -222,9 +222,9 @@ const setSnippetPost = (dialog: Dialog, snippets: ISnippet[], removeIds: string[
                 rmElement.remove();
             }
         });
-        window.siyuan.config.snippet.enabledCSS = (dialog.element.querySelector('.b3-switch[data-action="toggleCSS"]') as HTMLInputElement).checked;
-        window.siyuan.config.snippet.enabledJS = (dialog.element.querySelector('.b3-switch[data-action="toggleJS"]') as HTMLInputElement).checked;
-        fetchPost("/api/setting/setSnippet", window.siyuan.config.snippet);
+        window.shehab.config.snippet.enabledCSS = (dialog.element.querySelector('.b3-switch[data-action="toggleCSS"]') as HTMLInputElement).checked;
+        window.shehab.config.snippet.enabledJS = (dialog.element.querySelector('.b3-switch[data-action="toggleJS"]') as HTMLInputElement).checked;
+        fetchPost("/api/setting/setSnippet", window.shehab.config.snippet);
         dialog.destroy({cancel: "true"});
     });
 };
@@ -242,12 +242,12 @@ const setSnippet = (dialog: Dialog, oldSnippets: ISnippet[], removeIds: string[]
         });
     });
     if (objEquals(oldSnippets, snippets) &&
-        window.siyuan.config.snippet.enabledCSS === (dialog.element.querySelector('.b3-switch[data-action="toggleCSS"]') as HTMLInputElement).checked &&
-        window.siyuan.config.snippet.enabledJS === (dialog.element.querySelector('.b3-switch[data-action="toggleJS"]') as HTMLInputElement).checked) {
+        window.shehab.config.snippet.enabledCSS === (dialog.element.querySelector('.b3-switch[data-action="toggleCSS"]') as HTMLInputElement).checked &&
+        window.shehab.config.snippet.enabledJS === (dialog.element.querySelector('.b3-switch[data-action="toggleJS"]') as HTMLInputElement).checked) {
         dialog.destroy({cancel: "true"});
     } else {
         if (confirm) {
-            confirmDialog(window.siyuan.languages.save, window.siyuan.languages.snippetsTip, () => {
+            confirmDialog(window.shehab.languages.save, window.shehab.languages.snippetsTip, () => {
                 setSnippetPost(dialog, snippets, removeIds);
             });
         } else {

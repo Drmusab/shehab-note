@@ -186,8 +186,8 @@ export const matchHotKey = (hotKey: string, event: KeyboardEvent) => {
 
 export const isIncludesHotKey = (hotKey: string) => {
     let isInclude = false;
-    Object.keys(window.siyuan.config.keymap).find(key => {
-        const item = window.siyuan.config.keymap[key as "editor"];
+    Object.keys(window.shehab.config.keymap).find(key => {
+        const item = window.shehab.config.keymap[key as "editor"];
         Object.keys(item).find(key2 => {
             const item2 = item[key2 as "general"];
             if (typeof item2.custom === "string") {
@@ -218,21 +218,21 @@ export const isIncludesHotKey = (hotKey: string) => {
 };
 
 export const updateControlAlt = () => {
-    if (!window.siyuan.config.keymap.general) {
+    if (!window.shehab.config.keymap.general) {
         return;
     }
-    Object.keys(window.siyuan.config.keymap.general).forEach(key => {
+    Object.keys(window.shehab.config.keymap.general).forEach(key => {
         if (["fileTree", "outline", "bookmark", "tag", "dailyNote", "inbox", "backlinks",
             "graphView", "globalGraph", "riffCard"].includes(key)) {
             if (navigator.platform.toUpperCase().indexOf("MAC") > -1) {
-                window.siyuan.config.keymap.general[key].default = window.siyuan.config.keymap.general[key].default.replace("⌥", "⌃");
-                if (window.siyuan.config.keymap.general[key].default === window.siyuan.config.keymap.general[key].custom) {
-                    window.siyuan.config.keymap.general[key].custom = window.siyuan.config.keymap.general[key].default.replace("⌥", "⌃");
+                window.shehab.config.keymap.general[key].default = window.shehab.config.keymap.general[key].default.replace("⌥", "⌃");
+                if (window.shehab.config.keymap.general[key].default === window.shehab.config.keymap.general[key].custom) {
+                    window.shehab.config.keymap.general[key].custom = window.shehab.config.keymap.general[key].default.replace("⌥", "⌃");
                 }
             } else {
-                window.siyuan.config.keymap.general[key].default = window.siyuan.config.keymap.general[key].default.replace("⌃", "⌥");
-                if (window.siyuan.config.keymap.general[key].default === window.siyuan.config.keymap.general[key].custom) {
-                    window.siyuan.config.keymap.general[key].custom = window.siyuan.config.keymap.general[key].default.replace("⌃", "⌥");
+                window.shehab.config.keymap.general[key].default = window.shehab.config.keymap.general[key].default.replace("⌃", "⌥");
+                if (window.shehab.config.keymap.general[key].default === window.shehab.config.keymap.general[key].custom) {
+                    window.shehab.config.keymap.general[key].custom = window.shehab.config.keymap.general[key].default.replace("⌃", "⌥");
                 }
             }
         }

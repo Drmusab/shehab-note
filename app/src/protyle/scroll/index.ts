@@ -72,7 +72,7 @@ export class Scroll {
             index: parseInt(this.inputElement.value),
             id: protyle.block.parentID,
             mode: 0,
-            size: window.siyuan.config.editor.dynamicLoadBlocks,
+            size: window.shehab.config.editor.dynamicLoadBlocks,
         }, getResponse => {
             onGet({
                 data: getResponse,

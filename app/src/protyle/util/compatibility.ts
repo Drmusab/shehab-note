@@ -61,7 +61,7 @@ export const openByMobile = (uri: string) => {
         return;
     }
     /// #if MOBILE
-    if (processSYLink(window.siyuan.ws.app, uri)) {
+    if (processSYLink(window.shehab.ws.app, uri)) {
         return;
     }
     /// #endif
@@ -111,11 +111,11 @@ export const readText = () => {
         return window.JSHarmony.readClipboard();
     }
     if (typeof navigator.clipboard === "undefined") {
-        alert(window.siyuan.languages.clipboardPermissionDenied);
+        alert(window.shehab.languages.clipboardPermissionDenied);
         return "";
     }
     return navigator.clipboard.readText().catch(() => {
-        alert(window.siyuan.languages.clipboardPermissionDenied);
+        alert(window.shehab.languages.clipboardPermissionDenied);
     }) || "";
 };
 
@@ -123,7 +123,7 @@ export const readText = () => {
 export const getLocalFiles = async () => {
     // 不再支持 PC 浏览器 https://github.com/siyuan-note/siyuan/issues/7206
     let localFiles: string[] = [];
-    if ("darwin" === window.siyuan.config.system.os) {
+    if ("darwin" === window.shehab.config.system.os) {
         const xmlString = clipboard.read("NSFilenamesPboardType");
         const domParser = new DOMParser();
         const xmlDom = domParser.parseFromString(xmlString, "application/xml");
@@ -159,12 +159,12 @@ export const readClipboard = async () => {
         return text;
     }
     if (typeof navigator.clipboard === "undefined") {
-        alert(window.siyuan.languages.clipboardPermissionDenied);
+        alert(window.shehab.languages.clipboardPermissionDenied);
         return text;
     }
     try {
         const clipboardContents = await navigator.clipboard.read().catch(() => {
-            alert(window.siyuan.languages.clipboardPermissionDenied);
+            alert(window.shehab.languages.clipboardPermissionDenied);
         });
         if (!clipboardContents) {
             return text;
@@ -277,11 +277,11 @@ export const isNotCtrl = (event: KeyboardEvent | MouseEvent) => {
 };
 
 export const isHuawei = () => {
-    return window.siyuan.config.system.osPlatform.toLowerCase().indexOf("huawei") > -1;
+    return window.shehab.config.system.osPlatform.toLowerCase().indexOf("huawei") > -1;
 };
 
 export const isDisabledFeature = (feature: string): boolean => {
-    return window.siyuan.config.system.disabledFeatures?.indexOf(feature) > -1;
+    return window.shehab.config.system.disabledFeatures?.indexOf(feature) > -1;
 };
 
 export const isIPhone = () => {
@@ -328,15 +328,15 @@ export const isWindows = () => {
 };
 
 export const isInAndroid = () => {
-    return window.siyuan.config.system.container === "android" && window.JSAndroid;
+    return window.shehab.config.system.container === "android" && window.JSAndroid;
 };
 
 export const isInIOS = () => {
-    return window.siyuan.config.system.container === "ios" && window.webkit?.messageHandlers;
+    return window.shehab.config.system.container === "ios" && window.webkit?.messageHandlers;
 };
 
 export const isInHarmony = () => {
-    return window.siyuan.config.system.container === "harmony" && window.JSHarmony;
+    return window.shehab.config.system.container === "harmony" && window.JSHarmony;
 };
 
 export const updateHotkeyAfterTip = (hotkey: string, split = " ") => {
@@ -371,7 +371,7 @@ export const updateHotkeyTip = (hotkey: string) => {
 
 export const getLocalStorage = (cb: () => void) => {
     fetchPost("/api/storage/getLocalStorage", undefined, (response) => {
-        window.siyuan.storage = response.data;
+        window.shehab.storage = response.data;
         // 历史数据迁移
         const defaultStorage: any = {};
         defaultStorage[Constants.LOCAL_SEARCHASSET] = {
@@ -471,19 +471,19 @@ export const getLocalStorage = (cb: () => void) => {
             k: "",
             r: "",
             types: {
-                document: window.siyuan.config.search.document,
-                heading: window.siyuan.config.search.heading,
-                list: window.siyuan.config.search.list,
-                listItem: window.siyuan.config.search.listItem,
-                codeBlock: window.siyuan.config.search.codeBlock,
-                htmlBlock: window.siyuan.config.search.htmlBlock,
-                mathBlock: window.siyuan.config.search.mathBlock,
-                table: window.siyuan.config.search.table,
-                blockquote: window.siyuan.config.search.blockquote,
-                superBlock: window.siyuan.config.search.superBlock,
-                paragraph: window.siyuan.config.search.paragraph,
-                embedBlock: window.siyuan.config.search.embedBlock,
-                databaseBlock: window.siyuan.config.search.databaseBlock,
+                document: window.shehab.config.search.document,
+                heading: window.shehab.config.search.heading,
+                list: window.shehab.config.search.list,
+                listItem: window.shehab.config.search.listItem,
+                codeBlock: window.shehab.config.search.codeBlock,
+                htmlBlock: window.shehab.config.search.htmlBlock,
+                mathBlock: window.shehab.config.search.mathBlock,
+                table: window.shehab.config.search.table,
+                blockquote: window.shehab.config.search.blockquote,
+                superBlock: window.shehab.config.search.superBlock,
+                paragraph: window.shehab.config.search.paragraph,
+                embedBlock: window.shehab.config.search.embedBlock,
+                databaseBlock: window.shehab.config.search.databaseBlock,
             },
             replaceTypes: Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES),
         };
@@ -503,28 +503,28 @@ export const getLocalStorage = (cb: () => void) => {
                     const parseData = JSON.parse(response.data[key]);
                     if (typeof parseData === "number") {
                         // https://github.com/siyuan-note/siyuan/issues/8852 Object.assign 会导致 number to Number
-                        window.siyuan.storage[key] = parseData;
+                        window.shehab.storage[key] = parseData;
                     } else {
-                        window.siyuan.storage[key] = Object.assign(defaultStorage[key], parseData);
+                        window.shehab.storage[key] = Object.assign(defaultStorage[key], parseData);
                     }
                 } catch (e) {
-                    window.siyuan.storage[key] = defaultStorage[key];
+                    window.shehab.storage[key] = defaultStorage[key];
                 }
             } else if (typeof response.data[key] === "undefined") {
-                window.siyuan.storage[key] = defaultStorage[key];
+                window.shehab.storage[key] = defaultStorage[key];
             }
         });
         // 搜索数据添加 replaceTypes 兼容
-        if (!window.siyuan.storage[Constants.LOCAL_SEARCHDATA].replaceTypes ||
-            Object.keys(window.siyuan.storage[Constants.LOCAL_SEARCHDATA].replaceTypes).length === 0) {
-            window.siyuan.storage[Constants.LOCAL_SEARCHDATA].replaceTypes = Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES);
+        if (!window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes ||
+            Object.keys(window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes).length === 0) {
+            window.shehab.storage[Constants.LOCAL_SEARCHDATA].replaceTypes = Object.assign({}, Constants.SIYUAN_DEFAULT_REPLACETYPES);
         }
         cb();
     });
 };
 
 export const setStorageVal = (key: string, val: any, cb?: () => void) => {
-    if (window.siyuan.config.readonly || window.siyuan.isPublish) {
+    if (window.shehab.config.readonly || window.shehab.isPublish) {
         return;
     }
     fetchPost("/api/storage/setLocalStorageVal", {

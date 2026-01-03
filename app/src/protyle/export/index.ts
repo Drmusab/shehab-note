@@ -25,15 +25,15 @@ const getPluginStyle = async () => {
 };
 
 const getIconScript = (servePath: string) => {
-    const isBuiltInIcon = ["ant", "material"].includes(window.siyuan.config.appearance.icon);
+    const isBuiltInIcon = ["ant", "material"].includes(window.shehab.config.appearance.icon);
     const html = isBuiltInIcon ? "" : `<script src="${servePath}appearance/icons/material/icon.js?v=${Constants.SIYUAN_VERSION}"></script>`;
-    return html + `<script src="${servePath}appearance/icons/${window.siyuan.config.appearance.icon}/icon.js?v=${Constants.SIYUAN_VERSION}"></script>`;
+    return html + `<script src="${servePath}appearance/icons/${window.shehab.config.appearance.icon}/icon.js?v=${Constants.SIYUAN_VERSION}"></script>`;
 };
 
 export const saveExport = (option: IExportOptions) => {
     /// #if BROWSER
     if (["html", "htmlmd"].includes(option.type)) {
-        const msgId = showMessage(window.siyuan.languages.exporting, -1);
+        const msgId = showMessage(window.shehab.languages.exporting, -1);
         // 浏览器环境：先调用 API 生成资源文件，再在前端生成完整的 HTML
         const url = option.type === "htmlmd" ? "/api/export/exportMdHTML" : "/api/export/exportHTML";
         fetchPost(url, {
@@ -51,47 +51,47 @@ export const saveExport = (option: IExportOptions) => {
             }, zipResponse => {
                 hideMessage(msgId);
                 if (zipResponse.code === -1) {
-                    showMessage(window.siyuan.languages._kernel[14] + ": " + zipResponse.msg, 0, "error");
+                    showMessage(window.shehab.languages._kernel[14] + ": " + zipResponse.msg, 0, "error");
                     return;
                 }
                 window.open(zipResponse.data.zip);
-                showMessage(window.siyuan.languages.exported);
+                showMessage(window.shehab.languages.exported);
             });
         });
         return;
     }
     /// #else
     if (option.type === "pdf") {
-        if (window.siyuan.config.appearance.mode === 1) {
-            confirmDialog(window.siyuan.languages.pdfTip, window.siyuan.languages.pdfConfirm, () => {
+        if (window.shehab.config.appearance.mode === 1) {
+            confirmDialog(window.shehab.languages.pdfTip, window.shehab.languages.pdfConfirm, () => {
                 renderPDF(option.id);
             });
         } else {
             renderPDF(option.id);
         }
     } else if (option.type === "word") {
-        const localData = window.siyuan.storage[Constants.LOCAL_EXPORTWORD];
+        const localData = window.shehab.storage[Constants.LOCAL_EXPORTWORD];
         const wordDialog = new Dialog({
-            title: "Word " + window.siyuan.languages.config,
+            title: "Word " + window.shehab.languages.config,
             content: `<div class="b3-dialog__content">
     <label class="fn__flex b3-label">
         <div class="fn__flex-1">
-            ${window.siyuan.languages.removeAssetsFolder}
+            ${window.shehab.languages.removeAssetsFolder}
         </div>
         <span class="fn__space"></span>
         <input id="removeAssets" class="b3-switch" type="checkbox" ${localData.removeAssets ? "checked" : ""}>
     </label>
     <label class="fn__flex b3-label">
         <div class="fn__flex-1">
-            ${window.siyuan.languages.mergeSubdocs}
+            ${window.shehab.languages.mergeSubdocs}
         </div>
         <span class="fn__space"></span>
         <input id="mergeSubdocs" class="b3-switch" type="checkbox" ${localData.mergeSubdocs ? "checked" : ""}>
     </label>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
             width: "520px",
         });
@@ -103,8 +103,8 @@ export const saveExport = (option: IExportOptions) => {
         btnsElement[1].addEventListener("click", () => {
             const removeAssets = (wordDialog.element.querySelector("#removeAssets") as HTMLInputElement).checked;
             const mergeSubdocs = (wordDialog.element.querySelector("#mergeSubdocs") as HTMLInputElement).checked;
-            window.siyuan.storage[Constants.LOCAL_EXPORTWORD] = {removeAssets, mergeSubdocs};
-            setStorageVal(Constants.LOCAL_EXPORTWORD, window.siyuan.storage[Constants.LOCAL_EXPORTWORD]);
+            window.shehab.storage[Constants.LOCAL_EXPORTWORD] = {removeAssets, mergeSubdocs};
+            setStorageVal(Constants.LOCAL_EXPORTWORD, window.shehab.storage[Constants.LOCAL_EXPORTWORD]);
             getExportPath(option, removeAssets, mergeSubdocs);
             wordDialog.destroy();
         });
@@ -136,23 +136,23 @@ const getSnippetJS = () => {
 
 /// #if !BROWSER
 const renderPDF = async (id: string) => {
-    const localData = window.siyuan.storage[Constants.LOCAL_EXPORTPDF];
+    const localData = window.shehab.storage[Constants.LOCAL_EXPORTPDF];
     if (typeof localData.paged === "undefined") {
         localData.paged = true;
     }
     const servePathWithoutTrailingSlash = window.location.protocol + "//" + window.location.host;
     const servePath = servePathWithoutTrailingSlash + "/";
-    const isDefault = (window.siyuan.config.appearance.mode === 1 && window.siyuan.config.appearance.themeDark === "midnight") || (window.siyuan.config.appearance.mode === 0 && window.siyuan.config.appearance.themeLight === "daylight");
+    const isDefault = (window.shehab.config.appearance.mode === 1 && window.shehab.config.appearance.themeDark === "midnight") || (window.shehab.config.appearance.mode === 0 && window.shehab.config.appearance.themeLight === "daylight");
     let themeStyle = "";
     if (!isDefault) {
-        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${window.siyuan.config.appearance.themeLight}/theme.css?${Constants.SIYUAN_VERSION}"/>`;
+        themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${window.shehab.config.appearance.themeLight}/theme.css?${Constants.SIYUAN_VERSION}"/>`;
     }
     const currentWindowId = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
         cmd: "getContentsId",
     });
     // data-theme-mode="light" https://github.com/siyuan-note/siyuan/issues/7379
     const html = `<!DOCTYPE html>
-<html lang="${window.siyuan.config.appearance.lang}" data-theme-mode="light" data-light-theme="${window.siyuan.config.appearance.themeLight}" data-dark-theme="${window.siyuan.config.appearance.themeDark}">
+<html lang="${window.shehab.config.appearance.lang}" data-theme-mode="light" data-light-theme="${window.shehab.config.appearance.themeLight}" data-dark-theme="${window.shehab.config.appearance.themeDark}">
 <head>
     <base href="${servePath}">
     <meta charset="utf-8">
@@ -164,7 +164,7 @@ const renderPDF = async (id: string) => {
     <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="${servePath}appearance/themes/daylight/theme.css?v=${Constants.SIYUAN_VERSION}"/>
     <script src="${servePath}stage/protyle/js/protyle-html.js?v=${Constants.SIYUAN_VERSION}"></script>
     ${themeStyle}
-    <title>${window.siyuan.languages.export} PDF</title>
+    <title>${window.shehab.languages.export} PDF</title>
     <style>
         body {
           margin: 0;
@@ -236,7 +236,7 @@ const renderPDF = async (id: string) => {
     <div style="flex: 1;overflow-y:auto;overflow-x:hidden">
         <div class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF0}
+                ${window.shehab.languages.exportPDF0}
             </div>
             <span class="fn__hr"></span>
             <select class="b3-select" id="pageSize">
@@ -250,53 +250,53 @@ const renderPDF = async (id: string) => {
         </div>
         <div class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF2}
+                ${window.shehab.languages.exportPDF2}
             </div>
             <span class="fn__hr"></span>
             <select class="b3-select" id="marginsType">
-                <option ${localData.marginType === "default" ? "selected" : ""} value="default">${window.siyuan.languages.defaultMargin}</option>
-                <option ${localData.marginType === "none" ? "selected" : ""} value="none">${window.siyuan.languages.noneMargin}</option>
-                <option ${localData.marginType === "printableArea" ? "selected" : ""} value="printableArea">${window.siyuan.languages.minimalMargin}</option>
-                <option ${localData.marginType === "custom" ? "selected" : ""} value="custom">${window.siyuan.languages.customMargin}</option>
+                <option ${localData.marginType === "default" ? "selected" : ""} value="default">${window.shehab.languages.defaultMargin}</option>
+                <option ${localData.marginType === "none" ? "selected" : ""} value="none">${window.shehab.languages.noneMargin}</option>
+                <option ${localData.marginType === "printableArea" ? "selected" : ""} value="printableArea">${window.shehab.languages.minimalMargin}</option>
+                <option ${localData.marginType === "custom" ? "selected" : ""} value="custom">${window.shehab.languages.customMargin}</option>
             </select>
             <div class="${localData.marginType === "custom" ? "" : "fn__none"}">
                 <span class="fn__hr"></span>
-                <small>${window.siyuan.languages.marginTop}</small>
+                <small>${window.shehab.languages.marginTop}</small>
                 <div class="fn__hr--small"></div>
                 <div class="fn__flex">
                     <input id="marginsTop" class="b3-text-field fn__block" value="${localData.marginTop || 0}" type="number" min="0" step="0.01">
                     <span class="fn__space"></span>
-                    <small class="fn__flex-center" style="white-space: nowrap;">${window.siyuan.languages.unitInches}</small>
+                    <small class="fn__flex-center" style="white-space: nowrap;">${window.shehab.languages.unitInches}</small>
                 </div>
                 <div class="fn__hr"></div>
-                <small>${window.siyuan.languages.marginRight}</small>
+                <small>${window.shehab.languages.marginRight}</small>
                 <div class="fn__hr--small"></div>
                 <div class="fn__flex">
                     <input id="marginsRight" class="b3-text-field fn__block" value="${localData.marginRight || 0}" type="number" min="0" step="0.01">
                     <span class="fn__space"></span>
-                    <small class="fn__flex-center" style="white-space: nowrap;">${window.siyuan.languages.unitInches}</small>
+                    <small class="fn__flex-center" style="white-space: nowrap;">${window.shehab.languages.unitInches}</small>
                 </div>
                 <div class="fn__hr"></div>
-                <small>${window.siyuan.languages.marginBottom}</small>
+                <small>${window.shehab.languages.marginBottom}</small>
                 <div class="fn__hr--small"></div>
                 <div class="fn__flex">
                     <input id="marginsBottom" class="b3-text-field fn__block" value="${localData.marginBottom || 0}" type="number" min="0" step="0.01">
                     <span class="fn__space"></span>
-                    <small class="fn__flex-center" style="white-space: nowrap;">${window.siyuan.languages.unitInches}</small>
+                    <small class="fn__flex-center" style="white-space: nowrap;">${window.shehab.languages.unitInches}</small>
                 </div>
                 <div class="fn__hr"></div>
-                <small>${window.siyuan.languages.marginLeft}</small>
+                <small>${window.shehab.languages.marginLeft}</small>
                 <div class="fn__hr--small"></div>
                 <div class="fn__flex">
                     <input id="marginsLeft" class="b3-text-field fn__block" value="${localData.marginLeft || 0}" type="number" min="0" step="0.01">
                     <span class="fn__space"></span>
-                    <small class="fn__flex-center" style="white-space: nowrap;">${window.siyuan.languages.unitInches}</small>
+                    <small class="fn__flex-center" style="white-space: nowrap;">${window.shehab.languages.unitInches}</small>
                 </div>
             </div>
         </div>
         <div class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF3}
+                ${window.shehab.languages.exportPDF3}
                 <span id="scaleTip" style="float: right;color: var(--b3-theme-on-background);">${localData.scale || 1}</span>
             </div>
             <span class="fn__hr"></span>
@@ -304,42 +304,42 @@ const renderPDF = async (id: string) => {
         </div>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF1}
+                ${window.shehab.languages.exportPDF1}
             </div>
             <span class="fn__hr"></span>
           <input id="landscape" class="b3-switch" type="checkbox" ${localData.landscape ? "checked" : ""}>
         </label>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF4}
+                ${window.shehab.languages.exportPDF4}
             </div>
             <span class="fn__hr"></span>
             <input id="removeAssets" class="b3-switch" type="checkbox" ${localData.removeAssets ? "checked" : ""}>
         </label>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.exportPDF5}
+                ${window.shehab.languages.exportPDF5}
             </div>
             <span class="fn__hr"></span>
             <input id="keepFold" class="b3-switch" type="checkbox" ${localData.keepFold ? "checked" : ""}>
         </label>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.mergeSubdocs}
+                ${window.shehab.languages.mergeSubdocs}
             </div>
             <span class="fn__hr"></span>
             <input id="mergeSubdocs" class="b3-switch" type="checkbox" ${localData.mergeSubdocs ? "checked" : ""}>
         </label>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.export27}
+                ${window.shehab.languages.export27}
             </div>
             <span class="fn__hr"></span>
             <input id="watermark" class="b3-switch" type="checkbox" ${localData.watermark ? "checked" : ""}>
         </label>
         <label class="b3-label">
             <div>
-                ${window.siyuan.languages.paged}
+                ${window.shehab.languages.paged}
             </div>
             <span class="fn__hr"></span>
             <input id="paged" class="b3-switch" type="checkbox" ${localData.paged ? "checked" : ""}>
@@ -347,9 +347,9 @@ const renderPDF = async (id: string) => {
     </div>
     <div class="fn__flex" style="padding: 0 16px">
       <div class="fn__flex-1"></div>
-      <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button>
+      <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button>
       <div class="fn__space"></div>
-      <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+      <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
     </div>
 </div>
 <div style="zoom:${localData.scale || 1}" id="preview">
@@ -470,7 +470,7 @@ ${getIconScript(servePath)}
         })
     }
     const renderPreview = (data) => {
-        previewElement.innerHTML = '<div style="padding:8px 0 0 0" class="protyle-wysiwyg${window.siyuan.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : ""}">' + data.content + '</div>';
+        previewElement.innerHTML = '<div style="padding:8px 0 0 0" class="protyle-wysiwyg${window.shehab.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : ""}">' + data.content + '</div>';
         const wysElement = previewElement.querySelector(".protyle-wysiwyg");
         wysElement.setAttribute("data-doc-type", data.type || "NodeDocument");
         Object.keys(data.attrs).forEach(key => {
@@ -501,20 +501,20 @@ ${getIconScript(servePath)}
             return;
         }
         document.title = response.data.name
-        window.siyuan = {
+        window.shehab = {
           config: {
-            appearance: { mode: 0, codeBlockThemeDark: "${window.siyuan.config.appearance.codeBlockThemeDark}", codeBlockThemeLight: "${window.siyuan.config.appearance.codeBlockThemeLight}" },
+            appearance: { mode: 0, codeBlockThemeDark: "${window.shehab.config.appearance.codeBlockThemeDark}", codeBlockThemeLight: "${window.shehab.config.appearance.codeBlockThemeLight}" },
             editor: { 
-              allowHTMLBLockScript: ${window.siyuan.config.editor.allowHTMLBLockScript},
-              fontSize: ${window.siyuan.config.editor.fontSize},
+              allowHTMLBLockScript: ${window.shehab.config.editor.allowHTMLBLockScript},
+              fontSize: ${window.shehab.config.editor.fontSize},
               codeLineWrap: true,
-              codeLigatures: ${window.siyuan.config.editor.codeLigatures},
-              plantUMLServePath: "${window.siyuan.config.editor.plantUMLServePath}",
-              codeSyntaxHighlightLineNum: ${window.siyuan.config.editor.codeSyntaxHighlightLineNum},
-              katexMacros: decodeURI(\`${encodeURI(window.siyuan.config.editor.katexMacros)}\`),
+              codeLigatures: ${window.shehab.config.editor.codeLigatures},
+              plantUMLServePath: "${window.shehab.config.editor.plantUMLServePath}",
+              codeSyntaxHighlightLineNum: ${window.shehab.config.editor.codeSyntaxHighlightLineNum},
+              katexMacros: decodeURI(\`${encodeURI(window.shehab.config.editor.katexMacros)}\`),
             }
           },
-          languages: {copy:"${window.siyuan.languages.copy}"}
+          languages: {copy:"${window.shehab.languages.copy}"}
         };
         previewElement.addEventListener("click", (event) => {
             let target = event.target;
@@ -607,7 +607,7 @@ ${getIconScript(servePath)}
             // https://www.electronjs.org/docs/latest/api/web-contents#contentsprinttopdfoptions
             // https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
             return {
-                title: "${window.siyuan.languages.export} PDF",
+                title: "${window.shehab.languages.export} PDF",
                 pdfOptions: {
                     printBackground: true,
                     landscape: actionElement.querySelector("#landscape").checked,
@@ -707,11 +707,11 @@ const getExportPath = (option: IExportOptions, removeAssets?: boolean, mergeSubd
 
         const result = await ipcRenderer.invoke(Constants.SIYUAN_GET, {
             cmd: "showOpenDialog",
-            title: window.siyuan.languages.export + " " + exportType,
+            title: window.shehab.languages.export + " " + exportType,
             properties: ["createDirectory", "openDirectory"],
         });
         if (!result.canceled) {
-            const msgId = showMessage(window.siyuan.languages.exporting, -1);
+            const msgId = showMessage(window.shehab.languages.exporting, -1);
             let url = "/api/export/exportHTML";
             if (option.type === "htmlmd") {
                 url = "/api/export/exportMdHTML";
@@ -747,13 +747,13 @@ const getExportPath = (option: IExportOptions, removeAssets?: boolean, mergeSubd
 /// #endif
 
 export const onExport = async (data: IWebSocketData, filePath: string, servePath: string, exportOption: IExportOptions, msgId?: string) => {
-    let themeName = window.siyuan.config.appearance.themeLight;
+    let themeName = window.shehab.config.appearance.themeLight;
     let mode = 0;
-    if (["html", "htmlmd"].includes(exportOption.type) && window.siyuan.config.appearance.mode === 1) {
-        themeName = window.siyuan.config.appearance.themeDark;
+    if (["html", "htmlmd"].includes(exportOption.type) && window.shehab.config.appearance.mode === 1) {
+        themeName = window.shehab.config.appearance.themeDark;
         mode = 1;
     }
-    const isDefault = (window.siyuan.config.appearance.mode === 1 && window.siyuan.config.appearance.themeDark === "midnight") || (window.siyuan.config.appearance.mode === 0 && window.siyuan.config.appearance.themeLight === "daylight");
+    const isDefault = (window.shehab.config.appearance.mode === 1 && window.shehab.config.appearance.themeDark === "midnight") || (window.shehab.config.appearance.mode === 0 && window.shehab.config.appearance.themeLight === "daylight");
     let themeStyle = "";
     if (!isDefault) {
         themeStyle = `<link rel="stylesheet" type="text/css" id="themeStyle" href="${servePath}appearance/themes/${themeName}/theme.css?${Constants.SIYUAN_VERSION}"/>`;
@@ -766,7 +766,7 @@ export const onExport = async (data: IWebSocketData, filePath: string, servePath
 .protyle-wysiwyg {padding: 0; margin: 0;}`
     } : {js: "", css: ""};
     const html = `<!DOCTYPE html>
-<html lang="${window.siyuan.config.appearance.lang}" data-theme-mode="${isInMobile ? "light" : getThemeMode()}" data-light-theme="${window.siyuan.config.appearance.themeLight}" data-dark-theme="${window.siyuan.config.appearance.themeDark}">
+<html lang="${window.shehab.config.appearance.lang}" data-theme-mode="${isInMobile ? "light" : getThemeMode()}" data-light-theme="${window.shehab.config.appearance.themeLight}" data-dark-theme="${window.shehab.config.appearance.themeDark}">
 <head>
     <base href="${servePath}">
     <meta charset="utf-8">
@@ -789,26 +789,26 @@ export const onExport = async (data: IWebSocketData, filePath: string, servePath
     ${getSnippetCSS()}
 </head>
 <body>
-<div class="${["htmlmd", "word"].includes(exportOption.type) ? "b3-typography" : "protyle-wysiwyg" + (window.siyuan.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : "")}" 
+<div class="${["htmlmd", "word"].includes(exportOption.type) ? "b3-typography" : "protyle-wysiwyg" + (window.shehab.config.editor.displayBookmarkIcon ? " protyle-wysiwyg--attr" : "")}" 
 style="max-width: 800px;margin: 0 auto;" id="preview">${data.data.content}</div>
 ${getIconScript(servePath)}
 <script src="${servePath}stage/build/export/protyle-method.js?v=${Constants.SIYUAN_VERSION}"></script>
 <script src="${servePath}stage/protyle/js/lute/lute.min.js?v=${Constants.SIYUAN_VERSION}"></script>  
 <script>
     ${mobileHtml.js}
-    window.siyuan = {
+    window.shehab = {
       config: {
-        appearance: { mode: ${mode}, codeBlockThemeDark: "${window.siyuan.config.appearance.codeBlockThemeDark}", codeBlockThemeLight: "${window.siyuan.config.appearance.codeBlockThemeLight}" },
+        appearance: { mode: ${mode}, codeBlockThemeDark: "${window.shehab.config.appearance.codeBlockThemeDark}", codeBlockThemeLight: "${window.shehab.config.appearance.codeBlockThemeLight}" },
         editor: { 
           codeLineWrap: true,
-          fontSize: ${window.siyuan.config.editor.fontSize},
-          codeLigatures: ${window.siyuan.config.editor.codeLigatures},
-          plantUMLServePath: "${window.siyuan.config.editor.plantUMLServePath}",
-          codeSyntaxHighlightLineNum: ${window.siyuan.config.editor.codeSyntaxHighlightLineNum},
-          katexMacros: decodeURI(\`${encodeURI(window.siyuan.config.editor.katexMacros)}\`),
+          fontSize: ${window.shehab.config.editor.fontSize},
+          codeLigatures: ${window.shehab.config.editor.codeLigatures},
+          plantUMLServePath: "${window.shehab.config.editor.plantUMLServePath}",
+          codeSyntaxHighlightLineNum: ${window.shehab.config.editor.codeSyntaxHighlightLineNum},
+          katexMacros: decodeURI(\`${encodeURI(window.shehab.config.editor.katexMacros)}\`),
         }
       },
-      languages: {copy:"${window.siyuan.languages.copy}"}
+      languages: {copy:"${window.shehab.languages.copy}"}
     };
     const previewElement = document.getElementById('preview');
     Protyle.highlightRender(previewElement, "stage/protyle");

@@ -24,17 +24,17 @@ export const getTextStar = (blockElement: HTMLElement, contentOnly = false) => {
     } else if ("NodeHTMLBlock" === dataType) {
         refText = "HTML";
     } else if ("NodeAttributeView" === dataType) {
-        refText = blockElement.querySelector(".av__title").textContent || window.siyuan.languages.database;
+        refText = blockElement.querySelector(".av__title").textContent || window.shehab.languages.database;
     } else if ("NodeThematicBreak" === dataType) {
-        refText = window.siyuan.languages.line;
+        refText = window.shehab.languages.line;
     } else if ("NodeIFrame" === dataType) {
         refText = "IFrame";
     } else if ("NodeWidget" === dataType) {
-        refText = window.siyuan.languages.widget;
+        refText = window.shehab.languages.widget;
     } else if ("NodeVideo" === dataType) {
-        refText = window.siyuan.languages.video;
+        refText = window.shehab.languages.video;
     } else if ("NodeAudio" === dataType) {
-        refText = window.siyuan.languages.audio;
+        refText = window.shehab.languages.audio;
     } else if (["NodeCodeBlock", "NodeTable"].includes(dataType)) {
         refText = getPlainText(blockElement);
     } else if (blockElement.classList.contains("render-node")) {
@@ -201,14 +201,14 @@ export const enableLuteMarkdownSyntax = (protyle: IProtyle) => {
 };
 
 export const restoreLuteMarkdownSyntax = (protyle: IProtyle) => {
-    protyle.lute.SetInlineAsterisk(window.siyuan.config.editor.markdown.inlineAsterisk);
-    protyle.lute.SetGFMStrikethrough(window.siyuan.config.editor.markdown.inlineStrikethrough);
-    protyle.lute.SetInlineMath(window.siyuan.config.editor.markdown.inlineMath);
-    protyle.lute.SetSub(window.siyuan.config.editor.markdown.inlineSub);
-    protyle.lute.SetSup(window.siyuan.config.editor.markdown.inlineSup);
-    protyle.lute.SetTag(window.siyuan.config.editor.markdown.inlineTag);
-    protyle.lute.SetInlineUnderscore(window.siyuan.config.editor.markdown.inlineUnderscore);
-    protyle.lute.SetMark(window.siyuan.config.editor.markdown.inlineMark);
+    protyle.lute.SetInlineAsterisk(window.shehab.config.editor.markdown.inlineAsterisk);
+    protyle.lute.SetGFMStrikethrough(window.shehab.config.editor.markdown.inlineStrikethrough);
+    protyle.lute.SetInlineMath(window.shehab.config.editor.markdown.inlineMath);
+    protyle.lute.SetSub(window.shehab.config.editor.markdown.inlineSub);
+    protyle.lute.SetSup(window.shehab.config.editor.markdown.inlineSup);
+    protyle.lute.SetTag(window.shehab.config.editor.markdown.inlineTag);
+    protyle.lute.SetInlineUnderscore(window.shehab.config.editor.markdown.inlineUnderscore);
+    protyle.lute.SetMark(window.shehab.config.editor.markdown.inlineMark);
 };
 
 const readLocalFile = async (protyle: IProtyle, localFiles: string[]) => {

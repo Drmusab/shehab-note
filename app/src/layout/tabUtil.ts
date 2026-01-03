@@ -143,59 +143,59 @@ export const resizeTabs = (isSaveLayout = true) => {
 };
 
 export const getDockByType = (type: TDock | string) => {
-    if (!window.siyuan.layout.leftDock) {
+    if (!window.shehab.layout.leftDock) {
         return undefined;
     }
-    if (window.siyuan.layout.leftDock.data[type]) {
-        return window.siyuan.layout.leftDock;
+    if (window.shehab.layout.leftDock.data[type]) {
+        return window.shehab.layout.leftDock;
     }
-    if (window.siyuan.layout.rightDock.data[type]) {
-        return window.siyuan.layout.rightDock;
+    if (window.shehab.layout.rightDock.data[type]) {
+        return window.shehab.layout.rightDock;
     }
-    if (window.siyuan.layout.bottomDock.data[type]) {
-        return window.siyuan.layout.bottomDock;
+    if (window.shehab.layout.bottomDock.data[type]) {
+        return window.shehab.layout.bottomDock;
     }
 };
 
 export const newCenterEmptyTab = (app: App) => {
     return new Tab({
         panel: `<div class="layout__empty">
-        <div class="${!window.siyuan.config.readonly ? " fn__none" : ""}">
+        <div class="${!window.shehab.config.readonly ? " fn__none" : ""}">
             <div class="config-about__logo">
                 <img src="/stage/icon.png">
-                ${window.siyuan.languages.siyuanNote}
+                ${window.shehab.languages.siyuanNote}
             </div>
-            <div class="b3-label__text">${window.siyuan.languages.slogan}</div>
+            <div class="b3-label__text">${window.shehab.languages.slogan}</div>
         </div>
         <div class="fn__hr"></div>
     <div class="b3-list" style="margin: 0 auto">
         <div class="b3-list-item" id="editorEmptySearch">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconSearch"></use></svg>
-            <span>${window.siyuan.languages.search}</span>
-            <span class="b3-list-item__meta">${updateHotkeyTip(window.siyuan.config.keymap.general.globalSearch.custom)}</span>
+            <span>${window.shehab.languages.search}</span>
+            <span class="b3-list-item__meta">${updateHotkeyTip(window.shehab.config.keymap.general.globalSearch.custom)}</span>
         </div>
         <div id="editorEmptyRecent" class="b3-list-item">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconList"></use></svg>
-            <span>${window.siyuan.languages.recentDocs}</span>
-            <span class="b3-list-item__meta">${updateHotkeyTip(window.siyuan.config.keymap.general.recentDocs.custom)}</span>
+            <span>${window.shehab.languages.recentDocs}</span>
+            <span class="b3-list-item__meta">${updateHotkeyTip(window.shehab.config.keymap.general.recentDocs.custom)}</span>
         </div>
-        <div id="editorEmptyHistory" class="b3-list-item${window.siyuan.config.readonly ? " fn__none" : ""}">
+        <div id="editorEmptyHistory" class="b3-list-item${window.shehab.config.readonly ? " fn__none" : ""}">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconHistory"></use></svg>
-            <span>${window.siyuan.languages.dataHistory}</span>
-            <span class="b3-list-item__meta">${updateHotkeyTip(window.siyuan.config.keymap.general.dataHistory.custom)}</span>
+            <span>${window.shehab.languages.dataHistory}</span>
+            <span class="b3-list-item__meta">${updateHotkeyTip(window.shehab.config.keymap.general.dataHistory.custom)}</span>
         </div>
-        <div class="b3-list-item${window.siyuan.config.readonly ? " fn__none" : ""}" id="editorEmptyFile">
+        <div class="b3-list-item${window.shehab.config.readonly ? " fn__none" : ""}" id="editorEmptyFile">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconFile"></use></svg>
-            <span>${window.siyuan.languages.newFile}</span>
-            <span class="b3-list-item__meta">${updateHotkeyTip(window.siyuan.config.keymap.general.newFile.custom)}</span>
+            <span>${window.shehab.languages.newFile}</span>
+            <span class="b3-list-item__meta">${updateHotkeyTip(window.shehab.config.keymap.general.newFile.custom)}</span>
         </div>
-        <div class="b3-list-item${window.siyuan.config.readonly ? " fn__none" : ""}" id="editorEmptyNewNotebook">
+        <div class="b3-list-item${window.shehab.config.readonly ? " fn__none" : ""}" id="editorEmptyNewNotebook">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconFilesRoot"></use></svg>
-            <span>${window.siyuan.languages.newNotebook}</span>
+            <span>${window.shehab.languages.newNotebook}</span>
         </div>
-        <div class="b3-list-item${(isIPad() || window.siyuan.config.readonly) ? " fn__none" : ""}" id="editorEmptyHelp">
+        <div class="b3-list-item${(isIPad() || window.shehab.config.readonly) ? " fn__none" : ""}" id="editorEmptyHelp">
             <svg class="b3-list-item__graphic"><use xlink:href="#iconHelp"></use></svg>
-            <span>${window.siyuan.languages.userGuide}</span>
+            <span>${window.shehab.languages.userGuide}</span>
         </div>
     </div>
 </div>`,

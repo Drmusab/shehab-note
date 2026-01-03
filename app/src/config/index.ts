@@ -99,7 +99,7 @@ export const openSetting = (app: App) => {
     /// #if MOBILE
     popMenu();
     /// #else
-    const exitDialog = window.siyuan.dialogs.find((item) => {
+    const exitDialog = window.shehab.dialogs.find((item) => {
         if (item.element.querySelector(".config__tab-container")) {
             item.destroy();
             return true;
@@ -117,24 +117,24 @@ export const openSetting = (app: App) => {
   <ul class="b3-tab-bar b3-list b3-list--background">
     <div class="config__tab-title resize__move">
         <svg class="b3-list-item__graphic"><use xlink:href="#iconSettings"></use></svg>
-        <span class="b3-list-item__text">${window.siyuan.languages.config}</span>
+        <span class="b3-list-item__text">${window.shehab.languages.config}</span>
     </div>
-    <div class="b3-form__icon"><svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg><input placeholder="${window.siyuan.languages.search}" class="b3-text-field fn__block b3-form__icon-input"></div>
+    <div class="b3-form__icon"><svg class="b3-form__icon-icon"><use xlink:href="#iconSearch"></use></svg><input placeholder="${window.shehab.languages.search}" class="b3-text-field fn__block b3-form__icon-input"></div>
     <div class="config__tab-hr"></div>
-    <li data-name="editor" class="b3-list-item--focus b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconEdit"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.editor}</span></li>
-    <li data-name="filetree" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconFiles"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.fileTree}</span></li>
-    <li data-name="card" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconRiffCard"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.riffCard}</span></li>
+    <li data-name="editor" class="b3-list-item--focus b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconEdit"></use></svg><span class="b3-list-item__text">${window.shehab.languages.editor}</span></li>
+    <li data-name="filetree" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconFiles"></use></svg><span class="b3-list-item__text">${window.shehab.languages.fileTree}</span></li>
+    <li data-name="card" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconRiffCard"></use></svg><span class="b3-list-item__text">${window.shehab.languages.riffCard}</span></li>
     <li data-name="AI" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconSparkles"></use></svg><span class="b3-list-item__text">AI</span></li>
-    <li data-name="image" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconImage"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.assets}</span></li>
-    <li data-name="export" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconUpload"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.export}</span></li>
-    <li data-name="appearance" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconTheme"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.appearance}</span></li>
-    <li data-name="bazaar" class="b3-list-item${isHuawei() || isInHarmony() ? " fn__none" : ""}"><svg class="b3-list-item__graphic"><use xlink:href="#iconBazaar"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.bazaar}</span></li>
-    <li data-name="search" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconSearch"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.search}</span></li>
-    <li data-name="keymap" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconKeymap"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.keymap}</span></li>
-    <li data-name="account" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconAccount"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.account}</span></li>
-    <li data-name="repos" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconCloud"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.cloud}</span></li>
-    <li data-name="publish" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconLanguage"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.publish}</span></li>
-    <li data-name="about" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconInfo"></use></svg><span class="b3-list-item__text">${window.siyuan.languages.about}</span></li>
+    <li data-name="image" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconImage"></use></svg><span class="b3-list-item__text">${window.shehab.languages.assets}</span></li>
+    <li data-name="export" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconUpload"></use></svg><span class="b3-list-item__text">${window.shehab.languages.export}</span></li>
+    <li data-name="appearance" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconTheme"></use></svg><span class="b3-list-item__text">${window.shehab.languages.appearance}</span></li>
+    <li data-name="bazaar" class="b3-list-item${isHuawei() || isInHarmony() ? " fn__none" : ""}"><svg class="b3-list-item__graphic"><use xlink:href="#iconBazaar"></use></svg><span class="b3-list-item__text">${window.shehab.languages.bazaar}</span></li>
+    <li data-name="search" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconSearch"></use></svg><span class="b3-list-item__text">${window.shehab.languages.search}</span></li>
+    <li data-name="keymap" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconKeymap"></use></svg><span class="b3-list-item__text">${window.shehab.languages.keymap}</span></li>
+    <li data-name="account" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconAccount"></use></svg><span class="b3-list-item__text">${window.shehab.languages.account}</span></li>
+    <li data-name="repos" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconCloud"></use></svg><span class="b3-list-item__text">${window.shehab.languages.cloud}</span></li>
+    <li data-name="publish" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconLanguage"></use></svg><span class="b3-list-item__text">${window.shehab.languages.publish}</span></li>
+    <li data-name="about" class="b3-list-item"><svg class="b3-list-item__graphic"><use xlink:href="#iconInfo"></use></svg><span class="b3-list-item__text">${window.shehab.languages.about}</span></li>
   </ul>
   <div class="config__tab-wrap">
       <div class="fn__hr--b resize__move"></div>

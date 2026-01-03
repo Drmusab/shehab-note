@@ -24,7 +24,7 @@ export const fetchNewDailyNote = (app: App, notebook: string) => {
 };
 
 export const newDailyNote = (app: App) => {
-    const exit = window.siyuan.dialogs.find(item => {
+    const exit = window.shehab.dialogs.find(item => {
         if (item.element.getAttribute("data-key") === Constants.DIALOG_DIALYNOTE) {
             item.destroy();
             return true;
@@ -35,12 +35,12 @@ export const newDailyNote = (app: App) => {
     }
     const openCount = getOpenNotebookCount();
     if (openCount === 0) {
-        showMessage(window.siyuan.languages.newFileTip);
+        showMessage(window.shehab.languages.newFileTip);
         return;
     }
     if (openCount === 1) {
         let notebookId = "";
-        window.siyuan.notebooks.find(item => {
+        window.shehab.notebooks.find(item => {
             if (!item.closed) {
                 notebookId = item.id;
             }
@@ -48,8 +48,8 @@ export const newDailyNote = (app: App) => {
         fetchNewDailyNote(app, notebookId);
         return;
     }
-    const localNotebookId = window.siyuan.storage[Constants.LOCAL_DAILYNOTEID];
-    const localNotebookIsOpen = window.siyuan.notebooks.find((item) => {
+    const localNotebookId = window.shehab.storage[Constants.LOCAL_DAILYNOTEID];
+    const localNotebookIsOpen = window.shehab.notebooks.find((item) => {
         if (item.id === localNotebookId && !item.closed) {
             return true;
         }
@@ -58,20 +58,20 @@ export const newDailyNote = (app: App) => {
         fetchNewDailyNote(app, localNotebookId);
     } else {
         let optionsHTML = "";
-        window.siyuan.notebooks.forEach(item => {
+        window.shehab.notebooks.forEach(item => {
             if (!item.closed) {
                 optionsHTML += `<option value="${item.id}">${item.name}</option>`;
             }
         });
         const dialog = new Dialog({
             positionId: Constants.DIALOG_DIALYNOTE,
-            title: window.siyuan.languages.plsChoose,
+            title: window.shehab.languages.plsChoose,
             content: `<div class="b3-dialog__content">
     <select class="b3-select fn__block">${optionsHTML}</select>
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
             width: isMobile() ? "92vw" : "520px",
         });
@@ -84,8 +84,8 @@ export const newDailyNote = (app: App) => {
         });
         btnsElement[1].addEventListener("click", () => {
             const notebook = selectElement.value;
-            window.siyuan.storage[Constants.LOCAL_DAILYNOTEID] = notebook;
-            setStorageVal(Constants.LOCAL_DAILYNOTEID, window.siyuan.storage[Constants.LOCAL_DAILYNOTEID]);
+            window.shehab.storage[Constants.LOCAL_DAILYNOTEID] = notebook;
+            setStorageVal(Constants.LOCAL_DAILYNOTEID, window.shehab.storage[Constants.LOCAL_DAILYNOTEID]);
             fetchNewDailyNote(app, notebook);
             dialog.destroy();
         });
@@ -93,7 +93,7 @@ export const newDailyNote = (app: App) => {
 };
 
 export const mountHelp = () => {
-    const notebookId = Constants.HELP_PATH[window.siyuan.config.appearance.lang as "zh_CN" | "en_US"];
+    const notebookId = Constants.HELP_PATH[window.shehab.config.appearance.lang as "zh_CN" | "en_US"];
     fetchPost("/api/notebook/removeNotebook", {notebook: notebookId, callback: Constants.CB_MOUNT_REMOVE}, () => {
         fetchPost("/api/notebook/openNotebook", {
             notebook: notebookId,
@@ -104,13 +104,13 @@ export const mountHelp = () => {
 
 export const newNotebook = () => {
     const dialog = new Dialog({
-        title: window.siyuan.languages.newNotebook,
+        title: window.shehab.languages.newNotebook,
         content: `<div class="b3-dialog__content">
-    <input placeholder="${window.siyuan.languages.notebookName}" class="b3-text-field fn__block">
+    <input placeholder="${window.shehab.languages.notebookName}" class="b3-text-field fn__block">
 </div>
 <div class="b3-dialog__action">
-    <button class="b3-button b3-button--cancel">${window.siyuan.languages.cancel}</button><div class="fn__space"></div>
-    <button class="b3-button b3-button--text">${window.siyuan.languages.confirm}</button>
+    <button class="b3-button b3-button--cancel">${window.shehab.languages.cancel}</button><div class="fn__space"></div>
+    <button class="b3-button b3-button--text">${window.shehab.languages.confirm}</button>
 </div>`,
         width: isMobile() ? "92vw" : "520px"
     });
