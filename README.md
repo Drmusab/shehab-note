@@ -1,17 +1,849 @@
-<p align="center">
-<img alt="Shehab" src="https://b3log.org/images/brand/siyuan-128.png">
-<br>
-<em>Local-first personal knowledge management</em>
-<br><br>
-</p>
 
-<p align="center">
-<a href="README_zh_CN.md">中文</a> | <a href="README_ja_JP.md">日本語</a> | <a href="README_tr_TR.md">Türkçe</a>
-</p>
+# 📘 Shehab Note - Complete Technical Documentation
+
+> **A Privacy-First, Self-Hosted Personal Knowledge Management System**
 
 ---
 
-## 💡 Introduction
+## Table of Contents
+
+1. [Installation & Setup Guide](#1-installation--setup-guide)
+2. [System Architecture & Data Flow](#2-system-architecture--data-flow)
+3. [File-Level I/O Documentation](#3-file-level-io-documentation)
+4. [Application Guidelines & Workflow](#4-application-guidelines--workflow)
+5. [Operational Logic](#5-operational-logic)
+
+---
+
+## 1. Installation & Setup Guide
+
+### 📋 Prerequisites
+
+#### Environment Requirements
+
+| Component | Minimum Version | Recommended |
+|-----------|-----------------|-------------|
+| **Node.js** | 18.x | 21.x |
+| **pnpm** | 10.22.0 | Latest |
+| **Go** | 1.25.4 | 1.25.x |
+| **Git** | 2.x | Latest |
+| **Docker** (optional) | 20.x | Latest |
+
+#### System Requirements
+
+| Platform | RAM | Storage | CPU |
+|----------|-----|---------|-----|
+| Desktop (any OS) | 4GB+ | 500MB+ | Dual-core |
+| Server/Docker | 2GB+ | 1GB+ | Any |
+
+#### Dependencies
+
+**Frontend (Node.js/TypeScript):**
+- Electron 39.2.7
+- Webpack 5.94.0
+- TypeScript 4.7.4
+- SCSS/Sass for styling
+
+**Backend (Go):**
+- Gin web framework
+- SQLite3 with FTS5 (Full-Text Search)
+- WebSocket support via Gorilla
+- Lute Markdown engine
+
+---
+
+### 🖥️ Installation Instructions
+
+#### Windows
+
+```powershell
+# 1. Clone the repository
+git clone https://github.com/Drmusab/shehab-note.git
+cd shehab-note
+
+# 2. Install Node.js dependencies and build frontend
+cd app
+npm install -g pnpm
+pnpm install
+pnpm run build
+
+# 3. Build the Go kernel
+cd ../kernel
+go build --tags fts5 -o shehab-kernel. exe
+
+# 4. Run the application
+# Start the kernel first
+.\shehab-kernel.exe --workspace="C:\Users\YourName\shehab-workspace"
+
+# Then launch Electron app (from /app directory)
+cd ../app
+pnpm start
+```
+
+#### macOS
+
+```bash
+# 1. Install Homebrew dependencies (if needed)
+brew install node go
+
+# 2. Clone and enter repository
+git clone https://github.com/Drmusab/shehab-note.git
+cd shehab-note
+
+# 3. Build frontend
+cd app
+npm install -g pnpm
+pnpm install
+pnpm run build
+
+# 4. Build Go kernel
+cd ../kernel
+go build --tags fts5 -o shehab-kernel
+
+# 5. Run the application
+./shehab-kernel --workspace="$HOME/shehab-workspace" &
+cd ../app && pnpm start
+```
+
+#### Linux
+
+```bash
+# 1. Install dependencies (Ubuntu/Debian)
+sudo apt update
+sudo apt install -y nodejs npm golang-go gcc
+
+# 2. Clone repository
+git clone https://github.com/Drmusab/shehab-note. git
+cd shehab-note
+
+# 3. Install pnpm and build frontend
+npm install -g pnpm
+cd app
+pnpm install
+pnpm run build
+
+# 4. Build Go kernel (requires CGO for SQLite)
+cd ../kernel
+CGO_ENABLED=1 go build --tags fts5 -o shehab-kernel
+
+# 5. Run application
+./shehab-kernel --workspace="$HOME/shehab-workspace" &
+cd ../app && pnpm start
+```
+
+#### Docker Deployment
+
+```bash
+# Using Docker Compose
+docker run -d \
+  -v /path/to/workspace:/siyuan/workspace \
+  -p 6806:6806 \
+  -e PUID=1000 -e PGID=1000 \
+  b3log/siyuan \
+  --workspace=/siyuan/workspace/ \
+  --accessAuthCode=your_secret_code
+```
+
+**Docker Compose Example:**
+
+```yaml
+version: "3.9"
+services:
+  shehab: 
+    image: b3log/siyuan
+    command: ['--workspace=/siyuan/workspace/', '--accessAuthCode=${AUTH_CODE}']
+    ports:
+      - 6806:6806
+    volumes:
+      - ./workspace:/siyuan/workspace
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+      - PUID=1000
+      - PGID=1000
+```
+
+---
+
+### 🔧 Troubleshooting Common Setup Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| `go build` fails with SQLite errors | Missing CGO support | Set `CGO_ENABLED=1` and ensure GCC is installed |
+| `pnpm install` permission errors | Global package permissions | Use `npm config set prefix ~/. npm-global` |
+| Electron fails to start | Missing display server | For headless:  install `xvfb` or use Docker |
+| Port 6806 already in use | Another instance running | Kill existing process or change port with `--port=XXXX` |
+| Database locked errors | Concurrent access | Ensure only one kernel instance per workspace |
+| Font rendering issues | Missing fonts | Install `fonts-noto` package on Linux |
+
+---
+
+## 2. System Architecture & Data Flow
+
+### 🏗️ High-Level Architecture
+
+Shehab Note follows a **Client-Server Monolith** architecture with the following characteristics:
+
+- **Frontend**:  Electron + TypeScript SPA (Single Page Application)
+- **Backend**: Go HTTP/WebSocket server (the "Kernel")
+- **Database**: SQLite with FTS5 for full-text search
+- **Storage**: Local file system with JSON document format
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        A[Electron Desktop App]
+        B[Mobile App iOS/Android]
+        C[Web Browser]
+    end
+    
+    subgraph "Frontend - TypeScript"
+        D[App Entry index.ts]
+        E[Protyle Editor Engine]
+        F[Layout Manager]
+        G[Plugin System]
+        H[WebSocket Client]
+    end
+    
+    subgraph "Backend - Go Kernel"
+        I[HTTP/REST API Server]
+        J[WebSocket Server]
+        K[Model Layer]
+        L[SQL Query Engine]
+        M[File System Operations]
+    end
+    
+    subgraph "Data Layer"
+        N[(SQLite DB siyuan.db)]
+        O[(History DB)]
+        P[/Workspace Files . sy/]
+        Q[/Assets Folder/]
+    end
+    
+    A --> D
+    B --> I
+    C --> I
+    
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    
+    H <--> J
+    E --> I
+    
+    I --> K
+    K --> L
+    K --> M
+    
+    L --> N
+    L --> O
+    M --> P
+    M --> Q
+```
+
+### 📊 Data Flow Diagram
+
+```mermaid
+flowchart TD
+    subgraph User["👤 User Interaction"]
+        A1[Type in Editor]
+        A2[Click UI Element]
+        A3[Keyboard Shortcut]
+    end
+    
+    subgraph Frontend["🖥️ Frontend Processing"]
+        B1[Protyle WYSIWYG Editor]
+        B2[Transaction Builder]
+        B3[Lute Markdown Parser]
+        B4[WebSocket Manager]
+    end
+    
+    subgraph API["🔌 API Layer"]
+        C1[HTTP POST /api/transactions]
+        C2[WebSocket /ws/broadcast]
+        C3[Auth Middleware]
+    end
+    
+    subgraph Backend["⚙️ Backend Processing"]
+        D1[Transaction Handler]
+        D2[Block Operations]
+        D3[Tree Node Manager]
+        D4[Search Indexer]
+    end
+    
+    subgraph Storage["💾 Data Storage"]
+        E1[(SQLite - Blocks Index)]
+        E2[(. sy JSON Files)]
+        E3[(Asset Files)]
+        E4[(Local Storage)]
+    end
+    
+    subgraph Sync["🔄 Real-time Sync"]
+        F1[Broadcast Changes]
+        F2[Update UI State]
+        F3[Undo/Redo Stack]
+    end
+    
+    A1 --> B1
+    A2 --> B2
+    A3 --> B1
+    
+    B1 --> B3
+    B3 --> B2
+    B2 --> B4
+    
+    B4 --> C1
+    B4 <--> C2
+    C1 --> C3
+    C3 --> D1
+    
+    D1 --> D2
+    D2 --> D3
+    D2 --> D4
+    
+    D3 --> E2
+    D4 --> E1
+    D2 --> E3
+    
+    D1 --> F1
+    F1 --> C2
+    C2 --> F2
+    F2 --> B1
+    B1 --> F3
+```
+
+### 🔄 Component Interaction Flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant E as Editor (Protyle)
+    participant L as Lute Engine
+    participant WS as WebSocket
+    participant API as REST API
+    participant K as Kernel (Go)
+    participant DB as SQLite
+    participant FS as File System
+    
+    U->>E: Edit Document
+    E->>L: Parse Markdown/HTML
+    L-->>E: AST/DOM
+    E->>E: Build Transaction
+    E->>API: POST /api/transactions
+    API->>K: Process Transaction
+    K->>DB: Update Block Index
+    K->>FS:  Write . sy File
+    FS-->>K: Confirm Write
+    K->>WS: Broadcast Changes
+    WS-->>E: Real-time Update
+    E-->>U: Visual Feedback
+```
+
+---
+
+## 3. File-Level I/O Documentation
+
+### 📁 Frontend Core Files (app/src/)
+
+| File Name | Purpose | Input(s) | Key Logic/Functions | Output(s) |
+|-----------|---------|----------|---------------------|-----------|
+| `index.ts` | Application entry point | Config, DOM | `App` class, Service Worker registration, WebSocket init | Initialized app instance |
+| `constants.ts` | Global constants definition | None | Version strings, API paths, storage keys | Constant values |
+| `protyle/index.ts` | WYSIWYG Editor core | Block ID, options | `Protyle` class, `transaction()`, `insert()`, `destroy()` | Editor instance with full editing capabilities |
+| `protyle/wysiwyg/index.ts` | Content editing layer | User events, DOM | Paste handling, block operations, selection | DOM mutations, transactions |
+| `protyle/wysiwyg/transaction.ts` | Transaction management | Operations array | `transaction()`, `turnsIntoTransaction()` | API calls, undo stack updates |
+| `protyle/undo/index.ts` | Undo/Redo stack | Operations | `Undo. add()`, `Undo.undo()`, `Undo.redo()` | State restoration |
+| `layout/index.ts` | Window layout manager | Layout JSON config | `Layout` class, split panes, tabs | Layout DOM structure |
+| `layout/Model.ts` | Base model for panels | WebSocket data | Message handling, sync state | UI updates |
+| `layout/Tab.ts` | Tab management | Tab config | Tab creation, switching, closing | Tab DOM elements |
+| `layout/dock/Files.ts` | File tree panel | Notebook data | File listing, drag-drop, context menu | File tree UI |
+| `plugin/index.ts` | Plugin system core | Plugin manifests | `Plugin` class, `loadData()`, `saveData()` | Plugin instances |
+| `plugin/loader.ts` | Plugin loader | Plugin code | `loadPlugins()`, sandboxed execution | Loaded plugins |
+| `editor/index.ts` | Document editor wrapper | Block/Root ID | `Editor` class wrapping Protyle | Full editor with model binding |
+| `util/fetch.ts` | HTTP client utilities | URL, params | `fetchPost()`, `fetchGet()`, `fetchSyncPost()` | API responses |
+| `mobile/index.ts` | Mobile app entry | Config | Mobile-specific `App` class | Mobile app instance |
+| `window/index.ts` | Desktop window manager | Window config | Multi-window support, IPC | Window instances |
+| `search/index.ts` | Search functionality | Query string | Full-text search, filters | Search results |
+| `ai/chat. ts` | AI integration | Prompts | OpenAI API calls, chat interface | AI responses |
+
+### 📁 Backend Core Files (kernel/)
+
+| File Name | Purpose | Input(s) | Key Logic/Functions | Output(s) |
+|-----------|---------|----------|---------------------|-----------|
+| `main.go` | Application entry | CLI flags | Kernel initialization, server start | Running server |
+| `server/serve.go` | HTTP server setup | Port, config | `Serve()`, route registration, middleware | HTTP/WS server |
+| `api/router.go` | API route definitions | Gin engine | `ServeAPI()`, 500+ endpoints | Registered routes |
+| `api/block.go` | Block CRUD operations | JSON requests | Insert, update, delete blocks | JSON responses |
+| `api/filetree.go` | File tree operations | Path, IDs | Document CRUD, move, rename | File operations |
+| `api/transaction.go` | Transaction processing | Operation arrays | Batch operations, atomicity | Transaction results |
+| `api/search.go` | Search endpoints | Query params | Full-text search, SQL queries | Search results |
+| `api/export.go` | Export functionality | Doc IDs, format | PDF, Markdown, HTML export | Exported files |
+| `model/box.go` | Notebook model | Notebook ID | `Box` struct, `GetInfo()`, file listing | Notebook data |
+| `model/file.go` | Document model | File paths | `File` struct, document metadata | File objects |
+| `model/storage.go` | Local storage | Key-value pairs | `SetLocalStorage()`, `GetLocalStorage()` | Persisted data |
+| `model/transaction.go` | Transaction logic | Operations | `PerformTransactions()`, conflict resolution | Applied changes |
+| `sql/database.go` | Database management | None | `InitDatabase()`, `initDBTables()` | SQLite connection |
+| `sql/block.go` | Block queries | Block IDs | `GetBlock()`, `UpdateBlock()`, FTS5 search | Block data |
+| `filesys/tree.go` | Document tree I/O | File paths | `LoadTree()`, `WriteTree()`, JSON parsing | Parse trees |
+| `treenode/blocktree.go` | Block tree index | Block data | In-memory block index, fast lookups | Block references |
+| `util/working.go` | Workspace utilities | Paths | Path resolution, workspace init | Workspace paths |
+| `util/file.go` | File utilities | File data | `DataSize()`, file operations | File stats |
+| `cache/cache.go` | Caching layer | Various data | Ristretto cache implementation | Cached data |
+| `search/search.go` | Search engine | Queries | FTS5 queries, result ranking | Ranked results |
+
+### 📁 Configuration Files
+
+| File Name | Purpose | Input(s) | Key Logic/Functions | Output(s) |
+|-----------|---------|----------|---------------------|-----------|
+| `app/package.json` | Frontend dependencies | npm registry | Dependency resolution, scripts | node_modules |
+| `kernel/go. mod` | Go module definition | Go modules | Dependency management | Compiled binaries |
+| `Dockerfile` | Container build | Source code | Multi-stage build (Node + Go) | Docker image |
+| `app/electron/main.js` | Electron main process | CLI args | Window creation, IPC | Desktop app window |
+| `app/webpack.config.js` | Webpack bundling | Source files | Bundle optimization | Production bundles |
+
+---
+
+## 4. Application Guidelines & Workflow
+
+### 📐 Coding Standards and Best Practices
+
+#### TypeScript/JavaScript (Frontend)
+
+```typescript
+// ✅ DO: Use strong typing
+interface IBlockData {
+    id: string;
+    type: BlockType;
+    content: string;
+    children?: IBlockData[];
+}
+
+// ✅ DO: Use async/await for API calls
+async function fetchBlock(id: string): Promise<IBlockData> {
+    const response = await fetchPost('/api/block/getBlockInfo', { id });
+    return response.data;
+}
+
+// ✅ DO: Use transactions for state changes
+transaction(protyle, [
+    { action: 'update', id: blockId, data: newContent }
+], [
+    { action:  'update', id: blockId, data: oldContent }  // undo operation
+]);
+
+// ❌ DON'T:  Mutate state directly
+// block.content = newContent;  // Wrong! 
+```
+
+#### Go (Backend)
+
+```go
+// ✅ DO: Use structured error handling
+func GetBlock(id string) (*Block, error) {
+    if ! ast.IsNodeIDPattern(id) {
+        return nil, errors.New("invalid block ID format")
+    }
+    // ... implementation
+}
+
+// ✅ DO: Use proper locking for concurrent access
+var blockMutex sync.RWMutex
+
+func UpdateBlock(block *Block) error {
+    blockMutex.Lock()
+    defer blockMutex.Unlock()
+    // ... implementation
+}
+
+// ✅ DO:  Log appropriately
+logging.LogInfof("processing block [%s]", blockID)
+```
+
+#### Project Conventions
+
+| Category | Convention |
+|----------|------------|
+| **File Naming** | `camelCase. ts` for TypeScript, `snake_case.go` for Go |
+| **Component Naming** | PascalCase for classes:  `class Protyle`, `class BlockPanel` |
+| **API Endpoints** | RESTful:  `POST /api/{resource}/{action}` |
+| **Constants** | SCREAMING_SNAKE_CASE: `LOCAL_STORAGE_KEY` |
+| **CSS Classes** | BEM-like: `protyle-wysiwyg--attr`, `b3-dialog__container` |
+
+---
+
+### 🛤️ Happy Path:  User Journey
+
+```mermaid
+flowchart LR
+    subgraph Start["🚀 Application Start"]
+        A1[Launch App] --> A2[Load Workspace]
+        A2 --> A3[Initialize Kernel]
+        A3 --> A4[Load Notebooks]
+    end
+    
+    subgraph Create["📝 Create Document"]
+        B1[Click New Document] --> B2[Enter Title]
+        B2 --> B3[Document Created]
+        B3 --> B4[Editor Opens]
+    end
+    
+    subgraph Edit["✏️ Edit Content"]
+        C1[Type Content] --> C2[Markdown Parsed]
+        C2 --> C3[Block Created]
+        C3 --> C4[Transaction Sent]
+        C4 --> C5[Saved to Disk]
+    end
+    
+    subgraph Organize["📂 Organize"]
+        D1[Create Links] --> D2[Add Tags]
+        D2 --> D3[Move to Folder]
+        D3 --> D4[Search & Find]
+    end
+    
+    subgraph Export["📤 Export"]
+        E1[Select Format] --> E2[Configure Options]
+        E2 --> E3[Generate Output]
+        E3 --> E4[Download File]
+    end
+    
+    A4 --> B1
+    B4 --> C1
+    C5 --> D1
+    D4 --> E1
+```
+
+#### Detailed Happy Path Steps
+
+1. **Application Launch**
+   - User launches Shehab Note
+   - Kernel starts and initializes workspace
+   - Database connections established
+   - UI renders with file tree and welcome page
+
+2. **Create New Document**
+   - User clicks "New Document" in file tree
+   - Modal prompts for document title
+   - `.sy` file created in workspace
+   - Document indexed in SQLite
+   - Editor opens with empty content
+
+3. **Content Editing**
+   - User types in Protyle editor
+   - Lute parses Markdown in real-time
+   - Content blocks created with unique IDs
+   - Transactions batched and sent to kernel
+   - File saved, index updated
+
+4. **Block Linking & References**
+   - User types `((` to trigger block search
+   - Select target block from suggestions
+   - Bidirectional link established
+   - Backlinks panel updated
+
+5. **Search & Navigation**
+   - User presses `Ctrl+P` for quick open
+   - Full-text search across all documents
+   - Click result to navigate
+   - Breadcrumb shows current location
+
+6. **Export & Share**
+   - User selects Export from menu
+   - Choose format (Markdown, PDF, HTML)
+   - Configure export options
+   - File generated and downloaded
+
+---
+
+## 5. Operational Logic
+
+### ⚙️ Core Engine Deep Dive
+
+#### The Protyle Editor Engine
+
+The Protyle editor is the heart of Shehab Note's user experience. It's a block-based WYSIWYG editor that seamlessly handles Markdown. 
+
+```mermaid
+graph TD
+    subgraph "Protyle Editor Architecture"
+        A[User Input] --> B[Event Handlers]
+        B --> C{Input Type}
+        C -->|Keyboard| D[Keydown Handler]
+        C -->|Mouse| E[Click Handler]
+        C -->|Paste| F[Paste Handler]
+        
+        D --> G[Lute Parser]
+        E --> G
+        F --> G
+        
+        G --> H[AST Generation]
+        H --> I[DOM Rendering]
+        I --> J[WYSIWYG Display]
+        
+        H --> K[Transaction Builder]
+        K --> L[API Call]
+        L --> M[Kernel Processing]
+        M --> N[SQLite Update]
+        M --> O[File System Write]
+        
+        N --> P[Index Updated]
+        O --> Q[. sy File Saved]
+        
+        L --> R[WebSocket Broadcast]
+        R --> S[Other Clients Updated]
+    end
+```
+
+**Key Components:**
+
+| Component | File | Responsibility |
+|-----------|------|----------------|
+| **Protyle** | `protyle/index.ts` | Main editor class, lifecycle management |
+| **WYSIWYG** | `protyle/wysiwyg/index.ts` | Content editing, event handling |
+| **Toolbar** | `protyle/toolbar/index. ts` | Formatting buttons, actions |
+| **Gutter** | `protyle/gutter/index.ts` | Block-level operations, drag handles |
+| **Hint** | `protyle/hint/index.ts` | Autocomplete, slash commands |
+| **Undo** | `protyle/undo/index. ts` | Undo/redo stack management |
+| **Upload** | `protyle/upload/index. ts` | Asset upload handling |
+
+#### Transaction System
+
+The transaction system ensures data consistency and enables undo/redo functionality.
+
+```typescript
+// Transaction Structure
+interface IOperation {
+    action: 'insert' | 'update' | 'delete' | 'move' | 'foldHeading' | ... ;
+    id: string;           // Block ID
+    data?:  string;        // New content
+    parentID?: string;    // For hierarchy changes
+    previousID?: string;  // For ordering
+    // ... additional fields based on action
+}
+
+// Transaction Flow
+1. User makes edit in Protyle
+2. Operation objects created for each change
+3. Undo operations generated (inverse)
+4. Transaction sent to kernel via POST /api/transactions
+5. Kernel processes atomically
+6. Success:  Undo stack updated
+7.  Failure: Operations rolled back
+8. WebSocket broadcasts changes to other views
+```
+
+#### Block Storage Model
+
+Documents are stored as JSON files (`.sy` extension) with a hierarchical block structure:
+
+```json
+{
+    "ID": "20240103120000-abc123x",
+    "Type": "NodeDocument",
+    "Properties": {
+        "id": "20240103120000-abc123x",
+        "title": "My Document",
+        "updated": "20240103121500"
+    },
+    "Children": [
+        {
+            "ID": "20240103120001-def456y",
+            "Type":  "NodeParagraph",
+            "Properties": {
+                "id": "20240103120001-def456y"
+            },
+            "Data": "This is a paragraph with **bold** text."
+        },
+        {
+            "ID": "20240103120002-ghi789z",
+            "Type":  "NodeList",
+            "ListData": {"Typ": 0},
+            "Children": [...]
+        }
+    ]
+}
+```
+
+#### SQLite Index Schema
+
+The kernel maintains a SQLite database for fast queries: 
+
+```sql
+-- Main blocks table (with FTS5 for full-text search)
+CREATE TABLE blocks (
+    id TEXT PRIMARY KEY,
+    parent_id TEXT,
+    root_id TEXT,
+    hash TEXT,
+    box TEXT,           -- Notebook ID
+    path TEXT,          -- File path
+    hpath TEXT,         -- Human-readable path
+    name TEXT,
+    alias TEXT,
+    memo TEXT,
+    tag TEXT,
+    content TEXT,       -- Plain text content
+    fcontent TEXT,      -- First content (for list items)
+    markdown TEXT,      -- Original markdown
+    length INTEGER,
+    type TEXT,          -- Block type
+    subtype TEXT,
+    ial TEXT,           -- Inline Attribute List (JSON)
+    sort INTEGER,
+    created TEXT,
+    updated TEXT
+);
+
+-- FTS5 virtual table for full-text search
+CREATE VIRTUAL TABLE blocks_fts USING fts5(
+    content, 
+    content='blocks', 
+    content_rowid='rowid'
+);
+```
+
+#### API Request Lifecycle
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant M as Middleware
+    participant H as Handler
+    participant S as Service
+    participant D as Database
+    participant F as FileSystem
+    
+    C->>M:  POST /api/block/updateBlock
+    M->>M: CheckAuth()
+    M->>M: CheckReadonly()
+    
+    alt Auth Failed
+        M-->>C: 401 Unauthorized
+    else Auth Success
+        M->>H: updateBlock()
+        H->>H: Parse JSON body
+        H->>S: model.UpdateBlock()
+        
+        S->>D: Begin Transaction
+        S->>D: UPDATE blocks SET ... 
+        S->>F: Write . sy file
+        
+        alt Success
+            S->>D:  Commit
+            S-->>H: nil error
+            H-->>C: {"code": 0, "data": {... }}
+            H->>C: WebSocket broadcast
+        else Failure
+            S->>D: Rollback
+            S-->>H: error
+            H-->>C:  {"code": -1, "msg": "... "}
+        end
+    end
+```
+
+#### WebSocket Real-time Communication
+
+The WebSocket system enables real-time synchronization across multiple windows/tabs:
+
+```go
+// Message types handled by WebSocket
+switch data. Cmd {
+    case "reload":           // Document needs refresh
+    case "rename":           // Document renamed
+    case "setAppearance":    // Theme/appearance changed
+    case "transactions":     // Block changes from other views
+    case "refreshAttrView":  // Database view updated
+    case "heading2doc":      // Heading converted to document
+    // ... many more
+}
+```
+
+#### Plugin Architecture
+
+Plugins extend Shehab Note's functionality through a sandboxed API:
+
+```typescript
+// Plugin lifecycle
+class MyPlugin extends Plugin {
+    onload() {
+        // Called when plugin loads
+        this.addCommand({... });
+        this.addDock({...});
+    }
+    
+    onunload() {
+        // Cleanup when disabled
+    }
+    
+    // Data persistence
+    await this.saveData('config. json', myConfig);
+    const config = await this.loadData('config.json');
+}
+```
+
+**Plugin Capabilities:**
+- Add custom slash commands
+- Register dock panels
+- Listen to events via EventBus
+- Call internal APIs
+- Store data in workspace
+- Add toolbar buttons
+- Custom keyboard shortcuts
+
+---
+
+### 🔒 Security Considerations
+
+| Feature | Implementation |
+|---------|----------------|
+| **Access Auth Code** | Required for remote access, configurable |
+| **Session Management** | Cookie-based sessions with secure tokens |
+| **API Authentication** | Bearer token in Authorization header |
+| **Path Traversal Prevention** | Workspace boundary enforcement |
+| **XSS Protection** | HTML sanitization in Lute parser |
+| **CSRF Protection** | Token-based request validation |
+
+---
+
+### 📈 Performance Optimizations
+
+1. **Virtual Scrolling**:  Large documents render only visible blocks
+2. **Lazy Loading**:  Blocks load on-demand as user scrolls
+3. **Transaction Batching**: Multiple edits grouped into single API call
+4. **In-Memory Cache**: Ristretto cache for frequently accessed data
+5. **FTS5 Indexing**: Full-text search without scanning files
+6. **WebP Image Conversion**: Automatic image optimization
+
+---
+
+## Appendix:  Quick Reference
+
+### Common API Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/system/getConf` | POST | Get system configuration |
+| `/api/block/getBlockInfo` | POST | Get block details |
+| `/api/block/updateBlock` | POST | Update block content |
+| `/api/filetree/createDoc` | POST | Create new document |
+| `/api/search/fullTextSearchBlock` | POST | Full-text search |
+| `/api/export/exportMd` | POST | Export as Markdown |
+| `/ws/broadcast` | WebSocket | Real-time updates |
+
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SIYUAN_WORKSPACE_PATH` | - | Workspace directory path |
+| `SIYUAN_ACCESS_AUTH_CODE` | - | Access authentication code |
+| `PUID` | 1000 | User ID for Docker |
+| `PGID` | 1000 | Group ID for Docker |
+| `TZ` | Asia/Shanghai | Timezone |
+
+---
+
+*Documentation generated for Shehab Note v3.5.2*
+*Repository: [Drmusab/shehab-note](https://github.com/Drmusab/shehab-note)*## 💡 Introduction
 
 **Shehab** is a fork of [SiYuan](https://github.com/siyuan-note/siyuan) focused on privacy-first, local-first personal knowledge management with fine-grained block-level reference and Markdown WYSIWYG.
 
